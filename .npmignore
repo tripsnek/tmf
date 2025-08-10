@@ -1,0 +1,35 @@
+# Source files (only ship compiled JS)
+src/
+tsconfig.json
+tsconfig.build.json
+
+# Tests
+**/*.spec.ts
+**/*.test.ts
+jest.config.js
+coverage/
+
+# Development files
+.eslintrc.*
+.prettierrc.*
+.github/
+docs/
+examples/
+
+# Build tools
+*.tsbuildinfo
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Environment
+.env*

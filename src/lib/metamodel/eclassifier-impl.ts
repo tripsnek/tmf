@@ -1,0 +1,69 @@
+import { EPackage } from './epackage';
+import { EClass } from './eclass';
+import { ENamedElementImpl } from './enamed-element-impl';
+import { EClassifier } from './eclassifier';
+
+export abstract class EClassifierImpl
+  extends ENamedElementImpl
+  implements EClassifier
+{
+  private classifierId = -1;
+  private instanceClassName: string;
+  private instanceTypeName: string;
+  private ePackage: EPackage;
+
+  public constructor(eClass?: EClass, public owner?: EPackage, name?: string) {
+    super(eClass, name);
+  }
+
+  public getEPackage(): EPackage {
+    return this.ePackage;
+  }
+
+  public setEPackage(pkg: EPackage): void {
+    //TODO: should handle inverse reference on both ends
+    this.ePackage = pkg;
+  }
+
+  public getInstanceClassName(): string {
+    return this.instanceClassName;
+  }
+
+  public setInstanceClassName(value: string): void {
+    this.instanceClassName = value;
+  }
+
+  public getClassifierId(): number {
+    return this.classifierId;
+  }
+
+  public setClassifierId(id: number): void {
+    this.classifierId = id;
+  }
+
+  public getInstanceTypeName(): string {
+    return this.instanceTypeName;
+  }
+
+  public setInstanceTypeName(value: string): void {
+    this.instanceTypeName = value;
+  }
+
+  public getETypeParameters() {
+    throw new Error('Not implemented');
+  }
+
+  public getInstanceClass(): string {
+    //not implemented
+    return this.getName();
+  }
+
+  public setInstanceClass(value) {
+    //not implemented
+  }
+
+  public getRootPackage(): EPackage {
+    if (!this.getEPackage()) return null;
+    return this.getEPackage().getRootPackage();
+  }
+}

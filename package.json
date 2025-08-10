@@ -1,0 +1,66 @@
+{
+  "name": "@tripsnek/tmf",
+  "version": "1.0.0",
+  "description": "TypeScript Modeling Framework - A TypeScript port of the Eclipse Modeling Framework (EMF)",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "build:watch": "tsc -p tsconfig.build.json --watch",
+    "clean": "rimraf dist",
+    "prepublishOnly": "npm run clean && npm run build",
+    "test": "jest",
+    "lint": "eslint src/**/*.ts",
+    "format": "prettier --write src/**/*.ts"
+  },
+  "keywords": [
+    "emf",
+    "eclipse-modeling-framework",
+    "typescript",
+    "modeling",
+    "metamodel",
+    "ecore",
+    "model-driven",
+    "code-generation",
+    "reflection",
+    "introspection",
+    "containment",
+    "eopposites"
+  ],
+  "author": "Your Name <your.email@example.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tripsnek/tmf.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tripsnek/tmf/issues"
+  },
+  "homepage": "https://github.com/tripsnek/tmf#readme",
+  "devDependencies": {
+    "@types/node": "^18.16.9",
+    "@typescript-eslint/eslint-plugin": "^7.16.0",
+    "@typescript-eslint/parser": "^7.16.0",
+    "eslint": "^8.57.1",
+    "jest": "^29.7.0",
+    "prettier": "^2.6.2",
+    "rimraf": "^5.0.0",
+    "ts-jest": "^29.1.2",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "uuid": "^11.1.0",
+    "xml2js": "^0.6.2"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

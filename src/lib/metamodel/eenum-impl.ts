@@ -1,0 +1,41 @@
+import { EEnumLiteral } from './eenum-literal';
+import { EList } from './elist';
+import { BasicEList } from './basicelist';
+import { EDataType } from './edata-type';
+import { EDataTypeImpl } from './edata-type-impl';
+import { EEnum } from './eenum';
+
+export class EEnumImpl extends EDataTypeImpl implements EEnum {
+  private eLiterals: EList<EEnumLiteral> = new BasicEList();
+
+  public constructor() {
+    super();
+  }
+
+  public getELiterals(): EList<EEnumLiteral> {
+    return this.eLiterals;
+  }
+
+  public addLiteral(value: EEnumLiteral): void {
+    this.eLiterals.add(value);
+  }
+
+  public getEEnumLiteralByLiteral(literal: string): EEnumLiteral {
+    return this.eLiterals.find((e) => e.getLiteral() === literal);
+  }
+
+  public getEEnumLiteral(value: number): EEnumLiteral;
+  public getEEnumLiteral(value: string): EEnumLiteral;
+  public getEEnumLiteral(value: number | string): EEnumLiteral {
+    if (typeof value === 'number') {
+      return this.eLiterals.find((e) => e.getValue() === value);
+    } else {
+      let toRet = this.eLiterals.find((e) => e.getLiteral() === value);
+      //attempt to interpret string as literal value (in case number was passed in as a string)
+      if (!toRet) {
+        toRet = this.eLiterals.find((e) => e.getValue().toString() === value);
+      }
+      return toRet;
+    }
+  }
+}
