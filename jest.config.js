@@ -3,11 +3,14 @@ module.exports = {
   testEnvironment: 'node',
   roots: ['<rootDir>/src'],
   testMatch: [
-    '**/__tests__/**/*.ts',
+    '**/__tests__/**/*.spec.ts',
     '**/?(*.)+(spec|test).ts'
   ],
   transform: {
     '^.+\\.ts$': 'ts-jest',
+  },
+  moduleNameMapper: {
+    '^@tripsnek/tmf(/.*)?$': '<rootDir>/src$1'
   },
   collectCoverageFrom: [
     'src/**/*.ts',
@@ -21,4 +24,9 @@ module.exports = {
     'lcov',
     'html'
   ],
+  globals: {
+    // 'ts-jest': {
+    //   tsconfig: './tsconfig.test.json'
+    // }
+  }
 };

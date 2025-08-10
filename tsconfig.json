@@ -18,7 +18,10 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "strictNullChecks": false,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "paths": {
+      "@tripsnek/tmf": ["./src/index.ts"]
+    }
   },
   "include": [
     "src/**/*"
@@ -26,7 +29,6 @@
   "exclude": [
     "node_modules",
     "dist",
-    "**/*.spec.ts",
     "**/*.test.ts"
   ]
 }

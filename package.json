@@ -43,6 +43,7 @@
   },
   "homepage": "https://github.com/tripsnek/tmf#readme",
   "devDependencies": {
+    "@types/jest": "^30.0.0",
     "@types/node": "^18.16.9",
     "@typescript-eslint/eslint-plugin": "^7.16.0",
     "@typescript-eslint/parser": "^7.16.0",
