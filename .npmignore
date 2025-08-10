@@ -15,6 +15,7 @@ coverage/
 .github/
 docs/
 examples/
+CLAUDE.md
 
 # Build tools
 *.tsbuildinfo
