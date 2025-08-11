@@ -9,13 +9,11 @@ describe('EcoreParser', () => {
 
   //parse the ecore file
   const parser: EcoreParser = new EcoreParser();
-  // const rootPkg: EPackage = parser.parse('src/__tests__/TMFTest.ecore');
-  const rootPkg: EPackage = parser.parse('C:/Users/danie/Documents/TripGA/libs/tripga/model/tripGA.ecore');
+  const rootPkg: EPackage = parser.parse('src/__tests__/TMFTest.ecore');
   // console.log(tutils.safeStringify(rootPkg));
 
   const writer: EcoreWriter = new EcoreWriter();
   const writtenXml = writer.writeToString(rootPkg);
-    console.log(writtenXml);
 
   //validate the correct number of subpackages
   const corePkg = rootPkg.getESubPackageByName('core');
@@ -38,7 +36,8 @@ describe('EcoreParser', () => {
   });
 
   it('should write back to ecore', () => {
-    expect(writtenXml).toContain('<eParameters name="bazzles" eType="#//Bazzle" upperBound="-1"/>');
+    expect(writtenXml).toContain('<eParameters name="bazzles" upperBound="-1" eType="#//Bazzle"/>');
   });
+
 
 });
