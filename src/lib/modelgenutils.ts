@@ -1,6 +1,6 @@
 
 import * as PATH from 'path';
-import { EcoreParser } from './ecore-parser/ecoreparser';
+import { EcoreParser } from './ecore/ecoreparser';
 import { EPackage } from './metamodel/epackage';
 import { DGeneratorMain } from './source-generators/dgenerator-main';
 

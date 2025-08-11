@@ -43,5 +43,6 @@ export * from './lib/json/tjson';
 export * from './lib/tutils';
 
 // Export TMF generation tools
-export * from './lib/ecore-parser/ecoreparser';
+export * from './lib/ecore/ecoreparser';
+export * from './lib/ecore/ecorewriter';
 export * from './lib/modelgenutils';
