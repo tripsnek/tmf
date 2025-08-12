@@ -1,5 +1,4 @@
-import * as FS from 'fs';
-import * as PATH from 'path';
+// dgenerator-main-safe.ts
 import { EPackage } from '../metamodel/epackage';
 import { EClassifier } from '../metamodel/eclassifier';
 import { EClass } from '../metamodel/eclass';
@@ -18,18 +17,24 @@ import { DGeneratorBarrelIndexTs } from './dgenerator-barrel-index';
 import { EClassImpl } from '../metamodel/eclass-impl';
 import { EReferenceImpl } from '../metamodel/ereference-impl';
 import { EEnumImpl } from '../metamodel/eenum-impl';
+import { Environment, ConditionalImports } from '../utils/environment';
+
 /**
  * Exposes source code generation for use as a Grunt task.
+ * Only available in Node.js environment.
  * @param pkg
  * @param outDir
  * @param overwriteImpl
  */
-export function generate(
+export async function generate(
   pkg: EPackage,
   outDir: string,
   overwriteImpl: boolean
-) {
-  return new DGeneratorMain(pkg, outDir, overwriteImpl).generate();
+): Promise<void> {
+  Environment.requireNodeEnvironment('Code generation');
+  
+  const generator = new DGeneratorMain(pkg, outDir, overwriteImpl);
+  await generator.generate();
 }
 
 /**
@@ -50,10 +55,16 @@ export class DGeneratorMain {
   public pkgApiOutDir: string;
   public pkgGenOutDir: string;
   public pkgImplOutDir: string;
+  
   // NOTE: These 3 are recomputed for each EClass!
   private eClassApiImports!: Set<EClassifier>;
   private eClassGenImports!: Set<EClassifier>;
   private eClassPkgImports!: Set<EPackage>;
+
+  // Cached Node.js modules (loaded once per instance)
+  private fs: any = null;
+  private path: any = null;
+  private childProcess: any = null;
 
   public constructor(
     public pkg: EPackage,
@@ -61,38 +72,40 @@ export class DGeneratorMain {
     public overwriteImpl?: boolean,
     public barrelFileDir?: string
   ) {
+    // Initialize directories without file system operations
     this.pkgOutDir = this.outDir + (pkg.getName() ? '/' + pkg.getName() : '');
-    this.pkgRootOutDir = this.resolveAndMaybeCreateDir(this.pkgOutDir, false);
-    this.pkgApiOutDir = this.resolveAndMaybeCreateDir(
-      this.pkgOutDir + DU.API_PATH,
-      true
-    );
-    this.pkgGenOutDir = this.resolveAndMaybeCreateDir(
-      this.pkgOutDir + DU.GEN_PATH,
-      true
-    );
-    this.pkgImplOutDir = this.resolveAndMaybeCreateDir(
-      this.pkgOutDir + DU.IMPL_PATH,
-      false
-    );
-    if (barrelFileDir)
-      this.barrelFileOutDir = PATH.resolve(__dirname, barrelFileDir);
+    this.pkgRootOutDir = this.pkgOutDir;
+    this.pkgApiOutDir = this.pkgOutDir + DU.API_PATH;
+    this.pkgGenOutDir = this.pkgOutDir + DU.GEN_PATH;
+    this.pkgImplOutDir = this.pkgOutDir + DU.IMPL_PATH;
+    
+    // Note: barrelFileOutDir will be set during generate() when path is available
   }
 
   /**
    * Generates typescript sourcecode for all packages, recursing all subpackages.
-   * @param pkg
+   * Only available in Node.js environment.
    */
-  public generate(): void {
-    if (this.barrelFileDir) this.writeBarrelFile();
-    this.writePackageFile();
-    this.writeFactoryFile();
-    this.writeUtilsFile();
+  public async generate(): Promise<void> {
+    Environment.requireNodeEnvironment('Code generation');
+
+    // Load Node.js modules
+    await this.ensureNodeModulesLoaded();
+
+    // Now we can resolve directories and create them
+    await this.initializeDirectories();
+
+    // Generate all the files
+    if (this.barrelFileDir) await this.writeBarrelFile();
+    await this.writePackageFile();
+    await this.writeFactoryFile();
+    await this.writeUtilsFile();
+    
     for (const eClassifier of this.pkg.getEClassifiers()) {
       if (eClassifier instanceof EClassImpl) {
-        this.generateAllEClassArtifacts(eClassifier);
+        await this.generateAllEClassArtifacts(eClassifier);
       } else if (eClassifier instanceof EEnumImpl) {
-        this.writeEnumFile(eClassifier);
+        await this.writeEnumFile(eClassifier);
       }
     }
 
@@ -103,69 +116,122 @@ export class DGeneratorMain {
         this.pkgRootOutDir,
         this.overwriteImpl
       );
-      subGenerator.generate();
+      await subGenerator.generate();
     }
 
     // Finally... format the source code with prettier
-    // NOTE: This requires prettier installed locally ('npm install -g prettier')
-    const execSync = require('child_process').execSync;
-    execSync('prettier --write ' + PATH.resolve(__dirname, this.outDir));
-    if (this.barrelFileDir)
-      execSync(
-        'prettier --write ' + PATH.resolve(__dirname, this.barrelFileOutDir)
-      );
+    await this.tryFormatWithPrettier();
   }
 
-  public generateAllEClassArtifacts(eClassifier: EClass) {
+  public async generateAllEClassArtifacts(eClassifier: EClass): Promise<void> {
     this.setupEClassImports(eClassifier);
-    this.writeEClassApiFile(eClassifier);
-    this.writeEClassGenFile(eClassifier);
-    this.writeEClassImplFile(eClassifier);
+    await this.writeEClassApiFile(eClassifier);
+    await this.writeEClassGenFile(eClassifier);
+    await this.writeEClassImplFile(eClassifier);
   }
 
-  private writeBarrelFile(): void {
+  /**
+   * Check if code generation is supported in current environment
+   */
+  public static isGenerationSupported(): boolean {
+    return Environment.isNode;
+  }
+
+  /**
+   * Get list of supported operations in current environment
+   */
+  public static getSupportedOperations(): string[] {
+    const operations = ['In-memory generation'];
+    
+    if (Environment.isNode) {
+      operations.push(
+        'File-based generation',
+        'Directory creation',
+        'Prettier formatting',
+        'Recursive package processing'
+      );
+    }
+    
+    return operations;
+  }
+
+  // ======================================================================
+  // Private methods
+
+  private async ensureNodeModulesLoaded(): Promise<void> {
+    if (!this.fs) {
+      this.fs = await ConditionalImports.getNodeModule('fs');
+    }
+    if (!this.path) {
+      this.path = await ConditionalImports.getNodeModule('path');
+    }
+    // childProcess is loaded on-demand in tryFormatWithPrettier
+  }
+
+  private async initializeDirectories(): Promise<void> {
+    // Now we can use path operations
+    this.pkgRootOutDir = await this.resolveAndMaybeCreateDir(this.pkgOutDir, false);
+    this.pkgApiOutDir = await this.resolveAndMaybeCreateDir(
+      this.pkgOutDir + DU.API_PATH,
+      true
+    );
+    this.pkgGenOutDir = await this.resolveAndMaybeCreateDir(
+      this.pkgOutDir + DU.GEN_PATH,
+      true
+    );
+    this.pkgImplOutDir = await this.resolveAndMaybeCreateDir(
+      this.pkgOutDir + DU.IMPL_PATH,
+      false
+    );
+    
+    if (this.barrelFileDir) {
+      this.barrelFileOutDir = this.path.resolve(__dirname, this.barrelFileDir);
+    }
+  }
+
+  private async writeBarrelFile(): Promise<void> {
     const generator = new DGeneratorBarrelIndexTs();
     const content = generator.generate(this.pkg);
-    this.writeSourceFile(this.barrelFileOutDir, 'index.ts', content, true);
+    await this.writeSourceFile(this.barrelFileOutDir, 'index.ts', content, true);
   }
 
-  private writePackageFile(): void {
+  private async writePackageFile(): Promise<void> {
     const fileName = DU.genPackageFileName(this.pkg);
     const generator = new DGeneratorPackage();
     const content = generator.generatePackageContents(this.pkg);
-    this.writeSourceFile(this.pkgRootOutDir, fileName + '.ts', content, true);
+    await this.writeSourceFile(this.pkgRootOutDir, fileName + '.ts', content, true);
   }
 
-  private writeFactoryFile(): void {
+  private async writeFactoryFile(): Promise<void> {
     const fileName = DU.genFactoryFileName(this.pkg);
     const generator = new DGeneratorFactory();
     const content = generator.generateFactoryContents(this.pkg);
-    this.writeSourceFile(this.pkgRootOutDir, fileName + '.ts', content, true);
+    await this.writeSourceFile(this.pkgRootOutDir, fileName + '.ts', content, true);
   }
 
-  private writeUtilsFile(): void {
+  private async writeUtilsFile(): Promise<void> {
     const fileName = DU.genUtilsFileName(this.pkg);
     const generator = new DGeneratorUtils();
     const content = generator.generateUtilsContents(this.pkg);
-    this.writeSourceFile(this.pkgRootOutDir, fileName + '.ts', content, false);
+    await this.writeSourceFile(this.pkgRootOutDir, fileName + '.ts', content, false);
   }
 
   private setupEClassImports(eClass: EClass): void {
-    //Determines the set of types that needs to be imported to support the EClass
+    // Determines the set of types that needs to be imported to support the EClass
     this.eClassApiImports = new Set<EClassifier>();
     this.eClassGenImports = new Set<EClassifier>();
     this.eClassPkgImports = new Set<EPackage>();
     this.collectEClassImports(this.pkg, eClass);
   }
 
-  private writeEClassApiFile(eClass: EClass): void {
+  private async writeEClassApiFile(eClass: EClass): Promise<void> {
     const apiGenerator = new DGeneratorApi();
     const tsInterfaceContent = apiGenerator.generate(
       eClass,
       this.eClassApiImports
     );
-    let filename = DU.genClassApiName(eClass);
-    this.writeSourceFile(
+    const filename = DU.genClassApiName(eClass);
+    await this.writeSourceFile(
       this.pkgApiOutDir,
       filename + '.ts',
       tsInterfaceContent,
@@ -173,7 +239,7 @@ export class DGeneratorMain {
     );
   }
 
-  private writeEClassGenFile(eClass: EClass): void {
+  private async writeEClassGenFile(eClass: EClass): Promise<void> {
     const genGenerator = new DGeneratorGen();
     const tsGenClassContent = genGenerator.generate(
       eClass,
@@ -182,7 +248,7 @@ export class DGeneratorMain {
       this.eClassPkgImports
     );
     const filename = DU.genClassGenName(eClass);
-    this.writeSourceFile(
+    await this.writeSourceFile(
       this.pkgGenOutDir,
       filename + '.ts',
       tsGenClassContent,
@@ -190,14 +256,14 @@ export class DGeneratorMain {
     );
   }
 
-  private writeEClassImplFile(eClass: EClass): void {
+  private async writeEClassImplFile(eClass: EClass): Promise<void> {
     const implGenerator = new DGeneratorImpl();
     const tsImplClassContent = implGenerator.generate(
       eClass,
       this.eClassApiImports
     );
     const filename = DU.genClassImplName(eClass);
-    this.writeSourceFile(
+    await this.writeSourceFile(
       this.pkgImplOutDir,
       filename + '.ts',
       tsImplClassContent,
@@ -205,10 +271,10 @@ export class DGeneratorMain {
     );
   }
 
-  private writeEnumFile(eclassifier: EEnum): void {
+  private async writeEnumFile(eclassifier: EEnum): Promise<void> {
     const enumGenerator = new DGeneratorEnum();
     const enumContent = enumGenerator.generate(eclassifier);
-    this.writeSourceFile(
+    await this.writeSourceFile(
       this.pkgApiOutDir,
       DU.genClassApiName(eclassifier) + '.ts',
       enumContent,
@@ -216,17 +282,19 @@ export class DGeneratorMain {
     );
   }
 
-  //======================================================================
-  // Private helper functions
-
-  private resolveAndMaybeCreateDir(outDir: string, deleteAllInDir: boolean) {
-    // console.log('Attempting to make dir ' + outDir);
-    const resolvedOutDir = PATH.resolve(__dirname, outDir);
-    if (FS.existsSync(resolvedOutDir)) {
-      if (deleteAllInDir) this.deleteFilesInFolder(resolvedOutDir);
+  private async resolveAndMaybeCreateDir(outDir: string, deleteAllInDir: boolean): Promise<string> {
+    await this.ensureNodeModulesLoaded();
+    
+    const resolvedOutDir = this.path.resolve(__dirname, outDir);
+    
+    if (this.fs.existsSync(resolvedOutDir)) {
+      if (deleteAllInDir) {
+        await this.deleteFilesInFolder(resolvedOutDir);
+      }
     } else {
-      FS.mkdirSync(resolvedOutDir);
+      this.fs.mkdirSync(resolvedOutDir, { recursive: true });
     }
+    
     return outDir;
   }
 
@@ -234,7 +302,7 @@ export class DGeneratorMain {
    * Traverses entire EClass structure and collects the set of types that need
    * to be imported, including API, Gen and EPackage instances.
    */
-  private collectEClassImports(pkg: EPackage, eClass: EClass) {
+  private collectEClassImports(pkg: EPackage, eClass: EClass): void {
     // Start with importing supertypes
     for (const superType of eClass.getESuperTypes()) {
       this.eClassApiImports.add(superType);
@@ -261,7 +329,7 @@ export class DGeneratorMain {
     for (const eop of eClass.getEOperations()) {
       this.maybeAddMemberImports(pkg, eClass, eop.getEType());
       for (const param of eop.getEParameters()) {
-        //make sure to import any parameter type, if necessary
+        // make sure to import any parameter type, if necessary
         this.maybeAddMemberImports(pkg, eClass, param.getEType());
       }
     }
@@ -275,13 +343,13 @@ export class DGeneratorMain {
     thisPackage: EPackage,
     thisEClass: EClass,
     candidate: EClassifier
-  ) {
+  ): void {
     if (candidate instanceof EClassImpl || candidate instanceof EEnumImpl) {
       if (candidate.getEPackage() !== thisPackage) {
         this.eClassPkgImports.add(candidate.getEPackage());
       }
       if (!this.eClassApiImports.has(candidate) && candidate !== thisEClass) {
-        //Ecore types are imported for everything
+        // Ecore types are imported for everything
         if (candidate.getEPackage() !== EcorePackage.eINSTANCE) {
           this.eClassApiImports.add(candidate);
         }
@@ -294,27 +362,59 @@ export class DGeneratorMain {
    * @param outDir
    * @param filename
    * @param content
+   * @param overwrite
    */
-  private writeSourceFile(
+  private async writeSourceFile(
     outDir: string,
     filename: string,
     content: string,
     overwrite: boolean
-  ) {
-    const path = PATH.resolve(__dirname, outDir + '/' + filename);
-    // console.log('writing to ' + path);
-    if (overwrite || !FS.existsSync(path)) {
-      FS.writeFileSync(path, content, 'utf8');
+  ): Promise<void> {
+    await this.ensureNodeModulesLoaded();
+    
+    const filePath = this.path.resolve(__dirname, outDir + '/' + filename);
+    
+    if (overwrite || !this.fs.existsSync(filePath)) {
+      this.fs.writeFileSync(filePath, content, 'utf8');
     }
   }
 
-  private deleteFilesInFolder(directoryPath: string) {
-    //this may or may not always fully work, but it swallows errors
-    FS.readdirSync(directoryPath).forEach((file, index) => {
-      // console.log('deleting ' + file);
-      try {
-        FS.unlinkSync(PATH.join(directoryPath, file));
-      } catch (err) {}
-    });
+  private async deleteFilesInFolder(directoryPath: string): Promise<void> {
+    await this.ensureNodeModulesLoaded();
+    
+    try {
+      const files = this.fs.readdirSync(directoryPath);
+      for (const file of files) {
+        try {
+          this.fs.unlinkSync(this.path.join(directoryPath, file));
+        } catch (err) {
+          // Swallow individual file deletion errors as per original logic
+          console.warn(`Failed to delete file ${file}:`, err);
+        }
+      }
+    } catch (err) {
+      console.warn(`Failed to read directory ${directoryPath}:`, err);
+    }
+  }
+
+  private async tryFormatWithPrettier(): Promise<void> {
+    try {
+      if (!this.childProcess) {
+        this.childProcess = await ConditionalImports.getNodeModule('child_process');
+      }
+      
+      // Format main output directory
+      const mainPath = this.path.resolve(__dirname, this.outDir);
+      this.childProcess.execSync(`prettier --write "${mainPath}"`);
+      
+      // Format barrel file directory if it exists
+      if (this.barrelFileDir) {
+        const barrelPath = this.path.resolve(__dirname, this.barrelFileOutDir);
+        this.childProcess.execSync(`prettier --write "${barrelPath}"`);
+      }
+    } catch (error) {
+      console.warn('Prettier formatting skipped:', (error as Error).message);
+      console.warn('Make sure prettier is installed: npm install -g prettier');
+    }
   }
 }
