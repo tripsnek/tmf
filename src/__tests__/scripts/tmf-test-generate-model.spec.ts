@@ -1,6 +1,7 @@
-import { generateFromEcore } from '@tripsnek/tmf';
-describe('tripgaModel', () => {
+import { generateFromEcore } from "../../lib/source-generators/modelgenutils";
+
+describe('test model', () => {
   it('should generate model', () => {
-    // generateFromEcore('./__tests__/TmfTest.ecore');
+    generateFromEcore('./src/__tests__/TmfTest.ecore',false,'..');
   });
 });
