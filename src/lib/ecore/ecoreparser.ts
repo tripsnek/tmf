@@ -15,15 +15,19 @@ export class EcoreParser {
    * @param ecoreFilePath
    */
   public parse(ecoreFilePath: string): EPackage {
-    const message = "Parsing " + ecoreFilePath + " from filesystem";
-    // console.log(message);
-
-    //read the XML Ecore from the file system
-    const path = require("path");
-    const ecoreXml = fs.readFileSync(path.resolve(ecoreFilePath), "utf8");
+    const ecoreXml = this.fileToXmlString(ecoreFilePath);
 
     //convert to JSON
     return this.parseFromXmlString(ecoreXml);
+  }
+
+  public fileToXmlString(ecoreFilePath: string) {
+    const message = "Parsing " + ecoreFilePath + " from filesystem";
+    // console.log(message);
+    //read the XML Ecore from the file system
+    const path = require("path");
+    const ecoreXml = fs.readFileSync(path.resolve(ecoreFilePath), "utf8");
+    return ecoreXml;
   }
 
   /**

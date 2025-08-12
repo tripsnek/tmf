@@ -1,4 +1,4 @@
-import { EcoreWriter, EPackage } from '@tripsnek/tmf';
+import { EcoreStringParser, EcoreWriter, EPackage } from '@tripsnek/tmf';
 import { EClass } from '@tripsnek/tmf';
 import { EcoreParser } from '@tripsnek/tmf';
 
@@ -9,7 +9,11 @@ describe('EcoreParser', () => {
 
   //parse the ecore file
   const parser: EcoreParser = new EcoreParser();
-  const rootPkg: EPackage = parser.parse('src/__tests__/TMFTest.ecore');
+
+  //verify we can convert XML to JSON string, then parse THAT after simple JSON parse (useful for vscode extension)
+  const jsonString = JSON.stringify(parser.xmlToJs(parser.fileToXmlString('src/__tests__/TMFTest.ecore')));
+
+  const rootPkg: EPackage = new EcoreStringParser().parseFromJsString(jsonString);
   // console.log(tutils.safeStringify(rootPkg));
 
   const writer: EcoreWriter = new EcoreWriter();

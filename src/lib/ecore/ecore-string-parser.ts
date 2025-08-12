@@ -21,6 +21,9 @@ import { EReference } from '../metamodel/ereference';
  */
 export class EcoreStringParser {
 
+    public parseFromJsString(ecoreJsonStr: any) {
+      return this.parseFromJs(JSON.parse(ecoreJsonStr));
+    }
 
   public parseFromJs(ecoreJs: any) {
     const ePackage = ecoreJs['ecore:EPackage'];
