@@ -45,4 +45,6 @@ export * from './lib/tutils';
 // Export TMF generation tools
 export * from './lib/ecore/ecoreparser';
 export * from './lib/ecore/ecorewriter';
+export * from './lib/ecore/ecore-string-parser';
+export * from './lib/ecore/ecore-string-writer';
 export * from './lib/modelgenutils';
