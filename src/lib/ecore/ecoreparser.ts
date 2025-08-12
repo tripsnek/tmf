@@ -2,6 +2,7 @@
 import { EPackage } from "../metamodel/epackage";
 import { EcoreStringParser } from "./ecore-string-parser";
 import { Environment, ConditionalImports } from '../utils/environment';
+import { parseString, parseStringSync } from "./xml-to-js-parser";
 
 /**
  * Parses an XML Ecore file into a TMF metamodel.
@@ -69,66 +70,9 @@ export class EcoreParser {
   }
 
   public xmlToJs(ecoreXml: string): any {
-    if (Environment.isNode) {
-      return this.xmlToJsNode(ecoreXml);
-    } else {
-      return this.xmlToJsBrowser(ecoreXml);
-    }
-  }
-
-  public async xmlToJsAsync(ecoreXml: string): Promise<any> {
-    if (Environment.isNode) {
-      return this.xmlToJsNodeAsync(ecoreXml);
-    } else {
-      return this.xmlToJsBrowser(ecoreXml);
-    }
-  }
-
-  private xmlToJsNode(ecoreXml: string): any {
-    // Use sync require for backward compatibility
-    const xml2js = require('xml2js');
-    let ecoreJs;
-    xml2js.parseString(ecoreXml, (err: any, result: any) => {
-      if (err) {
-        console.log("ERROR ON PARSE");
-        console.log(err);
-        throw err;
-      }
-      ecoreJs = result;
-    });
-    return ecoreJs;
-  }
-
-  private async xmlToJsNodeAsync(ecoreXml: string): Promise<any> {
-    const xml2js = await ConditionalImports.getNodeModule('xml2js');
-    
-    return new Promise((resolve, reject) => {
-      xml2js.parseString(ecoreXml, (err: any, result: any) => {
-        if (err) {
-          console.log("ERROR ON PARSE");
-          console.log(err);
-          reject(err);
-        } else {
-          resolve(result);
-        }
-      });
-    });
-  }
-
-  private xmlToJsBrowser(ecoreXml: string): any {
-    if (!Environment.hasDOMParser) {
-      throw new Error('XML parsing not available in this browser environment');
-    }
-
+    // Use our new synchronous parser for both Node.js and browser
     try {
-      const parser = new (globalThis as any).DOMParser();
-      const xmlDoc = parser.parseFromString(ecoreXml, 'text/xml');
-      
-      if (xmlDoc.documentElement.nodeName === 'parsererror') {
-        throw new Error('Invalid XML');
-      }
-      
-      return this.domToJs(xmlDoc.documentElement);
+      return parseStringSync(ecoreXml);
     } catch (error) {
       console.log("ERROR ON PARSE");
       console.log(error);
@@ -136,42 +80,15 @@ export class EcoreParser {
     }
   }
 
-  private domToJs(element: any): any {
-    const result: any = {};
-    
-    // Handle attributes
-    if (element.attributes && element.attributes.length > 0) {
-      result.$ = {};
-      for (let i = 0; i < element.attributes.length; i++) {
-        const attr = element.attributes[i];
-        result.$[attr.name] = attr.value;
-      }
+  public async xmlToJsAsync(ecoreXml: string): Promise<any> {
+    // Use our new asynchronous parser for both Node.js and browser
+    try {
+      return await parseString(ecoreXml);
+    } catch (error) {
+      console.log("ERROR ON PARSE");
+      console.log(error);
+      throw error;
     }
-    
-    // Handle child elements
-    const childElements: { [key: string]: any[] } = {};
-    if (element.children) {
-      for (let i = 0; i < element.children.length; i++) {
-        const child = element.children[i];
-        const tagName = child.tagName;
-        
-        if (!childElements[tagName]) {
-          childElements[tagName] = [];
-        }
-        childElements[tagName].push(this.domToJs(child));
-      }
-    }
-    
-    // Handle text content
-    const textContent = element.textContent?.trim();
-    if (textContent && Object.keys(childElements).length === 0) {
-      result._ = textContent;
-    }
-    
-    // Add child elements to result
-    Object.assign(result, childElements);
-    
-    return result;
   }
 
   /**
@@ -185,7 +102,8 @@ export class EcoreParser {
    * Check if XML string parsing is supported
    */
   public static isXmlParsingSupported(): boolean {
-    return Environment.isNode || Environment.hasDOMParser;
+    // Our parser works in both Node.js and browser environments
+    return true;
   }
 
   /**

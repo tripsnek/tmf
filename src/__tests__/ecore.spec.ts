@@ -3,15 +3,14 @@ import { EClass } from '@tripsnek/tmf';
 import { EcoreParser } from '@tripsnek/tmf';
 
 describe('EcoreParser', () => {
-  it('should create an instance', () => {
-    expect(new EcoreParser()).toBeTruthy();
-  });
+
 
   //parse the ecore file
   const parser: EcoreParser = new EcoreParser();
 
   //verify we can convert XML to JSON string, then parse THAT after simple JSON parse (useful for vscode extension)
   const jsonString = JSON.stringify(parser.xmlToJs(parser.fileToXmlString('src/__tests__/TMFTest.ecore')));
+  console.log(jsonString);
 
   const rootPkg: EPackage = new EcoreStringParser().parseFromJsString(jsonString);
   // console.log(tutils.safeStringify(rootPkg));
@@ -21,6 +20,10 @@ describe('EcoreParser', () => {
 
   //validate the correct number of subpackages
   const corePkg = rootPkg.getESubPackageByName('core');
+
+    it('should create an instance', () => {
+    expect(new EcoreParser()).toBeTruthy();
+  });
 
   it('should parse subpackages', () => {
     expect(rootPkg.getESubPackages().size()).toBe(2);
