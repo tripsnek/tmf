@@ -22,7 +22,7 @@ import { EReference } from '../metamodel/ereference';
 export class EcoreStringParser {
 
 
-  public parseFromJsString(ecoreJs: any) {
+  public parseFromJs(ecoreJs: any) {
     const ePackage = ecoreJs['ecore:EPackage'];
 
     //holds all types and features in a map for reference resolution (e.g. assigning
