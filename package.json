@@ -1,6 +1,6 @@
 {
   "name": "@tripsnek/tmf",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "TypeScript Modeling Framework - A TypeScript port of the Eclipse Modeling Framework (EMF)",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -29,8 +29,7 @@
     "code-generation",
     "reflection",
     "introspection",
-    "containment",
-    "eopposites"
+    "containment"
   ],
   "author": "Daniel Tuohy <danielr2e@gmail.com>",
   "license": "MIT",
