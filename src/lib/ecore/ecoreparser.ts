@@ -1,3 +1,4 @@
+import * as xml2js from 'xml2js';
 import * as fs from 'fs';
 import { EPackage } from '../metamodel/epackage';
 import { EcoreStringParser } from './ecore-string-parser';
@@ -26,8 +27,27 @@ export class EcoreParser {
     return this.parseFromXmlString(ecoreXml);
   }
 
-  public parseFromXmlString(ecoreXml: string): EPackage {
-    return this.stringParser.parseFromXmlString(ecoreXml);
-  }
+    /**
+     * Parses an Ecore XML string into a TMF metamodel.
+     * @param ecoreXml The XML string to parse
+     * @returns The root EPackage containing the parsed metamodel
+     */
+    public parseFromXmlString(ecoreXml: string): EPackage {
+      let ecoreJs = this.xmlToJs(ecoreXml);
+  
+      return this.stringParser.parseFromJsString(ecoreJs);
+    }
 
+
+  public xmlToJs(ecoreXml: string) {
+    let ecoreJs;
+    const jsResult = xml2js.parseString(ecoreXml, (err, result) => {
+      if (err) {
+        console.log('ERROR ON PARSE');
+        console.log(err);
+      }
+      ecoreJs = result;
+    });
+    return ecoreJs;
+  }
 }

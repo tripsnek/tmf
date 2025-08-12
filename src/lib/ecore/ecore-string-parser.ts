@@ -1,4 +1,3 @@
-import * as xml2js from 'xml2js';
 import { EDataTypeImpl } from '../metamodel/edata-type-impl';
 import { EClass } from '../metamodel/eclass';
 import { EEnumLiteralImpl } from '../metamodel/eenum-literal-impl';
@@ -21,22 +20,10 @@ import { EReference } from '../metamodel/ereference';
  * This class handles the core parsing logic without file system dependencies.
  */
 export class EcoreStringParser {
-  /**
-   * Parses an Ecore XML string into a TMF metamodel.
-   * @param ecoreXml The XML string to parse
-   * @returns The root EPackage containing the parsed metamodel
-   */
-  public parseFromXmlString(ecoreXml: string): EPackage {
-    let cartsJs;
-    const jsResult = xml2js.parseString(ecoreXml, (err, result) => {
-      if (err) {
-        console.log('ERROR ON PARSE');
-        console.log(err);
-      }
-      cartsJs = result;
-    });
 
-    const ePackage = cartsJs['ecore:EPackage'];
+
+  public parseFromJsString(ecoreJs: any) {
+    const ePackage = ecoreJs['ecore:EPackage'];
 
     //holds all types and features in a map for reference resolution (e.g. assigning
     //types to references and attributes, enforcing EOpposites)
@@ -56,9 +43,7 @@ export class EcoreStringParser {
       'EDate',
     ];
     for (const type of primitiveTypes) {
-      typesMap[
-        'ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//' + type
-      ] = new EDataTypeImpl(null, null, type);
+      typesMap['ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//' + type] = new EDataTypeImpl(null, null, type);
     }
     for (const key of typesMap.keys()) {
       console.error('KEY ' + key + ' : ' + typeof typesMap[key]);
