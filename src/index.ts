@@ -47,4 +47,4 @@ export * from './lib/ecore/ecoreparser';
 export * from './lib/ecore/ecorewriter';
 export * from './lib/ecore/ecore-string-parser';
 export * from './lib/ecore/ecore-string-writer';
-export * from './lib/modelgenutils';
+export * from './lib/source-generators/modelgenutils';

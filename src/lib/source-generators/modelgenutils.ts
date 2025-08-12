@@ -1,8 +1,8 @@
 
 import * as PATH from 'path';
-import { EcoreParser } from './ecore/ecoreparser';
-import { EPackage } from './metamodel/epackage';
-import { DGeneratorMain } from './source-generators/dgenerator-main';
+import { EcoreParser } from '../ecore/ecoreparser';
+import { EPackage } from '../metamodel/epackage';
+import { DGeneratorMain } from './dgenerator-main';
 
 /**
  * (1) Parses an ECore file.

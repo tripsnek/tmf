@@ -1,6 +1,5 @@
 import { EClassifier } from './metamodel/eclassifier';
 import { EObject } from './metamodel/eobject';
-import { EDataType } from './metamodel/edata-type';
 import { EEnum } from './metamodel/eenum';
 import { v4 as uuid } from 'uuid';
 import { EcorePackage } from './metamodel/ecorepackage';
