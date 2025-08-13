@@ -8,14 +8,8 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
           iD="true"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="editDate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate">
-        <eAnnotations source="http://rcp.tripsnek.com/annotations">
-          <details key="niceName" value="When"/>
-        </eAnnotations>
       </eStructuralFeatures>
       <eStructuralFeatures xsi:type="ecore:EReference" name="editUser" eType="#//core/User">
-        <eAnnotations source="http://rcp.tripsnek.com/annotations">
-          <details key="niceName" value="Who"/>
-        </eAnnotations>
       </eStructuralFeatures>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="locked" lowerBound="1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
@@ -51,21 +45,11 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="fooClass" eType="#//core/FooClass"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="range" lowerBound="1"
           eType="#//core/BoundedNumber" containment="true" resolveProxies="false">
-        <eAnnotations source="http://rcp.tripsnek.com/annotations">
-          <details key="unit" value="km"/>
-          <details key="includeInStub" value="true"/>
-        </eAnnotations>
-        <eAnnotations source="orm">
-          <details key="value" value="@Embedded"/>
-        </eAnnotations>
       </eStructuralFeatures>
       <eStructuralFeatures xsi:type="ecore:EReference" name="bars" upperBound="-1"
           eType="#//core/Bar" containment="true" eOpposite="#//core/Bar/foo"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="oneToOneBazzle" eType="#//core/Bazzle"
           eOpposite="#//core/Bazzle/oneToOneFoo">
-        <eAnnotations source="tmf">
-          <details key="isInternalReference" value="true"/>
-        </eAnnotations>
       </eStructuralFeatures>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="manyAttribute" upperBound="-1"
           eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -88,21 +72,11 @@
           upperBound="-1" eType="#//core/Bar"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="manyValueObjects" lowerBound="1"
           upperBound="-1" eType="#//core/BoundedNumber" containment="true" resolveProxies="false">
-        <eAnnotations source="http://rcp.tripsnek.com/annotations">
-          <details key="unit" value="km"/>
-          <details key="includeInStub" value="true"/>
-        </eAnnotations>
-        <eAnnotations source="orm">
-          <details key="value" value="@Embedded"/>
-        </eAnnotations>
       </eStructuralFeatures>
       <eStructuralFeatures xsi:type="ecore:EReference" name="oneToOneContainment"
           eType="#//core/Bazzle" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="ownedFoos" upperBound="-1"
           eType="#//core/Foo">
-        <eAnnotations source="tmf">
-          <details key="isOwnership" value="true"/>
-        </eAnnotations>
       </eStructuralFeatures>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="FooSpecialization" eSuperTypes="#//core/Foo"/>
@@ -120,23 +94,14 @@
           eType="#//core/Bazzle" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="backupFor" upperBound="-1"
           eType="#//core/Bazzle" eOpposite="#//core/Bazzle/backupBar">
-        <eAnnotations source="tmf">
-          <details key="isInternalReference" value="true"/>
-        </eAnnotations>
       </eStructuralFeatures>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Bazzle" eSuperTypes="#//core/NamedEntity">
       <eStructuralFeatures xsi:type="ecore:EReference" name="backupBar" eType="#//core/Bar"
           eOpposite="#//core/Bar/backupFor">
-        <eAnnotations source="tmf">
-          <details key="isInternalReference" value="true"/>
-        </eAnnotations>
       </eStructuralFeatures>
       <eStructuralFeatures xsi:type="ecore:EReference" name="oneToOneFoo" eType="#//core/Foo"
           eOpposite="#//core/Foo/oneToOneBazzle">
-        <eAnnotations source="tmf">
-          <details key="isInternalReference" value="true"/>
-        </eAnnotations>
       </eStructuralFeatures>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="BoundedNumber">
