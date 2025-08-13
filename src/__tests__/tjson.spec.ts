@@ -1,16 +1,16 @@
 import { TJson, EList, EObject } from '@tripsnek/tmf';
 
 import { TUtils } from '@tripsnek/tmf';
-import { AnalysisFactory } from './model/analysis/analysis-factory';
-import { AnalysisPackage } from './model/analysis/analysis-package';
-import { AnalysisResult } from './model/analysis/api/analysis-result';
-import { Bar } from './model/core/api/bar';
-import { Bazzle } from './model/core/api/bazzle';
-import { Foo } from './model/core/api/foo';
-import { FooClass } from './model/core/api/foo-class';
-import { CoreFactory } from './model/core/core-factory';
-import { CorePackage } from './model/core/core-package';
-import { BoundedNumberImpl } from './model/core/impl/bounded-number-impl';
+import { AnalysisFactory } from './src/lib/model/analysis/analysis-factory';
+import { AnalysisPackage } from './src/lib/model/analysis/analysis-package';
+import { AnalysisResult } from './src/lib/model/analysis/api/analysis-result';
+import { Bar } from './src/lib/model/core/api/bar';
+import { Bazzle } from './src/lib/model/core/api/bazzle';
+import { Foo } from './src/lib/model/core/api/foo';
+import { FooClass } from './src/lib/model/core/api/foo-class';
+import { CoreFactory } from './src/lib/model/core/core-factory';
+import { CorePackage } from './src/lib/model/core/core-package';
+import { BoundedNumberImpl } from './src/lib/model/core/impl/bounded-number-impl';
 
 //configure TJson with test packages
 TJson.setPackages([CorePackage.eINSTANCE, AnalysisPackage.eINSTANCE]);

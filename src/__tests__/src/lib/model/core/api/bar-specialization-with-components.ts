@@ -1,0 +1,24 @@
+import { EObject } from "@tripsnek/tmf";
+import { TUtils } from "@tripsnek/tmf";
+import { EStructuralFeature } from "@tripsnek/tmf";
+import { BasicEList } from "@tripsnek/tmf";
+import { EClass } from "@tripsnek/tmf";
+import { EList } from "@tripsnek/tmf";
+import { EEnum } from "@tripsnek/tmf";
+import { EDataType } from "@tripsnek/tmf";
+import { EObjectImpl } from "@tripsnek/tmf";
+
+import { Bar } from "./bar";
+import { Foo } from "./foo";
+import { Bazzle } from "./bazzle";
+import { User } from "./user";
+import { CorePackage } from "../core-package";
+
+/**
+ * Source-gen API for BarSpecializationWithComponents.
+ */
+export interface BarSpecializationWithComponents extends Bar {
+  getComponentBars(): EList<Bar>;
+  getSpecialName(): string;
+  setSpecialName(newSpecialName: string): void;
+}

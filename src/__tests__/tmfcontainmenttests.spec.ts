@@ -1,10 +1,10 @@
-import { AnalysisFactory } from './model/analysis/analysis-factory';
-import { AnalysisPackage } from './model/analysis/analysis-package';
-import { CoreFactory } from './model/core/core-factory';
-import { FooClass } from './model/core/api/foo-class';
-import { Foo } from './model/core/api/foo';
-import { Bar } from './model/core/api/bar';
-import { Bazzle } from './model/core/api/bazzle';
+import { AnalysisFactory } from './src/lib/model/analysis/analysis-factory';
+import { AnalysisPackage } from './src/lib/model/analysis/analysis-package';
+import { CoreFactory } from './src/lib/model/core/core-factory';
+import { FooClass } from './src/lib/model/core/api/foo-class';
+import { Foo } from './src/lib/model/core/api/foo';
+import { Bar } from './src/lib/model/core/api/bar';
+import { Bazzle } from './src/lib/model/core/api/bazzle';
 
 //create a Foo container and contents
 const foo: Foo = CoreFactory.eINSTANCE.createFoo();

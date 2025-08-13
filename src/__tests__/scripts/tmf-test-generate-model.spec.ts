@@ -1,7 +1,10 @@
 import { generateFromEcore } from "../../lib/source-generators/modelgenutils";
 
-describe('test model', () => {
+describe('tripgaModel', () => {
   it('should generate model', () => {
-    generateFromEcore('./src/__tests__/TmfTest.ecore',false,'..');
-  });
+    //uncomment to generate the model, but recomment so that it does not run as part of all tests
+    // generateFromEcore('./src/__tests__/TmfTest.ecore');
+  }
+);
+
 });

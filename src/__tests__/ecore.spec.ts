@@ -10,7 +10,7 @@ describe('EcoreParser', () => {
 
   //verify we can convert XML to JSON string, then parse THAT after simple JSON parse (useful for vscode extension)
   const jsonString = JSON.stringify(parser.xmlToJs(parser.fileToXmlString('src/__tests__/TMFTest.ecore')));
-  console.log(jsonString);
+  // console.log(jsonString);
 
   const rootPkg: EPackage = new EcoreStringParser().parseFromJsString(jsonString);
   // console.log(tutils.safeStringify(rootPkg));
