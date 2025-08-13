@@ -9,6 +9,6 @@ This is not a feature complete implementation of EMF. The following EMF Ecore fe
  - **EAnnotations**
  - **EDataType.instanceClassName** - used in EMF to specify e.g. a specific Java Class that represents a new datatype
  - **Some EAttribute/Reference properties** - unsettable, resolveProxies
- - **Generic Type System**
+ - **EGenericType** - no support for generic type systems
  - **eExceptions**
  - **References between ECore models** - every ecore model is standalone, there currently is not support for composing ecore models together.
