@@ -8,7 +8,7 @@ export class ETypedElementImpl
   implements ETypedElement
 {
   public static UNBOUNDED_MULTIPLICITY = -1;
-  public static UNSPECIFIED_MULTIPLICITY = -2;
+  public static UNSPECIFIED_MULTIPLICITY = 0;
 
   private ordered = false;
   private unique = false;
