@@ -6,6 +6,7 @@ TypeScript Modeling Framework - A TypeScript port of Eclipse EMF with Ecore-driv
 
 This is not a feature complete implementation of EMF. The following EMF Ecore features are not yet supported:
 
+ - **Multiple Inheritance** - An EClass can only extend at most one other EClass (including interfaces).
  - **EAnnotations**
  - **EDataType.instanceClassName** - used in EMF to specify e.g. a specific Java Class that represents a new datatype
  - **Some EAttribute/Reference properties** - unsettable, resolveProxies

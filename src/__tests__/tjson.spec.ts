@@ -32,7 +32,6 @@ foo.getManyAttribute().add('TestManyAttr2');
 foo.eSet(CorePackage.eINSTANCE.getFoo_UnchangeableAttribute(), 'TestValue');
 foo.setTransientAttribute('ShouldNotSerialize');
 foo.setTransientReference(fact.createFoo());
-foo.setExternalAggregateRootReference(otherFoo);
 foo.setFooClass(FooClass.INTERMEDIATE);
 foo.setCreationDate(currentDate);
 foo.getManyCrossAggregate().add(otherFoo);

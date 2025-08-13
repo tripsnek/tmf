@@ -22,16 +22,4 @@ export interface BoundedNumber extends EObject {
   setMaxValue(newMaxValue: number): void;
   getMinValue(): number;
   setMinValue(newMinValue: number): void;
-  getPercentDelta(): number;
-  setPercentDelta(newPercentDelta: number): void;
-  getPlusPercentDelta(): number;
-  setPlusPercentDelta(newPlusPercentDelta: number): void;
-  getMinusPercentDelta(): number;
-  setMinusPercentDelta(newMinusPercentDelta: number): void;
-  getAbsoluteDelta(): number;
-  setAbsoluteDelta(newAbsoluteDelta: number): void;
-  getPlusAbsoluteDelta(): number;
-  setPlusAbsoluteDelta(newPlusAbsoluteDelta: number): void;
-  getMinusAbsoluteDelta(): number;
-  setMinusAbsoluteDelta(newMinusAbsoluteDelta: number): void;
 }

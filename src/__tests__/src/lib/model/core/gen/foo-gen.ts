@@ -49,8 +49,6 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
   protected transientReference: Foo;
   protected volatileAttribute: string;
   protected volatileReference: Foo;
-  protected externalAggregateRootReference: Foo;
-  protected externalNestedEntityReference: Bar;
   protected manyCrossAggregate: EList<Foo> = new BasicEList<Foo>(
     null,
     this,
@@ -214,30 +212,6 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
     );
   }
 
-  public getExternalAggregateRootReference(): Foo {
-    return this.externalAggregateRootReference;
-  }
-
-  public setExternalAggregateRootReference(
-    newExternalAggregateRootReference: Foo
-  ): void {
-    this.basicSetExternalAggregateRootReference(
-      newExternalAggregateRootReference
-    );
-  }
-
-  public getExternalNestedEntityReference(): Bar {
-    return this.externalNestedEntityReference;
-  }
-
-  public setExternalNestedEntityReference(
-    newExternalNestedEntityReference: Bar
-  ): void {
-    this.basicSetExternalNestedEntityReference(
-      newExternalNestedEntityReference
-    );
-  }
-
   public getManyCrossAggregate(): EList<Foo> {
     return this.manyCrossAggregate;
   }
@@ -315,10 +289,6 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
         return this.getVolatileAttribute();
       case CorePackage.FOO__VOLATILE_REFERENCE:
         return this.getVolatileReference();
-      case CorePackage.FOO__EXTERNAL_AGGREGATE_ROOT_REFERENCE:
-        return this.getExternalAggregateRootReference();
-      case CorePackage.FOO__EXTERNAL_NESTED_ENTITY_REFERENCE:
-        return this.getExternalNestedEntityReference();
       case CorePackage.FOO__MANY_CROSS_AGGREGATE:
         return this.getManyCrossAggregate();
       case CorePackage.FOO__MANY_CROSS_AGGREGATE_NESTED:
@@ -383,12 +353,6 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
       case CorePackage.FOO__VOLATILE_REFERENCE:
         this.setVolatileReference(newValue);
         return;
-      case CorePackage.FOO__EXTERNAL_AGGREGATE_ROOT_REFERENCE:
-        this.setExternalAggregateRootReference(newValue);
-        return;
-      case CorePackage.FOO__EXTERNAL_NESTED_ENTITY_REFERENCE:
-        this.setExternalNestedEntityReference(newValue);
-        return;
       case CorePackage.FOO__MANY_CROSS_AGGREGATE:
         this.getManyCrossAggregate().clear();
         this.getManyCrossAggregate().addAll(newValue);
@@ -447,10 +411,6 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
         return this.getVolatileAttribute === undefined;
       case CorePackage.FOO__VOLATILE_REFERENCE:
         return this.getVolatileReference === undefined;
-      case CorePackage.FOO__EXTERNAL_AGGREGATE_ROOT_REFERENCE:
-        return this.getExternalAggregateRootReference === undefined;
-      case CorePackage.FOO__EXTERNAL_NESTED_ENTITY_REFERENCE:
-        return this.getExternalNestedEntityReference === undefined;
       case CorePackage.FOO__MANY_CROSS_AGGREGATE:
         return this.getManyCrossAggregate().isEmpty();
       case CorePackage.FOO__MANY_CROSS_AGGREGATE_NESTED:
@@ -513,12 +473,6 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
       case CorePackage.FOO__VOLATILE_REFERENCE:
         this.setVolatileReference(undefined);
         return;
-      case CorePackage.FOO__EXTERNAL_AGGREGATE_ROOT_REFERENCE:
-        this.setExternalAggregateRootReference(undefined);
-        return;
-      case CorePackage.FOO__EXTERNAL_NESTED_ENTITY_REFERENCE:
-        this.setExternalNestedEntityReference(undefined);
-        return;
       case CorePackage.FOO__MANY_CROSS_AGGREGATE:
         this.getManyCrossAggregate().clear();
         return;
@@ -579,18 +533,6 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
 
   public basicSetTransientReference(newTransientReference: Foo): void {
     this.transientReference = newTransientReference;
-  }
-
-  public basicSetExternalAggregateRootReference(
-    newExternalAggregateRootReference: Foo
-  ): void {
-    this.externalAggregateRootReference = newExternalAggregateRootReference;
-  }
-
-  public basicSetExternalNestedEntityReference(
-    newExternalNestedEntityReference: Bar
-  ): void {
-    this.externalNestedEntityReference = newExternalNestedEntityReference;
   }
 
   public basicSetOneToOneContainment(newOneToOneContainment: Bazzle): void {

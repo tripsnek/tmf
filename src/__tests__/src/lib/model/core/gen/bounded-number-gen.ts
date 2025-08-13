@@ -24,12 +24,6 @@ export abstract class BoundedNumberGen
   protected value: number;
   protected maxValue: number;
   protected minValue: number;
-  protected percentDelta: number;
-  protected plusPercentDelta: number;
-  protected minusPercentDelta: number;
-  protected absoluteDelta: number;
-  protected plusAbsoluteDelta: number;
-  protected minusAbsoluteDelta: number;
 
   //======================================================================
   // Getters and Setters
@@ -66,54 +60,6 @@ export abstract class BoundedNumberGen
     this.basicSetMinValue(newMinValue);
   }
 
-  public getPercentDelta(): number {
-    return this.percentDelta;
-  }
-
-  public setPercentDelta(newPercentDelta: number): void {
-    this.basicSetPercentDelta(newPercentDelta);
-  }
-
-  public getPlusPercentDelta(): number {
-    return this.plusPercentDelta;
-  }
-
-  public setPlusPercentDelta(newPlusPercentDelta: number): void {
-    this.basicSetPlusPercentDelta(newPlusPercentDelta);
-  }
-
-  public getMinusPercentDelta(): number {
-    return this.minusPercentDelta;
-  }
-
-  public setMinusPercentDelta(newMinusPercentDelta: number): void {
-    this.basicSetMinusPercentDelta(newMinusPercentDelta);
-  }
-
-  public getAbsoluteDelta(): number {
-    return this.absoluteDelta;
-  }
-
-  public setAbsoluteDelta(newAbsoluteDelta: number): void {
-    this.basicSetAbsoluteDelta(newAbsoluteDelta);
-  }
-
-  public getPlusAbsoluteDelta(): number {
-    return this.plusAbsoluteDelta;
-  }
-
-  public setPlusAbsoluteDelta(newPlusAbsoluteDelta: number): void {
-    this.basicSetPlusAbsoluteDelta(newPlusAbsoluteDelta);
-  }
-
-  public getMinusAbsoluteDelta(): number {
-    return this.minusAbsoluteDelta;
-  }
-
-  public setMinusAbsoluteDelta(newMinusAbsoluteDelta: number): void {
-    this.basicSetMinusAbsoluteDelta(newMinusAbsoluteDelta);
-  }
-
   //======================================================================
   // API Operations
 
@@ -137,18 +83,6 @@ export abstract class BoundedNumberGen
         return this.getMaxValue();
       case CorePackage.BOUNDED_NUMBER__MIN_VALUE:
         return this.getMinValue();
-      case CorePackage.BOUNDED_NUMBER__PERCENT_DELTA:
-        return this.getPercentDelta();
-      case CorePackage.BOUNDED_NUMBER__PLUS_PERCENT_DELTA:
-        return this.getPlusPercentDelta();
-      case CorePackage.BOUNDED_NUMBER__MINUS_PERCENT_DELTA:
-        return this.getMinusPercentDelta();
-      case CorePackage.BOUNDED_NUMBER__ABSOLUTE_DELTA:
-        return this.getAbsoluteDelta();
-      case CorePackage.BOUNDED_NUMBER__PLUS_ABSOLUTE_DELTA:
-        return this.getPlusAbsoluteDelta();
-      case CorePackage.BOUNDED_NUMBER__MINUS_ABSOLUTE_DELTA:
-        return this.getMinusAbsoluteDelta();
     }
     return super.eGet(featureID);
   }
@@ -174,24 +108,6 @@ export abstract class BoundedNumberGen
       case CorePackage.BOUNDED_NUMBER__MIN_VALUE:
         this.setMinValue(newValue);
         return;
-      case CorePackage.BOUNDED_NUMBER__PERCENT_DELTA:
-        this.setPercentDelta(newValue);
-        return;
-      case CorePackage.BOUNDED_NUMBER__PLUS_PERCENT_DELTA:
-        this.setPlusPercentDelta(newValue);
-        return;
-      case CorePackage.BOUNDED_NUMBER__MINUS_PERCENT_DELTA:
-        this.setMinusPercentDelta(newValue);
-        return;
-      case CorePackage.BOUNDED_NUMBER__ABSOLUTE_DELTA:
-        this.setAbsoluteDelta(newValue);
-        return;
-      case CorePackage.BOUNDED_NUMBER__PLUS_ABSOLUTE_DELTA:
-        this.setPlusAbsoluteDelta(newValue);
-        return;
-      case CorePackage.BOUNDED_NUMBER__MINUS_ABSOLUTE_DELTA:
-        this.setMinusAbsoluteDelta(newValue);
-        return;
     }
     return super.eSet(featureID, newValue);
   }
@@ -213,18 +129,6 @@ export abstract class BoundedNumberGen
         return this.getMaxValue === undefined;
       case CorePackage.BOUNDED_NUMBER__MIN_VALUE:
         return this.getMinValue === undefined;
-      case CorePackage.BOUNDED_NUMBER__PERCENT_DELTA:
-        return this.getPercentDelta === undefined;
-      case CorePackage.BOUNDED_NUMBER__PLUS_PERCENT_DELTA:
-        return this.getPlusPercentDelta === undefined;
-      case CorePackage.BOUNDED_NUMBER__MINUS_PERCENT_DELTA:
-        return this.getMinusPercentDelta === undefined;
-      case CorePackage.BOUNDED_NUMBER__ABSOLUTE_DELTA:
-        return this.getAbsoluteDelta === undefined;
-      case CorePackage.BOUNDED_NUMBER__PLUS_ABSOLUTE_DELTA:
-        return this.getPlusAbsoluteDelta === undefined;
-      case CorePackage.BOUNDED_NUMBER__MINUS_ABSOLUTE_DELTA:
-        return this.getMinusAbsoluteDelta === undefined;
     }
     return super.eIsSet(featureID);
   }
@@ -250,24 +154,6 @@ export abstract class BoundedNumberGen
       case CorePackage.BOUNDED_NUMBER__MIN_VALUE:
         this.setMinValue(undefined);
         return;
-      case CorePackage.BOUNDED_NUMBER__PERCENT_DELTA:
-        this.setPercentDelta(undefined);
-        return;
-      case CorePackage.BOUNDED_NUMBER__PLUS_PERCENT_DELTA:
-        this.setPlusPercentDelta(undefined);
-        return;
-      case CorePackage.BOUNDED_NUMBER__MINUS_PERCENT_DELTA:
-        this.setMinusPercentDelta(undefined);
-        return;
-      case CorePackage.BOUNDED_NUMBER__ABSOLUTE_DELTA:
-        this.setAbsoluteDelta(undefined);
-        return;
-      case CorePackage.BOUNDED_NUMBER__PLUS_ABSOLUTE_DELTA:
-        this.setPlusAbsoluteDelta(undefined);
-        return;
-      case CorePackage.BOUNDED_NUMBER__MINUS_ABSOLUTE_DELTA:
-        this.setMinusAbsoluteDelta(undefined);
-        return;
     }
     return super.eUnset(featureID);
   }
@@ -289,30 +175,6 @@ export abstract class BoundedNumberGen
 
   public basicSetMinValue(newMinValue: number): void {
     this.minValue = newMinValue;
-  }
-
-  public basicSetPercentDelta(newPercentDelta: number): void {
-    this.percentDelta = newPercentDelta;
-  }
-
-  public basicSetPlusPercentDelta(newPlusPercentDelta: number): void {
-    this.plusPercentDelta = newPlusPercentDelta;
-  }
-
-  public basicSetMinusPercentDelta(newMinusPercentDelta: number): void {
-    this.minusPercentDelta = newMinusPercentDelta;
-  }
-
-  public basicSetAbsoluteDelta(newAbsoluteDelta: number): void {
-    this.absoluteDelta = newAbsoluteDelta;
-  }
-
-  public basicSetPlusAbsoluteDelta(newPlusAbsoluteDelta: number): void {
-    this.plusAbsoluteDelta = newPlusAbsoluteDelta;
-  }
-
-  public basicSetMinusAbsoluteDelta(newMinusAbsoluteDelta: number): void {
-    this.minusAbsoluteDelta = newMinusAbsoluteDelta;
   }
 
   //======================================================================

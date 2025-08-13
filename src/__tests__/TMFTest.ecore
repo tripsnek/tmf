@@ -29,17 +29,11 @@
           unsettable="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="User" eSuperTypes="#//core/NamedEntity">
-      <eAnnotations source="tmf">
-        <details key="isAggregateClass" value="true"/>
-      </eAnnotations>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="pass" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="salt" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="email" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="FooGroup" eSuperTypes="#//core/NamedEntity">
-      <eAnnotations source="tmf">
-        <details key="isAggregateClass" value="true"/>
-      </eAnnotations>
       <eOperations name="computeFoosOfClass" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
         <eParameters name="fooClass" eType="#//core/FooClass"/>
       </eOperations>
@@ -51,9 +45,6 @@
           containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Foo" eSuperTypes="#//core/NamedEntity">
-      <eAnnotations source="tmf">
-        <details key="isAggregateClass" value="true"/>
-      </eAnnotations>
       <eOperations name="copyFoo" eType="#//core/Foo"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="group" eType="#//core/FooGroup"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="creationDate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
@@ -91,10 +82,6 @@
           volatile="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="volatileReference" eType="#//core/Foo"
           volatile="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="externalAggregateRootReference"
-          eType="#//core/Foo"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="externalNestedEntityReference"
-          eType="#//core/Bar"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="manyCrossAggregate" upperBound="-1"
           eType="#//core/Foo"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="manyCrossAggregateNested"
@@ -111,18 +98,14 @@
       </eStructuralFeatures>
       <eStructuralFeatures xsi:type="ecore:EReference" name="oneToOneContainment"
           eType="#//core/Bazzle" containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="ownedFoos"
-          upperBound="-1" eType="#//core/Foo">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="ownedFoos" upperBound="-1"
+          eType="#//core/Foo">
         <eAnnotations source="tmf">
           <details key="isOwnership" value="true"/>
         </eAnnotations>
       </eStructuralFeatures>
     </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="FooSpecialization" eSuperTypes="#//core/Foo">
-      <eAnnotations source="tmf">
-        <details key="isAggregateClass" value="true"/>
-      </eAnnotations>
-    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="FooSpecialization" eSuperTypes="#//core/Foo"/>
     <eClassifiers xsi:type="ecore:EClass" name="BarSpecializationWithComponents" eSuperTypes="#//core/Bar">
       <eStructuralFeatures xsi:type="ecore:EReference" name="componentBars" upperBound="-1"
           eType="#//core/Bar" containment="true"/>
@@ -157,9 +140,6 @@
       </eStructuralFeatures>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="BoundedNumber">
-      <eAnnotations source="orm">
-        <details key="value" value="@Embeddable"/>
-      </eAnnotations>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="units" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
           defaultValueLiteral="NONE"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
@@ -168,12 +148,6 @@
           defaultValueLiteral="1"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="minValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
           defaultValueLiteral="1"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="percentDelta" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="plusPercentDelta" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="minusPercentDelta" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="absoluteDelta" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="plusAbsoluteDelta" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="minusAbsoluteDelta" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EEnum" name="FooClass">
       <eLiterals name="SHORT"/>
@@ -181,7 +155,7 @@
       <eLiterals name="INTERMEDIATE" value="2"/>
       <eLiterals name="LONG" value="3"/>
     </eClassifiers>
- </eSubpackages>
+  </eSubpackages>
   <eSubpackages name="analysis">
     <eClassifiers xsi:type="ecore:EClass" name="AnalysisResult" eSuperTypes="#//core/IdedEntity">
       <eOperations name="cloneObject" eType="#//core/NamedEntity">

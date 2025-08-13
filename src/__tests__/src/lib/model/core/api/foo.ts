@@ -43,12 +43,6 @@ export interface Foo extends NamedEntity {
   setVolatileAttribute(newVolatileAttribute: string): void;
   getVolatileReference(): Foo;
   setVolatileReference(newVolatileReference: Foo): void;
-  getExternalAggregateRootReference(): Foo;
-  setExternalAggregateRootReference(
-    newExternalAggregateRootReference: Foo
-  ): void;
-  getExternalNestedEntityReference(): Bar;
-  setExternalNestedEntityReference(newExternalNestedEntityReference: Bar): void;
   getManyCrossAggregate(): EList<Foo>;
   getManyCrossAggregateNested(): EList<Bar>;
   getManyValueObjects(): EList<BoundedNumber>;

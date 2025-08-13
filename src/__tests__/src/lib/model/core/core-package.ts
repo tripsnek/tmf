@@ -18,17 +18,11 @@ import { EcorePackage } from "@tripsnek/tmf";
 import { FooClass } from "./api/foo-class";
 export class CorePackage extends EPackageImpl {
   public static BOUNDED_NUMBER = 0;
-  public static BOUNDED_NUMBER_FEATURE_COUNT = 10;
+  public static BOUNDED_NUMBER_FEATURE_COUNT = 4;
   public static BOUNDED_NUMBER__UNITS = 0;
   public static BOUNDED_NUMBER__VALUE = 1;
   public static BOUNDED_NUMBER__MAX_VALUE = 2;
   public static BOUNDED_NUMBER__MIN_VALUE = 3;
-  public static BOUNDED_NUMBER__PERCENT_DELTA = 4;
-  public static BOUNDED_NUMBER__PLUS_PERCENT_DELTA = 5;
-  public static BOUNDED_NUMBER__MINUS_PERCENT_DELTA = 6;
-  public static BOUNDED_NUMBER__ABSOLUTE_DELTA = 7;
-  public static BOUNDED_NUMBER__PLUS_ABSOLUTE_DELTA = 8;
-  public static BOUNDED_NUMBER__MINUS_ABSOLUTE_DELTA = 9;
   public static IDED_ENTITY = 1;
   public static IDED_ENTITY_FEATURE_COUNT = 5;
   public static IDED_ENTITY__ID = 0;
@@ -59,7 +53,7 @@ export class CorePackage extends EPackageImpl {
   public static BAR_SPECIALIZATION_WITH_COMPONENTS__SPECIAL_NAME =
     CorePackage.BAR_FEATURE_COUNT + 1;
   public static FOO = 6;
-  public static FOO_FEATURE_COUNT = CorePackage.NAMED_ENTITY_FEATURE_COUNT + 20;
+  public static FOO_FEATURE_COUNT = CorePackage.NAMED_ENTITY_FEATURE_COUNT + 18;
   public static FOO__GROUP = CorePackage.NAMED_ENTITY_FEATURE_COUNT + 0;
   public static FOO__CREATION_DATE = CorePackage.NAMED_ENTITY_FEATURE_COUNT + 1;
   public static FOO__FOO_CLASS = CorePackage.NAMED_ENTITY_FEATURE_COUNT + 2;
@@ -81,19 +75,15 @@ export class CorePackage extends EPackageImpl {
     CorePackage.NAMED_ENTITY_FEATURE_COUNT + 11;
   public static FOO__VOLATILE_REFERENCE =
     CorePackage.NAMED_ENTITY_FEATURE_COUNT + 12;
-  public static FOO__EXTERNAL_AGGREGATE_ROOT_REFERENCE =
-    CorePackage.NAMED_ENTITY_FEATURE_COUNT + 13;
-  public static FOO__EXTERNAL_NESTED_ENTITY_REFERENCE =
-    CorePackage.NAMED_ENTITY_FEATURE_COUNT + 14;
   public static FOO__MANY_CROSS_AGGREGATE =
-    CorePackage.NAMED_ENTITY_FEATURE_COUNT + 15;
+    CorePackage.NAMED_ENTITY_FEATURE_COUNT + 13;
   public static FOO__MANY_CROSS_AGGREGATE_NESTED =
-    CorePackage.NAMED_ENTITY_FEATURE_COUNT + 16;
+    CorePackage.NAMED_ENTITY_FEATURE_COUNT + 14;
   public static FOO__MANY_VALUE_OBJECTS =
-    CorePackage.NAMED_ENTITY_FEATURE_COUNT + 17;
+    CorePackage.NAMED_ENTITY_FEATURE_COUNT + 15;
   public static FOO__ONE_TO_ONE_CONTAINMENT =
-    CorePackage.NAMED_ENTITY_FEATURE_COUNT + 18;
-  public static FOO__OWNED_FOOS = CorePackage.NAMED_ENTITY_FEATURE_COUNT + 19;
+    CorePackage.NAMED_ENTITY_FEATURE_COUNT + 16;
+  public static FOO__OWNED_FOOS = CorePackage.NAMED_ENTITY_FEATURE_COUNT + 17;
   public static FOO__COPY_FOO = 0;
   public static FOO_SPECIALIZATION = 7;
   public static FOO_SPECIALIZATION_FEATURE_COUNT =
@@ -134,18 +124,6 @@ export class CorePackage extends EPackageImpl {
       CorePackage.eINSTANCE.getBoundedNumber_MaxValue();
     static BOUNDED_NUMBER__MIN_VALUE: EAttribute =
       CorePackage.eINSTANCE.getBoundedNumber_MinValue();
-    static BOUNDED_NUMBER__PERCENT_DELTA: EAttribute =
-      CorePackage.eINSTANCE.getBoundedNumber_PercentDelta();
-    static BOUNDED_NUMBER__PLUS_PERCENT_DELTA: EAttribute =
-      CorePackage.eINSTANCE.getBoundedNumber_PlusPercentDelta();
-    static BOUNDED_NUMBER__MINUS_PERCENT_DELTA: EAttribute =
-      CorePackage.eINSTANCE.getBoundedNumber_MinusPercentDelta();
-    static BOUNDED_NUMBER__ABSOLUTE_DELTA: EAttribute =
-      CorePackage.eINSTANCE.getBoundedNumber_AbsoluteDelta();
-    static BOUNDED_NUMBER__PLUS_ABSOLUTE_DELTA: EAttribute =
-      CorePackage.eINSTANCE.getBoundedNumber_PlusAbsoluteDelta();
-    static BOUNDED_NUMBER__MINUS_ABSOLUTE_DELTA: EAttribute =
-      CorePackage.eINSTANCE.getBoundedNumber_MinusAbsoluteDelta();
     static IDED_ENTITY: EClass = CorePackage.eINSTANCE.getIdedEntity();
     static IDED_ENTITY__ID: EAttribute =
       CorePackage.eINSTANCE.getIdedEntity_Id();
@@ -199,10 +177,6 @@ export class CorePackage extends EPackageImpl {
       CorePackage.eINSTANCE.getFoo_VolatileAttribute();
     static FOO__VOLATILE_REFERENCE: EReference =
       CorePackage.eINSTANCE.getFoo_VolatileReference();
-    static FOO__EXTERNAL_AGGREGATE_ROOT_REFERENCE: EReference =
-      CorePackage.eINSTANCE.getFoo_ExternalAggregateRootReference();
-    static FOO__EXTERNAL_NESTED_ENTITY_REFERENCE: EReference =
-      CorePackage.eINSTANCE.getFoo_ExternalNestedEntityReference();
     static FOO__MANY_CROSS_AGGREGATE: EReference =
       CorePackage.eINSTANCE.getFoo_ManyCrossAggregate();
     static FOO__MANY_CROSS_AGGREGATE_NESTED: EReference =
@@ -301,24 +275,6 @@ export class CorePackage extends EPackageImpl {
   }
   public getBoundedNumber_MinValue(): EAttribute {
     return <EAttribute>this.boundedNumberEClass.getEStructuralFeatures().get(3);
-  }
-  public getBoundedNumber_PercentDelta(): EAttribute {
-    return <EAttribute>this.boundedNumberEClass.getEStructuralFeatures().get(4);
-  }
-  public getBoundedNumber_PlusPercentDelta(): EAttribute {
-    return <EAttribute>this.boundedNumberEClass.getEStructuralFeatures().get(5);
-  }
-  public getBoundedNumber_MinusPercentDelta(): EAttribute {
-    return <EAttribute>this.boundedNumberEClass.getEStructuralFeatures().get(6);
-  }
-  public getBoundedNumber_AbsoluteDelta(): EAttribute {
-    return <EAttribute>this.boundedNumberEClass.getEStructuralFeatures().get(7);
-  }
-  public getBoundedNumber_PlusAbsoluteDelta(): EAttribute {
-    return <EAttribute>this.boundedNumberEClass.getEStructuralFeatures().get(8);
-  }
-  public getBoundedNumber_MinusAbsoluteDelta(): EAttribute {
-    return <EAttribute>this.boundedNumberEClass.getEStructuralFeatures().get(9);
   }
   public getIdedEntity(): EClass {
     return this.idedEntityEClass;
@@ -420,26 +376,20 @@ export class CorePackage extends EPackageImpl {
   public getFoo_VolatileReference(): EReference {
     return <EReference>this.fooEClass.getEStructuralFeatures().get(12);
   }
-  public getFoo_ExternalAggregateRootReference(): EReference {
+  public getFoo_ManyCrossAggregate(): EReference {
     return <EReference>this.fooEClass.getEStructuralFeatures().get(13);
   }
-  public getFoo_ExternalNestedEntityReference(): EReference {
+  public getFoo_ManyCrossAggregateNested(): EReference {
     return <EReference>this.fooEClass.getEStructuralFeatures().get(14);
   }
-  public getFoo_ManyCrossAggregate(): EReference {
+  public getFoo_ManyValueObjects(): EReference {
     return <EReference>this.fooEClass.getEStructuralFeatures().get(15);
   }
-  public getFoo_ManyCrossAggregateNested(): EReference {
+  public getFoo_OneToOneContainment(): EReference {
     return <EReference>this.fooEClass.getEStructuralFeatures().get(16);
   }
-  public getFoo_ManyValueObjects(): EReference {
-    return <EReference>this.fooEClass.getEStructuralFeatures().get(17);
-  }
-  public getFoo_OneToOneContainment(): EReference {
-    return <EReference>this.fooEClass.getEStructuralFeatures().get(18);
-  }
   public getFoo_OwnedFoos(): EReference {
-    return <EReference>this.fooEClass.getEStructuralFeatures().get(19);
+    return <EReference>this.fooEClass.getEStructuralFeatures().get(17);
   }
   public getFoo_CopyFoo(): EOperation {
     return this.fooEClass.getEOperations().get(0);
@@ -497,30 +447,6 @@ export class CorePackage extends EPackageImpl {
     this.createEAttribute(
       this.boundedNumberEClass,
       CorePackage.BOUNDED_NUMBER__MIN_VALUE
-    );
-    this.createEAttribute(
-      this.boundedNumberEClass,
-      CorePackage.BOUNDED_NUMBER__PERCENT_DELTA
-    );
-    this.createEAttribute(
-      this.boundedNumberEClass,
-      CorePackage.BOUNDED_NUMBER__PLUS_PERCENT_DELTA
-    );
-    this.createEAttribute(
-      this.boundedNumberEClass,
-      CorePackage.BOUNDED_NUMBER__MINUS_PERCENT_DELTA
-    );
-    this.createEAttribute(
-      this.boundedNumberEClass,
-      CorePackage.BOUNDED_NUMBER__ABSOLUTE_DELTA
-    );
-    this.createEAttribute(
-      this.boundedNumberEClass,
-      CorePackage.BOUNDED_NUMBER__PLUS_ABSOLUTE_DELTA
-    );
-    this.createEAttribute(
-      this.boundedNumberEClass,
-      CorePackage.BOUNDED_NUMBER__MINUS_ABSOLUTE_DELTA
     );
     this.idedEntityEClass = this.createEClass(CorePackage.IDED_ENTITY);
     this.createEAttribute(this.idedEntityEClass, CorePackage.IDED_ENTITY__ID);
@@ -583,14 +509,6 @@ export class CorePackage extends EPackageImpl {
     this.createEReference(this.fooEClass, CorePackage.FOO__TRANSIENT_REFERENCE);
     this.createEAttribute(this.fooEClass, CorePackage.FOO__VOLATILE_ATTRIBUTE);
     this.createEReference(this.fooEClass, CorePackage.FOO__VOLATILE_REFERENCE);
-    this.createEReference(
-      this.fooEClass,
-      CorePackage.FOO__EXTERNAL_AGGREGATE_ROOT_REFERENCE
-    );
-    this.createEReference(
-      this.fooEClass,
-      CorePackage.FOO__EXTERNAL_NESTED_ENTITY_REFERENCE
-    );
     this.createEReference(
       this.fooEClass,
       CorePackage.FOO__MANY_CROSS_AGGREGATE
@@ -695,108 +613,6 @@ export class CorePackage extends EPackageImpl {
       this.getBoundedNumber_MinValue(),
       this.getEcorePackage().getEDouble(),
       "minValue",
-      undefined,
-      0,
-      1,
-      null,
-      false,
-      false,
-      true,
-      true,
-      undefined,
-      false,
-      undefined,
-      false
-    );
-    this.initEAttribute(
-      this.getBoundedNumber_PercentDelta(),
-      this.getEcorePackage().getEDouble(),
-      "percentDelta",
-      undefined,
-      0,
-      1,
-      null,
-      false,
-      false,
-      true,
-      true,
-      undefined,
-      false,
-      undefined,
-      false
-    );
-    this.initEAttribute(
-      this.getBoundedNumber_PlusPercentDelta(),
-      this.getEcorePackage().getEDouble(),
-      "plusPercentDelta",
-      undefined,
-      0,
-      1,
-      null,
-      false,
-      false,
-      true,
-      true,
-      undefined,
-      false,
-      undefined,
-      false
-    );
-    this.initEAttribute(
-      this.getBoundedNumber_MinusPercentDelta(),
-      this.getEcorePackage().getEDouble(),
-      "minusPercentDelta",
-      undefined,
-      0,
-      1,
-      null,
-      false,
-      false,
-      true,
-      true,
-      undefined,
-      false,
-      undefined,
-      false
-    );
-    this.initEAttribute(
-      this.getBoundedNumber_AbsoluteDelta(),
-      this.getEcorePackage().getEDouble(),
-      "absoluteDelta",
-      undefined,
-      0,
-      1,
-      null,
-      false,
-      false,
-      true,
-      true,
-      undefined,
-      false,
-      undefined,
-      false
-    );
-    this.initEAttribute(
-      this.getBoundedNumber_PlusAbsoluteDelta(),
-      this.getEcorePackage().getEDouble(),
-      "plusAbsoluteDelta",
-      undefined,
-      0,
-      1,
-      null,
-      false,
-      false,
-      true,
-      true,
-      undefined,
-      false,
-      undefined,
-      false
-    );
-    this.initEAttribute(
-      this.getBoundedNumber_MinusAbsoluteDelta(),
-      this.getEcorePackage().getEDouble(),
-      "minusAbsoluteDelta",
       undefined,
       0,
       1,
@@ -1291,44 +1107,6 @@ export class CorePackage extends EPackageImpl {
       null,
       false,
       true,
-      true,
-      false,
-      false,
-      true,
-      false,
-      undefined,
-      false
-    );
-    this.initEReference(
-      this.getFoo_ExternalAggregateRootReference(),
-      this.getFoo(),
-      null,
-      "externalAggregateRootReference",
-      null,
-      0,
-      1,
-      null,
-      false,
-      false,
-      true,
-      false,
-      false,
-      true,
-      false,
-      undefined,
-      false
-    );
-    this.initEReference(
-      this.getFoo_ExternalNestedEntityReference(),
-      this.getBar(),
-      null,
-      "externalNestedEntityReference",
-      null,
-      0,
-      1,
-      null,
-      false,
-      false,
       true,
       false,
       false,
