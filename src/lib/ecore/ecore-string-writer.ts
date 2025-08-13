@@ -373,9 +373,9 @@ export class EcoreStringWriter {
     const classifierPackage = classifier.getEPackage();
     
     // If in same package, use simple reference
-    if (classifierPackage === fromPackage) {
-      return `#//${classifier.getName()}`;
-    }
+    // if (classifierPackage === fromPackage) {
+    //   return `#//${classifier.getName()}`;
+    // }
     
     // Build full path
     const path = this.getPackagePath(classifierPackage);

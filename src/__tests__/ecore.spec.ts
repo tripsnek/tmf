@@ -17,6 +17,7 @@ describe('EcoreParser', () => {
 
   const writer: EcoreWriter = new EcoreWriter();
   const writtenXml = writer.writeToString(rootPkg);
+  // console.log(writtenXml);
 
   //validate the correct number of subpackages
   const corePkg = rootPkg.getESubPackageByName('core');
@@ -43,7 +44,9 @@ describe('EcoreParser', () => {
   });
 
   it('should write back to ecore', () => {
-    expect(writtenXml).toContain('<eParameters name="bazzles" upperBound="-1" eType="#//Bazzle"/>');
+    expect(writtenXml).toContain('<eParameters name="bazzles" upperBound="-1" eType="#//core/Bazzle"/>');
+    //package paths in references
+    expect(writtenXml).toContain('<eClassifiers xsi:type="ecore:EClass" name="NamedEntity" eSuperTypes="#//core/IdedEntity" abstract="true">');
   });
 
 
