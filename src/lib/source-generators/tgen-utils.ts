@@ -109,7 +109,7 @@ import { EObjectImpl } from '@tripsnek/tmf';`;
           // );
         }
 
-        imports += `import {${ec.getName()}} from '${genPathToImport}';`;
+        imports += `import { ${ec.getName()} } from '${genPathToImport}';\n`;
       }
     }
 
@@ -208,7 +208,7 @@ import { EObjectImpl } from '@tripsnek/tmf';`;
   public static setterSig(f: EStructuralFeature) {
     return `${TGenUtils.setterName(f)}(${TGenUtils.setterParamName(
       f
-    )} : ${TGenUtils.getTypeName(f)}): void`;
+    )}: ${TGenUtils.getTypeName(f)}): void`;
   }
 
   /**
