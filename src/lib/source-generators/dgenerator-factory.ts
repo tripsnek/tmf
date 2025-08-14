@@ -15,11 +15,11 @@ export class DGeneratorFactory {
   public generateFactoryContents(pkg: EPackage): string {
     return `${this.genGenericImports(pkg)}
 ${this.genSpecificImports(pkg)}
-    export class ${DU.genFactoryClassName(pkg)} extends EFactory {
-      ${this.genSingleton(pkg)}
-      ${this.genCreateSwitch(pkg)}
-      ${this.genClassCreators(pkg)}
-  }
+export class ${DU.genFactoryClassName(pkg)} extends EFactory {
+${this.genSingleton(pkg)}
+${this.genCreateSwitch(pkg)}
+${this.genClassCreators(pkg)}
+}
 `;
   }
 
@@ -35,7 +35,7 @@ ${this.genSpecificImports(pkg)}
     const pkgClassName = DU.genPackageClassName(pkg);
 
     return `${DU.DEFAULT_IMPORTS}
-    
+
 import { EReference } from '@tripsnek/tmf';
 import { EAttribute } from '@tripsnek/tmf';
 import { EFactory } from '@tripsnek/tmf';
@@ -73,17 +73,17 @@ import { ${eClass.getName()}Impl } from './impl/${DU.genClassImplName(
   private genSingleton(pkg: EPackage): string {
     const className = DU.genFactoryClassName(pkg);
     const pkgClassName = DU.genPackageClassName(pkg);
-    return `/* Singleton */
-    public static eINSTANCE: ${className} = ${className}.init();
-    public static init(): ${className} {
-      if (!${className}.eINSTANCE) {
-        ${className}.eINSTANCE = new ${className}();
-      }
-      
-      //inject the factory instance into the package, so that it can be retrieved reflectively
-      ${pkgClassName}.eINSTANCE.setEFactoryInstance(this.eINSTANCE);
-      return ${className}.eINSTANCE;
-    }`;
+    return `  /* Singleton */
+  public static eINSTANCE: ${className} = ${className}.init();
+  public static init(): ${className} {
+    if (!${className}.eINSTANCE) {
+      ${className}.eINSTANCE = new ${className}();
+    }
+
+    //inject the factory instance into the package, so that it can be retrieved reflectively
+    ${pkgClassName}.eINSTANCE.setEFactoryInstance(this.eINSTANCE);
+    return ${className}.eINSTANCE;
+  }`;
   }
 
   /**
@@ -96,23 +96,23 @@ import { ${eClass.getName()}Impl } from './impl/${DU.genClassImplName(
     let result = '';
     if (!(pkgClassName === 'EcorePackage')) {
       result += `
-      public create(eClass: EClass): any {
-        switch (eClass.getClassifierId()) {`;
+  public create(eClass: EClass): any {
+    switch (eClass.getClassifierId()) {`;
       for (const eClass of pkg.getEClassifiers()) {
         if (eClass instanceof EClassImpl && !eClass.isAbstract()) {
           const classCreatorName = 'create' + eClass.getName();
-          result += `case ${pkgClassName}.${DU.genClassIdFieldName(eClass)}:
-            return this.${classCreatorName}()
-            `;
+          result += `
+      case ${pkgClassName}.${DU.genClassIdFieldName(eClass)}:
+        return this.${classCreatorName}();`;
         }
       }
       result += `
-        default:
-          throw new Error(
-            "The class '" + eClass.getName() + "' is not a valid classifier"
-          );
-      }
-    }`;
+      default:
+        throw new Error(
+          "The class '" + eClass.getName() + "' is not a valid classifier"
+        );
+    }
+  }`;
     }
     return result;
   }
@@ -127,11 +127,11 @@ import { ${eClass.getName()}Impl } from './impl/${DU.genClassImplName(
     if (!(pkgClassName === 'EcorePackage')) {
       for (const eClass of pkg.getEClassifiers()) {
         if (eClass instanceof EClassImpl && !eClass.isAbstract()) {
-          const classCreatorName = 'create' + eClass.getName();
           result += `
-          public create${eClass.getName()}(): ${eClass.getName()} {
-            return new ${eClass.getName()}Impl();
-          }`;
+
+  public create${eClass.getName()}(): ${eClass.getName()} {
+    return new ${eClass.getName()}Impl();
+  }`;
         }
       }
     }
