@@ -1,7 +1,6 @@
 import { EPackage } from '../metamodel/epackage';
 import { EClassifier } from '../metamodel/eclassifier';
 import { EClass } from '../metamodel/eclass';
-import { EReference } from '../metamodel/ereference';
 import { EEnum } from '../metamodel/eenum';
 import { DGeneratorPackage } from './dgenerator-package';
 import { DGeneratorFactory } from './dgenerator-factory';
@@ -218,8 +217,8 @@ export class DGeneratorMain {
     }
 
     // Finally... format the source code with prettier
-    debug.log('Attempting to format code with Prettier...');
-    await this.tryFormatWithPrettier();
+    // debug.log('Attempting to format code with Prettier...');
+    // await this.tryFormatWithPrettier();
     
     debug.groupEnd();
     debug.timeEnd(`Generation for package: ${this.pkg.getName() || 'unnamed'}`);
@@ -506,12 +505,9 @@ export class DGeneratorMain {
     const operations = eClass.getEOperations();
     debug.log(`Processing ${operations.size()} operation(s)...`);
     for (const eop of operations) {
-      debug.log(`Processing operation: ${eop.getName()} returning: ${eop.getEType().getName()}`);
       this.maybeAddMemberImports(pkg, eClass, eop.getEType());
       const params = eop.getEParameters();
-      debug.log(`Operation has ${params.size()} parameter(s)`);
       for (const param of params) {
-        debug.log(`Processing parameter: ${param.getName()} of type: ${param.getEType().getName()}`);
         // make sure to import any parameter type, if necessary
         this.maybeAddMemberImports(pkg, eClass, param.getEType());
       }
@@ -529,7 +525,7 @@ export class DGeneratorMain {
     thisEClass: EClass,
     candidate: EClassifier
   ): void {
-    debug.log(`Evaluating import candidate: ${candidate.getName()}`);
+    debug.log(`Evaluating import candidate: ${candidate?.getName()}`);
     
     if (candidate instanceof EClassImpl || candidate instanceof EEnumImpl) {
       const candidatePackage = candidate.getEPackage();
@@ -551,8 +547,6 @@ export class DGeneratorMain {
       } else {
         debug.log(`Skipping import (already exists or is self): ${candidate.getName()}`);
       }
-    } else {
-      debug.log(`Skipping non-EClass/EEnum candidate: ${candidate.getName()}`);
     }
   }
 
@@ -608,33 +602,135 @@ export class DGeneratorMain {
     }
   }
 
-  private async tryFormatWithPrettier(): Promise<void> {
-    debug.log('Attempting to format code with Prettier...');
+private async tryFormatWithPrettier(): Promise<void> {
+  debug.log('Attempting to format code with Prettier...');
+  
+  try {
+    // First, try to use prettier library directly
+    debug.log('Attempting to load prettier library...');
+    const prettier = await ConditionalImports.getNodeModule('prettier');
     
-    try {
-      if (!this.childProcess) {
-        debug.log('Loading child_process module...');
-        this.childProcess = await ConditionalImports.getNodeModule('child_process');
-      }
-      
-      // Format main output directory
-      const mainPath = this.path.resolve(__dirname, this.outDir);
-      debug.log(`Formatting main directory: ${mainPath}`);
-      this.childProcess.execSync(`prettier --write "${mainPath}"`);
-      debug.log('Main directory formatted successfully');
-      
-      // Format barrel file directory if it exists
-      if (this.barrelFileDir) {
-        const barrelPath = this.path.resolve(__dirname, this.barrelFileOutDir);
-        debug.log(`Formatting barrel directory: ${barrelPath}`);
-        this.childProcess.execSync(`prettier --write "${barrelPath}"`);
-        debug.log('Barrel directory formatted successfully');
-      }
-      
-      debug.log('Prettier formatting completed successfully');
-    } catch (error) {
-      debug.warn('Prettier formatting failed:', (error as Error).message);
-      debug.warn('Make sure prettier is installed: npm install -g prettier');
+    if (prettier) {
+      debug.log('Prettier library loaded successfully, formatting files directly...');
+      await this.formatWithPrettierLibrary(prettier);
+      debug.log('Prettier library formatting completed successfully');
+      return;
+    }
+  } catch (prettierError) {
+    debug.warn('Failed to load prettier library:', (prettierError as Error).message);
+    debug.log('Falling back to command line prettier...');
+  }
+  
+  // Fallback to command line prettier
+  try {
+    if (!this.childProcess) {
+      debug.log('Loading child_process module...');
+      this.childProcess = await ConditionalImports.getNodeModule('child_process');
+    }
+    
+    // Format main output directory
+    const mainPath = this.path.resolve(__dirname, this.outDir);
+    debug.log(`Formatting main directory with CLI: ${mainPath}`);
+    this.childProcess.execSync(`prettier --write "${mainPath}"`);
+    debug.log('Main directory formatted successfully');
+    
+    // Format barrel file directory if it exists
+    if (this.barrelFileDir) {
+      const barrelPath = this.path.resolve(__dirname, this.barrelFileOutDir);
+      debug.log(`Formatting barrel directory with CLI: ${barrelPath}`);
+      this.childProcess.execSync(`prettier --write "${barrelPath}"`);
+      debug.log('Barrel directory formatted successfully');
+    }
+    
+    debug.log('CLI Prettier formatting completed successfully');
+  } catch (error) {
+    debug.warn('Prettier formatting failed:', (error as Error).message);
+    debug.warn('Make sure prettier is installed: npm install -g prettier');
+  }
+}
+
+private async formatWithPrettierLibrary(prettier: any): Promise<void> {
+  await this.ensureNodeModulesLoaded();
+  
+  // Get prettier configuration
+  let prettierConfig: any = {};
+  try {
+    // Try to resolve prettier config from the project
+    const configPath = this.path.resolve(__dirname, this.outDir);
+    prettierConfig = await prettier.resolveConfig(configPath) || {};
+    debug.log('Prettier config resolved:', prettierConfig);
+  } catch (configError) {
+    debug.warn('Failed to resolve prettier config, using defaults:', (configError as Error).message);
+    // Use default TypeScript formatting options
+    prettierConfig = {
+      parser: 'typescript',
+      semi: true,
+      singleQuote: true,
+      tabWidth: 2,
+      trailingComma: 'es5',
+    };
+  }
+  
+  // Format files in main output directory
+  const mainPath = this.path.resolve(__dirname, this.outDir);
+  debug.log(`Formatting TypeScript files in: ${mainPath}`);
+  await this.formatTsFilesInDirectory(prettier, mainPath, prettierConfig);
+  
+  // Format barrel file if it exists
+  if (this.barrelFileDir) {
+    const barrelPath = this.path.resolve(__dirname, this.barrelFileOutDir);
+    const barrelFilePath = this.path.join(barrelPath, 'index.ts');
+    
+    if (this.fs.existsSync(barrelFilePath)) {
+      debug.log(`Formatting barrel file: ${barrelFilePath}`);
+      await this.formatSingleFile(prettier, barrelFilePath, prettierConfig);
     }
   }
+}
+
+private async formatTsFilesInDirectory(prettier: any, dirPath: string, config: any): Promise<void> {
+  if (!this.fs.existsSync(dirPath)) {
+    debug.warn(`Directory does not exist: ${dirPath}`);
+    return;
+  }
+  
+  const entries = this.fs.readdirSync(dirPath, { withFileTypes: true });
+  
+  for (const entry of entries) {
+    const fullPath = this.path.join(dirPath, entry.name);
+    
+    if (entry.isDirectory()) {
+      // Recursively format subdirectories
+      debug.log(`Recursively formatting directory: ${fullPath}`);
+      await this.formatTsFilesInDirectory(prettier, fullPath, config);
+    } else if (entry.isFile() && entry.name.endsWith('.ts')) {
+      // Format TypeScript files
+      debug.log(`Formatting file: ${fullPath}`);
+      await this.formatSingleFile(prettier, fullPath, config);
+    }
+  }
+}
+
+private async formatSingleFile(prettier: any, filePath: string, config: any): Promise<void> {
+  try {
+    // Read the file content
+    const content = this.fs.readFileSync(filePath, 'utf8');
+    
+    // Format the content
+    const formatted = await prettier.format(content, {
+      filepath: filePath,
+      ...config,
+    });
+    
+    // Write back only if content changed
+    if (formatted !== content) {
+      this.fs.writeFileSync(filePath, formatted, 'utf8');
+      debug.log(`File formatted and updated: ${this.path.basename(filePath)}`);
+    } else {
+      debug.log(`File already properly formatted: ${this.path.basename(filePath)}`);
+    }
+  } catch (error) {
+    debug.error(`Failed to format file ${filePath}:`, (error as Error).message);
+  }
+}
 }
