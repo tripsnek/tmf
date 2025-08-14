@@ -7,7 +7,7 @@ import { EClassImpl } from '../metamodel/eclass-impl';
  * Generates *-factory.ts files, which provide static access to
  * methods for instantiating data objects for a TMF model.
  */
-export class DGeneratorFactory {
+export class TGeneratorFactory {
   /**
    * Single public static method for generating a XXXFactory class.
    * @param pkg

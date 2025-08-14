@@ -35,9 +35,9 @@ export * from './lib/metamodel/eparameter-impl';
 export * from './lib/utils/pair';
 
 // Export Source Code Generation tools
-export * from './lib/source-generators/dgenerator-main';
-export * from './lib/source-generators/dgenerator-factory';
-export * from './lib/source-generators/dgenerator-package';
+export * from './lib/source-generators/tgenerator-main';
+export * from './lib/source-generators/tgenerator-factory';
+export * from './lib/source-generators/tgenerator-package';
 
 export * from './lib/json/tjson';
 export * from './lib/tutils';

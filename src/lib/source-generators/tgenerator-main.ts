@@ -2,16 +2,16 @@ import { EPackage } from '../metamodel/epackage';
 import { EClassifier } from '../metamodel/eclassifier';
 import { EClass } from '../metamodel/eclass';
 import { EEnum } from '../metamodel/eenum';
-import { DGeneratorPackage } from './dgenerator-package';
-import { DGeneratorFactory } from './dgenerator-factory';
-import { DGeneratorUtils } from './dgenerator-utils';
-import { DGeneratorGen } from './dgenerator-gen';
-import { DGeneratorApi } from './dgenerator-api';
-import { DGeneratorImpl } from './dgenerator-impl';
-import { DGeneratorEnum } from './dgenerator-enum';
+import { TGeneratorPackage } from './tgenerator-package';
+import { TGeneratorFactory } from './tgenerator-factory';
+import { TGeneratorUtils } from './tgenerator-utils';
+import { TGeneratorGen } from './tgenerator-gen';
+import { TGeneratorApi } from './tgenerator-api';
+import { TGeneratorImpl } from './tgenerator-impl';
+import { TGeneratorEnum } from './tgenerator-enum';
 import { TGenUtils as DU } from './tgen-utils';
 import { EcorePackage } from '../metamodel/ecorepackage';
-import { DGeneratorBarrelIndexTs } from './dgenerator-barrel-index';
+import { TGeneratorBarrelIndexTs } from './tgenerator-barrel-index';
 import { EClassImpl } from '../metamodel/eclass-impl';
 import { EReferenceImpl } from '../metamodel/ereference-impl';
 import { EEnumImpl } from '../metamodel/eenum-impl';
@@ -77,7 +77,7 @@ export async function generate(
   
   Environment.requireNodeEnvironment('Code generation');
   
-  const generator = new DGeneratorMain(pkg, outDir, overwriteImpl);
+  const generator = new TGeneratorMain(pkg, outDir, overwriteImpl);
   await generator.generate();
   
   debug.timeEnd('Total Generation Time');
@@ -94,7 +94,7 @@ export async function generate(
  *  (5) Overwritable *Impl.ts classes (see TMFImplSourceGenerator.ts)
  *  (6) Enums (see TMFEnumSourceGenerator.ts)
  */
-export class DGeneratorMain {
+export class TGeneratorMain {
   // NOTE: These 5 are all constants computed during initialization
   public barrelFileOutDir!: string;
   public pkgOutDir: string;
@@ -119,7 +119,7 @@ export class DGeneratorMain {
     public overwriteImpl?: boolean,
     public barrelFileDir?: string
   ) {
-    debug.log('Initializing DGeneratorMain for package:', pkg.getName() || 'unnamed');
+    debug.log('Initializing TGeneratorMain for package:', pkg.getName() || 'unnamed');
     debug.log('Constructor parameters:', {
       packageName: pkg.getName(),
       outDir,
@@ -208,7 +208,7 @@ export class DGeneratorMain {
     debug.log(`Processing ${subpackages.size()} subpackage(s)...`);
     for (const subpackage of subpackages) {
       debug.log(`Recursively generating subpackage: ${subpackage.getName()}`);
-      const subGenerator = new DGeneratorMain(
+      const subGenerator = new TGeneratorMain(
         subpackage,
         this.pkgRootOutDir,
         this.overwriteImpl
@@ -326,7 +326,7 @@ export class DGeneratorMain {
 
   private async writeBarrelFile(): Promise<void> {
     debug.log('Generating barrel file content...');
-    const generator = new DGeneratorBarrelIndexTs();
+    const generator = new TGeneratorBarrelIndexTs();
     const content = generator.generate(this.pkg);
     debug.log('Writing barrel file to:', this.barrelFileOutDir);
     await this.writeSourceFile(this.barrelFileOutDir, 'index.ts', content, true);
@@ -335,7 +335,7 @@ export class DGeneratorMain {
   private async writePackageFile(): Promise<void> {
     const fileName = DU.genPackageFileName(this.pkg);
     debug.log('Generating package file:', fileName + '.ts');
-    const generator = new DGeneratorPackage();
+    const generator = new TGeneratorPackage();
     const content = generator.generatePackageContents(this.pkg);
     await this.writeSourceFile(this.pkgRootOutDir, fileName + '.ts', content, true);
   }
@@ -343,7 +343,7 @@ export class DGeneratorMain {
   private async writeFactoryFile(): Promise<void> {
     const fileName = DU.genFactoryFileName(this.pkg);
     debug.log('Generating factory file:', fileName + '.ts');
-    const generator = new DGeneratorFactory();
+    const generator = new TGeneratorFactory();
     const content = generator.generateFactoryContents(this.pkg);
     await this.writeSourceFile(this.pkgRootOutDir, fileName + '.ts', content, true);
   }
@@ -351,7 +351,7 @@ export class DGeneratorMain {
   private async writeUtilsFile(): Promise<void> {
     const fileName = DU.genUtilsFileName(this.pkg);
     debug.log('Generating utils file:', fileName + '.ts');
-    const generator = new DGeneratorUtils();
+    const generator = new TGeneratorUtils();
     const content = generator.generateUtilsContents(this.pkg);
     await this.writeSourceFile(this.pkgRootOutDir, fileName + '.ts', content, false);
   }
@@ -374,7 +374,7 @@ export class DGeneratorMain {
     const filename = DU.genClassApiName(eClass);
     debug.log(`Writing API file for ${eClass.getName()}: ${filename}.ts`);
     
-    const apiGenerator = new DGeneratorApi();
+    const apiGenerator = new TGeneratorApi();
     const tsInterfaceContent = apiGenerator.generate(
       eClass,
       this.eClassApiImports
@@ -392,7 +392,7 @@ export class DGeneratorMain {
     const filename = DU.genClassGenName(eClass);
     debug.log(`Writing Gen file for ${eClass.getName()}: ${filename}.ts`);
     
-    const genGenerator = new DGeneratorGen();
+    const genGenerator = new TGeneratorGen();
     const tsGenClassContent = genGenerator.generate(
       eClass,
       this.eClassApiImports,
@@ -413,7 +413,7 @@ export class DGeneratorMain {
     debug.log(`Writing Impl file for ${eClass.getName()}: ${filename}.ts`);
     debug.log(`Overwrite mode: ${this.overwriteImpl}`);
     
-    const implGenerator = new DGeneratorImpl();
+    const implGenerator = new TGeneratorImpl();
     const tsImplClassContent = implGenerator.generate(
       eClass,
       this.eClassApiImports
@@ -431,7 +431,7 @@ export class DGeneratorMain {
     const filename = DU.genClassApiName(eclassifier) + '.ts';
     debug.log(`Writing enum file for ${eclassifier.getName()}: ${filename}`);
     
-    const enumGenerator = new DGeneratorEnum();
+    const enumGenerator = new TGeneratorEnum();
     const enumContent = enumGenerator.generate(eclassifier);
     await this.writeSourceFile(
       this.pkgApiOutDir,

@@ -8,7 +8,7 @@ import { TGenUtils as DU } from './tgen-utils';
  *
  * @author Claude Code
  */
-export class DGeneratorUtils {
+export class TGeneratorUtils {
   public generateUtilsContents(pkg: EPackage): string {
     const utilsClassName = DU.capitalize(pkg.getName()) + 'Utils';
     

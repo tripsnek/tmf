@@ -8,7 +8,7 @@ import { TGenUtils as DU } from './tgen-utils';
  * APIs for a TMF EPackage.
  *
  */
-export class DGeneratorBarrelIndexTs {
+export class TGeneratorBarrelIndexTs {
   public generate(ePackage: EPackage): string {
     return this.generatePackageContents('', ePackage);
   }

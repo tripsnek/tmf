@@ -7,7 +7,7 @@ import { EClassifier } from '../metamodel/eclassifier';
  *
  * @tripsnek
  */
-export class DGeneratorApi {
+export class TGeneratorApi {
   public generate(eClass: EClass, toImport: Set<EClassifier>): string {
     const isEcore = eClass.getEPackage().getName() == 'ecore';
     const pkg = eClass.getEPackage();

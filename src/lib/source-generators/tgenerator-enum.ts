@@ -5,7 +5,7 @@ import { EEnum } from '../metamodel/eenum';
  *
  * @tripsnek
  */
-export class DGeneratorEnum {
+export class TGeneratorEnum {
   public generate(eEnum: EEnum): string {
     return `
       /**

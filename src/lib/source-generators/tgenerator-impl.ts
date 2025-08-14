@@ -7,7 +7,7 @@ import { EClassifier } from '../metamodel/eclassifier';
  *
  * @tripsnek
  */
-export class DGeneratorImpl {
+export class TGeneratorImpl {
   public generate(eClass: EClass, toImport: Set<EClassifier>): string {
     const genClassName = DU.genGenClassName(eClass);
     const apiClassName = eClass.getName();

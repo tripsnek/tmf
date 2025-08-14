@@ -25,7 +25,7 @@ import { EDataTypeImpl } from '../metamodel/edata-type-impl';
  * related to the tracking of IDs for individual elements, that it would
  * be difficult to separate them out.
  */
-export class DGeneratorPackage {
+export class TGeneratorPackage {
   public generatePackageContents(pkg: EPackage): string {
     const className = DU.genPackageClassName(pkg);
 

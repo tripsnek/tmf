@@ -1,6 +1,6 @@
 import { EcoreParser } from '../ecore/ecoreparser';
 import { EPackage } from '../metamodel/epackage';
-import { DGeneratorMain } from './dgenerator-main';
+import { TGeneratorMain } from './tgenerator-main';
 import { Environment, ConditionalImports } from '../utils/environment';
 
 /**
@@ -51,8 +51,8 @@ export async function generateFromEPackage(
 
   const path = require('path');
   const srcPath = path.resolve(destPath + '/src');
-  console.log('running DGeneratorMain, output to ' + srcPath);
-  new DGeneratorMain(
+  console.log('running TGeneratorMain, output to ' + srcPath);
+  new TGeneratorMain(
     pkg,
     path.resolve(destPath + '/src/lib'),
     overwriteImpl,

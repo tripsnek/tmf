@@ -12,7 +12,7 @@ import { EReferenceImpl } from '../metamodel/ereference-impl';
  *
  * @tripsnek
  */
-export class DGeneratorGen {
+export class TGeneratorGen {
   private _pkg: EPackage;
   private _packageName: string;
 
