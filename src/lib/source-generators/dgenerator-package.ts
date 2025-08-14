@@ -34,24 +34,23 @@ export class DGeneratorPackage {
 
     //static library of all package contents
     let literalsContent = `
-    /** Provides static access to EClass and EStructuralFeature instances */
-    public static Literals = class {`;
+  /** Provides static access to EClass and EStructuralFeature instances */
+  public static Literals = class {`;
 
     let fieldDeclarationsContent = '';
     let gettersContent = '';
 
     //insert create/initialize methods
-    let createContent = `public createPackageContents(): void {
-      if (this.isCreated) return;
-      this.isCreated = true;`;
+    let createContent = `  public createPackageContents(): void {
+    if (this.isCreated) return;
+    this.isCreated = true;`;
 
-    let initContent = `public initializePackageContents(): void {
-      if (this.isInitialized) return;
-      this.isInitialized = true;
-      
-      //reusable handle for eoperations, used for adding parameters
-      let op: EOperation = null;
-      `;
+    let initContent = `  public initializePackageContents(): void {
+    if (this.isInitialized) return;
+    this.isInitialized = true;
+
+    //reusable handle for eoperations, used for adding parameters
+    let op: EOperation = null;`;
 
     let idFieldsContent = '';
 
@@ -68,7 +67,8 @@ export class DGeneratorPackage {
     //file in the return statement for this method
     for (const eclassifier of sortedClassifiers) {
       const eclassIdField = DU.genClassIdFieldName(eclassifier);
-      idFieldsContent += `public static ${eclassIdField}  = ${ecIdCounter};`;
+      idFieldsContent += `
+  public static ${eclassIdField} = ${ecIdCounter};`;
       ecIdCounter++;
 
       //add eclassifier field
@@ -76,17 +76,24 @@ export class DGeneratorPackage {
       if (eclassifier instanceof EEnumImpl) type = 'EEnum';
       else if (eclassifier instanceof EDataTypeImpl) type = 'EDataType';
       const eclassFieldName = DU.uncapitalize(eclassifier.getName()) + type;
-      fieldDeclarationsContent += `private ${eclassFieldName} : ${type} = null;`;
+      fieldDeclarationsContent += `
+  private ${eclassFieldName}: ${type} = null;`;
 
       //add eclass getter
       const eclassGetter = DU.genEclassGetterName(eclassifier);
-      gettersContent += `public ${eclassGetter}() : ${type} {return this.${eclassFieldName};}`;
+      gettersContent += `
+
+  public ${eclassGetter}(): ${type} {
+    return this.${eclassFieldName};
+  }`;
 
       //add creation
-      createContent += `this.${eclassFieldName} = this.create${type}(${className}.${eclassIdField});`;
+      createContent += `
+    this.${eclassFieldName} = this.create${type}(${className}.${eclassIdField});`;
 
       //add Literals entry for EClassifier
-      literalsContent += `static ${eclassIdField}: ${type} = ${className}.eINSTANCE.${DU.genEclassGetterName(
+      literalsContent += `
+    static ${eclassIdField}: ${type} = ${className}.eINSTANCE.${DU.genEclassGetterName(
         eclassifier
       )}();`;
 
@@ -99,19 +106,23 @@ export class DGeneratorPackage {
             eclassifier,
             pkgToImport
           );
-          initContent += `this.${eclassFieldName}.getESuperTypes().add(${pkgRef}.${DU.genEclassGetterName(
+          initContent += `
+    this.${eclassFieldName}.getESuperTypes().add(${pkgRef}.${DU.genEclassGetterName(
             superType
           )}());`;
         }
-        initContent += `this.init${type}(this.${eclassFieldName}, '${eclassifier.getName()}',${eclassifier.isAbstract()},${eclassifier.isInterface()},true);`;
+        initContent += `
+    this.init${type}(this.${eclassFieldName}, '${eclassifier.getName()}', ${eclassifier.isAbstract()}, ${eclassifier.isInterface()}, true);`;
       } else {
-        initContent += `this.init${type}(this.${eclassFieldName}, '${eclassifier.getName()}');`;
+        initContent += `
+    this.init${type}(this.${eclassFieldName}, '${eclassifier.getName()}');`;
 
         if (eclassifier instanceof EEnumImpl) {
           let literalInd = 0;
           for (const literal of (<EEnum>eclassifier).getELiterals()) {
             const litRef = eclassifier.getName() + '.' + literal.getName();
-            initContent += `this.addEEnumLiteral(this.${eclassFieldName},'${literal.getName()}',${literalInd});`;
+            initContent += `
+    this.addEEnumLiteral(this.${eclassFieldName}, '${literal.getName()}', ${literalInd});`;
             literalInd++;
           }
         }
@@ -134,7 +145,7 @@ export class DGeneratorPackage {
             ' + '
           : '';
         idFieldsContent += `
-        public static ${featureCountField} = ${
+  public static ${featureCountField} = ${
           superTypeCountField + eclassifier.getEStructuralFeatures().size()
         };`;
 
@@ -143,25 +154,29 @@ export class DGeneratorPackage {
         for (const feature of (<EClass>eclassifier).getEStructuralFeatures()) {
           const featureIdField = DU.genFeatureIdFieldName(feature);
           idFieldsContent += `
-          public static ${featureIdField} = ${
+  public static ${featureIdField} = ${
             superTypeCountField + thisClassFeatureIndex
           };`;
 
           const featureType =
             feature instanceof EAttributeImpl ? 'EAttribute' : 'EReference';
-          literalsContent += `static ${featureIdField}: ${featureType} = ${className}.eINSTANCE.get${DU.capitalize(
+          literalsContent += `
+    static ${featureIdField}: ${featureType} = ${className}.eINSTANCE.get${DU.capitalize(
             eclassifier.getName()
           )}_${DU.capitalize(feature.getName())}();`;
 
           //create features
-          createContent += `this.create${featureType}(this.${eclassFieldName},${className}.${featureIdField});`;
+          createContent += `
+    this.create${featureType}(this.${eclassFieldName}, ${className}.${featureIdField});`;
 
           const featureGetterName = DU.genFeatureGetterName(feature);
 
           //add feature getter
-          gettersContent += `public ${featureGetterName}() : ${featureType}{
-            return <${featureType}>this.${eclassFieldName}.getEStructuralFeatures().get(${thisClassFeatureIndex});
-          }`;
+          gettersContent += `
+
+  public ${featureGetterName}(): ${featureType} {
+    return <${featureType}>this.${eclassFieldName}.getEStructuralFeatures().get(${thisClassFeatureIndex});
+  }`;
 
           //the getter for the feature's type (Eclassifier instance)
           const featureTypeGetter = this.getterForEType(
@@ -172,22 +187,10 @@ export class DGeneratorPackage {
           );
 
           //initializers
-          initContent += `this.init${featureType}(this.${featureGetterName}()`;
+          initContent += `
+    this.init${featureType}(this.${featureGetterName}()`;
           if (feature instanceof EAttributeImpl) {
-            initContent += `,${featureTypeGetter},
-             '${feature.getName()}',
-              ${feature.getDefaultValueLiteral()},
-              ${feature.getLowerBound()},
-              ${feature.getUpperBound()},
-              ${feature.getContainerClass()},
-              ${feature.isTransient()},
-              ${feature.isVolatile()},
-              ${feature.isChangeable()},
-              ${feature.isUnsettable()},
-              ${feature.isId()},
-              ${feature.isUnique()},
-              ${feature.isDerived()},
-              ${feature.isOrdered()}`;
+            initContent += `, ${featureTypeGetter}, '${feature.getName()}', ${feature.getDefaultValueLiteral()}, ${feature.getLowerBound()}, ${feature.getUpperBound()}, ${feature.getContainerClass()}, ${feature.isTransient()}, ${feature.isVolatile()}, ${feature.isChangeable()}, ${feature.isUnsettable()}, ${feature.isId()}, ${feature.isUnique()}, ${feature.isDerived()}, ${feature.isOrdered()}`;
           } else if (feature instanceof EReferenceImpl) {
             const pkgRef = DU.getReferenceToPackageInstance(
               feature.getEType(),
@@ -200,25 +203,9 @@ export class DGeneratorPackage {
                 feature.getEOpposite()
               )}()`;
             }
-            initContent += `,
-              ${featureTypeGetter},
-              ${eopposite},
-              '${feature.getName()}'
-              ,null,
-              ${feature.getLowerBound()},
-              ${feature.getUpperBound()},
-              ${feature.getContainerClass()},
-              ${feature.isTransient()},
-              ${feature.isVolatile()},
-              ${feature.isChangeable()},
-              ${feature.isContainment()},
-              ${feature.isResolveProxies()},
-              ${feature.isUnsettable()},
-              ${feature.isUnique()},
-              ${feature.isDerived()},
-              ${feature.isOrdered()}`;
+            initContent += `, ${featureTypeGetter}, ${eopposite}, '${feature.getName()}', null, ${feature.getLowerBound()}, ${feature.getUpperBound()}, ${feature.getContainerClass()}, ${feature.isTransient()}, ${feature.isVolatile()}, ${feature.isChangeable()}, ${feature.isContainment()}, ${feature.isResolveProxies()}, ${feature.isUnsettable()}, ${feature.isUnique()}, ${feature.isDerived()}, ${feature.isOrdered()}`;
           }
-          initContent += ');\n';
+          initContent += ');';
           thisClassFeatureIndex++;
         }
 
@@ -228,105 +215,106 @@ export class DGeneratorPackage {
           const eopIdField = DU.genOperationIdFieldName(eop);
           //add ID content
           idFieldsContent += `
-          public static ${eopIdField} = ${eopIndex};`;
-          createContent += `this.createEOperation(this.${eclassFieldName}, ${className}.${eopIdField});`;
+  public static ${eopIdField} = ${eopIndex};`;
+          createContent += `
+    this.createEOperation(this.${eclassFieldName}, ${className}.${eopIdField});`;
           const featureGetterName = DU.genOperationGetterName(eop);
-          gettersContent += `public ${featureGetterName}() : EOperation{
-            return this.${eclassFieldName}.getEOperations().get(${eopIndex});
-          }`;
-          initContent += ` op = this.initEOperation(this.${featureGetterName}(),${this.getterForEType(
+          gettersContent += `
+
+  public ${featureGetterName}(): EOperation {
+    return this.${eclassFieldName}.getEOperations().get(${eopIndex});
+  }`;
+          initContent += `
+    op = this.initEOperation(this.${featureGetterName}(), ${this.getterForEType(
             eop.getEType(),
             eclassifier,
             pkgToImport,
             pkg
-          )},'${eop.getName()}',0,${eop.isMany() ? -1 : 1},true,true);`;
+          )}, '${eop.getName()}', 0, ${eop.isMany() ? -1 : 1}, true, true);`;
           eopIndex++;
         }
       }
     }
 
-    createContent += '}\n';
-    initContent += '}\n';
-    literalsContent += '}\n';
+    createContent += `
+  }`;
+    initContent += `
+  }`;
+    literalsContent += `
+  };`;
 
     //EcorePackage cannot extend EPackageImpl, as it it would create circular reference
     const toExtend =
       pkg.getName().toLowerCase() === 'ecore' ? 'EPackage' : 'EPackageImpl';
 
-    return `
-    
-  ${this.generateImports(pkgToImport, pkg)}
-  export class ${className} extends ${toExtend} {
+    return `${this.generateImports(pkgToImport, pkg)}
+export class ${className} extends ${toExtend} {${idFieldsContent}
 
-      ${idFieldsContent}
+  /** Singleton */
+  public static eINSTANCE: ${className} = ${className}.init();
 
-      /** Singleton */
-      public static eINSTANCE: ${className}  = ${className}.init();
-      
-      //if the singleton is initialized
-      private static isInited = false;
+  //if the singleton is initialized
+  private static isInited = false;
 
-      static eNS_URI = "${pkg.getNsURI()}";
-      static eNAME = "${pkg.getName()}";
-      static eNS_PREFIX = "${pkg.getNsPrefix()}";
+  static eNS_URI = '${pkg.getNsURI()}';
+  static eNAME = '${pkg.getName()}';
+  static eNS_PREFIX = '${pkg.getNsPrefix()}';
+${literalsContent}
 
-      ${literalsContent}
+  //flags that keep track of whether package is initialized
+  private isCreated = false;
+  private isInitialized = false;
+${fieldDeclarationsContent}
 
-      //flags that keep track of whether package is initialized
-      private isCreated = false;
-      private isInitialized = false;
+  //causes EPackage.Registry registration event
+  //hard-coded URI, since referring to the static eNS_URI field in constructor can cause issues
+  constructor() {
+    super('${pkg.getName()}', '${pkg.getNsURI()}');
+  }
 
-      ${fieldDeclarationsContent}
+  /**
+   * Invoked once. Initializes the Singleton.
+   *
+   * NOTE: Lots of differences here with the EMF version, which interacts with the package Registry,
+   * other packages from the same model to register interdependencies, and freezes the package meta-data.
+   */
+  private static init(): ${className} {
+    if (${className}.isInited) return this.eINSTANCE;
+    // Obtain or create and register package
+    const the${className} = new ${className}();
+    //this is necessary specifically for EcorePackage generation, which needs to refer to itself
+    this.eINSTANCE = the${className};
+    ${className}.isInited = true;
 
-      //causes EPackage.Registry registration event
-      //hard-coded URI, since referring to the static eNS_URI field in constructor can cause issues
-      constructor() {super("${pkg.getName()}", '${pkg.getNsURI()}');}
+    // Create package meta-data objects
+    the${className}.createPackageContents();
 
-      /**
-        * Invoked once. Initializes the Singleton.
-        *
-        * NOTE: Lots of differences here with the EMF version, which interacts with the package Registry,
-        * other packages from the same model to register interdependencies, and freezes the package meta-data.
-        */
-      private static init():${className}{
-        if (${className}.isInited) return this.eINSTANCE;
-          // Obtain or create and register package
-          const the${className} = new ${className}(); 
-          //this is necessary specifically for EcorePackage generation, which needs to refer to itself
-          this.eINSTANCE = the${className};
-          ${className}.isInited = true;
+    // Initialize created meta-data
+    the${className}.initializePackageContents();
+    return the${className};
+  }
 
-        // Create package meta-data objects
-        the${className}.createPackageContents();
+  //DRT 10/1/2020 - this used to be direct lazy retrieval of the
+  //factory instance from the corresponding .ts factory file, but
+  //that was eliminated to avoid circular imports
+  public getEFactoryInstance(): EFactory {
+    return this._eFactoryInstance;
+  }
 
-        // Initialize created meta-data
-        the${className}.initializePackageContents();
-        return the${className};
-      }
-          
-      //DRT 10/1/2020 - this used to be direct lazy retrieval of the
-      //factory instance from the corresponding .ts factory file, but
-      //that was eliminated to avoid circular imports
-      public getEFactoryInstance(): EFactory {
-        return this._eFactoryInstance;
-      }
-    
-      /**
-        * This will be invoked by the Factory when it is initialized, any invocations
-        * afterwards will have no effect.
-        */ 
-      public setEFactoryInstance(factoryInst: EFactory): void {
-        if(!this._eFactoryInstance) this._eFactoryInstance = factoryInst;
-      }
+  /**
+   * This will be invoked by the Factory when it is initialized, any invocations
+   * afterwards will have no effect.
+   */
+  public setEFactoryInstance(factoryInst: EFactory): void {
+    if (!this._eFactoryInstance) this._eFactoryInstance = factoryInst;
+  }
+${gettersContent}
 
-      ${gettersContent}
+${createContent}
 
-      ${createContent}
-
-      ${initContent}
-
-    }
-    `;
+${initContent}
+}
+`;
   }
 
   /**
@@ -372,38 +360,35 @@ export class DGeneratorPackage {
   }
 
   private generateImports(pkgToImport: Set<EPackage>, pkg: EPackage) {
-    let imports = `
-    ${DU.generateImportStatementsForExternalPackages(pkgToImport, pkg, '')}
-    ${DU.DEFAULT_IMPORTS}
-    import { EPackage } from '@tripsnek/tmf';
-    import { EPackageImpl } from '@tripsnek/tmf';
-    import { EAttribute} from '@tripsnek/tmf';
-    import { EFactory } from '@tripsnek/tmf';
-    import { EReference } from '@tripsnek/tmf';
-    import { EOperation } from '@tripsnek/tmf';
-  `;
+    let imports = `${DU.generateImportStatementsForExternalPackages(pkgToImport, pkg, '')}
+${DU.DEFAULT_IMPORTS}
+
+import { EPackage } from '@tripsnek/tmf';
+import { EPackageImpl } from '@tripsnek/tmf';
+import { EAttribute } from '@tripsnek/tmf';
+import { EFactory } from '@tripsnek/tmf';
+import { EReference } from '@tripsnek/tmf';
+import { EOperation } from '@tripsnek/tmf';`;
 
     //we use relative imports for the EcorePackage, since it is in the same lib as the metamodel
     if (pkg.getName().toLowerCase() === 'ecore') {
-      imports = `
-      ${DU.generateImportStatementsForExternalPackages(pkgToImport, pkg, '')}
-      import { EPackage } from './epackage';
-      import { EDataType } from './edata-type';
-      import { EClass } from './eclass';
-      import { EReference } from './ereference';
-      import { EAttribute } from './eattribute';
-      import { EFactory } from './efactory';
-    `;
+      imports = `${DU.generateImportStatementsForExternalPackages(pkgToImport, pkg, '')}
+import { EPackage } from './epackage';
+import { EDataType } from './edata-type';
+import { EClass } from './eclass';
+import { EReference } from './ereference';
+import { EAttribute } from './eattribute';
+import { EFactory } from './efactory';`;
     } else {
-      imports += `import { EcorePackage } from '@tripsnek/tmf';`;
+      imports += `
+import { EcorePackage } from '@tripsnek/tmf';`;
     }
 
     //imports of Enum classes
     for (const ec of pkg.getEClassifiers()) {
       if (ec instanceof EEnumImpl) {
-        imports += `import {${ec.getName()}} from './api/${DU.genClassApiName(
-          ec
-        )}';`;
+        imports += `
+import { ${ec.getName()} } from './api/${DU.genClassApiName(ec)}';`;
       }
     }
     return imports;
