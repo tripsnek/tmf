@@ -363,7 +363,7 @@ export class EcoreStringWriter {
       return `#//${feature.getName()}`;
     }
     
-    return `#//${containingClass.getName()}/${feature.getName()}`;
+    return `#//${this.getPackagePath(containingClass.getEPackage())}/${containingClass.getName()}/${feature.getName()}`;
   }
   
   /**
