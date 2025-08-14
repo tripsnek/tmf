@@ -129,7 +129,7 @@ import { EObjectImpl } from '@tripsnek/tmf';`;
     //add parameters
     let paramInd = 0;
     for (const param of eop.getEParameters()) {
-      if (paramInd > 0) signature += ',';
+      if (paramInd > 0) signature += ', ';
       let paramType = TUtils.getTypescriptName(param.getEType());
       if (param.isMany()) {
         paramType = `EList<${paramType}>`;
