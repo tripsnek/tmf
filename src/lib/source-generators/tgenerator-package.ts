@@ -82,7 +82,6 @@ export class TGeneratorPackage {
       //add eclass getter
       const eclassGetter = DU.genEclassGetterName(eclassifier);
       gettersContent += `
-
   public ${eclassGetter}(): ${type} {
     return this.${eclassFieldName};
   }`;
@@ -112,10 +111,17 @@ export class TGeneratorPackage {
           )}());`;
         }
         initContent += `
-    this.init${type}(this.${eclassFieldName}, '${eclassifier.getName()}', ${eclassifier.isAbstract()}, ${eclassifier.isInterface()}, true);`;
+    this.init${type}(
+      this.${eclassFieldName},
+      '${eclassifier.getName()}',
+      ${eclassifier.isAbstract()},
+      ${eclassifier.isInterface()},
+      true
+    );`;
       } else {
         initContent += `
-    this.init${type}(this.${eclassFieldName}, '${eclassifier.getName()}');`;
+    this.init${type}(
+      this.${eclassFieldName}, '${eclassifier.getName()}');`;
 
         if (eclassifier instanceof EEnumImpl) {
           let literalInd = 0;
@@ -144,36 +150,48 @@ export class TGeneratorPackage {
             DU.genFeatureCountFieldName(superType) +
             ' + '
           : '';
-        idFieldsContent += `
-  public static ${featureCountField} = ${
-          superTypeCountField + eclassifier.getEStructuralFeatures().size()
-        };`;
+        
+        if (superTypeCountField) {
+          idFieldsContent += `
+  public static ${featureCountField} =
+    ${superTypeCountField}${eclassifier.getEStructuralFeatures().size()};`;
+        } else {
+          idFieldsContent += `
+  public static ${featureCountField} = ${eclassifier.getEStructuralFeatures().size()};`;
+        }
 
         //keeps track of the feature's index in it's eClass (used for feature getter)
         let thisClassFeatureIndex = 0;
         for (const feature of (<EClass>eclassifier).getEStructuralFeatures()) {
           const featureIdField = DU.genFeatureIdFieldName(feature);
-          idFieldsContent += `
-  public static ${featureIdField} = ${
-            superTypeCountField + thisClassFeatureIndex
-          };`;
+          
+          if (superTypeCountField) {
+            idFieldsContent += `
+  public static ${featureIdField} = ${superTypeCountField}${thisClassFeatureIndex};`;
+          } else {
+            idFieldsContent += `
+  public static ${featureIdField} = ${thisClassFeatureIndex};`;
+          }
 
           const featureType =
             feature instanceof EAttributeImpl ? 'EAttribute' : 'EReference';
           literalsContent += `
-    static ${featureIdField}: ${featureType} = ${className}.eINSTANCE.get${DU.capitalize(
+    static ${featureIdField}: ${featureType} =
+      ${className}.eINSTANCE.get${DU.capitalize(
             eclassifier.getName()
           )}_${DU.capitalize(feature.getName())}();`;
 
           //create features
           createContent += `
-    this.create${featureType}(this.${eclassFieldName}, ${className}.${featureIdField});`;
+    this.create${featureType}(
+      this.${eclassFieldName},
+      ${className}.${featureIdField}
+    );`;
 
           const featureGetterName = DU.genFeatureGetterName(feature);
 
           //add feature getter
           gettersContent += `
-
   public ${featureGetterName}(): ${featureType} {
     return <${featureType}>this.${eclassFieldName}.getEStructuralFeatures().get(${thisClassFeatureIndex});
   }`;
@@ -188,9 +206,24 @@ export class TGeneratorPackage {
 
           //initializers
           initContent += `
-    this.init${featureType}(this.${featureGetterName}()`;
+    this.init${featureType}(
+      this.${featureGetterName}()`;
           if (feature instanceof EAttributeImpl) {
-            initContent += `, ${featureTypeGetter}, '${feature.getName()}', ${feature.getDefaultValueLiteral()}, ${feature.getLowerBound()}, ${feature.getUpperBound()}, ${feature.getContainerClass()}, ${feature.isTransient()}, ${feature.isVolatile()}, ${feature.isChangeable()}, ${feature.isUnsettable()}, ${feature.isId()}, ${feature.isUnique()}, ${feature.isDerived()}, ${feature.isOrdered()}`;
+            initContent += `,
+      ${featureTypeGetter},
+      '${feature.getName()}',
+      ${feature.getDefaultValueLiteral()},
+      ${feature.getLowerBound()},
+      ${feature.getUpperBound()},
+      ${feature.getContainerClass()},
+      ${feature.isTransient()},
+      ${feature.isVolatile()},
+      ${feature.isChangeable()},
+      ${feature.isUnsettable()},
+      ${feature.isId()},
+      ${feature.isUnique()},
+      ${feature.isDerived()},
+      ${feature.isOrdered()}`;
           } else if (feature instanceof EReferenceImpl) {
             const pkgRef = DU.getReferenceToPackageInstance(
               feature.getEType(),
@@ -203,9 +236,26 @@ export class TGeneratorPackage {
                 feature.getEOpposite()
               )}()`;
             }
-            initContent += `, ${featureTypeGetter}, ${eopposite}, '${feature.getName()}', null, ${feature.getLowerBound()}, ${feature.getUpperBound()}, ${feature.getContainerClass()}, ${feature.isTransient()}, ${feature.isVolatile()}, ${feature.isChangeable()}, ${feature.isContainment()}, ${feature.isResolveProxies()}, ${feature.isUnsettable()}, ${feature.isUnique()}, ${feature.isDerived()}, ${feature.isOrdered()}`;
+            initContent += `,
+      ${featureTypeGetter},
+      ${eopposite},
+      '${feature.getName()}',
+      null,
+      ${feature.getLowerBound()},
+      ${feature.getUpperBound()},
+      ${feature.getContainerClass()},
+      ${feature.isTransient()},
+      ${feature.isVolatile()},
+      ${feature.isChangeable()},
+      ${feature.isContainment()},
+      ${feature.isResolveProxies()},
+      ${feature.isUnsettable()},
+      ${feature.isUnique()},
+      ${feature.isDerived()},
+      ${feature.isOrdered()}`;
           }
-          initContent += ');';
+          initContent += `
+    );`;
           thisClassFeatureIndex++;
         }
 
@@ -220,17 +270,24 @@ export class TGeneratorPackage {
     this.createEOperation(this.${eclassFieldName}, ${className}.${eopIdField});`;
           const featureGetterName = DU.genOperationGetterName(eop);
           gettersContent += `
-
   public ${featureGetterName}(): EOperation {
     return this.${eclassFieldName}.getEOperations().get(${eopIndex});
   }`;
           initContent += `
-    op = this.initEOperation(this.${featureGetterName}(), ${this.getterForEType(
+    op = this.initEOperation(
+      this.${featureGetterName}(),
+      ${this.getterForEType(
             eop.getEType(),
             eclassifier,
             pkgToImport,
             pkg
-          )}, '${eop.getName()}', 0, ${eop.isMany() ? -1 : 1}, true, true);`;
+          )},
+      '${eop.getName()}',
+      0,
+      ${eop.isMany() ? -1 : 1},
+      true,
+      true
+    );`;
           eopIndex++;
         }
       }
@@ -256,7 +313,8 @@ export class ${className} extends ${toExtend} {${idFieldsContent}
   //if the singleton is initialized
   private static isInited = false;
 
-  static eNS_URI = '${pkg.getNsURI()}';
+  static eNS_URI =
+    '${pkg.getNsURI()}';
   static eNAME = '${pkg.getName()}';
   static eNS_PREFIX = '${pkg.getNsPrefix()}';
 ${literalsContent}
@@ -269,7 +327,10 @@ ${fieldDeclarationsContent}
   //causes EPackage.Registry registration event
   //hard-coded URI, since referring to the static eNS_URI field in constructor can cause issues
   constructor() {
-    super('${pkg.getName()}', '${pkg.getNsURI()}');
+    super(
+      '${pkg.getName()}',
+      '${pkg.getNsURI()}'
+    );
   }
 
   /**
@@ -294,7 +355,7 @@ ${fieldDeclarationsContent}
     return the${className};
   }
 
-  //DRT 10/1/2020 - this used to be direct lazy retrieval of the
+  //this used to be direct lazy retrieval of the
   //factory instance from the corresponding .ts factory file, but
   //that was eliminated to avoid circular imports
   public getEFactoryInstance(): EFactory {
