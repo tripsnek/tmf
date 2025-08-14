@@ -170,7 +170,7 @@ export class EcoreStringWriter {
     }
     
     // Add upper bound if not 1
-    if (operation.getUpperBound() !== 1 && operation.getUpperBound() !== undefined && operation.getUpperBound()!==-2) {
+    if (operation.getUpperBound() ==-1) {
       xml += ` upperBound="${operation.getUpperBound()}"`;
     }
     
@@ -204,9 +204,11 @@ export class EcoreStringWriter {
     const indent = this.getIndent();
     let xml = `${indent}<eParameters name="${this.escapeXml(parameter.getName())}"`;
     
-    if (parameter.getUpperBound() !== 1 && parameter.getUpperBound() !== undefined && parameter.getUpperBound()!==-2) {
+    if (parameter.getUpperBound()==-1) {
       xml += ` upperBound="${parameter.getUpperBound()}"`;
     }
+
+    //TODO: lower bounds for optional parameters? since we can support those in typescript
 
     if (parameter.getEType()) {
       xml += ` eType="${this.getClassifierReference(parameter.getEType(), containingPackage)}"`;
@@ -231,11 +233,8 @@ export class EcoreStringWriter {
       xml += ` eType="${this.getClassifierReference(feature.getEType(), containingPackage)}"`;
     }
     
-    // Add bounds if not default
-    if (feature.getLowerBound() !== undefined && feature.getLowerBound() !== 0 && feature.getLowerBound()!==-2) {
-      xml += ` lowerBound="${feature.getLowerBound()}"`;
-    }
-    if (feature.getUpperBound() !== undefined && feature.getUpperBound() !== 1 && feature.getUpperBound()!==-2) {
+    //TODO: lowerbound? only seems to make sense if we have 'required' features  
+    if (feature.getUpperBound()==-1) {
       xml += ` upperBound="${feature.getUpperBound()}"`;
     }
     
