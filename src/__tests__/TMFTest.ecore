@@ -1,135 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="model" nsURI="http://www.tripsnek.com/emf.com.tripsnek.tmftest.model"
-    nsPrefix="emf.com.tripsnek.tmftest.model">
-  <eSubpackages name="core" nsURI="http://www.tripsnek.com/emf.com.tripsnek.tmftest.model.core"
-      nsPrefix="core">
-    <eClassifiers xsi:type="ecore:EClass" name="IdedEntity" abstract="true">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-          iD="true"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="editDate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate">
-      </eStructuralFeatures>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="editUser" eType="#//core/User">
-      </eStructuralFeatures>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="locked" lowerBound="1"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
-          unsettable="true"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="id2" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-          iD="true"/>
-    </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="NamedEntity" abstract="true" eSuperTypes="#//core/IdedEntity">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-          unsettable="true"/>
-    </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="User" eSuperTypes="#//core/NamedEntity">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="pass" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="salt" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="email" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="FooGroup" eSuperTypes="#//core/NamedEntity">
-      <eOperations name="computeFoosOfClass" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
-        <eParameters name="fooClass" eType="#//core/FooClass"/>
-      </eOperations>
-      <eOperations name="getFoosWithBazzles" upperBound="-1" eType="#//core/Foo">
-        <eParameters name="bazzles" upperBound="-1" eType="#//core/Bazzle"/>
-      </eOperations>
-      <eOperations name="freeze"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="user" eType="#//core/User"
-          containment="true"/>
-    </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="Foo" eSuperTypes="#//core/NamedEntity">
-      <eOperations name="copyFoo" eType="#//core/Foo"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="group" eType="#//core/FooGroup"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="creationDate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="fooClass" eType="#//core/FooClass"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="range" lowerBound="1"
-          eType="#//core/BoundedNumber" containment="true" resolveProxies="false">
-      </eStructuralFeatures>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="bars" upperBound="-1"
-          eType="#//core/Bar" containment="true" eOpposite="#//core/Bar/foo"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="oneToOneBazzle" eType="#//core/Bazzle"
-          eOpposite="#//core/Bazzle/oneToOneFoo">
-      </eStructuralFeatures>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="manyAttribute" upperBound="-1"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="unchangeableAttribute"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-          changeable="false"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="unchangeableReference"
-          eType="#//core/Bazzle" changeable="false" containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="transientAttribute" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-          transient="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="transientReference" eType="#//core/Foo"
-          transient="true" containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="volatileAttribute" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-          volatile="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="volatileReference" eType="#//core/Foo"
-          volatile="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="manyCrossAggregate" upperBound="-1"
-          eType="#//core/Foo"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="manyCrossAggregateNested"
-          upperBound="-1" eType="#//core/Bar"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="manyValueObjects" lowerBound="1"
-          upperBound="-1" eType="#//core/BoundedNumber" containment="true" resolveProxies="false">
-      </eStructuralFeatures>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="oneToOneContainment"
-          eType="#//core/Bazzle" containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="ownedFoos" upperBound="-1"
-          eType="#//core/Foo">
-      </eStructuralFeatures>
-    </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="FooSpecialization" eSuperTypes="#//core/Foo"/>
-    <eClassifiers xsi:type="ecore:EClass" name="BarSpecializationWithComponents" eSuperTypes="#//core/Bar">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="componentBars" upperBound="-1"
-          eType="#//core/Bar" containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="specialName" lowerBound="1"
-          eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-          unsettable="true"/>
-    </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="Bar" eSuperTypes="#//core/NamedEntity">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="foo" eType="#//core/Foo"
-          eOpposite="#//core/Foo/bars"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="bazzles" upperBound="-1"
-          eType="#//core/Bazzle" containment="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="backupFor" upperBound="-1"
-          eType="#//core/Bazzle" eOpposite="#//core/Bazzle/backupBar">
-      </eStructuralFeatures>
-    </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="Bazzle" eSuperTypes="#//core/NamedEntity">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="backupBar" eType="#//core/Bar"
-          eOpposite="#//core/Bar/backupFor">
-      </eStructuralFeatures>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="oneToOneFoo" eType="#//core/Foo"
-          eOpposite="#//core/Foo/oneToOneBazzle">
-      </eStructuralFeatures>
-    </eClassifiers>
-    <eClassifiers xsi:type="ecore:EClass" name="BoundedNumber">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="units" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-          defaultValueLiteral="NONE"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
-          defaultValueLiteral="1"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
-          defaultValueLiteral="1"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="minValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
-          defaultValueLiteral="1"/>
-    </eClassifiers>
-    <eClassifiers xsi:type="ecore:EEnum" name="FooClass">
-      <eLiterals name="SHORT"/>
-      <eLiterals name="MEDIUM" value="1"/>
-      <eLiterals name="INTERMEDIATE" value="2"/>
-      <eLiterals name="LONG" value="3"/>
-    </eClassifiers>
-  </eSubpackages>
-  <eSubpackages name="analysis">
-    <eClassifiers xsi:type="ecore:EClass" name="AnalysisResult" eSuperTypes="#//core/IdedEntity">
-      <eOperations name="cloneObject" eType="#//core/NamedEntity">
-        <eParameters name="deepCopy" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-        <eParameters name="newUser" eType="#//core/User"/>
-      </eOperations>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="user" eType="#//core/User"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="object" eType="#//core/NamedEntity"
-          containment="true"/>
-    </eClassifiers>
-  </eSubpackages>
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="model" nsURI="http://www.tripsnek.com/emf.com.tripsnek.tmftest.model" nsPrefix="emf.com.tripsnek.tmftest.model">
+    <eSubpackages name="core" nsURI="http://www.tripsnek.com/emf.com.tripsnek.tmftest.model.core" nsPrefix="core">
+        <eClassifiers xsi:type="ecore:EClass" name="IdedEntity" abstract="true">
+            <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" iD="true"/>
+            <eStructuralFeatures xsi:type="ecore:EAttribute" name="editDate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
+            <eStructuralFeatures xsi:type="ecore:EReference" name="editUser" eType="#//core/User"/>
+            <eStructuralFeatures xsi:type="ecore:EAttribute" name="locked" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+            <eStructuralFeatures xsi:type="ecore:EAttribute" name="id2" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" iD="true"/>
+        </eClassifiers>
+        <eClassifiers xsi:type="ecore:EClass" name="NamedEntity" eSuperTypes="#//core/IdedEntity" abstract="true">
+            <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        </eClassifiers>
+        <eClassifiers xsi:type="ecore:EClass" name="User" eSuperTypes="#//core/NamedEntity">
+            <eStructuralFeatures xsi:type="ecore:EAttribute" name="pass" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+            <eStructuralFeatures xsi:type="ecore:EAttribute" name="salt" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+            <eStructuralFeatures xsi:type="ecore:EAttribute" name="email" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        </eClassifiers>
+        <eClassifiers xsi:type="ecore:EClass" name="FooGroup" eSuperTypes="#//core/NamedEntity">
+            <eOperations name="computeFoosOfClass" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt">
+                <eParameters name="fooClass" eType="#//core/FooClass"/>
+            </eOperations>
+            <eOperations name="getFoosWithBazzles" eType="#//core/Foo" upperBound="-1">
+                <eParameters name="bazzles" upperBound="-1" eType="#//core/Bazzle"/>
+            </eOperations>
+            <eOperations name="freeze"/>
+            <eStructuralFeatures xsi:type="ecore:EReference" name="user" eType="#//core/User" containment="true"/>
+        </eClassifiers>
+        <eClassifiers xsi:type="ecore:EClass" name="Foo" eSuperTypes="#//core/NamedEntity">
+            <eOperations name="copyFoo" eType="#//core/Foo"/>
+            <eStructuralFeatures xsi:type="ecore:EReference" name="group" eType="#//core/FooGroup"/>
+            <eStructuralFeatures xsi:type="ecore:EAttribute" name="creationDate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
+            <eStructuralFeatures xsi:type="ecore:EAttribute" name="fooClass" eType="#//core/FooClass"/>
+            <eStructuralFeatures xsi:type="ecore:EReference" name="range" eType="#//core/BoundedNumber" containment="true"/>
+            <eStructuralFeatures xsi:type="ecore:EReference" name="bars" eType="#//core/Bar" upperBound="-1" containment="true" eOpposite="#//core/Bar/foo"/>
+            <eStructuralFeatures xsi:type="ecore:EReference" name="oneToOneBazzle" eType="#//core/Bazzle" eOpposite="#//core/Bazzle/oneToOneFoo"/>
+            <eStructuralFeatures xsi:type="ecore:EAttribute" name="manyAttribute" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" upperBound="-1"/>
+            <eStructuralFeatures xsi:type="ecore:EAttribute" name="unchangeableAttribute" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" changeable="false"/>
+            <eStructuralFeatures xsi:type="ecore:EReference" name="unchangeableReference" eType="#//core/Bazzle" containment="true" changeable="false"/>
+            <eStructuralFeatures xsi:type="ecore:EAttribute" name="transientAttribute" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" transient="true"/>
+            <eStructuralFeatures xsi:type="ecore:EReference" name="transientReference" eType="#//core/Foo" containment="true" transient="true"/>
+            <eStructuralFeatures xsi:type="ecore:EAttribute" name="volatileAttribute" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" volatile="true"/>
+            <eStructuralFeatures xsi:type="ecore:EReference" name="volatileReference" eType="#//core/Foo" volatile="true"/>
+            <eStructuralFeatures xsi:type="ecore:EReference" name="manyCrossAggregate" eType="#//core/Foo" upperBound="-1"/>
+            <eStructuralFeatures xsi:type="ecore:EReference" name="manyCrossAggregateNested" eType="#//core/Bar" upperBound="-1"/>
+            <eStructuralFeatures xsi:type="ecore:EReference" name="manyValueObjects" eType="#//core/BoundedNumber" upperBound="-1" containment="true"/>
+            <eStructuralFeatures xsi:type="ecore:EReference" name="oneToOneContainment" eType="#//core/Bazzle" containment="true"/>
+            <eStructuralFeatures xsi:type="ecore:EReference" name="ownedFoos" eType="#//core/Foo" upperBound="-1"/>
+        </eClassifiers>
+        <eClassifiers xsi:type="ecore:EClass" name="FooSpecialization" eSuperTypes="#//core/Foo"/>
+        <eClassifiers xsi:type="ecore:EClass" name="BarSpecializationWithComponents" eSuperTypes="#//core/Bar">
+            <eStructuralFeatures xsi:type="ecore:EReference" name="componentBars" eType="#//core/Bar" upperBound="-1" containment="true"/>
+            <eStructuralFeatures xsi:type="ecore:EAttribute" name="specialName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        </eClassifiers>
+        <eClassifiers xsi:type="ecore:EClass" name="Bar" eSuperTypes="#//core/NamedEntity">
+            <eStructuralFeatures xsi:type="ecore:EReference" name="foo" eType="#//core/Foo" eOpposite="#//core/Foo/bars"/>
+            <eStructuralFeatures xsi:type="ecore:EReference" name="bazzles" eType="#//core/Bazzle" upperBound="-1" containment="true"/>
+            <eStructuralFeatures xsi:type="ecore:EReference" name="backupFor" eType="#//core/Bazzle" upperBound="-1" eOpposite="#//core/Bazzle/backupBar"/>
+        </eClassifiers>
+        <eClassifiers xsi:type="ecore:EClass" name="Bazzle" eSuperTypes="#//core/NamedEntity">
+            <eStructuralFeatures xsi:type="ecore:EReference" name="backupBar" eType="#//core/Bar" eOpposite="#//core/Bar/backupFor"/>
+            <eStructuralFeatures xsi:type="ecore:EReference" name="oneToOneFoo" eType="#//core/Foo" eOpposite="#//core/Foo/oneToOneBazzle"/>
+        </eClassifiers>
+        <eClassifiers xsi:type="ecore:EClass" name="BoundedNumber">
+            <eStructuralFeatures xsi:type="ecore:EAttribute" name="units" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+            <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+            <eStructuralFeatures xsi:type="ecore:EAttribute" name="maxValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+            <eStructuralFeatures xsi:type="ecore:EAttribute" name="minValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+        </eClassifiers>
+        <eClassifiers xsi:type="ecore:EEnum" name="FooClass">
+            <eLiterals name="SHORT"/>
+            <eLiterals name="MEDIUM" value="1"/>
+            <eLiterals name="INTERMEDIATE" value="2"/>
+            <eLiterals name="LONG" value="3"/>
+        </eClassifiers>
+    </eSubpackages>
+    <eSubpackages name="analysis">
+        <eClassifiers xsi:type="ecore:EClass" name="AnalysisResult" eSuperTypes="#//core/IdedEntity">
+            <eOperations name="cloneObject" eType="#//core/NamedEntity">
+                <eParameters name="deepCopy" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+                <eParameters name="newUser" eType="#//core/User"/>
+            </eOperations>
+            <eStructuralFeatures xsi:type="ecore:EReference" name="user" eType="#//core/User"/>
+            <eStructuralFeatures xsi:type="ecore:EReference" name="object" eType="#//core/NamedEntity" containment="true"/>
+        </eClassifiers>
+    </eSubpackages>
 </ecore:EPackage>
