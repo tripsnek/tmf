@@ -4,7 +4,6 @@ import { EcoreParser } from '@tripsnek/tmf';
 
 describe('EcoreParser', () => {
 
-
   //parse the ecore file
   const parser: EcoreParser = new EcoreParser();
 
@@ -47,6 +46,8 @@ describe('EcoreParser', () => {
     expect(writtenXml).toContain('<eParameters name="bazzles" upperBound="-1" eType="#//core/Bazzle"/>');
     //package paths in references
     expect(writtenXml).toContain('<eClassifiers xsi:type="ecore:EClass" name="NamedEntity" eSuperTypes="#//core/IdedEntity" abstract="true">');
+    //eopposites
+    expect(writtenXml).toContain('eOpposite="#//core/Bazzle/backupBar"');
   });
 
 
