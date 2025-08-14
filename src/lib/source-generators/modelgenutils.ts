@@ -18,7 +18,7 @@ export async function generateFromEcore(
   ecorePath: string,
   overwriteImpl?: boolean,
   destinationPath?: string
-): Promise<void> {
+): Promise<string> {
   Environment.requireNodeEnvironment('File-based code generation');
 
   // parse the package
@@ -26,12 +26,12 @@ export async function generateFromEcore(
 
   // auto-determine destination path from ecore location, if necessary
   const path = require('path');
-  const destPath = destinationPath
+  const destPath : string = destinationPath
     ? destinationPath
     : path.dirname(ecorePath);  // <-- Use path.dirname() instead
 
   // generate the source
-  generateFromEPackage(pkg, destPath, overwriteImpl);
+  return generateFromEPackage(pkg, destPath, overwriteImpl);
 }
 /**
  * (1) Generates source code into destinationPath/src/lib
@@ -45,15 +45,18 @@ export async function generateFromEPackage(
   pkg: EPackage,
   destPath: string,
   overwriteImpl?: boolean
-): Promise<void> {
+): Promise<string> {
   Environment.requireNodeEnvironment('Code generation');
 
+
   const path = require('path');
-  console.log('running DGeneratorMain');
+  const srcPath = path.resolve(destPath + '/src');
+  console.log('running DGeneratorMain, output to ' + srcPath);
   new DGeneratorMain(
     pkg,
     path.resolve(destPath + '/src/lib'),
     overwriteImpl,
     path.resolve(destPath + '/src')
   ).generate();
+  return srcPath;
 }
