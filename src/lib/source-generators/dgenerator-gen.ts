@@ -36,48 +36,45 @@ export class DGeneratorGen {
     const genClassName = DU.genGenClassName(eClass);
     const apiClassName = eClass.getName();
 
-    return `
-    ${this.generateAllImportStatements(
+    return `${this.generateAllImportStatements(
       eClass,
       toImport,
       genToImport,
       pkgToImport
     )}
-         
-    /**
-      * This file is source-code generated and should never be edited. It implements
-      * the core TMF functionality for ${eClass.getName()}.
-      */
-    export abstract class ${genClassName} ${this.generateExtends(
+/**
+ * This file is source-code generated and should never be edited. It implements
+ * the core TMF functionality for ${eClass.getName()}.
+ */
+export abstract class ${genClassName} ${this.generateExtends(
       eClass
     )} implements ${apiClassName}{
-
-      /** feature declarations */
-      ${this.genFeatureDeclarations(eClass)}
-      ${this.genConstructor(eClass)}
-      ${this.genGettersAndSetters(eClass)}
-      ${this.genEoperations(eClass)}
+  /** feature declarations */
+${this.genFeatureDeclarations(eClass)}
+${this.genConstructor(eClass)}
+${this.genGettersAndSetters(eClass)}
+${this.genEoperations(eClass)}
       
-      //======================================================================
-      // Standard EObject behavior
+  //======================================================================
+  // Standard EObject behavior
 
-      ${this.genEGet(eClass)};
-      ${this.genESet(eClass)};
-      ${this.genEIsSet(eClass)};
-      ${this.genEUnset(eClass)};
-      ${this.genBasicSetters(eClass)};
-      ${this.genEInverseAdd(eClass)};
-      ${this.genEInverseRemove(eClass)};
+${this.genEGet(eClass)};
+${this.genESet(eClass)};
+${this.genEIsSet(eClass)};
+${this.genEUnset(eClass)};
+${this.genBasicSetters(eClass)};
+${this.genEInverseAdd(eClass)};
+${this.genEInverseRemove(eClass)};
 
-      //======================================================================
-      // eClass()
+  //======================================================================
+  // eClass()
 
-      public eClass(): EClass {
-        return ${this._packageName}.Literals.${DU.snakeUpperCase(
+  public eClass(): EClass {
+    return ${this._packageName}.Literals.${DU.snakeUpperCase(
       eClass.getName()
     )};
-      }
-    }`;
+  }
+}`;
   }
 
   /**
@@ -100,17 +97,16 @@ export class DGeneratorGen {
     if (async) className += 'Async';
     const isEcore = eClass.getEPackage().getName() == 'ecore';
 
-    let result = `
-      ${isEcore ? DU.ECORE_DEFAULT_IMPORTS : DU.DEFAULT_IMPORTS}
-      ${DU.genApiImports(eClass, toImport, `..${DU.API_PATH}`)}
-      import { ${this._packageName} } from '../${DU.genPackageFileName(
+    let result = `${isEcore ? DU.ECORE_DEFAULT_IMPORTS : DU.DEFAULT_IMPORTS}
+${DU.genApiImports(eClass, toImport, `..${DU.API_PATH}`)}
+import { ${this._packageName} } from '../${DU.genPackageFileName(
       this._pkg
     )}';
-      import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
+import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
       eClass,
       async
     )}';
-    `;
+`;
 
     //gen and impl classes that need to be imported
     for (const ec of genToImport) {
@@ -122,10 +118,10 @@ export class DGeneratorGen {
             pathToImport = `${DU.getPathToTypeInOtherPkg(eClass, ec)}/`;
             result += `import {${ec.getName()}Gen } from '${
               pathToImport + 'gen/' + DU.genClassGenName(<EClass>ec)
-            }';`;
+            }';\n`;
             result += `import {${ec.getName()}Impl } from '${
               pathToImport + 'impl/' + DU.genClassImplName(<EClass>ec)
-            }';`;
+            }';\n`;
           }
           //otherwise, use non-relative paths
           else {
@@ -134,17 +130,15 @@ export class DGeneratorGen {
         } else {
           result += `import {${ec.getName()}Gen } from './${DU.genClassGenName(
             ec as EClass
-          )}';`;
+          )}';\n`;
           result += `import {${ec.getName()}Impl } from '../impl/${DU.genClassImplName(
             ec as EClass
-          )}';`;
+          )}';\n`;
         }
       }
     }
 
     //add package imports (e.g. for references to types in external packages)
-    // EAD: Attempted fix 11/4/2020
-    //result = DU.generateImportStatementsForExternalPackages(pkgToImport, this._pkg, '../') + result;
     result += DU.generateImportStatementsForExternalPackages(
       pkgToImport,
       this._pkg,
@@ -192,7 +186,7 @@ export class DGeneratorGen {
           this._packageName
         }.${DU.genFeatureIdFieldName(f)},${inverseFeatureId})`;
       }
-      sourceContent += `protected ${f.getName()}:${typeName}${initializer};`;
+      sourceContent += `  protected ${f.getName()}:${typeName}${initializer};\n`;
     }
     return sourceContent;
   }
@@ -450,14 +444,17 @@ export class DGeneratorGen {
           switch (featureID) {`;
     for (const feature of eClass.getEStructuralFeatures()) {
       const featureIdField = DU.genFeatureIdFieldName(feature);
-      result += `case ${this._packageName}.${featureIdField}:`;
+      result += `
+      case ${this._packageName}.${featureIdField}:`;
       if (!feature.isMany()) {
-        result += `this.${DU.setterName(feature)}(undefined);
-          return;`;
+        result += `
+        this.${DU.setterName(feature)}(undefined);
+        return;`;
       } else {
         const getter = DU.getterName(feature);
-        result += `this.${getter}().clear();
-          return;`;
+        result += `
+        this.${getter}().clear();
+        return;`;
       }
     }
     result += `}
