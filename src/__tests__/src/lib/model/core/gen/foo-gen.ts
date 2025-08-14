@@ -7,7 +7,6 @@ import { EList } from '@tripsnek/tmf';
 import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
-
 import { NamedEntity } from '../api/named-entity';
 import { FooGroup } from '../api/foo-group';
 import { FooClass } from '../api/foo-class';
@@ -15,6 +14,7 @@ import { BoundedNumber } from '../api/bounded-number';
 import { Bar } from '../api/bar';
 import { Bazzle } from '../api/bazzle';
 import { User } from '../api/user';
+
 import { CorePackage } from '../core-package';
 import { Foo } from '../api/foo';
 import { NamedEntityGen } from './named-entity-gen';
@@ -250,7 +250,6 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
   public copyFoo(): Foo {
     throw new Error('Not implemented');
   }
-
   //======================================================================
   // Standard EObject behavior
 
@@ -541,7 +540,6 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
 
   //======================================================================
   // Inverse Adders (if needed)
-
   public eInverseAdd(otherEnd: EObject, featureID: number): void {
     switch (featureID) {
       case CorePackage.FOO__BARS:
@@ -559,7 +557,6 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
 
   //======================================================================
   // Inverse Removers (if needed)
-
   public eInverseRemove(otherEnd: EObject, featureID: number): void {
     switch (featureID) {
       case CorePackage.FOO__BARS:

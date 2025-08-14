@@ -17,7 +17,8 @@ import { Environment, ConditionalImports } from '../utils/environment';
 export async function generateFromEcore(
   ecorePath: string,
   overwriteImpl?: boolean,
-  destinationPath?: string
+  destinationPath?: string,
+  attemptFormatWithPrettier?: boolean
 ): Promise<string> {
   Environment.requireNodeEnvironment('File-based code generation');
 
@@ -31,7 +32,7 @@ export async function generateFromEcore(
     : path.dirname(ecorePath);  // <-- Use path.dirname() instead
 
   // generate the source
-  return generateFromEPackage(pkg, destPath, overwriteImpl);
+  return generateFromEPackage(pkg, destPath, overwriteImpl, attemptFormatWithPrettier);
 }
 /**
  * (1) Generates source code into destinationPath/src/lib
@@ -44,7 +45,8 @@ export async function generateFromEcore(
 export async function generateFromEPackage(
   pkg: EPackage,
   destPath: string,
-  overwriteImpl?: boolean
+  overwriteImpl?: boolean,
+  attemptInvokePrettier?: boolean
 ): Promise<string> {
   Environment.requireNodeEnvironment('Code generation');
 
@@ -57,6 +59,6 @@ export async function generateFromEPackage(
     path.resolve(destPath + '/src/lib'),
     overwriteImpl,
     path.resolve(destPath + '/src')
-  ).generate();
+  ).generate(attemptInvokePrettier);
   return srcPath;
 }

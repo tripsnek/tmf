@@ -7,11 +7,11 @@ import { EList } from '@tripsnek/tmf';
 import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
-
 import { NamedEntity } from '../api/named-entity';
 import { Foo } from '../api/foo';
 import { Bazzle } from '../api/bazzle';
 import { User } from '../api/user';
+
 import { CorePackage } from '../core-package';
 import { Bar } from '../api/bar';
 import { NamedEntityGen } from './named-entity-gen';
@@ -164,7 +164,6 @@ export abstract class BarGen extends NamedEntityImpl implements Bar {
 
   //======================================================================
   // Inverse Adders (if needed)
-
   public eInverseAdd(otherEnd: EObject, featureID: number): void {
     switch (featureID) {
       case CorePackage.BAR__FOO:
@@ -178,7 +177,6 @@ export abstract class BarGen extends NamedEntityImpl implements Bar {
 
   //======================================================================
   // Inverse Removers (if needed)
-
   public eInverseRemove(otherEnd: EObject, featureID: number): void {
     switch (featureID) {
       case CorePackage.BAR__FOO:

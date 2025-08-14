@@ -7,16 +7,15 @@ import { EList } from '@tripsnek/tmf';
 import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
-
 import { IdedEntity } from '../../core/api/ided-entity';
 import { User } from '../../core/api/user';
 import { NamedEntity } from '../../core/api/named-entity';
+
 import { AnalysisPackage } from '../analysis-package';
 import { AnalysisResult } from '../api/analysis-result';
 import { IdedEntityGen } from '../../core//gen/ided-entity-gen';
 import { IdedEntityImpl } from '../../core//impl/ided-entity-impl';
 import { CorePackage } from '../../core/core-package';
-
 /**
  * This file is source-code generated and should never be edited. It implements
  * the core TMF functionality for AnalysisResult.
@@ -58,7 +57,6 @@ export abstract class AnalysisResultGen
   public cloneObject(deepCopy: boolean, newUser: User): NamedEntity {
     throw new Error('Not implemented');
   }
-
   //======================================================================
   // Standard EObject behavior
 

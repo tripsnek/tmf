@@ -7,11 +7,11 @@ import { EList } from '@tripsnek/tmf';
 import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
-
 import { Bar } from '../api/bar';
 import { Foo } from '../api/foo';
 import { Bazzle } from '../api/bazzle';
 import { User } from '../api/user';
+
 import { CorePackage } from '../core-package';
 import { BarSpecializationWithComponents } from '../api/bar-specialization-with-components';
 import { BarGen } from './bar-gen';

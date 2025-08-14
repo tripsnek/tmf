@@ -7,7 +7,6 @@ import { EList } from '@tripsnek/tmf';
 import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
-
 import { Foo } from '../api/foo';
 import { FooGroup } from '../api/foo-group';
 import { FooClass } from '../api/foo-class';
@@ -15,6 +14,7 @@ import { BoundedNumber } from '../api/bounded-number';
 import { Bar } from '../api/bar';
 import { Bazzle } from '../api/bazzle';
 import { User } from '../api/user';
+
 import { CorePackage } from '../core-package';
 import { FooSpecialization } from '../api/foo-specialization';
 import { FooGen } from './foo-gen';

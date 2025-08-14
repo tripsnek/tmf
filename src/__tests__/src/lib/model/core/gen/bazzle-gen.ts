@@ -7,11 +7,11 @@ import { EList } from '@tripsnek/tmf';
 import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
-
 import { NamedEntity } from '../api/named-entity';
 import { Bar } from '../api/bar';
 import { Foo } from '../api/foo';
 import { User } from '../api/user';
+
 import { CorePackage } from '../core-package';
 import { Bazzle } from '../api/bazzle';
 import { NamedEntityGen } from './named-entity-gen';
@@ -155,7 +155,6 @@ export abstract class BazzleGen extends NamedEntityImpl implements Bazzle {
 
   //======================================================================
   // Inverse Adders (if needed)
-
   public eInverseAdd(otherEnd: EObject, featureID: number): void {
     switch (featureID) {
       case CorePackage.BAZZLE__BACKUP_BAR:
@@ -175,7 +174,6 @@ export abstract class BazzleGen extends NamedEntityImpl implements Bazzle {
 
   //======================================================================
   // Inverse Removers (if needed)
-
   public eInverseRemove(otherEnd: EObject, featureID: number): void {
     switch (featureID) {
       case CorePackage.BAZZLE__BACKUP_BAR:

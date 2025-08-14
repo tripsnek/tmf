@@ -7,12 +7,12 @@ import { EList } from '@tripsnek/tmf';
 import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
-
 import { NamedEntity } from '../api/named-entity';
 import { User } from '../api/user';
 import { FooClass } from '../api/foo-class';
 import { Foo } from '../api/foo';
 import { Bazzle } from '../api/bazzle';
+
 import { CorePackage } from '../core-package';
 import { FooGroup } from '../api/foo-group';
 import { NamedEntityGen } from './named-entity-gen';
@@ -54,7 +54,6 @@ export abstract class FooGroupGen extends NamedEntityImpl implements FooGroup {
   public freeze(): void {
     throw new Error('Not implemented');
   }
-
   //======================================================================
   // Standard EObject behavior
 

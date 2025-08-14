@@ -56,7 +56,7 @@ const debug = {
     if (DEBUG) {
       console.error(`[DEBUG ERROR] ${message}`, ...args);
     }
-  }
+  },
 };
 
 /**
@@ -71,15 +71,18 @@ export async function generate(
   overwriteImpl: boolean
 ): Promise<void> {
   debug.time('Total Generation Time');
-  debug.log('Starting code generation for package:', pkg.getName() || 'unnamed package');
+  debug.log(
+    'Starting code generation for package:',
+    pkg.getName() || 'unnamed package'
+  );
   debug.log('Output directory:', outDir);
   debug.log('Overwrite implementation files:', overwriteImpl);
-  
+
   Environment.requireNodeEnvironment('Code generation');
-  
+
   const generator = new TGeneratorMain(pkg, outDir, overwriteImpl);
   await generator.generate();
-  
+
   debug.timeEnd('Total Generation Time');
   debug.log('Code generation completed successfully');
 }
@@ -102,7 +105,7 @@ export class TGeneratorMain {
   public pkgApiOutDir: string;
   public pkgGenOutDir: string;
   public pkgImplOutDir: string;
-  
+
   // NOTE: These 3 are recomputed for each EClass!
   private eClassApiImports!: Set<EClassifier>;
   private eClassGenImports!: Set<EClassifier>;
@@ -119,12 +122,15 @@ export class TGeneratorMain {
     public overwriteImpl?: boolean,
     public barrelFileDir?: string
   ) {
-    debug.log('Initializing TGeneratorMain for package:', pkg.getName() || 'unnamed');
+    debug.log(
+      'Initializing TGeneratorMain for package:',
+      pkg.getName() || 'unnamed'
+    );
     debug.log('Constructor parameters:', {
       packageName: pkg.getName(),
       outDir,
       overwriteImpl,
-      barrelFileDir
+      barrelFileDir,
     });
 
     // Initialize directories without file system operations
@@ -133,15 +139,15 @@ export class TGeneratorMain {
     this.pkgApiOutDir = this.pkgOutDir + DU.API_PATH;
     this.pkgGenOutDir = this.pkgOutDir + DU.GEN_PATH;
     this.pkgImplOutDir = this.pkgOutDir + DU.IMPL_PATH;
-    
+
     debug.log('Computed directory paths:', {
       pkgOutDir: this.pkgOutDir,
       pkgRootOutDir: this.pkgRootOutDir,
       pkgApiOutDir: this.pkgApiOutDir,
       pkgGenOutDir: this.pkgGenOutDir,
-      pkgImplOutDir: this.pkgImplOutDir
+      pkgImplOutDir: this.pkgImplOutDir,
     });
-    
+
     // Note: barrelFileOutDir will be set during generate() when path is available
   }
 
@@ -149,10 +155,10 @@ export class TGeneratorMain {
    * Generates typescript sourcecode for all packages, recursing all subpackages.
    * Only available in Node.js environment.
    */
-  public async generate(): Promise<void> {
+  public async generate(attemptFormatWithPrettier?: boolean): Promise<void> {
     debug.time(`Generation for package: ${this.pkg.getName() || 'unnamed'}`);
     debug.group(`Generating package: ${this.pkg.getName() || 'unnamed'}`);
-    
+
     Environment.requireNodeEnvironment('Code generation');
 
     // Load Node.js modules
@@ -165,15 +171,15 @@ export class TGeneratorMain {
 
     // Count classifiers for debug info
     const classifiers = this.pkg.getEClassifiers();
-    const eClasses = classifiers.filter(c => c instanceof EClassImpl);
-    const eEnums = classifiers.filter(c => c instanceof EEnumImpl);
+    const eClasses = classifiers.filter((c) => c instanceof EClassImpl);
+    const eEnums = classifiers.filter((c) => c instanceof EEnumImpl);
     const subpackages = this.pkg.getESubPackages();
-    
+
     debug.log('Package contents:', {
       totalClassifiers: classifiers.size(),
       eClasses: eClasses.size(),
       eEnums: eEnums.size(),
-      subpackages: subpackages.size()
+      subpackages: subpackages.size(),
     });
 
     // Generate all the files
@@ -182,16 +188,16 @@ export class TGeneratorMain {
       debug.log('Writing barrel file...');
       await this.writeBarrelFile();
     }
-    
+
     debug.log('Writing package file...');
     await this.writePackageFile();
-    
+
     debug.log('Writing factory file...');
     await this.writeFactoryFile();
-    
+
     debug.log('Writing utils file...');
     await this.writeUtilsFile();
-    
+
     // Generate EClass artifacts
     debug.log(`Processing ${eClasses.size()} EClass(es)...`);
     for (const eClassifier of classifiers) {
@@ -217,36 +223,40 @@ export class TGeneratorMain {
     }
 
     // Finally... format the source code with prettier
-    // debug.log('Attempting to format code with Prettier...');
-    // await this.tryFormatWithPrettier();
-    
+    if (attemptFormatWithPrettier) {
+      debug.log('Attempting to format code with Prettier...');
+      await this.tryFormatWithPrettier();
+    }
+
     debug.groupEnd();
     debug.timeEnd(`Generation for package: ${this.pkg.getName() || 'unnamed'}`);
-    debug.log(`Completed generation for package: ${this.pkg.getName() || 'unnamed'}`);
+    debug.log(
+      `Completed generation for package: ${this.pkg.getName() || 'unnamed'}`
+    );
   }
 
   public async generateAllEClassArtifacts(eClassifier: EClass): Promise<void> {
     debug.group(`Generating EClass artifacts: ${eClassifier.getName()}`);
     debug.time(`EClass generation: ${eClassifier.getName()}`);
-    
+
     debug.log('Setting up imports...');
     this.setupEClassImports(eClassifier);
-    
+
     debug.log('Import analysis results:', {
-      apiImports: Array.from(this.eClassApiImports).map(c => c.getName()),
-      genImports: Array.from(this.eClassGenImports).map(c => c.getName()),
-      packageImports: Array.from(this.eClassPkgImports).map(p => p.getName())
+      apiImports: Array.from(this.eClassApiImports).map((c) => c.getName()),
+      genImports: Array.from(this.eClassGenImports).map((c) => c.getName()),
+      packageImports: Array.from(this.eClassPkgImports).map((p) => p.getName()),
     });
-    
+
     debug.log('Writing API file...');
     await this.writeEClassApiFile(eClassifier);
-    
+
     debug.log('Writing Gen file...');
     await this.writeEClassGenFile(eClassifier);
-    
+
     debug.log('Writing Impl file...');
     await this.writeEClassImplFile(eClassifier);
-    
+
     debug.timeEnd(`EClass generation: ${eClassifier.getName()}`);
     debug.groupEnd();
   }
@@ -265,7 +275,7 @@ export class TGeneratorMain {
    */
   public static getSupportedOperations(): string[] {
     const operations = ['In-memory generation'];
-    
+
     if (Environment.isNode) {
       operations.push(
         'File-based generation',
@@ -274,7 +284,7 @@ export class TGeneratorMain {
         'Recursive package processing'
       );
     }
-    
+
     debug.log('Supported operations:', operations);
     return operations;
   }
@@ -284,7 +294,7 @@ export class TGeneratorMain {
 
   private async ensureNodeModulesLoaded(): Promise<void> {
     debug.log('Loading Node.js modules...');
-    
+
     if (!this.fs) {
       debug.log('Loading fs module...');
       this.fs = await ConditionalImports.getNodeModule('fs');
@@ -294,15 +304,18 @@ export class TGeneratorMain {
       this.path = await ConditionalImports.getNodeModule('path');
     }
     // childProcess is loaded on-demand in tryFormatWithPrettier
-    
+
     debug.log('Node.js modules loaded successfully');
   }
 
   private async initializeDirectories(): Promise<void> {
     debug.log('Initializing and creating directories...');
-    
+
     // Now we can use path operations
-    this.pkgRootOutDir = await this.resolveAndMaybeCreateDir(this.pkgOutDir, false);
+    this.pkgRootOutDir = await this.resolveAndMaybeCreateDir(
+      this.pkgOutDir,
+      false
+    );
     this.pkgApiOutDir = await this.resolveAndMaybeCreateDir(
       this.pkgOutDir + DU.API_PATH,
       true
@@ -315,12 +328,12 @@ export class TGeneratorMain {
       this.pkgOutDir + DU.IMPL_PATH,
       false
     );
-    
+
     if (this.barrelFileDir) {
       this.barrelFileOutDir = this.path.resolve(__dirname, this.barrelFileDir);
       debug.log('Barrel file output directory set to:', this.barrelFileOutDir);
     }
-    
+
     debug.log('Directory initialization completed');
   }
 
@@ -329,7 +342,12 @@ export class TGeneratorMain {
     const generator = new TGeneratorBarrelIndexTs();
     const content = generator.generate(this.pkg);
     debug.log('Writing barrel file to:', this.barrelFileOutDir);
-    await this.writeSourceFile(this.barrelFileOutDir, 'index.ts', content, true);
+    await this.writeSourceFile(
+      this.barrelFileOutDir,
+      'index.ts',
+      content,
+      true
+    );
   }
 
   private async writePackageFile(): Promise<void> {
@@ -337,7 +355,12 @@ export class TGeneratorMain {
     debug.log('Generating package file:', fileName + '.ts');
     const generator = new TGeneratorPackage();
     const content = generator.generatePackageContents(this.pkg);
-    await this.writeSourceFile(this.pkgRootOutDir, fileName + '.ts', content, true);
+    await this.writeSourceFile(
+      this.pkgRootOutDir,
+      fileName + '.ts',
+      content,
+      true
+    );
   }
 
   private async writeFactoryFile(): Promise<void> {
@@ -345,7 +368,12 @@ export class TGeneratorMain {
     debug.log('Generating factory file:', fileName + '.ts');
     const generator = new TGeneratorFactory();
     const content = generator.generateFactoryContents(this.pkg);
-    await this.writeSourceFile(this.pkgRootOutDir, fileName + '.ts', content, true);
+    await this.writeSourceFile(
+      this.pkgRootOutDir,
+      fileName + '.ts',
+      content,
+      true
+    );
   }
 
   private async writeUtilsFile(): Promise<void> {
@@ -353,33 +381,38 @@ export class TGeneratorMain {
     debug.log('Generating utils file:', fileName + '.ts');
     const generator = new TGeneratorUtils();
     const content = generator.generateUtilsContents(this.pkg);
-    await this.writeSourceFile(this.pkgRootOutDir, fileName + '.ts', content, false);
+    await this.writeSourceFile(
+      this.pkgRootOutDir,
+      fileName + '.ts',
+      content,
+      false
+    );
   }
 
   private setupEClassImports(eClass: EClass): void {
     debug.log(`Setting up imports for EClass: ${eClass.getName()}`);
-    
+
     // Determines the set of types that needs to be imported to support the EClass
     this.eClassApiImports = new Set<EClassifier>();
     this.eClassGenImports = new Set<EClassifier>();
     this.eClassPkgImports = new Set<EPackage>();
-    
+
     debug.log('Collecting imports...');
     this.collectEClassImports(this.pkg, eClass);
-    
+
     debug.log('Import collection completed');
   }
 
   private async writeEClassApiFile(eClass: EClass): Promise<void> {
     const filename = DU.genClassApiName(eClass);
     debug.log(`Writing API file for ${eClass.getName()}: ${filename}.ts`);
-    
+
     const apiGenerator = new TGeneratorApi();
     const tsInterfaceContent = apiGenerator.generate(
       eClass,
       this.eClassApiImports
     );
-    
+
     await this.writeSourceFile(
       this.pkgApiOutDir,
       filename + '.ts',
@@ -391,7 +424,7 @@ export class TGeneratorMain {
   private async writeEClassGenFile(eClass: EClass): Promise<void> {
     const filename = DU.genClassGenName(eClass);
     debug.log(`Writing Gen file for ${eClass.getName()}: ${filename}.ts`);
-    
+
     const genGenerator = new TGeneratorGen();
     const tsGenClassContent = genGenerator.generate(
       eClass,
@@ -399,7 +432,7 @@ export class TGeneratorMain {
       this.eClassGenImports,
       this.eClassPkgImports
     );
-    
+
     await this.writeSourceFile(
       this.pkgGenOutDir,
       filename + '.ts',
@@ -412,13 +445,13 @@ export class TGeneratorMain {
     const filename = DU.genClassImplName(eClass);
     debug.log(`Writing Impl file for ${eClass.getName()}: ${filename}.ts`);
     debug.log(`Overwrite mode: ${this.overwriteImpl}`);
-    
+
     const implGenerator = new TGeneratorImpl();
     const tsImplClassContent = implGenerator.generate(
       eClass,
       this.eClassApiImports
     );
-    
+
     await this.writeSourceFile(
       this.pkgImplOutDir,
       filename + '.ts',
@@ -430,24 +463,22 @@ export class TGeneratorMain {
   private async writeEnumFile(eclassifier: EEnum): Promise<void> {
     const filename = DU.genClassApiName(eclassifier) + '.ts';
     debug.log(`Writing enum file for ${eclassifier.getName()}: ${filename}`);
-    
+
     const enumGenerator = new TGeneratorEnum();
     const enumContent = enumGenerator.generate(eclassifier);
-    await this.writeSourceFile(
-      this.pkgApiOutDir,
-      filename,
-      enumContent,
-      true
-    );
+    await this.writeSourceFile(this.pkgApiOutDir, filename, enumContent, true);
   }
 
-  private async resolveAndMaybeCreateDir(outDir: string, deleteAllInDir: boolean): Promise<string> {
+  private async resolveAndMaybeCreateDir(
+    outDir: string,
+    deleteAllInDir: boolean
+  ): Promise<string> {
     await this.ensureNodeModulesLoaded();
-    
+
     const resolvedOutDir = this.path.resolve(__dirname, outDir);
     debug.log(`Processing directory: ${outDir} -> ${resolvedOutDir}`);
     debug.log(`Delete all files in directory: ${deleteAllInDir}`);
-    
+
     if (this.fs.existsSync(resolvedOutDir)) {
       debug.log('Directory exists');
       if (deleteAllInDir) {
@@ -459,7 +490,7 @@ export class TGeneratorMain {
       this.fs.mkdirSync(resolvedOutDir, { recursive: true });
       debug.log('Directory created successfully');
     }
-    
+
     return outDir;
   }
 
@@ -469,7 +500,7 @@ export class TGeneratorMain {
    */
   private collectEClassImports(pkg: EPackage, eClass: EClass): void {
     debug.group(`Collecting imports for EClass: ${eClass.getName()}`);
-    
+
     // Start with importing supertypes
     const superTypes = eClass.getESuperTypes();
     debug.log(`Processing ${superTypes.size()} super type(s)...`);
@@ -478,7 +509,9 @@ export class TGeneratorMain {
       this.eClassApiImports.add(superType);
       if (!superType.isInterface()) {
         this.eClassGenImports.add(superType);
-        debug.log(`Added to Gen imports (not interface): ${superType.getName()}`);
+        debug.log(
+          `Added to Gen imports (not interface): ${superType.getName()}`
+        );
       }
     }
 
@@ -486,7 +519,11 @@ export class TGeneratorMain {
     const features = eClass.getEAllStructuralFeatures();
     debug.log(`Processing ${features.size()} structural feature(s)...`);
     for (const field of features) {
-      debug.log(`Processing feature: ${field.getName()} of type: ${field.getEType().getName()}`);
+      debug.log(
+        `Processing feature: ${field.getName()} of type: ${field
+          .getEType()
+          .getName()}`
+      );
       this.maybeAddMemberImports(pkg, eClass, field.getEType());
       if (field instanceof EReferenceImpl) {
         const opposite = field.getEOpposite();
@@ -512,7 +549,7 @@ export class TGeneratorMain {
         this.maybeAddMemberImports(pkg, eClass, param.getEType());
       }
     }
-    
+
     debug.groupEnd();
   }
 
@@ -526,16 +563,18 @@ export class TGeneratorMain {
     candidate: EClassifier
   ): void {
     debug.log(`Evaluating import candidate: ${candidate?.getName()}`);
-    
+
     if (candidate instanceof EClassImpl || candidate instanceof EEnumImpl) {
       const candidatePackage = candidate.getEPackage();
-      debug.log(`Candidate package: ${candidatePackage.getName()}, this package: ${thisPackage.getName()}`);
-      
+      debug.log(
+        `Candidate package: ${candidatePackage.getName()}, this package: ${thisPackage.getName()}`
+      );
+
       if (candidatePackage !== thisPackage) {
         debug.log(`Adding package import: ${candidatePackage.getName()}`);
         this.eClassPkgImports.add(candidatePackage);
       }
-      
+
       if (!this.eClassApiImports.has(candidate) && candidate !== thisEClass) {
         // Ecore types are imported for everything
         if (candidatePackage !== EcorePackage.eINSTANCE) {
@@ -545,7 +584,9 @@ export class TGeneratorMain {
           debug.log(`Skipping Ecore type: ${candidate.getName()}`);
         }
       } else {
-        debug.log(`Skipping import (already exists or is self): ${candidate.getName()}`);
+        debug.log(
+          `Skipping import (already exists or is self): ${candidate.getName()}`
+        );
       }
     }
   }
@@ -564,11 +605,13 @@ export class TGeneratorMain {
     overwrite: boolean
   ): Promise<void> {
     await this.ensureNodeModulesLoaded();
-    
+
     const filePath = this.path.resolve(__dirname, outDir + '/' + filename);
     debug.log(`Writing file: ${filePath}`);
-    debug.log(`Overwrite: ${overwrite}, Content length: ${content.length} characters`);
-    
+    debug.log(
+      `Overwrite: ${overwrite}, Content length: ${content.length} characters`
+    );
+
     if (overwrite || !this.fs.existsSync(filePath)) {
       this.fs.writeFileSync(filePath, content, 'utf8');
       debug.log(`File written successfully: ${filename}`);
@@ -579,13 +622,13 @@ export class TGeneratorMain {
 
   private async deleteFilesInFolder(directoryPath: string): Promise<void> {
     await this.ensureNodeModulesLoaded();
-    
+
     debug.log(`Deleting files in folder: ${directoryPath}`);
-    
+
     try {
       const files = this.fs.readdirSync(directoryPath);
       debug.log(`Found ${files.length} file(s) to delete`);
-      
+
       for (const file of files) {
         try {
           const filePath = this.path.join(directoryPath, file);
@@ -602,135 +645,36 @@ export class TGeneratorMain {
     }
   }
 
-private async tryFormatWithPrettier(): Promise<void> {
-  debug.log('Attempting to format code with Prettier...');
-  
-  try {
-    // First, try to use prettier library directly
-    debug.log('Attempting to load prettier library...');
-    const prettier = await ConditionalImports.getNodeModule('prettier');
-    
-    if (prettier) {
-      debug.log('Prettier library loaded successfully, formatting files directly...');
-      await this.formatWithPrettierLibrary(prettier);
-      debug.log('Prettier library formatting completed successfully');
-      return;
-    }
-  } catch (prettierError) {
-    debug.warn('Failed to load prettier library:', (prettierError as Error).message);
-    debug.log('Falling back to command line prettier...');
-  }
-  
-  // Fallback to command line prettier
-  try {
-    if (!this.childProcess) {
-      debug.log('Loading child_process module...');
-      this.childProcess = await ConditionalImports.getNodeModule('child_process');
-    }
-    
-    // Format main output directory
-    const mainPath = this.path.resolve(__dirname, this.outDir);
-    debug.log(`Formatting main directory with CLI: ${mainPath}`);
-    this.childProcess.execSync(`prettier --write "${mainPath}"`);
-    debug.log('Main directory formatted successfully');
-    
-    // Format barrel file directory if it exists
-    if (this.barrelFileDir) {
-      const barrelPath = this.path.resolve(__dirname, this.barrelFileOutDir);
-      debug.log(`Formatting barrel directory with CLI: ${barrelPath}`);
-      this.childProcess.execSync(`prettier --write "${barrelPath}"`);
-      debug.log('Barrel directory formatted successfully');
-    }
-    
-    debug.log('CLI Prettier formatting completed successfully');
-  } catch (error) {
-    debug.warn('Prettier formatting failed:', (error as Error).message);
-    debug.warn('Make sure prettier is installed: npm install -g prettier');
-  }
-}
+  private async tryFormatWithPrettier(): Promise<void> {
+    debug.log('Attempting to format code with Prettier...');
 
-private async formatWithPrettierLibrary(prettier: any): Promise<void> {
-  await this.ensureNodeModulesLoaded();
-  
-  // Get prettier configuration
-  let prettierConfig: any = {};
-  try {
-    // Try to resolve prettier config from the project
-    const configPath = this.path.resolve(__dirname, this.outDir);
-    prettierConfig = await prettier.resolveConfig(configPath) || {};
-    debug.log('Prettier config resolved:', prettierConfig);
-  } catch (configError) {
-    debug.warn('Failed to resolve prettier config, using defaults:', (configError as Error).message);
-    // Use default TypeScript formatting options
-    prettierConfig = {
-      parser: 'typescript',
-      semi: true,
-      singleQuote: true,
-      tabWidth: 2,
-      trailingComma: 'es5',
-    };
-  }
-  
-  // Format files in main output directory
-  const mainPath = this.path.resolve(__dirname, this.outDir);
-  debug.log(`Formatting TypeScript files in: ${mainPath}`);
-  await this.formatTsFilesInDirectory(prettier, mainPath, prettierConfig);
-  
-  // Format barrel file if it exists
-  if (this.barrelFileDir) {
-    const barrelPath = this.path.resolve(__dirname, this.barrelFileOutDir);
-    const barrelFilePath = this.path.join(barrelPath, 'index.ts');
-    
-    if (this.fs.existsSync(barrelFilePath)) {
-      debug.log(`Formatting barrel file: ${barrelFilePath}`);
-      await this.formatSingleFile(prettier, barrelFilePath, prettierConfig);
-    }
-  }
-}
+    // Fallback to command line prettier
+    try {
+      if (!this.childProcess) {
+        debug.log('Loading child_process module...');
+        this.childProcess = await ConditionalImports.getNodeModule(
+          'child_process'
+        );
+      }
 
-private async formatTsFilesInDirectory(prettier: any, dirPath: string, config: any): Promise<void> {
-  if (!this.fs.existsSync(dirPath)) {
-    debug.warn(`Directory does not exist: ${dirPath}`);
-    return;
-  }
-  
-  const entries = this.fs.readdirSync(dirPath, { withFileTypes: true });
-  
-  for (const entry of entries) {
-    const fullPath = this.path.join(dirPath, entry.name);
-    
-    if (entry.isDirectory()) {
-      // Recursively format subdirectories
-      debug.log(`Recursively formatting directory: ${fullPath}`);
-      await this.formatTsFilesInDirectory(prettier, fullPath, config);
-    } else if (entry.isFile() && entry.name.endsWith('.ts')) {
-      // Format TypeScript files
-      debug.log(`Formatting file: ${fullPath}`);
-      await this.formatSingleFile(prettier, fullPath, config);
-    }
-  }
-}
+      // Format main output directory
+      const mainPath = this.path.resolve(__dirname, this.outDir);
+      debug.log(`Formatting main directory with CLI: ${mainPath}`);
+      this.childProcess.execSync(`prettier --write "${mainPath}"`);
+      debug.log('Main directory formatted successfully');
 
-private async formatSingleFile(prettier: any, filePath: string, config: any): Promise<void> {
-  try {
-    // Read the file content
-    const content = this.fs.readFileSync(filePath, 'utf8');
-    
-    // Format the content
-    const formatted = await prettier.format(content, {
-      filepath: filePath,
-      ...config,
-    });
-    
-    // Write back only if content changed
-    if (formatted !== content) {
-      this.fs.writeFileSync(filePath, formatted, 'utf8');
-      debug.log(`File formatted and updated: ${this.path.basename(filePath)}`);
-    } else {
-      debug.log(`File already properly formatted: ${this.path.basename(filePath)}`);
+      // Format barrel file directory if it exists
+      if (this.barrelFileDir) {
+        const barrelPath = this.path.resolve(__dirname, this.barrelFileOutDir);
+        debug.log(`Formatting barrel directory with CLI: ${barrelPath}`);
+        this.childProcess.execSync(`prettier --write "${barrelPath}"`);
+        debug.log('Barrel directory formatted successfully');
+      }
+
+      debug.log('CLI Prettier formatting completed successfully');
+    } catch (error) {
+      debug.warn('Prettier formatting failed:', (error as Error).message);
+      debug.warn('Make sure prettier is installed: npm install -g prettier');
     }
-  } catch (error) {
-    debug.error(`Failed to format file ${filePath}:`, (error as Error).message);
   }
-}
 }

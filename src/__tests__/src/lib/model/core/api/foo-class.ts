@@ -1,5 +1,5 @@
 /**
- * Souce-gen code for FooClass enumeration.
+ * Source-gen code for FooClass enumeration.
  */
 export enum FooClass {
   SHORT = 'SHORT',

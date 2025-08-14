@@ -7,9 +7,9 @@ import { EList } from '@tripsnek/tmf';
 import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
-
 import { IdedEntity } from '../api/ided-entity';
 import { User } from '../api/user';
+
 import { CorePackage } from '../core-package';
 import { NamedEntity } from '../api/named-entity';
 import { IdedEntityGen } from './ided-entity-gen';

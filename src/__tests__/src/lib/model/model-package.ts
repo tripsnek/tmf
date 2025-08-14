@@ -61,7 +61,7 @@ export class ModelPackage extends EPackageImpl {
     return theModelPackage;
   }
 
-  //DRT 10/1/2020 - this used to be direct lazy retrieval of the
+  //this used to be direct lazy retrieval of the
   //factory instance from the corresponding .ts factory file, but
   //that was eliminated to avoid circular imports
   public getEFactoryInstance(): EFactory {
