@@ -1,4 +1,3 @@
-
 import { EObject } from '@tripsnek/tmf';
 import { TUtils } from '@tripsnek/tmf';
 import { EStructuralFeature } from '@tripsnek/tmf';
@@ -17,34 +16,27 @@ import { EReference } from '@tripsnek/tmf';
 import { EOperation } from '@tripsnek/tmf';
 import { EcorePackage } from '@tripsnek/tmf';
 export class ModelPackage extends EPackageImpl {
-
   /** Singleton */
   public static eINSTANCE: ModelPackage = ModelPackage.init();
 
   //if the singleton is initialized
   private static isInited = false;
 
-  static eNS_URI =
-    'http://www.tripsnek.com/emf.com.tripsnek.tmftest.model';
+  static eNS_URI = 'http://www.tripsnek.com/emf.com.tripsnek.tmftest.model';
   static eNAME = 'model';
   static eNS_PREFIX = 'emf.com.tripsnek.tmftest.model';
 
   /** Provides static access to EClass and EStructuralFeature instances */
-  public static Literals = class {
-  };
+  public static Literals = class {};
 
   //flags that keep track of whether package is initialized
   private isCreated = false;
   private isInitialized = false;
 
-
   //causes EPackage.Registry registration event
   //hard-coded URI, since referring to the static eNS_URI field in constructor can cause issues
   constructor() {
-    super(
-      'model',
-      'http://www.tripsnek.com/emf.com.tripsnek.tmftest.model'
-    );
+    super('model', 'http://www.tripsnek.com/emf.com.tripsnek.tmftest.model');
   }
 
   /**
@@ -83,7 +75,6 @@ export class ModelPackage extends EPackageImpl {
   public setEFactoryInstance(factoryInst: EFactory): void {
     if (!this._eFactoryInstance) this._eFactoryInstance = factoryInst;
   }
-
 
   public createPackageContents(): void {
     if (this.isCreated) return;
