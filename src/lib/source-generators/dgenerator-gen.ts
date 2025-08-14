@@ -54,10 +54,8 @@ ${this.genFeatureDeclarations(eClass)}
 ${this.genConstructor(eClass)}
 ${this.genGettersAndSetters(eClass)}
 ${this.genEoperations(eClass)}
-      
   //======================================================================
   // Standard EObject behavior
-
 ${this.genEGet(eClass)}
 ${this.genESet(eClass)}
 ${this.genEIsSet(eClass)}

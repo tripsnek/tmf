@@ -135,10 +135,10 @@ import { EObjectImpl } from '@tripsnek/tmf';`;
         paramType = `EList<${paramType}>`;
       }
       const paramName = param.getName() + (param.isOptional() ? '?' : '');
-      signature += `${paramName} : ${paramType}`;
+      signature += `${paramName}: ${paramType}`;
       paramInd++;
     }
-    return `${signature}) : ${returnType}`;
+    return `${signature}): ${returnType}`;
   }
 
   public static eopReturnType(eop: EOperation) {
@@ -218,7 +218,7 @@ import { EObjectImpl } from '@tripsnek/tmf';`;
   public static basicSetterSig(f: EStructuralFeature) {
     return `${TGenUtils.basicSetterName(f)}(${TGenUtils.setterParamName(
       f
-    )} : ${TGenUtils.getTypeName(f)}): void`;
+    )}: ${TGenUtils.getTypeName(f)}): void`;
   }
 
   public static setterParamName(f: EStructuralFeature) {
@@ -230,7 +230,7 @@ import { EObjectImpl } from '@tripsnek/tmf';`;
    * @param f
    */
   public static getterSig(f: EStructuralFeature) {
-    return `${TGenUtils.getterName(f)}() : ${TGenUtils.getTypeName(f)}`;
+    return `${TGenUtils.getterName(f)}(): ${TGenUtils.getTypeName(f)}`;
   }
 
   /**
