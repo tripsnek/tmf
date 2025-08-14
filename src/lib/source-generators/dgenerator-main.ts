@@ -1,4 +1,3 @@
-// dgenerator-main-safe.ts
 import { EPackage } from '../metamodel/epackage';
 import { EClassifier } from '../metamodel/eclassifier';
 import { EClass } from '../metamodel/eclass';
@@ -19,9 +18,50 @@ import { EReferenceImpl } from '../metamodel/ereference-impl';
 import { EEnumImpl } from '../metamodel/eenum-impl';
 import { Environment, ConditionalImports } from '../utils/environment';
 
+// Debug flag - set to true to enable detailed logging
+const DEBUG = false;
+
+// Debug logging utility
+const debug = {
+  log: (message: string, ...args: any[]) => {
+    if (DEBUG) {
+      console.log(`[DEBUG] ${message}`, ...args);
+    }
+  },
+  time: (label: string) => {
+    if (DEBUG) {
+      console.time(`[DEBUG] ${label}`);
+    }
+  },
+  timeEnd: (label: string) => {
+    if (DEBUG) {
+      console.timeEnd(`[DEBUG] ${label}`);
+    }
+  },
+  group: (label: string) => {
+    if (DEBUG) {
+      console.group(`[DEBUG] ${label}`);
+    }
+  },
+  groupEnd: () => {
+    if (DEBUG) {
+      console.groupEnd();
+    }
+  },
+  warn: (message: string, ...args: any[]) => {
+    if (DEBUG) {
+      console.warn(`[DEBUG WARN] ${message}`, ...args);
+    }
+  },
+  error: (message: string, ...args: any[]) => {
+    if (DEBUG) {
+      console.error(`[DEBUG ERROR] ${message}`, ...args);
+    }
+  }
+};
+
 /**
- * Exposes source code generation for use as a Grunt task.
- * Only available in Node.js environment.
+ * Exposes source code generation. Only available in Node.js environment.
  * @param pkg
  * @param outDir
  * @param overwriteImpl
@@ -31,10 +71,18 @@ export async function generate(
   outDir: string,
   overwriteImpl: boolean
 ): Promise<void> {
+  debug.time('Total Generation Time');
+  debug.log('Starting code generation for package:', pkg.getName() || 'unnamed package');
+  debug.log('Output directory:', outDir);
+  debug.log('Overwrite implementation files:', overwriteImpl);
+  
   Environment.requireNodeEnvironment('Code generation');
   
   const generator = new DGeneratorMain(pkg, outDir, overwriteImpl);
   await generator.generate();
+  
+  debug.timeEnd('Total Generation Time');
+  debug.log('Code generation completed successfully');
 }
 
 /**
@@ -72,12 +120,28 @@ export class DGeneratorMain {
     public overwriteImpl?: boolean,
     public barrelFileDir?: string
   ) {
+    debug.log('Initializing DGeneratorMain for package:', pkg.getName() || 'unnamed');
+    debug.log('Constructor parameters:', {
+      packageName: pkg.getName(),
+      outDir,
+      overwriteImpl,
+      barrelFileDir
+    });
+
     // Initialize directories without file system operations
     this.pkgOutDir = this.outDir + (pkg.getName() ? '/' + pkg.getName() : '');
     this.pkgRootOutDir = this.pkgOutDir;
     this.pkgApiOutDir = this.pkgOutDir + DU.API_PATH;
     this.pkgGenOutDir = this.pkgOutDir + DU.GEN_PATH;
     this.pkgImplOutDir = this.pkgOutDir + DU.IMPL_PATH;
+    
+    debug.log('Computed directory paths:', {
+      pkgOutDir: this.pkgOutDir,
+      pkgRootOutDir: this.pkgRootOutDir,
+      pkgApiOutDir: this.pkgApiOutDir,
+      pkgGenOutDir: this.pkgGenOutDir,
+      pkgImplOutDir: this.pkgImplOutDir
+    });
     
     // Note: barrelFileOutDir will be set during generate() when path is available
   }
@@ -87,30 +151,64 @@ export class DGeneratorMain {
    * Only available in Node.js environment.
    */
   public async generate(): Promise<void> {
+    debug.time(`Generation for package: ${this.pkg.getName() || 'unnamed'}`);
+    debug.group(`Generating package: ${this.pkg.getName() || 'unnamed'}`);
+    
     Environment.requireNodeEnvironment('Code generation');
 
     // Load Node.js modules
+    debug.log('Loading Node.js modules...');
     await this.ensureNodeModulesLoaded();
 
     // Now we can resolve directories and create them
+    debug.log('Initializing directories...');
     await this.initializeDirectories();
 
+    // Count classifiers for debug info
+    const classifiers = this.pkg.getEClassifiers();
+    const eClasses = classifiers.filter(c => c instanceof EClassImpl);
+    const eEnums = classifiers.filter(c => c instanceof EEnumImpl);
+    const subpackages = this.pkg.getESubPackages();
+    
+    debug.log('Package contents:', {
+      totalClassifiers: classifiers.size(),
+      eClasses: eClasses.size(),
+      eEnums: eEnums.size(),
+      subpackages: subpackages.size()
+    });
+
     // Generate all the files
-    if (this.barrelFileDir) await this.writeBarrelFile();
+    debug.log('Generating core files...');
+    if (this.barrelFileDir) {
+      debug.log('Writing barrel file...');
+      await this.writeBarrelFile();
+    }
+    
+    debug.log('Writing package file...');
     await this.writePackageFile();
+    
+    debug.log('Writing factory file...');
     await this.writeFactoryFile();
+    
+    debug.log('Writing utils file...');
     await this.writeUtilsFile();
     
-    for (const eClassifier of this.pkg.getEClassifiers()) {
+    // Generate EClass artifacts
+    debug.log(`Processing ${eClasses.size()} EClass(es)...`);
+    for (const eClassifier of classifiers) {
       if (eClassifier instanceof EClassImpl) {
+        debug.log(`Generating artifacts for EClass: ${eClassifier.getName()}`);
         await this.generateAllEClassArtifacts(eClassifier);
       } else if (eClassifier instanceof EEnumImpl) {
+        debug.log(`Generating enum file for: ${eClassifier.getName()}`);
         await this.writeEnumFile(eClassifier);
       }
     }
 
     // Deal with recursive subpackages
-    for (const subpackage of this.pkg.getESubPackages()) {
+    debug.log(`Processing ${subpackages.size()} subpackage(s)...`);
+    for (const subpackage of subpackages) {
+      debug.log(`Recursively generating subpackage: ${subpackage.getName()}`);
       const subGenerator = new DGeneratorMain(
         subpackage,
         this.pkgRootOutDir,
@@ -120,21 +218,47 @@ export class DGeneratorMain {
     }
 
     // Finally... format the source code with prettier
+    debug.log('Attempting to format code with Prettier...');
     await this.tryFormatWithPrettier();
+    
+    debug.groupEnd();
+    debug.timeEnd(`Generation for package: ${this.pkg.getName() || 'unnamed'}`);
+    debug.log(`Completed generation for package: ${this.pkg.getName() || 'unnamed'}`);
   }
 
   public async generateAllEClassArtifacts(eClassifier: EClass): Promise<void> {
+    debug.group(`Generating EClass artifacts: ${eClassifier.getName()}`);
+    debug.time(`EClass generation: ${eClassifier.getName()}`);
+    
+    debug.log('Setting up imports...');
     this.setupEClassImports(eClassifier);
+    
+    debug.log('Import analysis results:', {
+      apiImports: Array.from(this.eClassApiImports).map(c => c.getName()),
+      genImports: Array.from(this.eClassGenImports).map(c => c.getName()),
+      packageImports: Array.from(this.eClassPkgImports).map(p => p.getName())
+    });
+    
+    debug.log('Writing API file...');
     await this.writeEClassApiFile(eClassifier);
+    
+    debug.log('Writing Gen file...');
     await this.writeEClassGenFile(eClassifier);
+    
+    debug.log('Writing Impl file...');
     await this.writeEClassImplFile(eClassifier);
+    
+    debug.timeEnd(`EClass generation: ${eClassifier.getName()}`);
+    debug.groupEnd();
   }
 
   /**
    * Check if code generation is supported in current environment
    */
   public static isGenerationSupported(): boolean {
-    return Environment.isNode;
+    const supported = Environment.isNode;
+    debug.log('Generation support check:', supported);
+    return supported;
   }
 
   /**
@@ -152,6 +276,7 @@ export class DGeneratorMain {
       );
     }
     
+    debug.log('Supported operations:', operations);
     return operations;
   }
 
@@ -159,16 +284,24 @@ export class DGeneratorMain {
   // Private methods
 
   private async ensureNodeModulesLoaded(): Promise<void> {
+    debug.log('Loading Node.js modules...');
+    
     if (!this.fs) {
+      debug.log('Loading fs module...');
       this.fs = await ConditionalImports.getNodeModule('fs');
     }
     if (!this.path) {
+      debug.log('Loading path module...');
       this.path = await ConditionalImports.getNodeModule('path');
     }
     // childProcess is loaded on-demand in tryFormatWithPrettier
+    
+    debug.log('Node.js modules loaded successfully');
   }
 
   private async initializeDirectories(): Promise<void> {
+    debug.log('Initializing and creating directories...');
+    
     // Now we can use path operations
     this.pkgRootOutDir = await this.resolveAndMaybeCreateDir(this.pkgOutDir, false);
     this.pkgApiOutDir = await this.resolveAndMaybeCreateDir(
@@ -186,17 +319,23 @@ export class DGeneratorMain {
     
     if (this.barrelFileDir) {
       this.barrelFileOutDir = this.path.resolve(__dirname, this.barrelFileDir);
+      debug.log('Barrel file output directory set to:', this.barrelFileOutDir);
     }
+    
+    debug.log('Directory initialization completed');
   }
 
   private async writeBarrelFile(): Promise<void> {
+    debug.log('Generating barrel file content...');
     const generator = new DGeneratorBarrelIndexTs();
     const content = generator.generate(this.pkg);
+    debug.log('Writing barrel file to:', this.barrelFileOutDir);
     await this.writeSourceFile(this.barrelFileOutDir, 'index.ts', content, true);
   }
 
   private async writePackageFile(): Promise<void> {
     const fileName = DU.genPackageFileName(this.pkg);
+    debug.log('Generating package file:', fileName + '.ts');
     const generator = new DGeneratorPackage();
     const content = generator.generatePackageContents(this.pkg);
     await this.writeSourceFile(this.pkgRootOutDir, fileName + '.ts', content, true);
@@ -204,6 +343,7 @@ export class DGeneratorMain {
 
   private async writeFactoryFile(): Promise<void> {
     const fileName = DU.genFactoryFileName(this.pkg);
+    debug.log('Generating factory file:', fileName + '.ts');
     const generator = new DGeneratorFactory();
     const content = generator.generateFactoryContents(this.pkg);
     await this.writeSourceFile(this.pkgRootOutDir, fileName + '.ts', content, true);
@@ -211,26 +351,36 @@ export class DGeneratorMain {
 
   private async writeUtilsFile(): Promise<void> {
     const fileName = DU.genUtilsFileName(this.pkg);
+    debug.log('Generating utils file:', fileName + '.ts');
     const generator = new DGeneratorUtils();
     const content = generator.generateUtilsContents(this.pkg);
     await this.writeSourceFile(this.pkgRootOutDir, fileName + '.ts', content, false);
   }
 
   private setupEClassImports(eClass: EClass): void {
+    debug.log(`Setting up imports for EClass: ${eClass.getName()}`);
+    
     // Determines the set of types that needs to be imported to support the EClass
     this.eClassApiImports = new Set<EClassifier>();
     this.eClassGenImports = new Set<EClassifier>();
     this.eClassPkgImports = new Set<EPackage>();
+    
+    debug.log('Collecting imports...');
     this.collectEClassImports(this.pkg, eClass);
+    
+    debug.log('Import collection completed');
   }
 
   private async writeEClassApiFile(eClass: EClass): Promise<void> {
+    const filename = DU.genClassApiName(eClass);
+    debug.log(`Writing API file for ${eClass.getName()}: ${filename}.ts`);
+    
     const apiGenerator = new DGeneratorApi();
     const tsInterfaceContent = apiGenerator.generate(
       eClass,
       this.eClassApiImports
     );
-    const filename = DU.genClassApiName(eClass);
+    
     await this.writeSourceFile(
       this.pkgApiOutDir,
       filename + '.ts',
@@ -240,6 +390,9 @@ export class DGeneratorMain {
   }
 
   private async writeEClassGenFile(eClass: EClass): Promise<void> {
+    const filename = DU.genClassGenName(eClass);
+    debug.log(`Writing Gen file for ${eClass.getName()}: ${filename}.ts`);
+    
     const genGenerator = new DGeneratorGen();
     const tsGenClassContent = genGenerator.generate(
       eClass,
@@ -247,7 +400,7 @@ export class DGeneratorMain {
       this.eClassGenImports,
       this.eClassPkgImports
     );
-    const filename = DU.genClassGenName(eClass);
+    
     await this.writeSourceFile(
       this.pkgGenOutDir,
       filename + '.ts',
@@ -257,12 +410,16 @@ export class DGeneratorMain {
   }
 
   private async writeEClassImplFile(eClass: EClass): Promise<void> {
+    const filename = DU.genClassImplName(eClass);
+    debug.log(`Writing Impl file for ${eClass.getName()}: ${filename}.ts`);
+    debug.log(`Overwrite mode: ${this.overwriteImpl}`);
+    
     const implGenerator = new DGeneratorImpl();
     const tsImplClassContent = implGenerator.generate(
       eClass,
       this.eClassApiImports
     );
-    const filename = DU.genClassImplName(eClass);
+    
     await this.writeSourceFile(
       this.pkgImplOutDir,
       filename + '.ts',
@@ -272,11 +429,14 @@ export class DGeneratorMain {
   }
 
   private async writeEnumFile(eclassifier: EEnum): Promise<void> {
+    const filename = DU.genClassApiName(eclassifier) + '.ts';
+    debug.log(`Writing enum file for ${eclassifier.getName()}: ${filename}`);
+    
     const enumGenerator = new DGeneratorEnum();
     const enumContent = enumGenerator.generate(eclassifier);
     await this.writeSourceFile(
       this.pkgApiOutDir,
-      DU.genClassApiName(eclassifier) + '.ts',
+      filename,
       enumContent,
       true
     );
@@ -286,13 +446,19 @@ export class DGeneratorMain {
     await this.ensureNodeModulesLoaded();
     
     const resolvedOutDir = this.path.resolve(__dirname, outDir);
+    debug.log(`Processing directory: ${outDir} -> ${resolvedOutDir}`);
+    debug.log(`Delete all files in directory: ${deleteAllInDir}`);
     
     if (this.fs.existsSync(resolvedOutDir)) {
+      debug.log('Directory exists');
       if (deleteAllInDir) {
+        debug.log('Deleting all files in directory...');
         await this.deleteFilesInFolder(resolvedOutDir);
       }
     } else {
+      debug.log('Directory does not exist, creating...');
       this.fs.mkdirSync(resolvedOutDir, { recursive: true });
+      debug.log('Directory created successfully');
     }
     
     return outDir;
@@ -303,36 +469,55 @@ export class DGeneratorMain {
    * to be imported, including API, Gen and EPackage instances.
    */
   private collectEClassImports(pkg: EPackage, eClass: EClass): void {
+    debug.group(`Collecting imports for EClass: ${eClass.getName()}`);
+    
     // Start with importing supertypes
-    for (const superType of eClass.getESuperTypes()) {
+    const superTypes = eClass.getESuperTypes();
+    debug.log(`Processing ${superTypes.size()} super type(s)...`);
+    for (const superType of superTypes) {
+      debug.log(`Adding super type: ${superType.getName()}`);
       this.eClassApiImports.add(superType);
       if (!superType.isInterface()) {
         this.eClassGenImports.add(superType);
+        debug.log(`Added to Gen imports (not interface): ${superType.getName()}`);
       }
     }
 
     // Add imports to support EStructuralFeatures
-    for (const field of eClass.getEAllStructuralFeatures()) {
+    const features = eClass.getEAllStructuralFeatures();
+    debug.log(`Processing ${features.size()} structural feature(s)...`);
+    for (const field of features) {
+      debug.log(`Processing feature: ${field.getName()} of type: ${field.getEType().getName()}`);
       this.maybeAddMemberImports(pkg, eClass, field.getEType());
       if (field instanceof EReferenceImpl) {
-        if (field.getEOpposite()) {
+        const opposite = field.getEOpposite();
+        if (opposite) {
+          debug.log(`Processing opposite reference: ${opposite.getName()}`);
           this.maybeAddMemberImports(
             pkg,
             eClass,
-            field.getEOpposite().getEContainingClass()
+            opposite.getEContainingClass()
           );
         }
       }
     }
 
     // Add imports to support EOperations
-    for (const eop of eClass.getEOperations()) {
+    const operations = eClass.getEOperations();
+    debug.log(`Processing ${operations.size()} operation(s)...`);
+    for (const eop of operations) {
+      debug.log(`Processing operation: ${eop.getName()} returning: ${eop.getEType().getName()}`);
       this.maybeAddMemberImports(pkg, eClass, eop.getEType());
-      for (const param of eop.getEParameters()) {
+      const params = eop.getEParameters();
+      debug.log(`Operation has ${params.size()} parameter(s)`);
+      for (const param of params) {
+        debug.log(`Processing parameter: ${param.getName()} of type: ${param.getEType().getName()}`);
         // make sure to import any parameter type, if necessary
         this.maybeAddMemberImports(pkg, eClass, param.getEType());
       }
     }
+    
+    debug.groupEnd();
   }
 
   /**
@@ -344,16 +529,30 @@ export class DGeneratorMain {
     thisEClass: EClass,
     candidate: EClassifier
   ): void {
+    debug.log(`Evaluating import candidate: ${candidate.getName()}`);
+    
     if (candidate instanceof EClassImpl || candidate instanceof EEnumImpl) {
-      if (candidate.getEPackage() !== thisPackage) {
-        this.eClassPkgImports.add(candidate.getEPackage());
+      const candidatePackage = candidate.getEPackage();
+      debug.log(`Candidate package: ${candidatePackage.getName()}, this package: ${thisPackage.getName()}`);
+      
+      if (candidatePackage !== thisPackage) {
+        debug.log(`Adding package import: ${candidatePackage.getName()}`);
+        this.eClassPkgImports.add(candidatePackage);
       }
+      
       if (!this.eClassApiImports.has(candidate) && candidate !== thisEClass) {
         // Ecore types are imported for everything
-        if (candidate.getEPackage() !== EcorePackage.eINSTANCE) {
+        if (candidatePackage !== EcorePackage.eINSTANCE) {
+          debug.log(`Adding API import: ${candidate.getName()}`);
           this.eClassApiImports.add(candidate);
+        } else {
+          debug.log(`Skipping Ecore type: ${candidate.getName()}`);
         }
+      } else {
+        debug.log(`Skipping import (already exists or is self): ${candidate.getName()}`);
       }
+    } else {
+      debug.log(`Skipping non-EClass/EEnum candidate: ${candidate.getName()}`);
     }
   }
 
@@ -373,48 +572,69 @@ export class DGeneratorMain {
     await this.ensureNodeModulesLoaded();
     
     const filePath = this.path.resolve(__dirname, outDir + '/' + filename);
+    debug.log(`Writing file: ${filePath}`);
+    debug.log(`Overwrite: ${overwrite}, Content length: ${content.length} characters`);
     
     if (overwrite || !this.fs.existsSync(filePath)) {
       this.fs.writeFileSync(filePath, content, 'utf8');
+      debug.log(`File written successfully: ${filename}`);
+    } else {
+      debug.log(`File skipped (already exists, overwrite=false): ${filename}`);
     }
   }
 
   private async deleteFilesInFolder(directoryPath: string): Promise<void> {
     await this.ensureNodeModulesLoaded();
     
+    debug.log(`Deleting files in folder: ${directoryPath}`);
+    
     try {
       const files = this.fs.readdirSync(directoryPath);
+      debug.log(`Found ${files.length} file(s) to delete`);
+      
       for (const file of files) {
         try {
-          this.fs.unlinkSync(this.path.join(directoryPath, file));
+          const filePath = this.path.join(directoryPath, file);
+          this.fs.unlinkSync(filePath);
+          debug.log(`Deleted file: ${file}`);
         } catch (err) {
           // Swallow individual file deletion errors as per original logic
-          console.warn(`Failed to delete file ${file}:`, err);
+          debug.warn(`Failed to delete file ${file}:`, err);
         }
       }
+      debug.log('File deletion completed');
     } catch (err) {
-      console.warn(`Failed to read directory ${directoryPath}:`, err);
+      debug.error(`Failed to read directory ${directoryPath}:`, err);
     }
   }
 
   private async tryFormatWithPrettier(): Promise<void> {
+    debug.log('Attempting to format code with Prettier...');
+    
     try {
       if (!this.childProcess) {
+        debug.log('Loading child_process module...');
         this.childProcess = await ConditionalImports.getNodeModule('child_process');
       }
       
       // Format main output directory
       const mainPath = this.path.resolve(__dirname, this.outDir);
+      debug.log(`Formatting main directory: ${mainPath}`);
       this.childProcess.execSync(`prettier --write "${mainPath}"`);
+      debug.log('Main directory formatted successfully');
       
       // Format barrel file directory if it exists
       if (this.barrelFileDir) {
         const barrelPath = this.path.resolve(__dirname, this.barrelFileOutDir);
+        debug.log(`Formatting barrel directory: ${barrelPath}`);
         this.childProcess.execSync(`prettier --write "${barrelPath}"`);
+        debug.log('Barrel directory formatted successfully');
       }
+      
+      debug.log('Prettier formatting completed successfully');
     } catch (error) {
-      console.warn('Prettier formatting skipped:', (error as Error).message);
-      console.warn('Make sure prettier is installed: npm install -g prettier');
+      debug.warn('Prettier formatting failed:', (error as Error).message);
+      debug.warn('Make sure prettier is installed: npm install -g prettier');
     }
   }
 }
