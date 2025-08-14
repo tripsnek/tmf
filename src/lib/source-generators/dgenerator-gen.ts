@@ -317,30 +317,27 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
   }
 
   private genBasicSetters(eClass: EClass): string {
-    let result = `
-    //======================================================================
-    // Basic setters (allow EOpposite enforcement without triggering infinite cycles)
-
-    `;
+    let result = `  //======================================================================
+  // Basic setters (allow EOpposite enforcement without triggering infinite cycles)
+`;
     for (const field of eClass.getEStructuralFeatures()) {
       //only include basic setters for internal references
       if (!field.isMany() && !field.isVolatile()) {
         const visibility = field.isChangeable() ? 'public' : 'private';
         const paramName = DU.setterParamName(field);
         result += `
-
-            ${visibility} basic${DU.capitalize(DU.setterSig(field))}{`;
+  ${visibility} basic${DU.capitalize(DU.setterSig(field))} {\n`;
         if (
           field instanceof EReferenceImpl &&
           field.getEOpposite() &&
           field.getEOpposite().isContainment()
         ) {
-          result += `this.eBasicSetContainer(${paramName},${DU.genPackageClassName(
+          result += `    this.eBasicSetContainer(${paramName},${DU.genPackageClassName(
             eClass.getEPackage()
           )}.${DU.genFeatureIdFieldName(field)});`;
         }
-        result += `this.${field.getName()} = ${paramName};
-            }`;
+        result += `    this.${field.getName()} = ${paramName};
+  }`;
       }
     }
     return result;
