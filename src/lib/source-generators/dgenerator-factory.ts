@@ -13,15 +13,14 @@ export class DGeneratorFactory {
    * @param pkg
    */
   public generateFactoryContents(pkg: EPackage): string {
-    return `
-    ${this.genGenericImports(pkg)}
-    ${this.genSpecificImports(pkg)}
-
+    return `${this.genGenericImports(pkg)}
+${this.genSpecificImports(pkg)}
     export class ${DU.genFactoryClassName(pkg)} extends EFactory {
       ${this.genSingleton(pkg)}
       ${this.genCreateSwitch(pkg)}
       ${this.genClassCreators(pkg)}
-    }`;
+  }
+`;
   }
 
   //======================================================================
@@ -36,10 +35,11 @@ export class DGeneratorFactory {
     const pkgClassName = DU.genPackageClassName(pkg);
 
     return `${DU.DEFAULT_IMPORTS}
-    import { EReference } from '@tripsnek/tmf';
-    import { EAttribute} from '@tripsnek/tmf';
-    import { EFactory } from '@tripsnek/tmf';
-    import { ${pkgClassName} } from './${pkg.getName()}-package';`;
+    
+import { EReference } from '@tripsnek/tmf';
+import { EAttribute } from '@tripsnek/tmf';
+import { EFactory } from '@tripsnek/tmf';
+import { ${pkgClassName} } from './${pkg.getName()}-package';`;
   }
 
   /**
@@ -54,10 +54,10 @@ export class DGeneratorFactory {
       for (const eClass of pkg.getEClassifiers()) {
         if (eClass instanceof EClassImpl && !eClass.isAbstract()) {
           result += `
-            import { ${eClass.getName()} } from './api/${DU.genClassApiName(
+import { ${eClass.getName()} } from './api/${DU.genClassApiName(
             eClass
           )}';
-            import { ${eClass.getName()}Impl } from './impl/${DU.genClassImplName(
+import { ${eClass.getName()}Impl } from './impl/${DU.genClassImplName(
             eClass
           )}';`;
         }
@@ -73,15 +73,17 @@ export class DGeneratorFactory {
   private genSingleton(pkg: EPackage): string {
     const className = DU.genFactoryClassName(pkg);
     const pkgClassName = DU.genPackageClassName(pkg);
-    return `
-    /* Singleton */
+    return `/* Singleton */
     public static eINSTANCE: ${className} = ${className}.init();
-    public static init() : ${className} {
-      if(!${className}.eINSTANCE) {${className}.eINSTANCE = new ${className}();}
+    public static init(): ${className} {
+      if (!${className}.eINSTANCE) {
+        ${className}.eINSTANCE = new ${className}();
+      }
       
       //inject the factory instance into the package, so that it can be retrieved reflectively
       ${pkgClassName}.eINSTANCE.setEFactoryInstance(this.eINSTANCE);
-      return ${className}.eINSTANCE;}`;
+      return ${className}.eINSTANCE;
+    }`;
   }
 
   /**
@@ -104,9 +106,13 @@ export class DGeneratorFactory {
             `;
         }
       }
-      result += `default:
-      throw new Error("The class '" + eClass.getName() + "' is not a valid classifier"
-          );}}`;
+      result += `
+        default:
+          throw new Error(
+            "The class '" + eClass.getName() + "' is not a valid classifier"
+          );
+      }
+    }`;
     }
     return result;
   }

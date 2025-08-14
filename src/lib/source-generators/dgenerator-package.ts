@@ -266,9 +266,9 @@ export class DGeneratorPackage {
       //if the singleton is initialized
       private static isInited = false;
 
-      static const eNS_URI = "${pkg.getNsURI()}";
-      static const eNAME = "${pkg.getName()}";
-      static const eNS_PREFIX = "${pkg.getNsPrefix()}";
+      static eNS_URI = "${pkg.getNsURI()}";
+      static eNAME = "${pkg.getName()}";
+      static eNS_PREFIX = "${pkg.getNsPrefix()}";
 
       ${literalsContent}
 
