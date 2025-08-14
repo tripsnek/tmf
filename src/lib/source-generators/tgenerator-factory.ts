@@ -15,6 +15,7 @@ export class TGeneratorFactory {
   public generateFactoryContents(pkg: EPackage): string {
     return `${this.genGenericImports(pkg)}
 ${this.genSpecificImports(pkg)}
+
 export class ${DU.genFactoryClassName(pkg)} extends EFactory {
 ${this.genSingleton(pkg)}
 ${this.genCreateSwitch(pkg)}
@@ -128,7 +129,6 @@ import { ${eClass.getName()}Impl } from './impl/${DU.genClassImplName(
       for (const eClass of pkg.getEClassifiers()) {
         if (eClass instanceof EClassImpl && !eClass.isAbstract()) {
           result += `
-
   public create${eClass.getName()}(): ${eClass.getName()} {
     return new ${eClass.getName()}Impl();
   }`;

@@ -7,13 +7,12 @@ import { EEnum } from '../metamodel/eenum';
  */
 export class TGeneratorEnum {
   public generate(eEnum: EEnum): string {
-    return `
-      /**
-       * Souce-gen code for ${eEnum.getName()} enumeration.
-       */
-      export enum ${eEnum.getName()}{
-        ${this.generateLiterals(eEnum)}
-      }`;
+    return `/**
+ * Source-gen code for ${eEnum.getName()} enumeration.
+ */
+export enum ${eEnum.getName()} {
+${this.generateLiterals(eEnum)}}
+`;
   }
 
   private generateLiterals(eEnum: EEnum): string {
@@ -21,8 +20,8 @@ export class TGeneratorEnum {
     for (let i = 0; i < eEnum.getELiterals().size(); i++) {
       const literal = eEnum.getELiterals().get(i);
       const name = literal.getName();
-      const value = `"${literal.getName()}"` || i;
-      result += `${name} = ${value},`;
+      const value = `'${literal.getName()}'` || i;
+      result += `  ${name} = ${value},\n`;
     }
     return result;
   }
