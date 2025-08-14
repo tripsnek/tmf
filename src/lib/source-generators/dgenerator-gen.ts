@@ -48,7 +48,7 @@ export class DGeneratorGen {
  */
 export abstract class ${genClassName} ${this.generateExtends(
       eClass
-    )} implements ${apiClassName}{
+    )} implements ${apiClassName} {
   /** feature declarations */
 ${this.genFeatureDeclarations(eClass)}
 ${this.genConstructor(eClass)}
@@ -58,13 +58,13 @@ ${this.genEoperations(eClass)}
   //======================================================================
   // Standard EObject behavior
 
-${this.genEGet(eClass)};
-${this.genESet(eClass)};
-${this.genEIsSet(eClass)};
-${this.genEUnset(eClass)};
-${this.genBasicSetters(eClass)};
-${this.genEInverseAdd(eClass)};
-${this.genEInverseRemove(eClass)};
+${this.genEGet(eClass)}
+${this.genESet(eClass)}
+${this.genEIsSet(eClass)}
+${this.genEUnset(eClass)}
+${this.genBasicSetters(eClass)}
+${this.genEInverseAdd(eClass)}
+${this.genEInverseRemove(eClass)}
 
   //======================================================================
   // eClass()
@@ -116,10 +116,10 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
           //if root package is shared, the classes are assumed to exist in the same lib, and can be imported with relative paths
           if (ec.getRootPackage() === eClass.getRootPackage()) {
             pathToImport = `${DU.getPathToTypeInOtherPkg(eClass, ec)}/`;
-            result += `import {${ec.getName()}Gen } from '${
+            result += `import { ${ec.getName()}Gen } from '${
               pathToImport + 'gen/' + DU.genClassGenName(<EClass>ec)
             }';\n`;
-            result += `import {${ec.getName()}Impl } from '${
+            result += `import { ${ec.getName()}Impl } from '${
               pathToImport + 'impl/' + DU.genClassImplName(<EClass>ec)
             }';\n`;
           }
@@ -128,10 +128,10 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
             console.log('WARNING: CROSS-PACKAGE IMPORTS NOT SUPPORTED');
           }
         } else {
-          result += `import {${ec.getName()}Gen } from './${DU.genClassGenName(
+          result += `import { ${ec.getName()}Gen } from './${DU.genClassGenName(
             ec as EClass
           )}';\n`;
-          result += `import {${ec.getName()}Impl } from '../impl/${DU.genClassImplName(
+          result += `import { ${ec.getName()}Impl } from '../impl/${DU.genClassImplName(
             ec as EClass
           )}';\n`;
         }
@@ -182,11 +182,14 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
         }
         //list is initialized with information about owning object, the
         //field it represents, and any inverse field
-        initializer += ` = new Basic${typeName}(null,this,${
-          this._packageName
-        }.${DU.genFeatureIdFieldName(f)},${inverseFeatureId})`;
+        initializer += ` = new Basic${typeName}(
+    null,
+    this,
+    ${this._packageName}.${DU.genFeatureIdFieldName(f)},
+    ${inverseFeatureId}
+  )`;
       }
-      sourceContent += `  protected ${f.getName()}:${typeName}${initializer};\n`;
+      sourceContent += `  protected ${f.getName()}: ${typeName}${initializer};\n`;
     }
     return sourceContent;
   }
@@ -246,10 +249,9 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
 
   private genGettersAndSetters(eClass: EClass): string {
     let result = `
-    //======================================================================
-    // Getters and Setters
-
-    `;
+  //======================================================================
+  // Getters and Setters
+`;
     for (const field of eClass.getEStructuralFeatures()) {
       result += this.genGetter(eClass, field);
       result += this.genSetter(eClass, field);
@@ -261,13 +263,18 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
     const visibility = 'public';
     let result = `
 
-      ${visibility} ${DU.getterSig(field)}{`;
+  ${visibility} ${DU.getterSig(field)} {`;
     if (field.isVolatile()) {
-      result += `throw new Error('Unsupported operation on volatile field. Override in ${eClass.getName()}Impl.');`;
+      result += `
+    throw new Error(
+      'Unsupported operation on volatile field. Override in ${eClass.getName()}Impl.'
+    );`;
     } else {
-      result += `return this.${field.getName()};`;
+      result += `
+    return this.${field.getName()};`;
     }
-    result += `}`; // End of Getter definition
+    result += `
+  }`; // End of Getter definition
     return result;
   }
 
@@ -278,16 +285,20 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
       const visibility = field.isChangeable() ? 'public' : 'private';
       result += `
 
-        ${visibility} ${DU.setterSig(field)}{`;
+  ${visibility} ${DU.setterSig(field)} {`;
       if (field.isVolatile()) {
-        result += `throw new Error('Unsupported operation on volatile field. Override in ${eClass.getName()}Impl.');`;
+        result += `
+    throw new Error(
+      'Unsupported operation on volatile field. Override in ${eClass.getName()}Impl.'
+    );`;
       } else {
         //handle containment enforcement if appropriate
         if (field instanceof EReferenceImpl && field.isContainment()) {
           const oldVar = 'old' + DU.capitalize(field.getName());
-          result += `const ${oldVar} = this.${field.getName()};
-              if (${oldVar}) ${oldVar}.setEContainer(null,null);
-              if (${paramName})${paramName}.setEContainer(this,${DU.genPackageClassName(
+          result += `
+    const ${oldVar} = this.${field.getName()};
+    if (${oldVar}) ${oldVar}.setEContainer(null, null);
+    if (${paramName}) ${paramName}.setEContainer(this, ${DU.genPackageClassName(
             this._pkg
           )}.${DU.genFeatureIdFieldName(field)});`;
         }
@@ -297,27 +308,29 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
           const oppositeIdField = `${
             this._packageName
           }.${DU.genFeatureIdFieldName(field.getEOpposite())}`;
-          result += `if (this.${field.getName()} !== ${paramName}) {
-              if (this.${field.getName()}) {
-              this.${field.getName()}.eInverseRemove(this, ${oppositeIdField});
-              }
-              if (${paramName}) {
-                ${paramName}.eInverseAdd(this, ${oppositeIdField});
-              }
-            }`;
+          result += `
+    if (this.${field.getName()} !== ${paramName}) {
+      if (this.${field.getName()}) {
+        this.${field.getName()}.eInverseRemove(this, ${oppositeIdField});
+      }
+      if (${paramName}) {
+        ${paramName}.eInverseAdd(this, ${oppositeIdField});
+      }
+    }`;
         }
-        result += `this.basic${DU.capitalize(
-          DU.setterName(field)
-        )}(${paramName});`;
+        result += `
+    this.basic${DU.capitalize(DU.setterName(field))}(${paramName});`;
         // sourceContent += `this.${f.getName()} = ${paramName};}`;
       }
-      result += `}`; // End of Setter definition
+      result += `
+  }`; // End of Setter definition
     }
     return result;
   }
 
   private genBasicSetters(eClass: EClass): string {
-    let result = `  //======================================================================
+    let result = `
+  //======================================================================
   // Basic setters (allow EOpposite enforcement without triggering infinite cycles)
 `;
     for (const field of eClass.getEStructuralFeatures()) {
@@ -326,17 +339,19 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
         const visibility = field.isChangeable() ? 'public' : 'private';
         const paramName = DU.setterParamName(field);
         result += `
-  ${visibility} basic${DU.capitalize(DU.setterSig(field))} {\n`;
+  ${visibility} basic${DU.capitalize(DU.setterSig(field))} {`;
         if (
           field instanceof EReferenceImpl &&
           field.getEOpposite() &&
           field.getEOpposite().isContainment()
         ) {
-          result += `    this.eBasicSetContainer(${paramName},${DU.genPackageClassName(
+          result += `
+    this.eBasicSetContainer(${paramName}, ${DU.genPackageClassName(
             eClass.getEPackage()
           )}.${DU.genFeatureIdFieldName(field)});`;
         }
-        result += `    this.${field.getName()} = ${paramName};
+        result += `
+    this.${field.getName()} = ${paramName};
   }`;
       }
     }
@@ -345,100 +360,123 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
 
   private genEoperations(eClass: EClass) {
     let result = `
-    //======================================================================
-    // API Operations
-
-    `;
+  //======================================================================
+  // API Operations
+`;
     for (const eop of eClass.getEOperations()) {
       result += `
-        
-        public ${DU.eopSignature(eop)} {
-          throw new Error('Not implemented');
-        }`;
+
+  public ${DU.eopSignature(eop)} {
+    throw new Error('Not implemented');
+  }`;
     }
     return result;
   }
 
   private genEGet(eClass: EClass): string {
     let result = `
-    /**
-     * eGet() - provides reflective access to all features.
-     */
-    public eGet(feature: number | EStructuralFeature): any {
-        const featureID: number =  typeof feature === 'number' ? feature : (<EStructuralFeature>feature).getFeatureID();
-          switch (featureID) {`;
+  /**
+   * eGet() - provides reflective access to all features.
+   */
+  public eGet(feature: number | EStructuralFeature): any {
+    const featureID: number =
+      typeof feature === 'number'
+        ? feature
+        : (<EStructuralFeature>feature).getFeatureID();
+    switch (featureID) {`;
     for (const feature of eClass.getEStructuralFeatures()) {
       const featureIdField = DU.genFeatureIdFieldName(feature);
-      result += `case ${this._packageName}.${featureIdField}:
+      result += `
+      case ${this._packageName}.${featureIdField}:
         return this.${DU.getterName(feature)}();`;
     }
-    result += `}
+    result += `
+    }
     return super.eGet(featureID);
-    }`;
+  }`;
     return result;
   }
 
   private genESet(eClass: EClass): string {
     let result = `
-    
-    /**
-     * eSet() - provides ability to reflectively set all features.
-     */
-    public eSet(feature: number | EStructuralFeature, newValue: any): void {
-        const featureID: number =  typeof feature === 'number' ? feature : (<EStructuralFeature>feature).getFeatureID();
-          switch (featureID) {`;
+
+  /**
+   * eSet() - provides ability to reflectively set all features.
+   */
+  public eSet(feature: number | EStructuralFeature, newValue: any): void {
+    const featureID: number =
+      typeof feature === 'number'
+        ? feature
+        : (<EStructuralFeature>feature).getFeatureID();
+    switch (featureID) {`;
     for (const feature of eClass.getEStructuralFeatures()) {
       const featureIdField = DU.genFeatureIdFieldName(feature);
-      result += `case ${this._packageName}.${featureIdField}:`;
+      result += `
+      case ${this._packageName}.${featureIdField}:`;
 
       if (!feature.isMany()) {
-        result += `this.${DU.setterName(feature)}(newValue);
+        result += `
+        this.${DU.setterName(feature)}(newValue);
         return;`;
       } else {
         const getter = DU.getterName(feature);
-        result += `this.${getter}().clear();
-          this.${getter}().addAll(newValue);
-          return;`;
+        result += `
+        this.${getter}().clear();
+        this.${getter}().addAll(newValue);
+        return;`;
       }
     }
-    result += `}
-      return super.eSet(featureID, newValue);
-    }`;
+    result += `
+    }
+    return super.eSet(featureID, newValue);
+  }`;
     return result;
   }
 
   private genEIsSet(eClass: EClass): string {
     let result = `
-    /**
-     * eIsSet() - provides ability to reflectively check if any feature is set.
-     */
-    public eIsSet(feature: number | EStructuralFeature): boolean {
-        const featureID: number =  typeof feature === 'number' ? feature : (<EStructuralFeature>feature).getFeatureID();
-          switch (featureID) {`;
+
+  /**
+   * eIsSet() - provides ability to reflectively check if any feature is set.
+   */
+  public eIsSet(feature: number | EStructuralFeature): boolean {
+    const featureID: number =
+      typeof feature === 'number'
+        ? feature
+        : (<EStructuralFeature>feature).getFeatureID();
+    switch (featureID) {`;
     for (const feature of eClass.getEStructuralFeatures()) {
       const featureIdField = DU.genFeatureIdFieldName(feature);
-      result += `case ${this._packageName}.${featureIdField}:`;
+      result += `
+      case ${this._packageName}.${featureIdField}:`;
       if (!feature.isMany()) {
-        result += `return this.${DU.getterName(feature)}===undefined;`;
+        result += `
+        return this.${DU.getterName(feature)} === undefined;`;
       } else {
         const getter = DU.getterName(feature);
-        result += `return this.${getter}().isEmpty();`;
+        result += `
+        return this.${getter}().isEmpty();`;
       }
     }
-    result += `}
-      return super.eIsSet(featureID);
-    }`;
+    result += `
+    }
+    return super.eIsSet(featureID);
+  }`;
     return result;
   }
 
   private genEUnset(eClass: EClass): string {
     let result = `
-    /**
-     * eUnset() - provides ability to reflectively unset any feature.
-     */
-    public eUnset(feature: number | EStructuralFeature): void {
-        const featureID: number =  typeof feature === 'number' ? feature : (<EStructuralFeature>feature).getFeatureID();
-          switch (featureID) {`;
+
+  /**
+   * eUnset() - provides ability to reflectively unset any feature.
+   */
+  public eUnset(feature: number | EStructuralFeature): void {
+    const featureID: number =
+      typeof feature === 'number'
+        ? feature
+        : (<EStructuralFeature>feature).getFeatureID();
+    switch (featureID) {`;
     for (const feature of eClass.getEStructuralFeatures()) {
       const featureIdField = DU.genFeatureIdFieldName(feature);
       result += `
@@ -454,45 +492,50 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
         return;`;
       }
     }
-    result += `}
-      return super.eUnset(featureID);
-    }`;
+    result += `
+    }
+    return super.eUnset(featureID);
+  }`;
     return result;
   }
 
   private genEInverseAdd(eClass: EClass) {
     let result = `
-    //======================================================================
-    // Inverse Adders (if needed)
-  
-    `;
+
+  //======================================================================
+  // Inverse Adders (if needed)
+`;
     let numSwitches = 0;
     for (const f of eClass.getEStructuralFeatures()) {
       if (f instanceof EReferenceImpl) {
         if (!f.isVolatile() && f.getEOpposite()) {
           if (numSwitches === 0) {
-            result += `public eInverseAdd(otherEnd: EObject, featureID: number): void{
-              switch (featureID){`;
+            result += `
+  public eInverseAdd(otherEnd: EObject, featureID: number): void {
+    switch (featureID) {`;
           }
           //TODO: Do I also need to do a basic remove from container if this sets a new container?
-          result += `case ${this._packageName}.${DU.genFeatureIdFieldName(f)}:`;
+          result += `
+      case ${this._packageName}.${DU.genFeatureIdFieldName(f)}:`;
           if (f.isMany()) {
-            result += `return (<EList<EObject>>this.${DU.getterName(
+            result += `
+        return (<EList<EObject>>this.${DU.getterName(
               f
-            )}()).basicAdd(otherEnd);
-            `;
+            )}()).basicAdd(otherEnd);`;
           } else {
             if (f.getEOpposite()) {
               const oppositeFeatureField = `${
                 this._packageName
               }.${DU.genFeatureIdFieldName(f.getEOpposite())}`;
-              result += `if (this.${f.getName()})
-              this.${f.getName()}.eInverseRemove(
-                this,
-                ${oppositeFeatureField}
-              );`;
+              result += `
+        if (this.${f.getName()})
+          this.${f.getName()}.eInverseRemove(
+            this,
+            ${oppositeFeatureField}
+          );`;
             }
-            result += `return this.basic${DU.capitalize(DU.setterName(f))}(<${f
+            result += `
+        return this.basic${DU.capitalize(DU.setterName(f))}(<${f
               .getEType()
               .getName()}>otherEnd);`;
           }
@@ -501,46 +544,49 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
       }
     }
     if (numSwitches > 0) {
-      result += `}
-      return super.eInverseAdd(otherEnd,featureID);
-    }`;
+      result += `
+    }
+    return super.eInverseAdd(otherEnd, featureID);
+  }`;
     }
     return result;
   }
 
   private genEInverseRemove(eClass: EClass) {
     let result = `
-    //======================================================================
-    // Inverse Removers (if needed)
-  
-    `;
+
+  //======================================================================
+  // Inverse Removers (if needed)
+`;
     let numSwitches = 0;
     for (const f of eClass.getEStructuralFeatures()) {
       if (f instanceof EReferenceImpl) {
         if (!f.isVolatile() && f.getEOpposite()) {
           if (numSwitches === 0) {
-            result += `public eInverseRemove(otherEnd: EObject, featureID: number): void{
-                  switch (featureID){`;
+            result += `
+  public eInverseRemove(otherEnd: EObject, featureID: number): void {
+    switch (featureID) {`;
           }
-          result += `case ${this._packageName}.${DU.genFeatureIdFieldName(f)}:`;
+          result += `
+      case ${this._packageName}.${DU.genFeatureIdFieldName(f)}:`;
           if (f.isMany()) {
-            result += `return (<EList<EObject>>this.${DU.getterName(
+            result += `
+        return (<EList<EObject>>this.${DU.getterName(
               f
-            )}()).basicRemove(otherEnd);
-                `;
+            )}()).basicRemove(otherEnd);`;
           } else {
-            result += `return this.basic${DU.capitalize(
-              DU.setterName(f)
-            )}(null);`;
+            result += `
+        return this.basic${DU.capitalize(DU.setterName(f))}(null);`;
           }
           numSwitches++;
         }
       }
     }
     if (numSwitches > 0) {
-      result += `}
-          return super.eInverseRemove(otherEnd,featureID);
-        }`;
+      result += `
+    }
+    return super.eInverseRemove(otherEnd, featureID);
+  }`;
     }
     return result;
   }
