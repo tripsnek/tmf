@@ -449,8 +449,6 @@ import { EObjectImpl } from '@tripsnek/tmf';`;
     //for packages defined as 'x-data' folders in lib without nesting
     return '../' + this.getPathToOtherPackageFlat(fromPackage, toPackage);
   }
-
-  // EAD: Simplify given TMF's one library per model and no nested packages
   public static getPathToOtherPackageFlat(
     fromPackage: EPackage,
     toPackage: EPackage
