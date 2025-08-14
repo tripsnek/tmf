@@ -21,15 +21,14 @@ export class TGenUtils {
 
   //imports needed by every api/gen/impl of every EClass
   static DEFAULT_IMPORTS = `import { EObject } from '@tripsnek/tmf';
-      import { TUtils } from '@tripsnek/tmf'
-      import { EStructuralFeature } from '@tripsnek/tmf';
-      import { BasicEList } from '@tripsnek/tmf';
-      import { EClass } from '@tripsnek/tmf';
-      import { EList } from '@tripsnek/tmf';
-      import { EEnum } from '@tripsnek/tmf';
-      import { EDataType } from '@tripsnek/tmf';
-      import { EObjectImpl } from '@tripsnek/tmf';
-      `;
+import { TUtils } from '@tripsnek/tmf';
+import { EStructuralFeature } from '@tripsnek/tmf';
+import { BasicEList } from '@tripsnek/tmf';
+import { EClass } from '@tripsnek/tmf';
+import { EList } from '@tripsnek/tmf';
+import { EEnum } from '@tripsnek/tmf';
+import { EDataType } from '@tripsnek/tmf';
+import { EObjectImpl } from '@tripsnek/tmf';`;
 
   static ECORE_DEFAULT_IMPORTS = `import { EObjectImpl } from '../impl/e-object';
       import { EStructuralFeature } from '../api/e-structural-feature';
