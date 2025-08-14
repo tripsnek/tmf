@@ -14,11 +14,11 @@ import { Environment, ConditionalImports } from '../utils/environment';
  * @param overwriteImpl
  * @param destinationPath
  */
-export function generateFromEcore(
+export async function generateFromEcore(
   ecorePath: string,
   overwriteImpl?: boolean,
   destinationPath?: string
-): void {
+): Promise<void> {
   Environment.requireNodeEnvironment('File-based code generation');
 
   // parse the package
@@ -28,12 +28,11 @@ export function generateFromEcore(
   const path = require('path');
   const destPath = destinationPath
     ? destinationPath
-    : ecorePath.substring(0, ecorePath.lastIndexOf('/'));
+    : path.dirname(ecorePath);  // <-- Use path.dirname() instead
 
   // generate the source
   generateFromEPackage(pkg, destPath, overwriteImpl);
 }
-
 /**
  * (1) Generates source code into destinationPath/src/lib
  * (2) Generates barrel file (index.ts) into destinationPath/src
@@ -42,14 +41,15 @@ export function generateFromEcore(
  * @param destPath
  * @param overwriteImpl
  */
-export function generateFromEPackage(
+export async function generateFromEPackage(
   pkg: EPackage,
   destPath: string,
   overwriteImpl?: boolean
-): void {
+): Promise<void> {
   Environment.requireNodeEnvironment('Code generation');
 
   const path = require('path');
+  console.log('running DGeneratorMain');
   new DGeneratorMain(
     pkg,
     path.resolve(destPath + '/src/lib'),
