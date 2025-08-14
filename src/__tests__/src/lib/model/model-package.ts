@@ -1,20 +1,20 @@
-import { EObject } from "@tripsnek/tmf";
-import { TUtils } from "@tripsnek/tmf";
-import { EStructuralFeature } from "@tripsnek/tmf";
-import { BasicEList } from "@tripsnek/tmf";
-import { EClass } from "@tripsnek/tmf";
-import { EList } from "@tripsnek/tmf";
-import { EEnum } from "@tripsnek/tmf";
-import { EDataType } from "@tripsnek/tmf";
-import { EObjectImpl } from "@tripsnek/tmf";
+import { EObject } from '@tripsnek/tmf';
+import { TUtils } from '@tripsnek/tmf';
+import { EStructuralFeature } from '@tripsnek/tmf';
+import { BasicEList } from '@tripsnek/tmf';
+import { EClass } from '@tripsnek/tmf';
+import { EList } from '@tripsnek/tmf';
+import { EEnum } from '@tripsnek/tmf';
+import { EDataType } from '@tripsnek/tmf';
+import { EObjectImpl } from '@tripsnek/tmf';
 
-import { EPackage } from "@tripsnek/tmf";
-import { EPackageImpl } from "@tripsnek/tmf";
-import { EAttribute } from "@tripsnek/tmf";
-import { EFactory } from "@tripsnek/tmf";
-import { EReference } from "@tripsnek/tmf";
-import { EOperation } from "@tripsnek/tmf";
-import { EcorePackage } from "@tripsnek/tmf";
+import { EPackage } from '@tripsnek/tmf';
+import { EPackageImpl } from '@tripsnek/tmf';
+import { EAttribute } from '@tripsnek/tmf';
+import { EFactory } from '@tripsnek/tmf';
+import { EReference } from '@tripsnek/tmf';
+import { EOperation } from '@tripsnek/tmf';
+import { EcorePackage } from '@tripsnek/tmf';
 export class ModelPackage extends EPackageImpl {
   /** Singleton */
   public static eINSTANCE: ModelPackage = ModelPackage.init();
@@ -22,9 +22,9 @@ export class ModelPackage extends EPackageImpl {
   //if the singleton is initialized
   private static isInited = false;
 
-  static eNS_URI = "http://www.tripsnek.com/emf.com.tripsnek.tmftest.model";
-  static eNAME = "model";
-  static eNS_PREFIX = "emf.com.tripsnek.tmftest.model";
+  static eNS_URI = 'http://www.tripsnek.com/emf.com.tripsnek.tmftest.model';
+  static eNAME = 'model';
+  static eNS_PREFIX = 'emf.com.tripsnek.tmftest.model';
 
   /** Provides static access to EClass and EStructuralFeature instances */
   public static Literals = class {};
@@ -36,7 +36,7 @@ export class ModelPackage extends EPackageImpl {
   //causes EPackage.Registry registration event
   //hard-coded URI, since referring to the static eNS_URI field in constructor can cause issues
   constructor() {
-    super("model", "http://www.tripsnek.com/emf.com.tripsnek.tmftest.model");
+    super('model', 'http://www.tripsnek.com/emf.com.tripsnek.tmftest.model');
   }
 
   /**

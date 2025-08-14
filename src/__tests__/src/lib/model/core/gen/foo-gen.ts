@@ -1,24 +1,24 @@
-import { EObject } from "@tripsnek/tmf";
-import { TUtils } from "@tripsnek/tmf";
-import { EStructuralFeature } from "@tripsnek/tmf";
-import { BasicEList } from "@tripsnek/tmf";
-import { EClass } from "@tripsnek/tmf";
-import { EList } from "@tripsnek/tmf";
-import { EEnum } from "@tripsnek/tmf";
-import { EDataType } from "@tripsnek/tmf";
-import { EObjectImpl } from "@tripsnek/tmf";
+import { EObject } from '@tripsnek/tmf';
+import { TUtils } from '@tripsnek/tmf';
+import { EStructuralFeature } from '@tripsnek/tmf';
+import { BasicEList } from '@tripsnek/tmf';
+import { EClass } from '@tripsnek/tmf';
+import { EList } from '@tripsnek/tmf';
+import { EEnum } from '@tripsnek/tmf';
+import { EDataType } from '@tripsnek/tmf';
+import { EObjectImpl } from '@tripsnek/tmf';
 
-import { NamedEntity } from "../api/named-entity";
-import { FooGroup } from "../api/foo-group";
-import { FooClass } from "../api/foo-class";
-import { BoundedNumber } from "../api/bounded-number";
-import { Bar } from "../api/bar";
-import { Bazzle } from "../api/bazzle";
-import { User } from "../api/user";
-import { CorePackage } from "../core-package";
-import { Foo } from "../api/foo";
-import { NamedEntityGen } from "./named-entity-gen";
-import { NamedEntityImpl } from "../impl/named-entity-impl";
+import { NamedEntity } from '../api/named-entity';
+import { FooGroup } from '../api/foo-group';
+import { FooClass } from '../api/foo-class';
+import { BoundedNumber } from '../api/bounded-number';
+import { Bar } from '../api/bar';
+import { Bazzle } from '../api/bazzle';
+import { User } from '../api/user';
+import { CorePackage } from '../core-package';
+import { Foo } from '../api/foo';
+import { NamedEntityGen } from './named-entity-gen';
+import { NamedEntityImpl } from '../impl/named-entity-impl';
 
 /**
  * This file is source-code generated and should never be edited. It implements
@@ -190,25 +190,25 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
 
   public getVolatileAttribute(): string {
     throw new Error(
-      "Unsupported operation on volatile field. Override in FooImpl."
+      'Unsupported operation on volatile field. Override in FooImpl.'
     );
   }
 
   public setVolatileAttribute(newVolatileAttribute: string): void {
     throw new Error(
-      "Unsupported operation on volatile field. Override in FooImpl."
+      'Unsupported operation on volatile field. Override in FooImpl.'
     );
   }
 
   public getVolatileReference(): Foo {
     throw new Error(
-      "Unsupported operation on volatile field. Override in FooImpl."
+      'Unsupported operation on volatile field. Override in FooImpl.'
     );
   }
 
   public setVolatileReference(newVolatileReference: Foo): void {
     throw new Error(
-      "Unsupported operation on volatile field. Override in FooImpl."
+      'Unsupported operation on volatile field. Override in FooImpl.'
     );
   }
 
@@ -248,7 +248,7 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
   // API Operations
 
   public copyFoo(): Foo {
-    throw new Error("Not implemented");
+    throw new Error('Not implemented');
   }
 
   //======================================================================
@@ -259,7 +259,7 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
    */
   public eGet(feature: number | EStructuralFeature): any {
     const featureID: number =
-      typeof feature === "number"
+      typeof feature === 'number'
         ? feature
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
@@ -308,7 +308,7 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
    */
   public eSet(feature: number | EStructuralFeature, newValue: any): void {
     const featureID: number =
-      typeof feature === "number"
+      typeof feature === 'number'
         ? feature
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
@@ -381,7 +381,7 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
    */
   public eIsSet(feature: number | EStructuralFeature): boolean {
     const featureID: number =
-      typeof feature === "number"
+      typeof feature === 'number'
         ? feature
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
@@ -430,7 +430,7 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
    */
   public eUnset(feature: number | EStructuralFeature): void {
     const featureID: number =
-      typeof feature === "number"
+      typeof feature === 'number'
         ? feature
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {

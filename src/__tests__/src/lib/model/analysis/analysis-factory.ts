@@ -1,20 +1,20 @@
-import { EObject } from "@tripsnek/tmf";
-import { TUtils } from "@tripsnek/tmf";
-import { EStructuralFeature } from "@tripsnek/tmf";
-import { BasicEList } from "@tripsnek/tmf";
-import { EClass } from "@tripsnek/tmf";
-import { EList } from "@tripsnek/tmf";
-import { EEnum } from "@tripsnek/tmf";
-import { EDataType } from "@tripsnek/tmf";
-import { EObjectImpl } from "@tripsnek/tmf";
+import { EObject } from '@tripsnek/tmf';
+import { TUtils } from '@tripsnek/tmf';
+import { EStructuralFeature } from '@tripsnek/tmf';
+import { BasicEList } from '@tripsnek/tmf';
+import { EClass } from '@tripsnek/tmf';
+import { EList } from '@tripsnek/tmf';
+import { EEnum } from '@tripsnek/tmf';
+import { EDataType } from '@tripsnek/tmf';
+import { EObjectImpl } from '@tripsnek/tmf';
 
-import { EReference } from "@tripsnek/tmf";
-import { EAttribute } from "@tripsnek/tmf";
-import { EFactory } from "@tripsnek/tmf";
-import { AnalysisPackage } from "./analysis-package";
+import { EReference } from '@tripsnek/tmf';
+import { EAttribute } from '@tripsnek/tmf';
+import { EFactory } from '@tripsnek/tmf';
+import { AnalysisPackage } from './analysis-package';
 
-import { AnalysisResult } from "./api/analysis-result";
-import { AnalysisResultImpl } from "./impl/analysis-result-impl";
+import { AnalysisResult } from './api/analysis-result';
+import { AnalysisResultImpl } from './impl/analysis-result-impl';
 
 export class AnalysisFactory extends EFactory {
   /* Singleton */

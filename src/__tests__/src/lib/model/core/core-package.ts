@@ -1,21 +1,21 @@
-import { EObject } from "@tripsnek/tmf";
-import { TUtils } from "@tripsnek/tmf";
-import { EStructuralFeature } from "@tripsnek/tmf";
-import { BasicEList } from "@tripsnek/tmf";
-import { EClass } from "@tripsnek/tmf";
-import { EList } from "@tripsnek/tmf";
-import { EEnum } from "@tripsnek/tmf";
-import { EDataType } from "@tripsnek/tmf";
-import { EObjectImpl } from "@tripsnek/tmf";
+import { EObject } from '@tripsnek/tmf';
+import { TUtils } from '@tripsnek/tmf';
+import { EStructuralFeature } from '@tripsnek/tmf';
+import { BasicEList } from '@tripsnek/tmf';
+import { EClass } from '@tripsnek/tmf';
+import { EList } from '@tripsnek/tmf';
+import { EEnum } from '@tripsnek/tmf';
+import { EDataType } from '@tripsnek/tmf';
+import { EObjectImpl } from '@tripsnek/tmf';
 
-import { EPackage } from "@tripsnek/tmf";
-import { EPackageImpl } from "@tripsnek/tmf";
-import { EAttribute } from "@tripsnek/tmf";
-import { EFactory } from "@tripsnek/tmf";
-import { EReference } from "@tripsnek/tmf";
-import { EOperation } from "@tripsnek/tmf";
-import { EcorePackage } from "@tripsnek/tmf";
-import { FooClass } from "./api/foo-class";
+import { EPackage } from '@tripsnek/tmf';
+import { EPackageImpl } from '@tripsnek/tmf';
+import { EAttribute } from '@tripsnek/tmf';
+import { EFactory } from '@tripsnek/tmf';
+import { EReference } from '@tripsnek/tmf';
+import { EOperation } from '@tripsnek/tmf';
+import { EcorePackage } from '@tripsnek/tmf';
+import { FooClass } from './api/foo-class';
 export class CorePackage extends EPackageImpl {
   public static BOUNDED_NUMBER = 0;
   public static BOUNDED_NUMBER_FEATURE_COUNT = 4;
@@ -109,9 +109,9 @@ export class CorePackage extends EPackageImpl {
   private static isInited = false;
 
   static eNS_URI =
-    "http://www.tripsnek.com/emf.com.tripsnek.tmftest.model.core";
-  static eNAME = "core";
-  static eNS_PREFIX = "core";
+    'http://www.tripsnek.com/emf.com.tripsnek.tmftest.model.core';
+  static eNAME = 'core';
+  static eNS_PREFIX = 'core';
 
   /** Provides static access to EClass and EStructuralFeature instances */
   public static Literals = class {
@@ -219,8 +219,8 @@ export class CorePackage extends EPackageImpl {
   //hard-coded URI, since referring to the static eNS_URI field in constructor can cause issues
   constructor() {
     super(
-      "core",
-      "http://www.tripsnek.com/emf.com.tripsnek.tmftest.model.core"
+      'core',
+      'http://www.tripsnek.com/emf.com.tripsnek.tmftest.model.core'
     );
   }
 
@@ -553,7 +553,7 @@ export class CorePackage extends EPackageImpl {
     let op: EOperation = null;
     this.initEClass(
       this.boundedNumberEClass,
-      "BoundedNumber",
+      'BoundedNumber',
       false,
       false,
       true
@@ -561,7 +561,7 @@ export class CorePackage extends EPackageImpl {
     this.initEAttribute(
       this.getBoundedNumber_Units(),
       this.getEcorePackage().getEString(),
-      "units",
+      'units',
       undefined,
       0,
       1,
@@ -578,7 +578,7 @@ export class CorePackage extends EPackageImpl {
     this.initEAttribute(
       this.getBoundedNumber_Value(),
       this.getEcorePackage().getEDouble(),
-      "value",
+      'value',
       undefined,
       0,
       1,
@@ -595,7 +595,7 @@ export class CorePackage extends EPackageImpl {
     this.initEAttribute(
       this.getBoundedNumber_MaxValue(),
       this.getEcorePackage().getEDouble(),
-      "maxValue",
+      'maxValue',
       undefined,
       0,
       1,
@@ -612,7 +612,7 @@ export class CorePackage extends EPackageImpl {
     this.initEAttribute(
       this.getBoundedNumber_MinValue(),
       this.getEcorePackage().getEDouble(),
-      "minValue",
+      'minValue',
       undefined,
       0,
       1,
@@ -626,11 +626,11 @@ export class CorePackage extends EPackageImpl {
       undefined,
       false
     );
-    this.initEClass(this.idedEntityEClass, "IdedEntity", true, false, true);
+    this.initEClass(this.idedEntityEClass, 'IdedEntity', true, false, true);
     this.initEAttribute(
       this.getIdedEntity_Id(),
       this.getEcorePackage().getEString(),
-      "id",
+      'id',
       undefined,
       0,
       1,
@@ -647,7 +647,7 @@ export class CorePackage extends EPackageImpl {
     this.initEAttribute(
       this.getIdedEntity_EditDate(),
       this.getEcorePackage().getEDate(),
-      "editDate",
+      'editDate',
       undefined,
       0,
       1,
@@ -665,7 +665,7 @@ export class CorePackage extends EPackageImpl {
       this.getIdedEntity_EditUser(),
       this.getUser(),
       null,
-      "editUser",
+      'editUser',
       null,
       0,
       1,
@@ -683,7 +683,7 @@ export class CorePackage extends EPackageImpl {
     this.initEAttribute(
       this.getIdedEntity_Locked(),
       this.getEcorePackage().getEBoolean(),
-      "locked",
+      'locked',
       undefined,
       0,
       1,
@@ -700,7 +700,7 @@ export class CorePackage extends EPackageImpl {
     this.initEAttribute(
       this.getIdedEntity_Id2(),
       this.getEcorePackage().getEString(),
-      "id2",
+      'id2',
       undefined,
       0,
       1,
@@ -715,11 +715,11 @@ export class CorePackage extends EPackageImpl {
       false
     );
     this.namedEntityEClass.getESuperTypes().add(this.getIdedEntity());
-    this.initEClass(this.namedEntityEClass, "NamedEntity", true, false, true);
+    this.initEClass(this.namedEntityEClass, 'NamedEntity', true, false, true);
     this.initEAttribute(
       this.getNamedEntity_Name(),
       this.getEcorePackage().getEString(),
-      "name",
+      'name',
       undefined,
       0,
       1,
@@ -734,12 +734,12 @@ export class CorePackage extends EPackageImpl {
       false
     );
     this.bazzleEClass.getESuperTypes().add(this.getNamedEntity());
-    this.initEClass(this.bazzleEClass, "Bazzle", false, false, true);
+    this.initEClass(this.bazzleEClass, 'Bazzle', false, false, true);
     this.initEReference(
       this.getBazzle_BackupBar(),
       this.getBar(),
       this.getBar_BackupFor(),
-      "backupBar",
+      'backupBar',
       null,
       0,
       1,
@@ -758,7 +758,7 @@ export class CorePackage extends EPackageImpl {
       this.getBazzle_OneToOneFoo(),
       this.getFoo(),
       this.getFoo_OneToOneBazzle(),
-      "oneToOneFoo",
+      'oneToOneFoo',
       null,
       0,
       1,
@@ -774,12 +774,12 @@ export class CorePackage extends EPackageImpl {
       false
     );
     this.barEClass.getESuperTypes().add(this.getNamedEntity());
-    this.initEClass(this.barEClass, "Bar", false, false, true);
+    this.initEClass(this.barEClass, 'Bar', false, false, true);
     this.initEReference(
       this.getBar_Foo(),
       this.getFoo(),
       this.getFoo_Bars(),
-      "foo",
+      'foo',
       null,
       0,
       1,
@@ -798,7 +798,7 @@ export class CorePackage extends EPackageImpl {
       this.getBar_Bazzles(),
       this.getBazzle(),
       null,
-      "bazzles",
+      'bazzles',
       null,
       0,
       -1,
@@ -817,7 +817,7 @@ export class CorePackage extends EPackageImpl {
       this.getBar_BackupFor(),
       this.getBazzle(),
       this.getBazzle_BackupBar(),
-      "backupFor",
+      'backupFor',
       null,
       0,
       -1,
@@ -837,7 +837,7 @@ export class CorePackage extends EPackageImpl {
       .add(this.getBar());
     this.initEClass(
       this.barSpecializationWithComponentsEClass,
-      "BarSpecializationWithComponents",
+      'BarSpecializationWithComponents',
       false,
       false,
       true
@@ -846,7 +846,7 @@ export class CorePackage extends EPackageImpl {
       this.getBarSpecializationWithComponents_ComponentBars(),
       this.getBar(),
       null,
-      "componentBars",
+      'componentBars',
       null,
       0,
       -1,
@@ -864,7 +864,7 @@ export class CorePackage extends EPackageImpl {
     this.initEAttribute(
       this.getBarSpecializationWithComponents_SpecialName(),
       this.getEcorePackage().getEString(),
-      "specialName",
+      'specialName',
       undefined,
       0,
       1,
@@ -879,12 +879,12 @@ export class CorePackage extends EPackageImpl {
       false
     );
     this.fooEClass.getESuperTypes().add(this.getNamedEntity());
-    this.initEClass(this.fooEClass, "Foo", false, false, true);
+    this.initEClass(this.fooEClass, 'Foo', false, false, true);
     this.initEReference(
       this.getFoo_Group(),
       this.getFooGroup(),
       null,
-      "group",
+      'group',
       null,
       0,
       1,
@@ -902,7 +902,7 @@ export class CorePackage extends EPackageImpl {
     this.initEAttribute(
       this.getFoo_CreationDate(),
       this.getEcorePackage().getEDate(),
-      "creationDate",
+      'creationDate',
       undefined,
       0,
       1,
@@ -919,7 +919,7 @@ export class CorePackage extends EPackageImpl {
     this.initEAttribute(
       this.getFoo_FooClass(),
       this.getFooClass(),
-      "fooClass",
+      'fooClass',
       undefined,
       0,
       1,
@@ -937,7 +937,7 @@ export class CorePackage extends EPackageImpl {
       this.getFoo_Range(),
       this.getBoundedNumber(),
       null,
-      "range",
+      'range',
       null,
       0,
       1,
@@ -956,7 +956,7 @@ export class CorePackage extends EPackageImpl {
       this.getFoo_Bars(),
       this.getBar(),
       this.getBar_Foo(),
-      "bars",
+      'bars',
       null,
       0,
       -1,
@@ -975,7 +975,7 @@ export class CorePackage extends EPackageImpl {
       this.getFoo_OneToOneBazzle(),
       this.getBazzle(),
       this.getBazzle_OneToOneFoo(),
-      "oneToOneBazzle",
+      'oneToOneBazzle',
       null,
       0,
       1,
@@ -993,7 +993,7 @@ export class CorePackage extends EPackageImpl {
     this.initEAttribute(
       this.getFoo_ManyAttribute(),
       this.getEcorePackage().getEString(),
-      "manyAttribute",
+      'manyAttribute',
       undefined,
       0,
       -1,
@@ -1010,7 +1010,7 @@ export class CorePackage extends EPackageImpl {
     this.initEAttribute(
       this.getFoo_UnchangeableAttribute(),
       this.getEcorePackage().getEString(),
-      "unchangeableAttribute",
+      'unchangeableAttribute',
       undefined,
       0,
       1,
@@ -1028,7 +1028,7 @@ export class CorePackage extends EPackageImpl {
       this.getFoo_UnchangeableReference(),
       this.getBazzle(),
       null,
-      "unchangeableReference",
+      'unchangeableReference',
       null,
       0,
       1,
@@ -1046,7 +1046,7 @@ export class CorePackage extends EPackageImpl {
     this.initEAttribute(
       this.getFoo_TransientAttribute(),
       this.getEcorePackage().getEString(),
-      "transientAttribute",
+      'transientAttribute',
       undefined,
       0,
       1,
@@ -1064,7 +1064,7 @@ export class CorePackage extends EPackageImpl {
       this.getFoo_TransientReference(),
       this.getFoo(),
       null,
-      "transientReference",
+      'transientReference',
       null,
       0,
       1,
@@ -1082,7 +1082,7 @@ export class CorePackage extends EPackageImpl {
     this.initEAttribute(
       this.getFoo_VolatileAttribute(),
       this.getEcorePackage().getEString(),
-      "volatileAttribute",
+      'volatileAttribute',
       undefined,
       0,
       1,
@@ -1100,7 +1100,7 @@ export class CorePackage extends EPackageImpl {
       this.getFoo_VolatileReference(),
       this.getFoo(),
       null,
-      "volatileReference",
+      'volatileReference',
       null,
       0,
       1,
@@ -1119,7 +1119,7 @@ export class CorePackage extends EPackageImpl {
       this.getFoo_ManyCrossAggregate(),
       this.getFoo(),
       null,
-      "manyCrossAggregate",
+      'manyCrossAggregate',
       null,
       0,
       -1,
@@ -1138,7 +1138,7 @@ export class CorePackage extends EPackageImpl {
       this.getFoo_ManyCrossAggregateNested(),
       this.getBar(),
       null,
-      "manyCrossAggregateNested",
+      'manyCrossAggregateNested',
       null,
       0,
       -1,
@@ -1157,7 +1157,7 @@ export class CorePackage extends EPackageImpl {
       this.getFoo_ManyValueObjects(),
       this.getBoundedNumber(),
       null,
-      "manyValueObjects",
+      'manyValueObjects',
       null,
       0,
       -1,
@@ -1176,7 +1176,7 @@ export class CorePackage extends EPackageImpl {
       this.getFoo_OneToOneContainment(),
       this.getBazzle(),
       null,
-      "oneToOneContainment",
+      'oneToOneContainment',
       null,
       0,
       1,
@@ -1195,7 +1195,7 @@ export class CorePackage extends EPackageImpl {
       this.getFoo_OwnedFoos(),
       this.getFoo(),
       null,
-      "ownedFoos",
+      'ownedFoos',
       null,
       0,
       -1,
@@ -1213,7 +1213,7 @@ export class CorePackage extends EPackageImpl {
     op = this.initEOperation(
       this.getFoo_CopyFoo(),
       this.getFoo(),
-      "copyFoo",
+      'copyFoo',
       0,
       1,
       true,
@@ -1222,18 +1222,18 @@ export class CorePackage extends EPackageImpl {
     this.fooSpecializationEClass.getESuperTypes().add(this.getFoo());
     this.initEClass(
       this.fooSpecializationEClass,
-      "FooSpecialization",
+      'FooSpecialization',
       false,
       false,
       true
     );
     this.fooGroupEClass.getESuperTypes().add(this.getNamedEntity());
-    this.initEClass(this.fooGroupEClass, "FooGroup", false, false, true);
+    this.initEClass(this.fooGroupEClass, 'FooGroup', false, false, true);
     this.initEReference(
       this.getFooGroup_User(),
       this.getUser(),
       null,
-      "user",
+      'user',
       null,
       0,
       1,
@@ -1251,7 +1251,7 @@ export class CorePackage extends EPackageImpl {
     op = this.initEOperation(
       this.getFooGroup_ComputeFoosOfClass(),
       this.getEcorePackage().getEInt(),
-      "computeFoosOfClass",
+      'computeFoosOfClass',
       0,
       1,
       true,
@@ -1260,7 +1260,7 @@ export class CorePackage extends EPackageImpl {
     op = this.initEOperation(
       this.getFooGroup_GetFoosWithBazzles(),
       this.getFoo(),
-      "getFoosWithBazzles",
+      'getFoosWithBazzles',
       0,
       -1,
       true,
@@ -1269,18 +1269,18 @@ export class CorePackage extends EPackageImpl {
     op = this.initEOperation(
       this.getFooGroup_Freeze(),
       null,
-      "freeze",
+      'freeze',
       0,
       1,
       true,
       true
     );
     this.userEClass.getESuperTypes().add(this.getNamedEntity());
-    this.initEClass(this.userEClass, "User", false, false, true);
+    this.initEClass(this.userEClass, 'User', false, false, true);
     this.initEAttribute(
       this.getUser_Pass(),
       this.getEcorePackage().getEString(),
-      "pass",
+      'pass',
       undefined,
       0,
       1,
@@ -1297,7 +1297,7 @@ export class CorePackage extends EPackageImpl {
     this.initEAttribute(
       this.getUser_Salt(),
       this.getEcorePackage().getEString(),
-      "salt",
+      'salt',
       undefined,
       0,
       1,
@@ -1314,7 +1314,7 @@ export class CorePackage extends EPackageImpl {
     this.initEAttribute(
       this.getUser_Email(),
       this.getEcorePackage().getEString(),
-      "email",
+      'email',
       undefined,
       0,
       1,
@@ -1328,10 +1328,10 @@ export class CorePackage extends EPackageImpl {
       undefined,
       false
     );
-    this.initEEnum(this.fooClassEEnum, "FooClass");
-    this.addEEnumLiteral(this.fooClassEEnum, "SHORT", 0);
-    this.addEEnumLiteral(this.fooClassEEnum, "MEDIUM", 1);
-    this.addEEnumLiteral(this.fooClassEEnum, "INTERMEDIATE", 2);
-    this.addEEnumLiteral(this.fooClassEEnum, "LONG", 3);
+    this.initEEnum(this.fooClassEEnum, 'FooClass');
+    this.addEEnumLiteral(this.fooClassEEnum, 'SHORT', 0);
+    this.addEEnumLiteral(this.fooClassEEnum, 'MEDIUM', 1);
+    this.addEEnumLiteral(this.fooClassEEnum, 'INTERMEDIATE', 2);
+    this.addEEnumLiteral(this.fooClassEEnum, 'LONG', 3);
   }
 }

@@ -1,32 +1,32 @@
-import { EObject } from "@tripsnek/tmf";
-import { TUtils } from "@tripsnek/tmf";
-import { EStructuralFeature } from "@tripsnek/tmf";
-import { BasicEList } from "@tripsnek/tmf";
-import { EClass } from "@tripsnek/tmf";
-import { EList } from "@tripsnek/tmf";
-import { EEnum } from "@tripsnek/tmf";
-import { EDataType } from "@tripsnek/tmf";
-import { EObjectImpl } from "@tripsnek/tmf";
+import { EObject } from '@tripsnek/tmf';
+import { TUtils } from '@tripsnek/tmf';
+import { EStructuralFeature } from '@tripsnek/tmf';
+import { BasicEList } from '@tripsnek/tmf';
+import { EClass } from '@tripsnek/tmf';
+import { EList } from '@tripsnek/tmf';
+import { EEnum } from '@tripsnek/tmf';
+import { EDataType } from '@tripsnek/tmf';
+import { EObjectImpl } from '@tripsnek/tmf';
 
-import { NamedEntity } from "../api/named-entity";
-import { User } from "../api/user";
-import { FooClass } from "../api/foo-class";
-import { Foo } from "../api/foo";
-import { Bazzle } from "../api/bazzle";
-import { FooGroupGen } from "../gen/foo-group-gen";
-import { FooGroup } from "../api/foo-group";
+import { NamedEntity } from '../api/named-entity';
+import { User } from '../api/user';
+import { FooClass } from '../api/foo-class';
+import { Foo } from '../api/foo';
+import { Bazzle } from '../api/bazzle';
+import { FooGroupGen } from '../gen/foo-group-gen';
+import { FooGroup } from '../api/foo-group';
 
 /**
  * Editable Impl class.
  */
 export class FooGroupImpl extends FooGroupGen {
   public computeFoosOfClass(fooClass: FooClass): number {
-    throw new Error("Not implemented");
+    throw new Error('Not implemented');
   }
   public getFoosWithBazzles(bazzles: EList<Bazzle>): EList<Foo> {
-    throw new Error("Not implemented");
+    throw new Error('Not implemented');
   }
   public freeze(): void {
-    throw new Error("Not implemented");
+    throw new Error('Not implemented');
   }
 }

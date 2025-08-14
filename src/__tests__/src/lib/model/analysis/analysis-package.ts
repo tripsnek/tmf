@@ -1,21 +1,21 @@
-import { CorePackage } from "../core/core-package";
-import { EObject } from "@tripsnek/tmf";
-import { TUtils } from "@tripsnek/tmf";
-import { EStructuralFeature } from "@tripsnek/tmf";
-import { BasicEList } from "@tripsnek/tmf";
-import { EClass } from "@tripsnek/tmf";
-import { EList } from "@tripsnek/tmf";
-import { EEnum } from "@tripsnek/tmf";
-import { EDataType } from "@tripsnek/tmf";
-import { EObjectImpl } from "@tripsnek/tmf";
+import { CorePackage } from '../core/core-package';
+import { EObject } from '@tripsnek/tmf';
+import { TUtils } from '@tripsnek/tmf';
+import { EStructuralFeature } from '@tripsnek/tmf';
+import { BasicEList } from '@tripsnek/tmf';
+import { EClass } from '@tripsnek/tmf';
+import { EList } from '@tripsnek/tmf';
+import { EEnum } from '@tripsnek/tmf';
+import { EDataType } from '@tripsnek/tmf';
+import { EObjectImpl } from '@tripsnek/tmf';
 
-import { EPackage } from "@tripsnek/tmf";
-import { EPackageImpl } from "@tripsnek/tmf";
-import { EAttribute } from "@tripsnek/tmf";
-import { EFactory } from "@tripsnek/tmf";
-import { EReference } from "@tripsnek/tmf";
-import { EOperation } from "@tripsnek/tmf";
-import { EcorePackage } from "@tripsnek/tmf";
+import { EPackage } from '@tripsnek/tmf';
+import { EPackageImpl } from '@tripsnek/tmf';
+import { EAttribute } from '@tripsnek/tmf';
+import { EFactory } from '@tripsnek/tmf';
+import { EReference } from '@tripsnek/tmf';
+import { EOperation } from '@tripsnek/tmf';
+import { EcorePackage } from '@tripsnek/tmf';
 export class AnalysisPackage extends EPackageImpl {
   public static ANALYSIS_RESULT = 0;
   public static ANALYSIS_RESULT_FEATURE_COUNT =
@@ -32,9 +32,9 @@ export class AnalysisPackage extends EPackageImpl {
   //if the singleton is initialized
   private static isInited = false;
 
-  static eNS_URI = "undefined";
-  static eNAME = "analysis";
-  static eNS_PREFIX = "undefined";
+  static eNS_URI = 'undefined';
+  static eNAME = 'analysis';
+  static eNS_PREFIX = 'undefined';
 
   /** Provides static access to EClass and EStructuralFeature instances */
   public static Literals = class {
@@ -55,7 +55,7 @@ export class AnalysisPackage extends EPackageImpl {
   //causes EPackage.Registry registration event
   //hard-coded URI, since referring to the static eNS_URI field in constructor can cause issues
   constructor() {
-    super("analysis", "undefined");
+    super('analysis', 'undefined');
   }
 
   /**
@@ -143,7 +143,7 @@ export class AnalysisPackage extends EPackageImpl {
       .add(CorePackage.eINSTANCE.getIdedEntity());
     this.initEClass(
       this.analysisResultEClass,
-      "AnalysisResult",
+      'AnalysisResult',
       false,
       false,
       true
@@ -152,7 +152,7 @@ export class AnalysisPackage extends EPackageImpl {
       this.getAnalysisResult_User(),
       CorePackage.eINSTANCE.getUser(),
       null,
-      "user",
+      'user',
       null,
       0,
       1,
@@ -171,7 +171,7 @@ export class AnalysisPackage extends EPackageImpl {
       this.getAnalysisResult_Object(),
       CorePackage.eINSTANCE.getNamedEntity(),
       null,
-      "object",
+      'object',
       null,
       0,
       1,
@@ -189,7 +189,7 @@ export class AnalysisPackage extends EPackageImpl {
     op = this.initEOperation(
       this.getAnalysisResult_CloneObject(),
       CorePackage.eINSTANCE.getNamedEntity(),
-      "cloneObject",
+      'cloneObject',
       0,
       1,
       true,

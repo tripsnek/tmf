@@ -1,16 +1,16 @@
-import { EObject } from "@tripsnek/tmf";
-import { TUtils } from "@tripsnek/tmf";
-import { EStructuralFeature } from "@tripsnek/tmf";
-import { BasicEList } from "@tripsnek/tmf";
-import { EClass } from "@tripsnek/tmf";
-import { EList } from "@tripsnek/tmf";
-import { EEnum } from "@tripsnek/tmf";
-import { EDataType } from "@tripsnek/tmf";
-import { EObjectImpl } from "@tripsnek/tmf";
+import { EObject } from '@tripsnek/tmf';
+import { TUtils } from '@tripsnek/tmf';
+import { EStructuralFeature } from '@tripsnek/tmf';
+import { BasicEList } from '@tripsnek/tmf';
+import { EClass } from '@tripsnek/tmf';
+import { EList } from '@tripsnek/tmf';
+import { EEnum } from '@tripsnek/tmf';
+import { EDataType } from '@tripsnek/tmf';
+import { EObjectImpl } from '@tripsnek/tmf';
 
-import { User } from "../api/user";
-import { CorePackage } from "../core-package";
-import { IdedEntity } from "../api/ided-entity";
+import { User } from '../api/user';
+import { CorePackage } from '../core-package';
+import { IdedEntity } from '../api/ided-entity';
 
 /**
  * This file is source-code generated and should never be edited. It implements
@@ -78,7 +78,7 @@ export abstract class IdedEntityGen extends EObjectImpl implements IdedEntity {
    */
   public eGet(feature: number | EStructuralFeature): any {
     const featureID: number =
-      typeof feature === "number"
+      typeof feature === 'number'
         ? feature
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
@@ -101,7 +101,7 @@ export abstract class IdedEntityGen extends EObjectImpl implements IdedEntity {
    */
   public eSet(feature: number | EStructuralFeature, newValue: any): void {
     const featureID: number =
-      typeof feature === "number"
+      typeof feature === 'number'
         ? feature
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
@@ -129,7 +129,7 @@ export abstract class IdedEntityGen extends EObjectImpl implements IdedEntity {
    */
   public eIsSet(feature: number | EStructuralFeature): boolean {
     const featureID: number =
-      typeof feature === "number"
+      typeof feature === 'number'
         ? feature
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
@@ -152,7 +152,7 @@ export abstract class IdedEntityGen extends EObjectImpl implements IdedEntity {
    */
   public eUnset(feature: number | EStructuralFeature): void {
     const featureID: number =
-      typeof feature === "number"
+      typeof feature === 'number'
         ? feature
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
