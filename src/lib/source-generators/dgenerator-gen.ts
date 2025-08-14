@@ -339,6 +339,7 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
         const visibility = field.isChangeable() ? 'public' : 'private';
         const paramName = DU.setterParamName(field);
         result += `
+
   ${visibility} basic${DU.capitalize(DU.setterSig(field))} {`;
         if (
           field instanceof EReferenceImpl &&
