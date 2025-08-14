@@ -13,6 +13,7 @@ import { EAttribute } from '@tripsnek/tmf';
 import { EFactory } from '@tripsnek/tmf';
 import { ModelPackage } from './model-package';
 
+
 export class ModelFactory extends EFactory {
   /* Singleton */
   public static eINSTANCE: ModelFactory = ModelFactory.init();
@@ -34,4 +35,5 @@ export class ModelFactory extends EFactory {
         );
     }
   }
+
 }
