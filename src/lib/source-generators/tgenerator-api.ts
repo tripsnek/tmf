@@ -17,18 +17,16 @@ export class TGeneratorApi {
     //if generating async service for the class, name it *Async
     const className = eClass.getName();
 
-    return `
-      ${isEcore ? DU.ECORE_DEFAULT_IMPORTS : DU.DEFAULT_IMPORTS}
-      ${DU.genApiImports(eClass, toImport, `.`)}
-      import {${pkgClassName}} from '../${pkgFileName}';
-        
-      /**
-       * Source-gen API for ${className}.
-       */
-      export interface ${className} ${this.generateSuperTypes(eClass)} {
-        ${this.generateFields(eClass)}
-        ${this.generateOperations(eClass)}
-      }`;
+    return `${isEcore ? DU.ECORE_DEFAULT_IMPORTS : DU.DEFAULT_IMPORTS}
+
+${DU.genApiImports(eClass, toImport, `.`)}import { ${pkgClassName} } from '../${pkgFileName}';
+
+/**
+ * Source-gen API for ${className}.
+ */
+export interface ${className} ${this.generateSuperTypes(eClass)} {
+${this.generateFields(eClass)}${this.generateOperations(eClass)}}
+`;
   }
 
   private generateSuperTypes(eClass: EClass): string {
@@ -50,11 +48,11 @@ export class TGeneratorApi {
     for (const field of eClass.getEStructuralFeatures()) {
       //do not generate getters/setters on public API for companion id fields
       // Generate getters for all fields
-      result += `${DU.getterSig(field)};`;
+      result += `  ${DU.getterSig(field)};\n`;
 
       // Generate setters for changeable references
       if (!field.isMany() && field.isChangeable()) {
-        result += `${DU.setterSig(field)};`;
+        result += `  ${DU.setterSig(field)};\n`;
       }
     }
     return result;
@@ -63,7 +61,7 @@ export class TGeneratorApi {
   private generateOperations(eClass: EClass): string {
     let result = '';
     for (const eop of eClass.getEOperations()) {
-      result += DU.eopSignature(eop) + ';';
+      result += '  ' + DU.eopSignature(eop) + ';\n';
     }
     return result;
   }

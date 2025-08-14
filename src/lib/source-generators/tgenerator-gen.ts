@@ -500,10 +500,8 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
 
   private genEInverseAdd(eClass: EClass) {
     let result = `
-
   //======================================================================
-  // Inverse Adders (if needed)
-`;
+  // Inverse Adders (if needed)`;
     let numSwitches = 0;
     for (const f of eClass.getEStructuralFeatures()) {
       if (f instanceof EReferenceImpl) {
@@ -555,8 +553,7 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
     let result = `
 
   //======================================================================
-  // Inverse Removers (if needed)
-`;
+  // Inverse Removers (if needed)`;
     let numSwitches = 0;
     for (const f of eClass.getEStructuralFeatures()) {
       if (f instanceof EReferenceImpl) {
