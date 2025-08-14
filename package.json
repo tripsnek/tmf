@@ -21,8 +21,9 @@
   },
   "keywords": [
     "emf",
-    "eclipse-modeling-framework",
     "typescript",
+    "eclipse-modeling-framework",
+    "model-driven-engineering",
     "modeling",
     "metamodel",
     "ecore",
