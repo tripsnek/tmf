@@ -17,6 +17,11 @@ import { EList } from './metamodel/elist';
  * source code.
  */
 export class TUtils {
+
+  //All primitive EDataTypes supported by TMF
+  public static PRIMITIVES = ['EString', 'EBoolean', 'EDouble', 'EDoubleObject', 
+                           'EFloat', 'EFloatObject', 'EInt', 'EIntegerObject', 'EDate'];
+
   /**
    * Ensures all objects have IDs.
    * @param obj

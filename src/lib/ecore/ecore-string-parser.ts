@@ -14,6 +14,7 @@ import { EOperation } from '../metamodel/eoperation';
 import { EOperationImpl } from '../metamodel/eoperation-impl';
 import { EParameterImpl } from '../metamodel/eparameter-impl';
 import { EReference } from '../metamodel/ereference';
+import { TUtils } from '../tutils';
 
 /**
  * Parses Ecore XML strings into TMF metamodel instances.
@@ -34,17 +35,7 @@ export class EcoreStringParser {
     const featuresMap = new Map<string, EStructuralFeature>();
 
     //add primitive types
-    const primitiveTypes = [
-      'EString',
-      'EBoolean',
-      'EDouble',
-      'EDoubleObject',
-      'EFloat',
-      'EFloatObject',
-      'EInt',
-      'EIntegerObject',
-      'EDate',
-    ];
+    const primitiveTypes = TUtils.PRIMITIVES;
     for (const type of primitiveTypes) {
       typesMap['ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//' + type] = new EDataTypeImpl(null, null, type);
     }

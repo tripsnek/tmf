@@ -13,6 +13,11 @@ import { EAttribute } from '@tripsnek/tmf';
 import { EFactory } from '@tripsnek/tmf';
 import { ModelPackage } from './model-package';
 
+import { ContainerRootType } from './api/container-root-type';
+import { ContainerRootTypeImpl } from './impl/container-root-type-impl';
+import { ContainedRootType } from './api/contained-root-type';
+import { ContainedRootTypeImpl } from './impl/contained-root-type-impl';
+
 export class ModelFactory extends EFactory {
   /* Singleton */
   public static eINSTANCE: ModelFactory = ModelFactory.init();
@@ -28,10 +33,21 @@ export class ModelFactory extends EFactory {
 
   public create(eClass: EClass): any {
     switch (eClass.getClassifierId()) {
+      case ModelPackage.CONTAINER_ROOT_TYPE:
+        return this.createContainerRootType();
+      case ModelPackage.CONTAINED_ROOT_TYPE:
+        return this.createContainedRootType();
       default:
         throw new Error(
           "The class '" + eClass.getName() + "' is not a valid classifier"
         );
     }
+  }
+
+  public createContainerRootType(): ContainerRootType {
+    return new ContainerRootTypeImpl();
+  }
+  public createContainedRootType(): ContainedRootType {
+    return new ContainedRootTypeImpl();
   }
 }

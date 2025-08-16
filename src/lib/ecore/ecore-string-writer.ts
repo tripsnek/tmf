@@ -13,6 +13,7 @@ import { EEnumImpl } from '../metamodel/eenum-impl';
 import { EClassImpl } from '../metamodel/eclass-impl';
 import { EDataTypeImpl } from '../metamodel/edata-type-impl';
 import { EAttributeImpl } from '../metamodel/eattribute-impl';
+import { TUtils } from '../tutils';
 
 /**
  * Writes EPackage metamodels to Ecore XML string format.
@@ -343,8 +344,7 @@ export class EcoreStringWriter {
    */
   private getClassifierReference(classifier: EClassifier, fromPackage: EPackage): string {
     // Check if it's a primitive type
-    const primitiveTypes = ['EString', 'EBoolean', 'EDouble', 'EDoubleObject', 
-                           'EFloat', 'EFloatObject', 'EInt', 'EIntegerObject', 'EDate'];
+    const primitiveTypes = TUtils.PRIMITIVES;
     if (primitiveTypes.includes(classifier.getName())) {
       return `ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//${classifier.getName()}`;
     }
@@ -378,7 +378,11 @@ export class EcoreStringWriter {
     
     // Build full path
     const path = this.getPackagePath(classifierPackage);
-    return `#//${path.join('/')}/${classifier.getName()}`;
+    if(path.length>0)
+      return `#//${path.join('/')}/${classifier.getName()}`;
+
+    //root package elements don't require paths
+    return `#//${classifier.getName()}`;
   }
   
   /**

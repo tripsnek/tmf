@@ -16,6 +16,11 @@ import { EReference } from '@tripsnek/tmf';
 import { EOperation } from '@tripsnek/tmf';
 import { EcorePackage } from '@tripsnek/tmf';
 export class ModelPackage extends EPackageImpl {
+  public static CONTAINED_ROOT_TYPE = 0;
+  public static CONTAINED_ROOT_TYPE_FEATURE_COUNT = 0;
+  public static CONTAINER_ROOT_TYPE = 1;
+  public static CONTAINER_ROOT_TYPE_FEATURE_COUNT = 0;
+
   /** Singleton */
   public static eINSTANCE: ModelPackage = ModelPackage.init();
 
@@ -27,11 +32,19 @@ export class ModelPackage extends EPackageImpl {
   static eNS_PREFIX = 'emf.com.tripsnek.tmftest.model';
 
   /** Provides static access to EClass and EStructuralFeature instances */
-  public static Literals = class {};
+  public static Literals = class {
+    static CONTAINED_ROOT_TYPE: EClass =
+      ModelPackage.eINSTANCE.getContainedRootType();
+    static CONTAINER_ROOT_TYPE: EClass =
+      ModelPackage.eINSTANCE.getContainerRootType();
+  };
 
   //flags that keep track of whether package is initialized
   private isCreated = false;
   private isInitialized = false;
+
+  private containedRootTypeEClass: EClass = null;
+  private containerRootTypeEClass: EClass = null;
 
   //causes EPackage.Registry registration event
   //hard-coded URI, since referring to the static eNS_URI field in constructor can cause issues
@@ -76,9 +89,22 @@ export class ModelPackage extends EPackageImpl {
     if (!this._eFactoryInstance) this._eFactoryInstance = factoryInst;
   }
 
+  public getContainedRootType(): EClass {
+    return this.containedRootTypeEClass;
+  }
+  public getContainerRootType(): EClass {
+    return this.containerRootTypeEClass;
+  }
+
   public createPackageContents(): void {
     if (this.isCreated) return;
     this.isCreated = true;
+    this.containedRootTypeEClass = this.createEClass(
+      ModelPackage.CONTAINED_ROOT_TYPE
+    );
+    this.containerRootTypeEClass = this.createEClass(
+      ModelPackage.CONTAINER_ROOT_TYPE
+    );
   }
 
   public initializePackageContents(): void {
@@ -87,5 +113,19 @@ export class ModelPackage extends EPackageImpl {
 
     //reusable handle for eoperations, used for adding parameters
     let op: EOperation = null;
+    this.initEClass(
+      this.containedRootTypeEClass,
+      'ContainedRootType',
+      false,
+      false,
+      true
+    );
+    this.initEClass(
+      this.containerRootTypeEClass,
+      'ContainerRootType',
+      false,
+      false,
+      true
+    );
   }
 }
