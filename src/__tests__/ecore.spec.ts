@@ -47,7 +47,7 @@ describe('EcoreParser', () => {
 
   it('rewritten ecore has correct paths in root package references', () => {
     expect(writtenXml).toContain(
-      '<eStructuralFeatures xsi:type="ecore:EReference" name="contained" eType="#//ContainedRootType" upperBound="-1" containment="true"/>'
+      '<eStructuralFeatures xsi:type="ecore:EReference" name="contained" eType="#//ContainedRootType" upperBound="-1" containment="true" eOpposite="#//ContainedRootType/container"/>'
     );
   });
 
@@ -66,4 +66,6 @@ describe('EcoreParser', () => {
   it('rewritten ecore has correct paths in eopposites', () => {
     expect(writtenXml).toContain('eOpposite="#//core/Bazzle/backupBar"');
   });
+
+  
 });

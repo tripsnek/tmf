@@ -21,7 +21,7 @@ import { TUtils } from '../tutils';
  */
 export class EcoreStringWriter {
   private indentLevel = 0;
-  private indentString = '    ';
+  private indentString = '  ';
   
   /**
    * Converts an EPackage to Ecore XML string format.
@@ -361,8 +361,11 @@ export class EcoreStringWriter {
     if (!containingClass) {
       return `#//${feature.getName()}`;
     }
-    
-    return `#//${this.getPackagePath(containingClass.getEPackage())}/${containingClass.getName()}/${feature.getName()}`;
+    //root packages don't require package paths
+    if(!containingClass.getEPackage().getESuperPackage())
+      return `#//${containingClass.getName()}/${feature.getName()}`;
+    else
+     return `#//${this.getPackagePath(containingClass.getEPackage())}/${containingClass.getName()}/${feature.getName()}`;
   }
   
   /**
