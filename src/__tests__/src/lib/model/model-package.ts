@@ -17,9 +17,11 @@ import { EOperation } from '@tripsnek/tmf';
 import { EcorePackage } from '@tripsnek/tmf';
 export class ModelPackage extends EPackageImpl {
   public static CONTAINED_ROOT_TYPE = 0;
-  public static CONTAINED_ROOT_TYPE_FEATURE_COUNT = 0;
+  public static CONTAINED_ROOT_TYPE_FEATURE_COUNT = 1;
+  public static CONTAINED_ROOT_TYPE__CONTAINER = 0;
   public static CONTAINER_ROOT_TYPE = 1;
-  public static CONTAINER_ROOT_TYPE_FEATURE_COUNT = 0;
+  public static CONTAINER_ROOT_TYPE_FEATURE_COUNT = 1;
+  public static CONTAINER_ROOT_TYPE__CONTAINED = 0;
 
   /** Singleton */
   public static eINSTANCE: ModelPackage = ModelPackage.init();
@@ -35,8 +37,12 @@ export class ModelPackage extends EPackageImpl {
   public static Literals = class {
     static CONTAINED_ROOT_TYPE: EClass =
       ModelPackage.eINSTANCE.getContainedRootType();
+    static CONTAINED_ROOT_TYPE__CONTAINER: EReference =
+      ModelPackage.eINSTANCE.getContainedRootType_Container();
     static CONTAINER_ROOT_TYPE: EClass =
       ModelPackage.eINSTANCE.getContainerRootType();
+    static CONTAINER_ROOT_TYPE__CONTAINED: EReference =
+      ModelPackage.eINSTANCE.getContainerRootType_Contained();
   };
 
   //flags that keep track of whether package is initialized
@@ -92,8 +98,18 @@ export class ModelPackage extends EPackageImpl {
   public getContainedRootType(): EClass {
     return this.containedRootTypeEClass;
   }
+  public getContainedRootType_Container(): EReference {
+    return <EReference>(
+      this.containedRootTypeEClass.getEStructuralFeatures().get(0)
+    );
+  }
   public getContainerRootType(): EClass {
     return this.containerRootTypeEClass;
+  }
+  public getContainerRootType_Contained(): EReference {
+    return <EReference>(
+      this.containerRootTypeEClass.getEStructuralFeatures().get(0)
+    );
   }
 
   public createPackageContents(): void {
@@ -102,8 +118,16 @@ export class ModelPackage extends EPackageImpl {
     this.containedRootTypeEClass = this.createEClass(
       ModelPackage.CONTAINED_ROOT_TYPE
     );
+    this.createEReference(
+      this.containedRootTypeEClass,
+      ModelPackage.CONTAINED_ROOT_TYPE__CONTAINER
+    );
     this.containerRootTypeEClass = this.createEClass(
       ModelPackage.CONTAINER_ROOT_TYPE
+    );
+    this.createEReference(
+      this.containerRootTypeEClass,
+      ModelPackage.CONTAINER_ROOT_TYPE__CONTAINED
     );
   }
 
@@ -120,12 +144,50 @@ export class ModelPackage extends EPackageImpl {
       false,
       true
     );
+    this.initEReference(
+      this.getContainedRootType_Container(),
+      this.getContainerRootType(),
+      null,
+      'container',
+      null,
+      0,
+      1,
+      null,
+      false,
+      false,
+      true,
+      false,
+      false,
+      true,
+      false,
+      undefined,
+      false
+    );
     this.initEClass(
       this.containerRootTypeEClass,
       'ContainerRootType',
       false,
       false,
       true
+    );
+    this.initEReference(
+      this.getContainerRootType_Contained(),
+      this.getContainedRootType(),
+      null,
+      'contained',
+      null,
+      0,
+      -1,
+      null,
+      false,
+      false,
+      true,
+      true,
+      false,
+      true,
+      false,
+      undefined,
+      false
     );
   }
 }

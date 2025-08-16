@@ -7,6 +7,7 @@ import { EList } from '@tripsnek/tmf';
 import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
+import { ContainerRootType } from '../api/container-root-type';
 
 import { ModelPackage } from '../model-package';
 import { ContainedRootType } from '../api/contained-root-type';
@@ -20,9 +21,18 @@ export abstract class ContainedRootTypeGen
   implements ContainedRootType
 {
   /** feature declarations */
+  protected container: ContainerRootType;
 
   //======================================================================
   // Getters and Setters
+
+  public getContainer(): ContainerRootType {
+    return this.container;
+  }
+
+  public setContainer(newContainer: ContainerRootType): void {
+    this.basicSetContainer(newContainer);
+  }
 
   //======================================================================
   // API Operations
@@ -39,6 +49,8 @@ export abstract class ContainedRootTypeGen
         ? feature
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
+      case ModelPackage.CONTAINED_ROOT_TYPE__CONTAINER:
+        return this.getContainer();
     }
     return super.eGet(featureID);
   }
@@ -52,6 +64,9 @@ export abstract class ContainedRootTypeGen
         ? feature
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
+      case ModelPackage.CONTAINED_ROOT_TYPE__CONTAINER:
+        this.setContainer(newValue);
+        return;
     }
     return super.eSet(featureID, newValue);
   }
@@ -65,6 +80,8 @@ export abstract class ContainedRootTypeGen
         ? feature
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
+      case ModelPackage.CONTAINED_ROOT_TYPE__CONTAINER:
+        return this.getContainer === undefined;
     }
     return super.eIsSet(featureID);
   }
@@ -78,12 +95,19 @@ export abstract class ContainedRootTypeGen
         ? feature
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
+      case ModelPackage.CONTAINED_ROOT_TYPE__CONTAINER:
+        this.setContainer(undefined);
+        return;
     }
     return super.eUnset(featureID);
   }
 
   //======================================================================
   // Basic setters (allow EOpposite enforcement without triggering infinite cycles)
+
+  public basicSetContainer(newContainer: ContainerRootType): void {
+    this.container = newContainer;
+  }
 
   //======================================================================
   // Inverse Adders (if needed)

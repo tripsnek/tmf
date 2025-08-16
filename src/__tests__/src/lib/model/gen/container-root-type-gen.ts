@@ -7,6 +7,7 @@ import { EList } from '@tripsnek/tmf';
 import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
+import { ContainedRootType } from '../api/contained-root-type';
 
 import { ModelPackage } from '../model-package';
 import { ContainerRootType } from '../api/container-root-type';
@@ -20,9 +21,20 @@ export abstract class ContainerRootTypeGen
   implements ContainerRootType
 {
   /** feature declarations */
+  protected contained: EList<ContainedRootType> =
+    new BasicEList<ContainedRootType>(
+      null,
+      this,
+      ModelPackage.CONTAINER_ROOT_TYPE__CONTAINED,
+      null
+    );
 
   //======================================================================
   // Getters and Setters
+
+  public getContained(): EList<ContainedRootType> {
+    return this.contained;
+  }
 
   //======================================================================
   // API Operations
@@ -39,6 +51,8 @@ export abstract class ContainerRootTypeGen
         ? feature
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
+      case ModelPackage.CONTAINER_ROOT_TYPE__CONTAINED:
+        return this.getContained();
     }
     return super.eGet(featureID);
   }
@@ -52,6 +66,10 @@ export abstract class ContainerRootTypeGen
         ? feature
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
+      case ModelPackage.CONTAINER_ROOT_TYPE__CONTAINED:
+        this.getContained().clear();
+        this.getContained().addAll(newValue);
+        return;
     }
     return super.eSet(featureID, newValue);
   }
@@ -65,6 +83,8 @@ export abstract class ContainerRootTypeGen
         ? feature
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
+      case ModelPackage.CONTAINER_ROOT_TYPE__CONTAINED:
+        return this.getContained().isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -78,6 +98,9 @@ export abstract class ContainerRootTypeGen
         ? feature
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
+      case ModelPackage.CONTAINER_ROOT_TYPE__CONTAINED:
+        this.getContained().clear();
+        return;
     }
     return super.eUnset(featureID);
   }

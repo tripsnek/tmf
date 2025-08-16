@@ -8,9 +8,13 @@ import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
 
+import { ContainerRootType } from './container-root-type';
 import { ModelPackage } from '../model-package';
 
 /**
  * Source-gen API for ContainedRootType.
  */
-export interface ContainedRootType extends EObject {}
+export interface ContainedRootType extends EObject {
+  getContainer(): ContainerRootType;
+  setContainer(newContainer: ContainerRootType): void;
+}
