@@ -15,6 +15,7 @@ import { EOperationImpl } from '../metamodel/eoperation-impl';
 import { EParameterImpl } from '../metamodel/eparameter-impl';
 import { EReference } from '../metamodel/ereference';
 import { TUtils } from '../tutils';
+import { EPackageImpl } from '../metamodel/epackageimpl';
 
 /**
  * Parses Ecore XML strings into TMF metamodel instances.
@@ -174,8 +175,7 @@ export class EcoreStringParser {
     featuresMap: Map<string, EStructuralFeature>,
     path: string[]
   ): EPackage {
-    const thisPkg = new EPackage(pkgJson['$'].name);
-    thisPkg.setNsURI(pkgJson['$'].nsURI);
+    const thisPkg = new EPackageImpl(pkgJson['$'].name,pkgJson['$'].nsURI);
     thisPkg.setNsPrefix(pkgJson['$'].nsPrefix);
 
     //keeps track of the current path to the package
