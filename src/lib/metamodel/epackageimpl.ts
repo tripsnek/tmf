@@ -1,6 +1,7 @@
 import { EPackage } from './epackage';
 import { EcorePackage } from './ecorepackage';
 import { EFactory } from './efactory';
+import { EObject } from './eobject';
 
 export class EPackageImpl extends EPackage {
   ecorePackage: EcorePackage;
@@ -14,5 +15,8 @@ export class EPackageImpl extends EPackage {
 
   protected getEcorePackage(): EcorePackage {
     return EcorePackage.eINSTANCE;
+  }
+  public eContainer(): EObject  {
+    return this.getESuperPackage();
   }
 }

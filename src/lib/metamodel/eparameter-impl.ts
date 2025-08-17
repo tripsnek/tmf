@@ -3,6 +3,7 @@ import { ETypedElementImpl } from './etyped-element-impl';
 import { EClass } from './eclass';
 import { EClassifier } from './eclassifier';
 import { EParameter } from './eparameter';
+import { EObject } from './eobject';
 
 export class EParameterImpl extends ETypedElementImpl implements EParameter {
   private eOperation: EOperation;
@@ -16,6 +17,9 @@ export class EParameterImpl extends ETypedElementImpl implements EParameter {
     super(eClass, name, eType);
     this.eOperation = eOperation;
   }
+  setEOperation(op: EOperation): void {
+    this.eOperation = op;
+  }
 
   public getEOperation(): EOperation {
     return this.eOperation;
@@ -23,5 +27,9 @@ export class EParameterImpl extends ETypedElementImpl implements EParameter {
 
   public isOptional(): boolean {
     return this.getLowerBound() === 0 && this.getUpperBound() === 1;
+  }
+
+  public eContainer(): EObject {
+    return this.eOperation;
   }
 }

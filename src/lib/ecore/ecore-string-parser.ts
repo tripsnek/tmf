@@ -96,6 +96,7 @@ export class EcoreStringParser {
             if (literalEntry['$']['literal'])
               literal.setLiteral(literalEntry['$']['literal']);
             (<EEnum>eclassifier).addLiteral(literal);
+            literal.setEEnum(eclassifier as EEnum);
           }
         } else if (eType === 'ecore:EDataType') {
           eclassifier = new EDataTypeImpl();
@@ -178,6 +179,8 @@ export class EcoreStringParser {
     //keeps track of the current path to the package
     path.push(pkgJson['$'].name);
     if (parentPkg) {
+
+     //TODO: Should not have to do both of these, should be inverses
       parentPkg.getESubPackages().add(thisPkg);
       thisPkg.setESuperPackage(parentPkg);
     }
@@ -250,7 +253,10 @@ export class EcoreStringParser {
                     if (paramEntry.$.upperBound) {
                       param.setUpperBound(Number(paramEntry.$.upperBound));
                     }
+                    
+                    //TODO: Would not have to do both if model was source generated
                     eOperation.getEParameters().add(param);
+                    param.setEOperation(eOperation);
                   }
                 }
               }

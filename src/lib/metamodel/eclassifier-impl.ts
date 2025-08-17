@@ -66,4 +66,8 @@ export abstract class EClassifierImpl
     if (!this.getEPackage()) return null;
     return this.getEPackage().getRootPackage();
   }
+
+    public eContainer(): EPackage  {
+    return this.ePackage;
+  }
 }

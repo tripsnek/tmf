@@ -2,6 +2,7 @@ import { EClassifier } from './eclassifier';
 import { EClass } from './eclass';
 import { ETypedElementImpl } from './etyped-element-impl';
 import { EStructuralFeature } from './estructural-feature';
+import { EObject } from './eobject';
 
 export class EStructuralFeatureImpl
   extends ETypedElementImpl
@@ -124,5 +125,8 @@ export class EStructuralFeatureImpl
 
   public setChangeable(value: boolean): void {
     this.changeable = value;
+  }
+  public eContainer(): EObject {
+    return this.eContainingClass;
   }
 }

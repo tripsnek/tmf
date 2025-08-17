@@ -5,6 +5,7 @@ import { EList } from './elist';
 import { BasicEList } from './basicelist';
 import { ETypedElementImpl } from './etyped-element-impl';
 import { EOperation } from './eoperation';
+import { EObject } from './eobject';
 
 export class EOperationImpl extends ETypedElementImpl implements EOperation {
   private eParameters: EList<EParameter> = new BasicEList();
@@ -38,5 +39,9 @@ export class EOperationImpl extends ETypedElementImpl implements EOperation {
 
   public getEParameters(): EList<EParameter> {
     return this.eParameters;
+  }
+
+  public eContainer(): EObject  {
+    return this.eContainingClass;
   }
 }
