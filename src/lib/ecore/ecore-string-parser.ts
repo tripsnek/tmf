@@ -95,6 +95,8 @@ export class EcoreStringParser {
               literal.setValue(Number.parseInt(literalEntry['$']['value']));
             if (literalEntry['$']['literal'])
               literal.setLiteral(literalEntry['$']['literal']);
+
+            //TODO: Would not have to do both if model was source generated
             (<EEnum>eclassifier).addLiteral(literal);
             literal.setEEnum(eclassifier as EEnum);
           }

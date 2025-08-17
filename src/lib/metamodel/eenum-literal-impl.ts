@@ -1,6 +1,7 @@
 import { EEnum } from './eenum';
 import { EEnumLiteral } from './eenum-literal';
 import { ENamedElementImpl } from './enamed-element-impl';
+import { EObject } from './eobject';
 
 export class EEnumLiteralImpl
   extends ENamedElementImpl
@@ -47,5 +48,9 @@ export class EEnumLiteralImpl
 
   public setInstance(value): void {
     this.instance = value;
+  }
+  
+  public eContainer(): EObject{
+    return this.eEnum;
   }
 }
