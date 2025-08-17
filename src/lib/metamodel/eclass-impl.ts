@@ -259,4 +259,13 @@ export class EClassImpl extends EClassifierImpl implements EClass {
       }
     }
   }
+
+  //hacky method for when a metamodel is being manipulated at runtime (e.g. in Ecore Editor)
+  public recomputeAllLists(){
+    this.computeAllStructuralFeatures();
+    this.computeEAllAttributes();
+    this.computeEAllReferences();
+    this.computeEAllContainments();
+    this.computeEAllOperations();
+  }
 }
