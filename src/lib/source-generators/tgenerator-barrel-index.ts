@@ -2,6 +2,8 @@ import { EClass } from '../metamodel/eclass';
 import { EClassImpl } from '../metamodel/eclass-impl';
 import { EPackage } from '../metamodel/epackage';
 import { TGenUtils as DU } from './tgen-utils';
+import * as fs from 'fs';
+import * as path from 'path';
 
 /**
  * Source code generation for .ts file that exports external facing
@@ -9,8 +11,16 @@ import { TGenUtils as DU } from './tgen-utils';
  *
  */
 export class TGeneratorBarrelIndexTs {
-  public generate(ePackage: EPackage): string {
-    return this.generatePackageContents('', ePackage);
+  private outDir: string = '';
+
+  public generate(ePackage: EPackage, outDir?: string): string {
+    if (outDir) {
+      this.outDir = outDir;
+      this.ensureCustomDirectory();
+    }
+    const packageContents = this.generatePackageContents('', ePackage);
+    const customExports = this.generateCustomExports();
+    return packageContents + customExports;
   }
 
   private generatePackageContents(
@@ -46,5 +56,101 @@ ${this.generateEClassifierExports(ePackage, path)}`;
       }
     }
     return exports;
+  }
+
+  private ensureCustomDirectory(): void {
+    if (!this.outDir) return;
+    
+    const customDir = path.join(this.outDir, 'src', 'custom');
+    
+    if (!fs.existsSync(customDir)) {
+      fs.mkdirSync(customDir, { recursive: true });
+      
+      const readmeContent = `# Custom Directory
+
+This directory is automatically created by the TMF code generator to store your custom TypeScript files.
+
+## Purpose
+
+Files placed in this directory (and its subdirectories) are automatically exported in the barrel file (index.ts) 
+alongside the generated model code. This allows you to:
+
+- Add custom utility functions related to your model
+- Create custom business logic that works with your model
+- Add helper types and interfaces
+
+## Usage
+
+- Place any \`.ts\` files in this directory or its subdirectories
+- All \`.ts\` files will be automatically included in the barrel exports
+- Files are exported using relative paths from the project root
+- The directory structure is preserved in the export paths
+
+## Examples
+
+\`\`\`typescript
+// src/custom/utilities.ts
+export function customModelHelper() {
+  // Your custom code here
+}
+
+// src/custom/types/custom-types.ts  
+export interface CustomModelExtension {
+  // Your custom types here
+}
+\`\`\`
+
+These will automatically be exported as:
+\`\`\`typescript
+export * from './src/custom/utilities';
+export * from './src/custom/types/custom-types';
+\`\`\`
+`;
+      
+      const readmePath = path.join(customDir, 'README.md');
+      fs.writeFileSync(readmePath, readmeContent, 'utf8');
+    }
+  }
+
+  private generateCustomExports(): string {
+    if (!this.outDir) return '';
+    
+    const customDir = path.join(this.outDir, 'src', 'custom');
+    
+    if (!fs.existsSync(customDir)) return '';
+    
+    const customFiles = this.findTypeScriptFiles(customDir);
+    
+    if (customFiles.length === 0) return '';
+    
+    let exports = '\n// Custom exports from src/custom directory\n';
+    
+    for (const file of customFiles) {
+      const relativePath = path.relative(this.outDir, file);
+      const exportPath = relativePath.replace(/\.ts$/, '').replace(/\\/g, '/');
+      exports += `export * from './${exportPath}';\n`;
+    }
+    
+    return exports;
+  }
+
+  private findTypeScriptFiles(dir: string): string[] {
+    const files: string[] = [];
+    
+    if (!fs.existsSync(dir)) return files;
+    
+    const items = fs.readdirSync(dir, { withFileTypes: true });
+    
+    for (const item of items) {
+      const fullPath = path.join(dir, item.name);
+      
+      if (item.isDirectory()) {
+        files.push(...this.findTypeScriptFiles(fullPath));
+      } else if (item.isFile() && item.name.endsWith('.ts') && item.name !== 'README.md') {
+        files.push(fullPath);
+      }
+    }
+    
+    return files;
   }
 }
