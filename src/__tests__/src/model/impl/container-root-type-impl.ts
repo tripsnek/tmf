@@ -7,6 +7,7 @@ import { EList } from '@tripsnek/tmf';
 import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
+import { ContainedRootType } from '../api/contained-root-type';
 
 import { ContainerRootTypeGen } from '../gen/container-root-type-gen';
 import { ContainerRootType } from '../api/container-root-type';

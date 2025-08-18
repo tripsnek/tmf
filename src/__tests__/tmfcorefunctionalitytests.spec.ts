@@ -1,13 +1,13 @@
 import { TUtils } from '@tripsnek/tmf';
 
 import { EPackage } from '@tripsnek/tmf';
-import { AnalysisFactory } from './src/lib/model/analysis/analysis-factory';
-import { CorePackage } from './src/lib/model/core/core-package';
-import { CoreFactory } from './src/lib/model/core/core-factory';
-import { FooClass } from './src/lib/model/core/api/foo-class';
-import { Foo } from './src/lib/model/core/api/foo';
-import { Bar } from './src/lib/model/core/api/bar';
-import { Bazzle } from './src/lib/model/core/api/bazzle';
+import { AnalysisFactory } from './src/model/analysis/analysis-factory';
+import { CorePackage } from './src/model/core/core-package';
+import { CoreFactory } from './src/model/core/core-factory';
+import { FooClass } from './src/model/core/api/foo-class';
+import { Foo } from './src/model/core/api/foo';
+import { Bar } from './src/model/core/api/bar';
+import { Bazzle } from './src/model/core/api/bazzle';
 
 //create a Foo container and contents
 const foo: Foo = CoreFactory.eINSTANCE.createFoo();
