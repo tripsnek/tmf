@@ -82,7 +82,7 @@ alongside the generated model code. This allows you to:
 ## Usage
 
 - Place any \`.ts\` files in this directory or its subdirectories
-- All \`.ts\` files will be automatically included in the barrel exports
+- **GENERATE YOUR MODEL AGAIN**: All \`.ts\` files will be automatically included in the barrel exports
 - Files are exported using relative paths from the project root
 - The directory structure is preserved in the export paths
 

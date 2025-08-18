@@ -47,3 +47,7 @@ export * from './model/gen/container-root-type-gen';
 export * from './model/api/contained-root-type';
 export * from './model/impl/contained-root-type-impl';
 export * from './model/gen/contained-root-type-gen';
+
+// Custom exports from src/custom directory
+export * from './src/custom/nesteddir/sample-data-creator';
+export * from './src/custom/sample-data-creator';
