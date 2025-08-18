@@ -99,10 +99,10 @@ export class EClassImpl extends EClassifierImpl implements EClass {
   }
 
   public createInstance(): EObject {
-    return this.getEPackage().getEFactoryInstance().create(this);
+    return this.getEPackage().getEFactoryInstance().create(this as EClass);
   }
 
-  public isSuperTypeOf(someClass: EClassImpl): boolean {
+  public isSuperTypeOf(someClass: EClass): boolean {
     if (someClass === this) {
       return true;
     } else if (someClass === null) {

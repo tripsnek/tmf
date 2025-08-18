@@ -62,12 +62,12 @@ export abstract class EClassifierImpl
     //not implemented
   }
 
-  public getRootPackage(): EPackage | null {
-    if (!this.getEPackage()) return null;
+  public getRootPackage(): EPackage | undefined {
+    if (!this.getEPackage()) return undefined;
     return this.getEPackage().getRootPackage();
   }
 
-    public eContainer(): EPackage  {
+  public override eContainer(): EPackage  {
     return this.ePackage;
   }
 }

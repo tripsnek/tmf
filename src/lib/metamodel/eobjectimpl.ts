@@ -2,14 +2,15 @@ import { EClass } from './eclass';
 import { EStructuralFeature } from './estructural-feature';
 
 import { EObject } from './eobject';
+import { EAttribute } from './eattribute';
 
 export abstract class EObjectImpl implements EObject {
   private _eClass: EClass;
-  private _eContainer: EObject;
-  private _eContainingFeature: number;
+  private _eContainer!: EObject;
+  private _eContainingFeature!: number;
 
   public constructor(eClass?: EClass) {
-    this._eClass = eClass;
+    this._eClass = eClass!;
   }
 
   public eClass(): EClass {
@@ -26,20 +27,24 @@ export abstract class EObjectImpl implements EObject {
 
   public eInverseRemove(otherEnd: EObject, featureId: number) {
     const feature = this.eClass().getEStructuralFeature(featureId);
-    if (feature.isMany()) {
+    if(feature){
+    if (feature?.isMany()) {
       this.eGet(feature).remove(otherEnd);
     } else {
       this.eSet(feature, null);
     }
   }
+  }
 
   public eInverseAdd(otherEnd: EObject, featureId: number) {
     const feature = this.eClass().getEStructuralFeature(featureId);
+    if(feature){
     if (feature.isMany()) {
       this.eGet(feature).add(otherEnd);
     } else {
       this.eSet(feature, otherEnd);
     }
+  }
   }
 
   // TODO: Protected is probably not right
@@ -54,10 +59,7 @@ export abstract class EObjectImpl implements EObject {
         containingFeatureId !== this._eContainingFeature
       ) {
         if (
-          !oldContainer
-            .eClass()
-            .getEStructuralFeature(this._eContainingFeature)
-            .isMany()
+          !oldContainer.eClass().getEStructuralFeature(this._eContainingFeature)?.isMany()
         ) {
           if (oldContainer.eGet(this._eContainingFeature)) {
             oldContainer.eSet(this._eContainingFeature, null);
@@ -84,21 +86,27 @@ export abstract class EObjectImpl implements EObject {
   fullId(): string {
     //TODO: support encoding of multiple ID attributes
     //if the ID attribute does not exist or is not set, return null - do not pretend there is a unique ID
-    if (!this.eClass().getEIDAttribute()) return null;
-    if (!this.eGet(this.eClass().getEIDAttribute())) return null;
+    if (!this.eClass().getEIDAttribute()) return '';
+    if(!this.eClass().getEIDAttribute()) return '';
+    if (!this.eGet(this.eClass().getEIDAttribute() as EAttribute)) return '';
     //TODO: use full path to type rather than just class name
     //TODO: Can't use the one in TUtils because it creates circular import - put it somewhere else?
     return (
-      this.eClass().getName() + '_' + this.eGet(this.eClass().getEIDAttribute())
+      this.eClass().getName() + '_' + this.eGet(this.eClass().getEIDAttribute() as EAttribute)
     );
   }
 
   //================================================================================
   // Reflection
 
-  public eContainingFeature() {}
-
-  public eContainmentFeature() {}
+  public eContainingFeature() : EStructuralFeature | undefined {
+    //implemented by subtypes
+    return undefined;
+  }
+  public eContainmentFeature() : EStructuralFeature | undefined{
+    //implemented by subtypes
+    return  undefined;
+  }
 
   public eContents(): EObject[] {
     const contents = new Array<EObject>();

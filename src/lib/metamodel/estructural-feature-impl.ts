@@ -126,7 +126,7 @@ export class EStructuralFeatureImpl
   public setChangeable(value: boolean): void {
     this.changeable = value;
   }
-  public eContainer(): EObject {
+  public override eContainer(): EObject {
     return this.eContainingClass;
   }
 }

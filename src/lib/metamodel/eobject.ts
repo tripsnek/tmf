@@ -28,9 +28,9 @@ export interface EObject {
    */
   eInverseAdd(otherEnd: EObject, featureId: number) : void;
 
-  eContainingFeature() : EStructuralFeature;
+  eContainingFeature() : EStructuralFeature | undefined;
 
-  eContainmentFeature() : EStructuralFeature;
+  eContainmentFeature() : EStructuralFeature | undefined;
 
   eContents(): EObject[];
 

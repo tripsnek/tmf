@@ -18,11 +18,11 @@ export interface EClassifier extends ENamedElement {
 
   setInstanceTypeName(value: string): void;
 
-  getETypeParameters();
+  getETypeParameters() : any;
 
   getInstanceClass(): string;
 
-  setInstanceClass(value);
+  setInstanceClass(value: any) : any;
 
-  getRootPackage(): EPackage;
+  getRootPackage(): EPackage | undefined;
 }
