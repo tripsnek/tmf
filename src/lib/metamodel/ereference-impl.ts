@@ -28,7 +28,7 @@ export class EReferenceImpl
     return this.getEOpposite() !== undefined && this.getEOpposite()!.isContainment();
   }
 
-  public isContainment(): boolean {
+  public override isContainment(): boolean {
     return this.containment;
   }
 

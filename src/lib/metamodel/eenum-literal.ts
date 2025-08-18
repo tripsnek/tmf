@@ -9,5 +9,5 @@ export interface EEnumLiteral extends ENamedElementImpl {
   getValue(): number;
   setValue(value: number): void;
   getInstance(): any;
-  setInstance(value): void;
+  setInstance(value: any): void;
 }

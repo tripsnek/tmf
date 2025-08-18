@@ -41,7 +41,7 @@ export class EOperationImpl extends ETypedElementImpl implements EOperation {
     return this.eParameters;
   }
 
-  public eContainer(): EObject  {
+  public override eContainer(): EObject  {
     return this.eContainingClass;
   }
 }

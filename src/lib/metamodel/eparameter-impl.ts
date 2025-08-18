@@ -29,7 +29,7 @@ export class EParameterImpl extends ETypedElementImpl implements EParameter {
     return this.getLowerBound() === 0 && this.getUpperBound() === 1;
   }
 
-  public eContainer(): EObject {
+  public override eContainer(): EObject {
     return this.eOperation;
   }
 }

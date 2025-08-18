@@ -13,7 +13,7 @@ export class EEnumLiteralImpl
   private instance: any;
 
   public constructor(eEnum?: EEnum, literal?: string, value?: number) {
-    super(null, literal);
+    super(undefined, literal);
     if (eEnum) this.eEnum = eEnum;
     if (literal) this.literal = literal;
     if (value !== undefined) this.value = value;
@@ -50,7 +50,7 @@ export class EEnumLiteralImpl
     this.instance = value;
   }
   
-  public eContainer(): EObject{
+  public override eContainer(): EObject{
     return this.eEnum;
   }
 }

@@ -5,7 +5,7 @@ import { EObject } from './eobject';
 
 export class EPackageImpl extends EPackage {
   ecorePackage: EcorePackage;
-  ecoreFactory: EFactory;
+  ecoreFactory!: EFactory;
 
   public constructor(name: string, nsURI: string) {
     super(name, nsURI);
@@ -16,7 +16,7 @@ export class EPackageImpl extends EPackage {
   protected getEcorePackage(): EcorePackage {
     return EcorePackage.eINSTANCE;
   }
-  public eContainer(): EObject  {
+  public override eContainer(): EObject  {
     return this.getESuperPackage();
   }
 }

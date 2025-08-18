@@ -5,5 +5,5 @@ export interface ENamedElement extends EModelElement {
 
   getName(): string;
 
-  setName(name: string);
+  setName(name: string) : void;
 }

@@ -4,7 +4,7 @@ import { EList } from './elist';
 import { ETypedElement } from './etyped-element';
 export interface EOperation extends ETypedElement {
   getOperationID(): number;
-  setOperationID(operationID: number);
+  setOperationID(operationID: number) : void;
   getEContainingClass(): EClass;
   setEContainingClass(owner: EClass): void;
   getEParameters(): EList<EParameter>;

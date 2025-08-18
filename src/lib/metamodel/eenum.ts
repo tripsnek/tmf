@@ -5,8 +5,8 @@ import { EDataType } from './edata-type';
 export interface EEnum extends EDataType {
   getELiterals(): EList<EEnumLiteral>;
   addLiteral(value: EEnumLiteral): void;
-  getEEnumLiteralByLiteral(literal: string): EEnumLiteral;
-  getEEnumLiteral(value: number): EEnumLiteral;
-  getEEnumLiteral(value: string): EEnumLiteral;
-  getEEnumLiteral(value: number | string): EEnumLiteral;
+  getEEnumLiteralByLiteral(literal: string): EEnumLiteral | undefined;
+  getEEnumLiteral(value: number): EEnumLiteral | undefined;
+  getEEnumLiteral(value: string): EEnumLiteral | undefined;
+  getEEnumLiteral(value: number | string): EEnumLiteral | undefined;
 }

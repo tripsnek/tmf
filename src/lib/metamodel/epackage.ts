@@ -334,8 +334,8 @@ export class EPackage extends ENamedElementImpl {
     eOperation.setName(name);
     if (lowerBound) eOperation.setLowerBound(lowerBound);
     if (upperBound) eOperation.setUpperBound(upperBound);
-    eOperation.setUnique(isUnique);
-    eOperation.setOrdered(isOrdered);
+    eOperation.setUnique(isUnique ?? false);
+    eOperation.setOrdered(isOrdered ?? false);
     return eOperation;
   }
 
