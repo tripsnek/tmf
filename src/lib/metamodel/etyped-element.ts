@@ -14,7 +14,7 @@ export interface ETypedElement extends ENamedElement {
 
   setUnique(value: boolean): void;
 
-  getEType(): EClassifier;
+  getEType(): EClassifier | undefined;
 
   setEType(value: EClassifier): void;
 

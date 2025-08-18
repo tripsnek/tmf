@@ -7,16 +7,16 @@ export class EEnumLiteralImpl
   extends ENamedElementImpl
   implements EEnumLiteral
 {
-  private value: number;
-  private eEnum: EEnum;
-  private literal: string;
+  private value!: number;
+  private eEnum!: EEnum;
+  private literal!: string;
   private instance: any;
 
   public constructor(eEnum?: EEnum, literal?: string, value?: number) {
     super(null, literal);
-    this.eEnum = eEnum;
-    this.literal = literal;
-    this.value = value;
+    if (eEnum) this.eEnum = eEnum;
+    if (literal) this.literal = literal;
+    if (value !== undefined) this.value = value;
   }
 
   public getEEnum(): EEnum {
@@ -46,7 +46,7 @@ export class EEnumLiteralImpl
     return this.instance;
   }
 
-  public setInstance(value): void {
+  public setInstance(value: any): void {
     this.instance = value;
   }
   

@@ -9,11 +9,11 @@ import { EObject } from './eobject';
  */
 export class BasicEList<T> implements EList<T> {
   //set when the list belongs to an EObject
-  private owner: EObject = null;
-  private eFeatureId: number = null;
+  private owner!: EObject;
+  private eFeatureId: number;
 
   //set when a feature on objects in the list points back to the list owningEObject
-  private inverseEFeatureID: number = null;
+  private inverseEFeatureID: number;
 
   //the underlying array containing all List elements
   private _elements: T[] = [];
@@ -24,9 +24,9 @@ export class BasicEList<T> implements EList<T> {
     featID?: number,
     inverseFeatID?: number
   ) {
-    this.owner = owner;
-    this.eFeatureId = featID;
-    this.inverseEFeatureID = inverseFeatID;
+    this.owner = owner!;
+    this.eFeatureId = featID!;
+    this.inverseEFeatureID = inverseFeatID!;
     if (elems) this._elements = [...elems];
   }
 
@@ -44,8 +44,8 @@ export class BasicEList<T> implements EList<T> {
   //doesn't seem to actually do anything useful
   public fastContainmentAddHack(item: T): void {
     this._elements.push(item);
-    item['_eContainer'] = this.owner;
-    item['_eContainingFeature'] = this.eFeatureId;
+    (item as any)['_eContainer'] = this.owner;
+    (item as any)['_eContainingFeature'] = this.eFeatureId;
   }
 
   public basicAdd(item: T, index?: number): void {
@@ -64,8 +64,8 @@ export class BasicEList<T> implements EList<T> {
       const inverseFeature = item
         .eClass()
         .getEStructuralFeature(this.inverseEFeatureID);
-      if (!inverseFeature.isMany()) {
-        const curOpposite = item.eGet(inverseFeature);
+      if (!inverseFeature?.isMany()) {
+        const curOpposite = item.eGet(inverseFeature!);
         if (curOpposite) {
           curOpposite.eInverseRemove(item, this.eFeatureId);
         }
@@ -75,11 +75,13 @@ export class BasicEList<T> implements EList<T> {
   }
 
   public remove(item?: T) {
-    //remove item from the array
-    const removed = this.basicRemove(item);
-    //only proceed with inverse removal if removal was successful
-    if (removed && this.hasInverseFeature()) {
-      this.inverseRemove(<EObject>(<unknown>item));
+    if (item) {
+      //remove item from the array
+      const removed = this.basicRemove(item);
+      //only proceed with inverse removal if removal was successful
+      if (removed && this.hasInverseFeature()) {
+        this.inverseRemove(<EObject>(<unknown>item));
+      }
     }
   }
 
@@ -97,7 +99,7 @@ export class BasicEList<T> implements EList<T> {
   private inverseRemove(item: EObject): void {
     //only directly set container to null if there is no inverse feature
     if (this.isContainment() && !this.inverseEFeatureID) {
-      item.setEContainer(null, null);
+      item.setEContainer(undefined, undefined);
     }
     //otherwise, do an inverse remove on the field (whether it is a container or not)
     else {
@@ -110,8 +112,16 @@ export class BasicEList<T> implements EList<T> {
   }
 
   public addAll(list: Iterable<T>) {
-    for (const item of list) {
-      this.add(item);
+    if (Array.isArray(list)) {
+      for (let i = 0; i < list.length; i++) {
+        this.add(list[i]);
+      }
+    } else {
+      // For other iterables, convert to array first
+      const items = Array.from(list);
+      for (let i = 0; i < items.length; i++) {
+        this.add(items[i] as T);
+      }
     }
   }
 
@@ -133,7 +143,7 @@ export class BasicEList<T> implements EList<T> {
   }
 
   public get(index: number): T {
-    return this._elements[index];
+    return this._elements[index] as T;
   }
 
   public set(index: number, element: T): T {
@@ -182,8 +192,16 @@ export class BasicEList<T> implements EList<T> {
 
   public removeAll(list: Iterable<T>): boolean {
     const startSize = this.size();
-    for (const item of list) {
-      this.remove(item);
+    if (Array.isArray(list)) {
+      for (let i = 0; i < list.length; i++) {
+        this.remove(list[i]);
+      }
+    } else {
+      // For other iterables, convert to array first
+      const items = Array.from(list);
+      for (let i = 0; i < items.length; i++) {
+        this.remove(items[i]);
+      }
     }
     return startSize !== this.size();
   }
@@ -217,8 +235,8 @@ export class BasicEList<T> implements EList<T> {
   public swap(idx1: number, idx2: number) {
     if (this._elements.length > idx1 && this._elements.length > idx2) {
       const temp = this._elements[idx1];
-      this._elements[idx1] = this._elements[idx2];
-      this._elements[idx2] = temp;
+      this._elements[idx1] = this._elements[idx2] as T;
+      this._elements[idx2] = temp as T;
     }
   }
 
@@ -255,7 +273,7 @@ export class BasicEList<T> implements EList<T> {
   public find(
     predicate: (value: T, index: number, obj: T[]) => unknown,
     thisArg?: any
-  ): T {
+  ): T | undefined{
     return this._elements.find(predicate);
   }
 
@@ -274,16 +292,16 @@ export class BasicEList<T> implements EList<T> {
     return result;
   }
 
-  public last(): T {
-    if (this._elements.length == 0) return null;
-    return this._elements.slice(-1)[0];
+  public last(): T | undefined {
+    if (this._elements.length == 0) return undefined;
+    return this._elements.slice(-1)[0] as T;
   }
 
   /**
    * Removes the last element of the List and returns it.
    */
-  public pop(): T {
-    if (this.size() === 0) return null;
+  public pop(): T | undefined {
+    if (this.size() === 0) return undefined;
     const popped = this.get(this.size() - 1);
     this.remove(popped);
     return popped;

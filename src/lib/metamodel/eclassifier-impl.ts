@@ -8,9 +8,9 @@ export abstract class EClassifierImpl
   implements EClassifier
 {
   private classifierId = -1;
-  private instanceClassName: string;
-  private instanceTypeName: string;
-  private ePackage: EPackage;
+  private instanceClassName!: string;
+  private instanceTypeName!: string;
+  private ePackage!: EPackage;
 
   public constructor(eClass?: EClass, public owner?: EPackage, name?: string) {
     super(eClass, name);
@@ -58,11 +58,11 @@ export abstract class EClassifierImpl
     return this.getName();
   }
 
-  public setInstanceClass(value) {
+  public setInstanceClass(value: string): void {
     //not implemented
   }
 
-  public getRootPackage(): EPackage {
+  public getRootPackage(): EPackage | null {
     if (!this.getEPackage()) return null;
     return this.getEPackage().getRootPackage();
   }

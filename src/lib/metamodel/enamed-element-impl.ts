@@ -6,18 +6,18 @@ export abstract class ENamedElementImpl
   extends EModelElementImpl
   implements ENamedElement
 {
-  name: string;
+  name!: string;
 
   public constructor(eClass?: EClass, name?: string) {
     super(eClass);
-    this.name = name;
+    if (name) this.name = name;
   }
 
   public getName(): string {
     return this.name;
   }
 
-  public setName(name: string) {
+  public setName(name: string): void {
     this.name = name;
   }
 }

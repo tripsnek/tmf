@@ -11,7 +11,7 @@ export interface EList<T> extends Iterable<T> {
    * @param idx1
    * @param idx2
    */
-  swap(idx1: number, idx2: number);
+  swap(idx1: number, idx2: number) : void;
 
   /**
    * Returns the number of elements in this list.  If this list contains
@@ -114,7 +114,7 @@ export interface EList<T> extends Iterable<T> {
    * Removes all of the elements from this list (optional operation).
    * The list will be empty after this call returns.
    */
-  clear();
+  clear() : void;
 
   /**
    * Compares the specified object with this list for equality.  Returns
@@ -172,7 +172,7 @@ export interface EList<T> extends Iterable<T> {
    * @return {number} the index of the first occurrence of the specified element in
    * this list, or -1 if this list does not contain the element
    */
-  indexOf(o: Object): number;
+  indexOf(o: T): number;
 
   /**
    * Returns the index of the last occurrence of the specified element
@@ -246,7 +246,7 @@ export interface EList<T> extends Iterable<T> {
   /**
    * Removes the last element of the List and returns it.
    */
-  pop(): T;
+  pop(): T | undefined;
 
-  last(): T;
+  last(): T | undefined;
 }

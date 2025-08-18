@@ -4,13 +4,13 @@ import { EClass } from './eclass';
 export interface EObject {
   eClass(): EClass;
 
-  setEClass(eClass: EClass);
+  setEClass(eClass: EClass) : void;
 
   eContainer(): EObject;
 
   // This method is probably to be invoked by setting a containment field
   // This should really only be invoked by generated code!
-  setEContainer(eContainer: EObject, containingFeatureId: number);
+  setEContainer(eContainer?: EObject, containingFeatureId?: number) : void;
 
   /**
    * Invoked on setting a new reference with an EOpposite to enforce the removal
@@ -18,7 +18,7 @@ export interface EObject {
    * @param otherEnd
    * @param featureId
    */
-  eInverseRemove(otherEnd: EObject, featureId: number);
+  eInverseRemove(otherEnd: EObject, featureId: number) : void;
 
   /**
    * Invoked on setting a new reference with an EOpposite to enforce the addition
@@ -26,11 +26,11 @@ export interface EObject {
    * @param otherEnd
    * @param featureId
    */
-  eInverseAdd(otherEnd: EObject, featureId: number);
+  eInverseAdd(otherEnd: EObject, featureId: number) : void;
 
-  eContainingFeature();
+  eContainingFeature() : EStructuralFeature;
 
-  eContainmentFeature();
+  eContainmentFeature() : EStructuralFeature;
 
   eContents(): EObject[];
 

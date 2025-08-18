@@ -19,15 +19,15 @@ export class EClassImpl extends EClassifierImpl implements EClass {
   private eStructuralFeatures: EList<EStructuralFeature> = new BasicEList();
   private eOperations: EList<EOperation> = new BasicEList();
 
-  // pr-computed and cached lists
-  private eReferences: EList<EReference>;
-  private eAllSuperTypes: EList<EClass>;
-  private eAllStructuralFeatures: EList<EStructuralFeature>;
-  private eAttributes: EList<EAttribute>;
-  private eAllAttributes: EList<EAttribute>;
-  private eAllReferences: EList<EReference>;
-  private eAllContainments: EList<EReference>;
-  private eAllOperations: EList<EOperation>;
+  // pre-computed and cached lists
+  private eReferences!: EList<EReference>;
+  private eAllSuperTypes!: EList<EClass>;
+  private eAllStructuralFeatures!: EList<EStructuralFeature>;
+  private eAttributes!: EList<EAttribute>;
+  private eAllAttributes!: EList<EAttribute>;
+  private eAllReferences!: EList<EReference>;
+  private eAllContainments!: EList<EReference>;
+  private eAllOperations!: EList<EOperation>;
 
   public constructor(
     eClass?: EClass,
@@ -75,21 +75,26 @@ export class EClassImpl extends EClassifierImpl implements EClass {
     this.eAllAttributes = new BasicEList<EAttribute>();
     this.eAttributes = new BasicEList<EAttribute>();
     // Add features from this type
-    for (const feature of this.getEStructuralFeatures()) {
+    const features = this.getEStructuralFeatures();
+    for (let i = 0; i < features.size(); i++) {
+      const feature = features.get(i);
       if (feature instanceof EAttributeImpl) {
         this.eAllAttributes.add(feature);
         this.eAttributes.add(feature);
       }
     }
     // Add features from all super types
-    for (const superType of this.getEAllSuperTypes()) {
-      for (const stFeature of superType.getEAttributes()) {
-        this.eAllAttributes.add(stFeature);
+    const allSuperTypes = this.getEAllSuperTypes();
+    for (let i = 0; i < allSuperTypes.size(); i++) {
+      const superType = allSuperTypes.get(i);
+      const superAttributes = superType.getEAttributes();
+      for (let j = 0; j < superAttributes.size(); j++) {
+        this.eAllAttributes.add(superAttributes.get(j));
       }
     }
   }
 
-  public getEIDAttribute(): EAttribute {
+  public getEIDAttribute(): EAttribute | undefined {
     return this.getEAllAttributes().find((e) => e.isId());
   }
 
@@ -120,9 +125,11 @@ export class EClassImpl extends EClassifierImpl implements EClass {
 
   private calcEAllSuperTypes(): void {
     this.eAllSuperTypes = new BasicEList<EClass>();
-    for (const st of this.eSuperTypes) {
-      for (const rst of st.getEAllSuperTypes()) {
-        this.eAllSuperTypes.add(rst);
+    for (let i = 0; i < this.eSuperTypes.size(); i++) {
+      const st = this.eSuperTypes.get(i);
+      const allSuperTypes = st.getEAllSuperTypes();
+      for (let j = 0; j < allSuperTypes.size(); j++) {
+        this.eAllSuperTypes.add(allSuperTypes.get(j));
       }
       this.eAllSuperTypes.add(st);
     }
@@ -142,13 +149,16 @@ export class EClassImpl extends EClassifierImpl implements EClass {
   private computeAllStructuralFeatures(): void {
     this.eAllStructuralFeatures = new BasicEList<EStructuralFeature>();
     // Add features from this type
-    for (const feature of this.eStructuralFeatures) {
-      this.eAllStructuralFeatures.add(feature);
+    for (let i = 0; i < this.eStructuralFeatures.size(); i++) {
+      this.eAllStructuralFeatures.add(this.eStructuralFeatures.get(i));
     }
     // Add features from all super types
-    for (const superType of this.getESuperTypes()) {
-      for (const stFeature of superType.getEAllStructuralFeatures()) {
-        this.eAllStructuralFeatures.add(stFeature);
+    const superTypes = this.getESuperTypes();
+    for (let i = 0; i < superTypes.size(); i++) {
+      const superType = superTypes.get(i);
+      const allStructuralFeatures = superType.getEAllStructuralFeatures();
+      for (let j = 0; j < allStructuralFeatures.size(); j++) {
+        this.eAllStructuralFeatures.add(allStructuralFeatures.get(j));
       }
     }
   }
@@ -160,7 +170,7 @@ export class EClassImpl extends EClassifierImpl implements EClass {
    */
   public getEStructuralFeature(
     featureIdOrName: number | string
-  ): EStructuralFeature {
+  ): EStructuralFeature | undefined {
     if (typeof featureIdOrName === 'number')
       return this.getEAllStructuralFeatures().find(
         (e) => e.getFeatureID() === featureIdOrName
@@ -207,16 +217,20 @@ export class EClassImpl extends EClassifierImpl implements EClass {
     this.eAllReferences = new BasicEList<EReference>();
     this.eReferences = new BasicEList<EReference>();
     // Add features from this type
-    for (const feature of this.eStructuralFeatures) {
+    for (let i = 0; i < this.eStructuralFeatures.size(); i++) {
+      const feature = this.eStructuralFeatures.get(i);
       if (feature instanceof EReferenceImpl) {
         this.eAllReferences.add(feature);
         this.eReferences.add(feature);
       }
     }
     // Add features from all super types
-    for (const superType of this.getEAllSuperTypes()) {
-      for (const stFeature of superType.getEReferences()) {
-        this.eAllReferences.add(stFeature);
+    const allSuperTypes = this.getEAllSuperTypes();
+    for (let i = 0; i < allSuperTypes.size(); i++) {
+      const superType = allSuperTypes.get(i);
+      const references = superType.getEReferences();
+      for (let j = 0; j < references.size(); j++) {
+        this.eAllReferences.add(references.get(j));
       }
     }
   }
@@ -230,7 +244,9 @@ export class EClassImpl extends EClassifierImpl implements EClass {
 
   private computeEAllContainments(): void {
     this.eAllContainments = new BasicEList<EReference>();
-    for (const f of this.getEAllReferences()) {
+    const allReferences = this.getEAllReferences();
+    for (let i = 0; i < allReferences.size(); i++) {
+      const f = allReferences.get(i);
       if (f.isContainment()) {
         this.eAllContainments.add(f);
       }
@@ -253,9 +269,12 @@ export class EClassImpl extends EClassifierImpl implements EClass {
 
   private computeEAllOperations(): void {
     this.eAllOperations = new BasicEList<EOperation>();
-    for (const superType of this.getEAllSuperTypes()) {
-      for (const eOperation of superType.getEOperations()) {
-        this.eAllOperations.add(eOperation);
+    const allSuperTypes = this.getEAllSuperTypes();
+    for (let i = 0; i < allSuperTypes.size(); i++) {
+      const superType = allSuperTypes.get(i);
+      const operations = superType.getEOperations();
+      for (let j = 0; j < operations.size(); j++) {
+        this.eAllOperations.add(operations.get(j));
       }
     }
   }

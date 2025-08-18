@@ -20,13 +20,13 @@ export class EEnumImpl extends EDataTypeImpl implements EEnum {
     this.eLiterals.add(value);
   }
 
-  public getEEnumLiteralByLiteral(literal: string): EEnumLiteral {
+  public getEEnumLiteralByLiteral(literal: string): EEnumLiteral | undefined {
     return this.eLiterals.find((e) => e.getLiteral() === literal);
   }
 
-  public getEEnumLiteral(value: number): EEnumLiteral;
-  public getEEnumLiteral(value: string): EEnumLiteral;
-  public getEEnumLiteral(value: number | string): EEnumLiteral {
+  public getEEnumLiteral(value: number): EEnumLiteral | undefined;
+  public getEEnumLiteral(value: string): EEnumLiteral | undefined;
+  public getEEnumLiteral(value: number | string): EEnumLiteral | undefined {
     if (typeof value === 'number') {
       return this.eLiterals.find((e) => e.getValue() === value);
     } else {

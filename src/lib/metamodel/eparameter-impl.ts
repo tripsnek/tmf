@@ -6,7 +6,7 @@ import { EParameter } from './eparameter';
 import { EObject } from './eobject';
 
 export class EParameterImpl extends ETypedElementImpl implements EParameter {
-  private eOperation: EOperation;
+  private eOperation!: EOperation;
 
   public constructor(
     eClass?: EClass,
@@ -15,9 +15,9 @@ export class EParameterImpl extends ETypedElementImpl implements EParameter {
     eOperation?: EOperation
   ) {
     super(eClass, name, eType);
-    this.eOperation = eOperation;
+    if (eOperation) this.eOperation = eOperation;
   }
-  setEOperation(op: EOperation): void {
+  public setEOperation(op: EOperation): void {
     this.eOperation = op;
   }
 

@@ -11,11 +11,11 @@ export class EStructuralFeatureImpl
   protected featureID = -1;
   private transient = false;
   private unsettable = true;
-  private derived: boolean;
-  private defaultValueLiteral: string;
+  private derived: boolean = false;
+  private defaultValueLiteral!: string;
   private defaultValue: any;
 
-  private eContainingClass: EClass;
+  private eContainingClass!: EClass;
   private changeable = true;
   private volatile = false;
 
@@ -87,7 +87,7 @@ export class EStructuralFeatureImpl
     return false;
   }
 
-  public getContainerClass(): string {
+  public getContainerClass(): string | null {
     // TODO: Note that EClass.getInstanceClass() is not yet implemented...
     // return this._eContainingClass.getInstanceClass();
     return null;
@@ -115,8 +115,8 @@ export class EStructuralFeatureImpl
 
   //TODO: GET RID OF THIS. Should not be public, should be handled by EOpposite
   // NOTE: Parallel to EOperation
-  public setEContainingClass(owner: EClass): void {
-    this.eContainingClass = owner;
+  public setEContainingClass(owner: EClass | undefined): void {
+    if (owner) this.eContainingClass = owner;
   }
 
   public isChangeable(): boolean {

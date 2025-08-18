@@ -7,8 +7,8 @@ export class EAttributeImpl
   extends EStructuralFeatureImpl
   implements EAttribute
 {
-  private representsId: boolean;
-  private eAttributeType: EDataType;
+  private representsId: boolean = false;
+  private eAttributeType!: EDataType;
 
   public constructor(
     eClass?: EClass,
@@ -17,7 +17,7 @@ export class EAttributeImpl
     attrType?: EDataType
   ) {
     super(eClass, name, attrType);
-    this.eAttributeType = attrType;
+    this.eAttributeType = attrType!;
     this.setEContainingClass(containingEClass);
   }
 

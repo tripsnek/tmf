@@ -10,7 +10,7 @@ import { EObject } from './eobject';
 export class EOperationImpl extends ETypedElementImpl implements EOperation {
   private eParameters: EList<EParameter> = new BasicEList();
   private operationID = -1;
-  private eContainingClass: EClass;
+  private eContainingClass!: EClass;
 
   public constructor(
     eClass?: EClass,
@@ -19,22 +19,22 @@ export class EOperationImpl extends ETypedElementImpl implements EOperation {
     eType?: EClassifier
   ) {
     super(eClass, name, eType);
-    this.setEContainingClass(eContainingClass);
+    if (eContainingClass) this.setEContainingClass(eContainingClass);
   }
 
   public getOperationID(): number {
     return this.operationID;
   }
 
-  public setOperationID(operationID: number) {
+  public setOperationID(operationID: number): void {
     this.operationID = operationID;
   }
 
   public getEContainingClass(): EClass {
     return this.eContainingClass;
   }
-  public setEContainingClass(owner: EClass): void {
-    this.eContainingClass = owner;
+  public setEContainingClass(owner: EClass | undefined): void {
+    if (owner) this.eContainingClass = owner;
   }
 
   public getEParameters(): EList<EParameter> {

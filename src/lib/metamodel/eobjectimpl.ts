@@ -102,10 +102,13 @@ export abstract class EObjectImpl implements EObject {
 
   public eContents(): EObject[] {
     const contents = new Array<EObject>();
-    for (const cref of this.eClass().getEAllContainments()) {
+    const containments = this.eClass().getEAllContainments();
+    for (let i = 0; i < containments.size(); i++) {
+      const cref = containments.get(i);
       if (cref.isMany()) {
-        for (const contained of this.eGet(cref)) {
-          contents.push(contained);
+        const containedList = this.eGet(cref);
+        for (let j = 0; j < containedList.size(); j++) {
+          contents.push(containedList.get(j));
         }
       } else if (this.eGet(cref)) contents.push(this.eGet(cref));
     }

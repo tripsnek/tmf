@@ -4,11 +4,11 @@ import { EClass } from './eclass';
 export interface EStructuralFeature extends ETypedElement {
   isDerived(): boolean;
 
-  setDerived(value: boolean);
+  setDerived(value: boolean): void;
 
   isTransient(): boolean;
 
-  setTransient(value: boolean);
+  setTransient(value: boolean): void;
 
   isUnsettable(): boolean;
 
@@ -26,7 +26,7 @@ export interface EStructuralFeature extends ETypedElement {
 
   isContainment(): boolean;
 
-  getContainerClass(): string;
+  getContainerClass(): string | null;
 
   getDefaultValue(): any;
 
@@ -38,7 +38,7 @@ export interface EStructuralFeature extends ETypedElement {
 
   getEContainingClass(): EClass;
 
-  setEContainingClass(owner: EClass): void;
+  setEContainingClass(owner: EClass | undefined): void;
 
   isChangeable(): boolean;
 

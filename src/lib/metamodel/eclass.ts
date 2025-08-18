@@ -20,7 +20,7 @@ export interface EClass extends EClassifier {
 
   getEAllAttributes(): EList<EAttribute>;
 
-  getEIDAttribute(): EAttribute;
+  getEIDAttribute(): EAttribute | undefined;
 
   createInstance(): EObject;
 
@@ -34,7 +34,7 @@ export interface EClass extends EClassifier {
 
   getEAllStructuralFeatures(): EList<EStructuralFeature>;
 
-  getEStructuralFeature(featureIdOrName: number | string): EStructuralFeature;
+  getEStructuralFeature(featureIdOrName: number | string): EStructuralFeature | undefined;
 
   getFeatureCount(): number;
 

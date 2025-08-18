@@ -6,5 +6,5 @@ export interface EAttribute extends EStructuralFeature {
 
   isId(): boolean;
 
-  setId(value: boolean);
+  setId(value: boolean): void;
 }

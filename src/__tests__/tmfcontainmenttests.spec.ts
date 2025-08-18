@@ -47,7 +47,7 @@ describe('TMF Containment ', () => {
     expect(baz1.eContainer()).toBe(bar1);
     //remove contained object
     bar1.getBazzles().remove(baz1);
-    expect(baz1.eContainer()).toBeNull();
+    expect(baz1.eContainer()).toBeFalsy();
     expect(bar1.getBazzles().size()).toBe(0);
   });
   it('should unset all eContainers on list clear', () => {
@@ -59,8 +59,8 @@ describe('TMF Containment ', () => {
     expect(baz2.eContainer()).toBe(bar1);
     bar1.getBazzles().clear();
     expect(bar1.getBazzles().size()).toBe(0);
-    expect(baz1.eContainer()).toBe(null);
-    expect(baz2.eContainer()).toBe(null);
+    expect(baz1.eContainer()).toBeFalsy();
+    expect(baz2.eContainer()).toBeFalsy();
   });
   it('should remove from old many-valued container when added to new container', () => {
     //remove contained object

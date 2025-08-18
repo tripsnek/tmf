@@ -8,13 +8,13 @@ export interface EReference extends EStructuralFeature {
 
   isContainment(): boolean;
 
-  setContainment(containment: boolean);
+  setContainment(containment: boolean): void;
 
   isResolveProxies(): boolean;
 
   setResolveProxies(value: boolean): void;
 
-  getEOpposite(): EReference;
+  getEOpposite(): EReference | undefined;
 
   setEOpposite(value: EReference): void;
 }
