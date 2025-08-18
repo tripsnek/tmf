@@ -164,7 +164,7 @@ export class AnalysisPackage extends EPackageImpl {
       false,
       true,
       false,
-      undefined,
+      false,
       false
     );
     this.initEReference(
@@ -183,7 +183,7 @@ export class AnalysisPackage extends EPackageImpl {
       false,
       true,
       false,
-      undefined,
+      false,
       false
     );
     op = this.initEOperation(

@@ -160,7 +160,7 @@ export class ModelPackage extends EPackageImpl {
       false,
       true,
       false,
-      undefined,
+      false,
       false
     );
     this.initEClass(
@@ -186,7 +186,7 @@ export class ModelPackage extends EPackageImpl {
       false,
       true,
       false,
-      undefined,
+      false,
       false
     );
   }

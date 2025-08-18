@@ -216,14 +216,14 @@ export class TGeneratorPackage {
       ${feature.getLowerBound()},
       ${feature.getUpperBound()},
       ${feature.getContainerClass() ? feature.getContainerClass() : `''`},
-      ${feature.isTransient()},
-      ${feature.isVolatile()},
-      ${feature.isChangeable()},
-      ${feature.isUnsettable()},
-      ${feature.isId()},
-      ${feature.isUnique()},
-      ${feature.isDerived()},
-      ${feature.isOrdered()}`;
+      ${feature.isTransient() ?? false},
+      ${feature.isVolatile() ?? false},
+      ${feature.isChangeable() ?? false},
+      ${feature.isUnsettable() ?? false},
+      ${feature.isId() ?? false},
+      ${feature.isUnique() ?? false},
+      ${feature.isDerived() ?? false},
+      ${feature.isOrdered() ?? false}`;
           } else if (feature instanceof EReferenceImpl) {
             const pkgRef = DU.getReferenceToPackageInstance(
               feature.getEType(),
@@ -244,15 +244,15 @@ export class TGeneratorPackage {
       ${feature.getLowerBound()},
       ${feature.getUpperBound()},
       ${feature.getContainerClass() ? feature.getContainerClass() : `''`},
-      ${feature.isTransient()},
-      ${feature.isVolatile()},
-      ${feature.isChangeable()},
-      ${feature.isContainment()},
-      ${feature.isResolveProxies()},
-      ${feature.isUnsettable()},
-      ${feature.isUnique()},
-      ${feature.isDerived()},
-      ${feature.isOrdered()}`;
+      ${feature.isTransient() ?? false},
+      ${feature.isVolatile() ?? false},
+      ${feature.isChangeable() ?? false},
+      ${feature.isContainment() ?? false},
+      ${feature.isResolveProxies() ?? false},
+      ${feature.isUnsettable() ?? false},
+      ${feature.isUnique() ?? false},
+      ${feature.isDerived() ?? false},
+      ${feature.isOrdered() ?? false}`;
           }
           initContent += `
     );`;

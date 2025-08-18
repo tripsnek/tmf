@@ -570,9 +570,9 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       true,
-      undefined,
       false,
-      undefined,
+      false,
+      false,
       false
     );
     this.initEAttribute(
@@ -587,9 +587,9 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       true,
-      undefined,
       false,
-      undefined,
+      false,
+      false,
       false
     );
     this.initEAttribute(
@@ -604,9 +604,9 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       true,
-      undefined,
       false,
-      undefined,
+      false,
+      false,
       false
     );
     this.initEAttribute(
@@ -621,9 +621,9 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       true,
-      undefined,
       false,
-      undefined,
+      false,
+      false,
       false
     );
     this.initEClass(this.idedEntityEClass, 'IdedEntity', true, false, true);
@@ -641,7 +641,7 @@ export class CorePackage extends EPackageImpl {
       true,
       true,
       false,
-      undefined,
+      false,
       false
     );
     this.initEAttribute(
@@ -656,9 +656,9 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       true,
-      undefined,
       false,
-      undefined,
+      false,
+      false,
       false
     );
     this.initEReference(
@@ -677,7 +677,7 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      undefined,
+      false,
       false
     );
     this.initEAttribute(
@@ -692,9 +692,9 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       true,
-      undefined,
       false,
-      undefined,
+      false,
+      false,
       false
     );
     this.initEAttribute(
@@ -711,7 +711,7 @@ export class CorePackage extends EPackageImpl {
       true,
       true,
       false,
-      undefined,
+      false,
       false
     );
     this.namedEntityEClass.getESuperTypes().add(this.getIdedEntity());
@@ -728,9 +728,9 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       true,
-      undefined,
       false,
-      undefined,
+      false,
+      false,
       false
     );
     this.bazzleEClass.getESuperTypes().add(this.getNamedEntity());
@@ -751,7 +751,7 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      undefined,
+      false,
       false
     );
     this.initEReference(
@@ -770,7 +770,7 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      undefined,
+      false,
       false
     );
     this.barEClass.getESuperTypes().add(this.getNamedEntity());
@@ -791,7 +791,7 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      undefined,
+      false,
       false
     );
     this.initEReference(
@@ -810,7 +810,7 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      undefined,
+      false,
       false
     );
     this.initEReference(
@@ -829,7 +829,7 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      undefined,
+      false,
       false
     );
     this.barSpecializationWithComponentsEClass
@@ -858,7 +858,7 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      undefined,
+      false,
       false
     );
     this.initEAttribute(
@@ -873,9 +873,9 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       true,
-      undefined,
       false,
-      undefined,
+      false,
+      false,
       false
     );
     this.fooEClass.getESuperTypes().add(this.getNamedEntity());
@@ -896,7 +896,7 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      undefined,
+      false,
       false
     );
     this.initEAttribute(
@@ -911,9 +911,9 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       true,
-      undefined,
       false,
-      undefined,
+      false,
+      false,
       false
     );
     this.initEAttribute(
@@ -928,9 +928,9 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       true,
-      undefined,
       false,
-      undefined,
+      false,
+      false,
       false
     );
     this.initEReference(
@@ -949,7 +949,7 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      undefined,
+      false,
       false
     );
     this.initEReference(
@@ -968,7 +968,7 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      undefined,
+      false,
       false
     );
     this.initEReference(
@@ -987,7 +987,7 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      undefined,
+      false,
       false
     );
     this.initEAttribute(
@@ -1002,9 +1002,9 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       true,
-      undefined,
       false,
-      undefined,
+      false,
+      false,
       false
     );
     this.initEAttribute(
@@ -1019,9 +1019,9 @@ export class CorePackage extends EPackageImpl {
       false,
       false,
       true,
-      undefined,
       false,
-      undefined,
+      false,
+      false,
       false
     );
     this.initEReference(
@@ -1040,7 +1040,7 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      undefined,
+      false,
       false
     );
     this.initEAttribute(
@@ -1055,9 +1055,9 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       true,
-      undefined,
       false,
-      undefined,
+      false,
+      false,
       false
     );
     this.initEReference(
@@ -1076,7 +1076,7 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      undefined,
+      false,
       false
     );
     this.initEAttribute(
@@ -1091,9 +1091,9 @@ export class CorePackage extends EPackageImpl {
       true,
       true,
       true,
-      undefined,
       false,
-      undefined,
+      false,
+      false,
       false
     );
     this.initEReference(
@@ -1112,7 +1112,7 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      undefined,
+      false,
       false
     );
     this.initEReference(
@@ -1131,7 +1131,7 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      undefined,
+      false,
       false
     );
     this.initEReference(
@@ -1150,7 +1150,7 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      undefined,
+      false,
       false
     );
     this.initEReference(
@@ -1169,7 +1169,7 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      undefined,
+      false,
       false
     );
     this.initEReference(
@@ -1188,7 +1188,7 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      undefined,
+      false,
       false
     );
     this.initEReference(
@@ -1207,7 +1207,7 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      undefined,
+      false,
       false
     );
     op = this.initEOperation(
@@ -1245,7 +1245,7 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      undefined,
+      false,
       false
     );
     op = this.initEOperation(
@@ -1289,9 +1289,9 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       true,
-      undefined,
       false,
-      undefined,
+      false,
+      false,
       false
     );
     this.initEAttribute(
@@ -1306,9 +1306,9 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       true,
-      undefined,
       false,
-      undefined,
+      false,
+      false,
       false
     );
     this.initEAttribute(
@@ -1323,9 +1323,9 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       true,
-      undefined,
       false,
-      undefined,
+      false,
+      false,
       false
     );
     this.initEEnum(this.fooClassEEnum, 'FooClass');
