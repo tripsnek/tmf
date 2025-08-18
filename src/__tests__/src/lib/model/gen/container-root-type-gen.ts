@@ -26,7 +26,7 @@ export abstract class ContainerRootTypeGen
       null,
       this,
       ModelPackage.CONTAINER_ROOT_TYPE__CONTAINED,
-      null
+      ModelPackage.CONTAINED_ROOT_TYPE__CONTAINER
     );
 
   //======================================================================
@@ -110,9 +110,23 @@ export abstract class ContainerRootTypeGen
 
   //======================================================================
   // Inverse Adders (if needed)
+  public eInverseAdd(otherEnd: EObject, featureID: number): void {
+    switch (featureID) {
+      case ModelPackage.CONTAINER_ROOT_TYPE__CONTAINED:
+        return (<EList<EObject>>this.getContained()).basicAdd(otherEnd);
+    }
+    return super.eInverseAdd(otherEnd, featureID);
+  }
 
   //======================================================================
   // Inverse Removers (if needed)
+  public eInverseRemove(otherEnd: EObject, featureID: number): void {
+    switch (featureID) {
+      case ModelPackage.CONTAINER_ROOT_TYPE__CONTAINED:
+        return (<EList<EObject>>this.getContained()).basicRemove(otherEnd);
+    }
+    return super.eInverseRemove(otherEnd, featureID);
+  }
 
   //======================================================================
   // eClass()

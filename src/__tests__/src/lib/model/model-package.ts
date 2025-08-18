@@ -147,7 +147,7 @@ export class ModelPackage extends EPackageImpl {
     this.initEReference(
       this.getContainedRootType_Container(),
       this.getContainerRootType(),
-      null,
+      this.getContainerRootType_Contained(),
       'container',
       null,
       0,
@@ -173,7 +173,7 @@ export class ModelPackage extends EPackageImpl {
     this.initEReference(
       this.getContainerRootType_Contained(),
       this.getContainedRootType(),
-      null,
+      this.getContainedRootType_Container(),
       'contained',
       null,
       0,

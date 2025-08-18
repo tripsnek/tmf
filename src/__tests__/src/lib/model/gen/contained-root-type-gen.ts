@@ -31,6 +31,20 @@ export abstract class ContainedRootTypeGen
   }
 
   public setContainer(newContainer: ContainerRootType): void {
+    if (this.container !== newContainer) {
+      if (this.container) {
+        this.container.eInverseRemove(
+          this,
+          ModelPackage.CONTAINER_ROOT_TYPE__CONTAINED
+        );
+      }
+      if (newContainer) {
+        newContainer.eInverseAdd(
+          this,
+          ModelPackage.CONTAINER_ROOT_TYPE__CONTAINED
+        );
+      }
+    }
     this.basicSetContainer(newContainer);
   }
 
@@ -106,14 +120,37 @@ export abstract class ContainedRootTypeGen
   // Basic setters (allow EOpposite enforcement without triggering infinite cycles)
 
   public basicSetContainer(newContainer: ContainerRootType): void {
+    this.eBasicSetContainer(
+      newContainer,
+      ModelPackage.CONTAINED_ROOT_TYPE__CONTAINER
+    );
     this.container = newContainer;
   }
 
   //======================================================================
   // Inverse Adders (if needed)
+  public eInverseAdd(otherEnd: EObject, featureID: number): void {
+    switch (featureID) {
+      case ModelPackage.CONTAINED_ROOT_TYPE__CONTAINER:
+        if (this.container)
+          this.container.eInverseRemove(
+            this,
+            ModelPackage.CONTAINER_ROOT_TYPE__CONTAINED
+          );
+        return this.basicSetContainer(<ContainerRootType>otherEnd);
+    }
+    return super.eInverseAdd(otherEnd, featureID);
+  }
 
   //======================================================================
   // Inverse Removers (if needed)
+  public eInverseRemove(otherEnd: EObject, featureID: number): void {
+    switch (featureID) {
+      case ModelPackage.CONTAINED_ROOT_TYPE__CONTAINER:
+        return this.basicSetContainer(null);
+    }
+    return super.eInverseRemove(otherEnd, featureID);
+  }
 
   //======================================================================
   // eClass()
