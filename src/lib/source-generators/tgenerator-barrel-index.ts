@@ -23,9 +23,9 @@ export class TGeneratorBarrelIndexTs {
       toReturn += this.generatePackageContents(path + '/', sub);
     }
     toReturn += 
-    `export * from './lib/${path}/${DU.genUtilsFileName(ePackage)}';
-export * from './lib/${path}/${DU.genPackageFileName(ePackage)}';
-export * from './lib/${path}/${DU.genFactoryFileName(ePackage)}';
+    `export * from './${path}/${DU.genUtilsFileName(ePackage)}';
+export * from './${path}/${DU.genPackageFileName(ePackage)}';
+export * from './${path}/${DU.genFactoryFileName(ePackage)}';
 ${this.generateEClassifierExports(ePackage, path)}`;
     return toReturn;
   }
@@ -33,14 +33,14 @@ ${this.generateEClassifierExports(ePackage, path)}`;
   generateEClassifierExports(ePackage: EPackage, pkgFolderPath: string) {
     let exports = ``;
     for (const eclassifier of ePackage.getEClassifiers()) {
-      exports += `export * from './lib/${pkgFolderPath}/api/${DU.genClassApiName(
+      exports += `export * from './${pkgFolderPath}/api/${DU.genClassApiName(
         eclassifier
       )}';\n`;
       if (eclassifier instanceof EClassImpl) {
-        exports += `export * from './lib/${pkgFolderPath}/impl/${DU.genClassImplName(
+        exports += `export * from './${pkgFolderPath}/impl/${DU.genClassImplName(
           eclassifier
         )}';\n`;
-        exports += `export * from './lib/${pkgFolderPath}/gen/${DU.genClassGenName(
+        exports += `export * from './${pkgFolderPath}/gen/${DU.genClassGenName(
           eclassifier
         )}';\n`;
       }

@@ -56,7 +56,7 @@ export async function generateFromEPackage(
   console.log('running TGeneratorMain, output to ' + srcPath);
   new TGeneratorMain(
     pkg,
-    path.resolve(destPath + '/src/lib'),
+    path.resolve(destPath + '/src'),
     overwriteImpl,
     path.resolve(destPath + '/src')
   ).generate(attemptInvokePrettier);
