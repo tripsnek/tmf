@@ -203,17 +203,17 @@ export class CorePackage extends EPackageImpl {
   private isCreated = false;
   private isInitialized = false;
 
-  private boundedNumberEClass: EClass = null;
-  private idedEntityEClass: EClass = null;
-  private namedEntityEClass: EClass = null;
-  private bazzleEClass: EClass = null;
-  private barEClass: EClass = null;
-  private barSpecializationWithComponentsEClass: EClass = null;
-  private fooEClass: EClass = null;
-  private fooSpecializationEClass: EClass = null;
-  private fooGroupEClass: EClass = null;
-  private userEClass: EClass = null;
-  private fooClassEEnum: EEnum = null;
+  private boundedNumberEClass: EClass = {} as EClass;
+  private idedEntityEClass: EClass = {} as EClass;
+  private namedEntityEClass: EClass = {} as EClass;
+  private bazzleEClass: EClass = {} as EClass;
+  private barEClass: EClass = {} as EClass;
+  private barSpecializationWithComponentsEClass: EClass = {} as EClass;
+  private fooEClass: EClass = {} as EClass;
+  private fooSpecializationEClass: EClass = {} as EClass;
+  private fooGroupEClass: EClass = {} as EClass;
+  private userEClass: EClass = {} as EClass;
+  private fooClassEEnum: EEnum = {} as EEnum;
 
   //causes EPackage.Registry registration event
   //hard-coded URI, since referring to the static eNS_URI field in constructor can cause issues
@@ -550,7 +550,7 @@ export class CorePackage extends EPackageImpl {
     this.isInitialized = true;
 
     //reusable handle for eoperations, used for adding parameters
-    let op: EOperation = null;
+    let op: EOperation;
     this.initEClass(
       this.boundedNumberEClass,
       'BoundedNumber',
@@ -562,7 +562,7 @@ export class CorePackage extends EPackageImpl {
       this.getBoundedNumber_Units(),
       this.getEcorePackage().getEString(),
       'units',
-      undefined,
+      '',
       0,
       1,
       null,
@@ -579,7 +579,7 @@ export class CorePackage extends EPackageImpl {
       this.getBoundedNumber_Value(),
       this.getEcorePackage().getEDouble(),
       'value',
-      undefined,
+      '',
       0,
       1,
       null,
@@ -596,7 +596,7 @@ export class CorePackage extends EPackageImpl {
       this.getBoundedNumber_MaxValue(),
       this.getEcorePackage().getEDouble(),
       'maxValue',
-      undefined,
+      '',
       0,
       1,
       null,
@@ -613,7 +613,7 @@ export class CorePackage extends EPackageImpl {
       this.getBoundedNumber_MinValue(),
       this.getEcorePackage().getEDouble(),
       'minValue',
-      undefined,
+      '',
       0,
       1,
       null,
@@ -631,7 +631,7 @@ export class CorePackage extends EPackageImpl {
       this.getIdedEntity_Id(),
       this.getEcorePackage().getEString(),
       'id',
-      undefined,
+      '',
       0,
       1,
       null,
@@ -648,7 +648,7 @@ export class CorePackage extends EPackageImpl {
       this.getIdedEntity_EditDate(),
       this.getEcorePackage().getEDate(),
       'editDate',
-      undefined,
+      '',
       0,
       1,
       null,
@@ -684,7 +684,7 @@ export class CorePackage extends EPackageImpl {
       this.getIdedEntity_Locked(),
       this.getEcorePackage().getEBoolean(),
       'locked',
-      undefined,
+      '',
       0,
       1,
       null,
@@ -701,7 +701,7 @@ export class CorePackage extends EPackageImpl {
       this.getIdedEntity_Id2(),
       this.getEcorePackage().getEString(),
       'id2',
-      undefined,
+      '',
       0,
       1,
       null,
@@ -720,7 +720,7 @@ export class CorePackage extends EPackageImpl {
       this.getNamedEntity_Name(),
       this.getEcorePackage().getEString(),
       'name',
-      undefined,
+      '',
       0,
       1,
       null,
@@ -865,7 +865,7 @@ export class CorePackage extends EPackageImpl {
       this.getBarSpecializationWithComponents_SpecialName(),
       this.getEcorePackage().getEString(),
       'specialName',
-      undefined,
+      '',
       0,
       1,
       null,
@@ -903,7 +903,7 @@ export class CorePackage extends EPackageImpl {
       this.getFoo_CreationDate(),
       this.getEcorePackage().getEDate(),
       'creationDate',
-      undefined,
+      '',
       0,
       1,
       null,
@@ -920,7 +920,7 @@ export class CorePackage extends EPackageImpl {
       this.getFoo_FooClass(),
       this.getFooClass(),
       'fooClass',
-      undefined,
+      '',
       0,
       1,
       null,
@@ -994,7 +994,7 @@ export class CorePackage extends EPackageImpl {
       this.getFoo_ManyAttribute(),
       this.getEcorePackage().getEString(),
       'manyAttribute',
-      undefined,
+      '',
       0,
       -1,
       null,
@@ -1011,7 +1011,7 @@ export class CorePackage extends EPackageImpl {
       this.getFoo_UnchangeableAttribute(),
       this.getEcorePackage().getEString(),
       'unchangeableAttribute',
-      undefined,
+      '',
       0,
       1,
       null,
@@ -1047,7 +1047,7 @@ export class CorePackage extends EPackageImpl {
       this.getFoo_TransientAttribute(),
       this.getEcorePackage().getEString(),
       'transientAttribute',
-      undefined,
+      '',
       0,
       1,
       null,
@@ -1083,7 +1083,7 @@ export class CorePackage extends EPackageImpl {
       this.getFoo_VolatileAttribute(),
       this.getEcorePackage().getEString(),
       'volatileAttribute',
-      undefined,
+      '',
       0,
       1,
       null,
@@ -1281,7 +1281,7 @@ export class CorePackage extends EPackageImpl {
       this.getUser_Pass(),
       this.getEcorePackage().getEString(),
       'pass',
-      undefined,
+      '',
       0,
       1,
       null,
@@ -1298,7 +1298,7 @@ export class CorePackage extends EPackageImpl {
       this.getUser_Salt(),
       this.getEcorePackage().getEString(),
       'salt',
-      undefined,
+      '',
       0,
       1,
       null,
@@ -1315,7 +1315,7 @@ export class CorePackage extends EPackageImpl {
       this.getUser_Email(),
       this.getEcorePackage().getEString(),
       'email',
-      undefined,
+      '',
       0,
       1,
       null,

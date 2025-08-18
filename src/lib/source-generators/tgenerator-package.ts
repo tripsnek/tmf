@@ -50,7 +50,7 @@ export class TGeneratorPackage {
     this.isInitialized = true;
 
     //reusable handle for eoperations, used for adding parameters
-    let op: EOperation = null;`;
+    let op: EOperation;`;
 
     let idFieldsContent = '';
 
@@ -77,7 +77,7 @@ export class TGeneratorPackage {
       else if (eclassifier instanceof EDataTypeImpl) type = 'EDataType';
       const eclassFieldName = DU.uncapitalize(eclassifier.getName()) + type;
       fieldDeclarationsContent += `
-  private ${eclassFieldName}: ${type} = null;`;
+  private ${eclassFieldName}: ${type} = {} as ${type};`;
 
       //add eclass getter
       const eclassGetter = DU.genEclassGetterName(eclassifier);
@@ -212,7 +212,7 @@ export class TGeneratorPackage {
             initContent += `,
       ${featureTypeGetter},
       '${feature.getName()}',
-      ${feature.getDefaultValueLiteral()},
+      ${feature.getDefaultValueLiteral() ? feature.getDefaultValueLiteral() : `''`},
       ${feature.getLowerBound()},
       ${feature.getUpperBound()},
       ${feature.getContainerClass()},

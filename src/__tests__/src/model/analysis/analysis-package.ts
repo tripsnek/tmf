@@ -50,7 +50,7 @@ export class AnalysisPackage extends EPackageImpl {
   private isCreated = false;
   private isInitialized = false;
 
-  private analysisResultEClass: EClass = null;
+  private analysisResultEClass: EClass = {} as EClass;
 
   //causes EPackage.Registry registration event
   //hard-coded URI, since referring to the static eNS_URI field in constructor can cause issues
@@ -137,7 +137,7 @@ export class AnalysisPackage extends EPackageImpl {
     this.isInitialized = true;
 
     //reusable handle for eoperations, used for adding parameters
-    let op: EOperation = null;
+    let op: EOperation;
     this.analysisResultEClass
       .getESuperTypes()
       .add(CorePackage.eINSTANCE.getIdedEntity());

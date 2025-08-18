@@ -49,8 +49,8 @@ export class ModelPackage extends EPackageImpl {
   private isCreated = false;
   private isInitialized = false;
 
-  private containedRootTypeEClass: EClass = null;
-  private containerRootTypeEClass: EClass = null;
+  private containedRootTypeEClass: EClass = {} as EClass;
+  private containerRootTypeEClass: EClass = {} as EClass;
 
   //causes EPackage.Registry registration event
   //hard-coded URI, since referring to the static eNS_URI field in constructor can cause issues
@@ -136,7 +136,7 @@ export class ModelPackage extends EPackageImpl {
     this.isInitialized = true;
 
     //reusable handle for eoperations, used for adding parameters
-    let op: EOperation = null;
+    let op: EOperation;
     this.initEClass(
       this.containedRootTypeEClass,
       'ContainedRootType',
