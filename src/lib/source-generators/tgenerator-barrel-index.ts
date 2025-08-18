@@ -61,7 +61,7 @@ ${this.generateEClassifierExports(ePackage, path)}`;
   private ensureCustomDirectory(): void {
     if (!this.outDir) return;
     
-    const customDir = path.join(this.outDir, 'src', 'custom');
+    const customDir = path.join(this.outDir, 'custom');
     
     if (!fs.existsSync(customDir)) {
       fs.mkdirSync(customDir, { recursive: true });
@@ -89,12 +89,12 @@ alongside the generated model code. This allows you to:
 ## Examples
 
 \`\`\`typescript
-// src/custom/utilities.ts
+// custom/utilities.ts
 export function customModelHelper() {
   // Your custom code here
 }
 
-// src/custom/types/custom-types.ts  
+// custom/types/custom-types.ts  
 export interface CustomModelExtension {
   // Your custom types here
 }
@@ -102,8 +102,8 @@ export interface CustomModelExtension {
 
 These will automatically be exported as:
 \`\`\`typescript
-export * from './src/custom/utilities';
-export * from './src/custom/types/custom-types';
+export * from './custom/utilities';
+export * from './custom/types/custom-types';
 \`\`\`
 `;
       
@@ -115,7 +115,7 @@ export * from './src/custom/types/custom-types';
   private generateCustomExports(): string {
     if (!this.outDir) return '';
     
-    const customDir = path.join(this.outDir, 'src', 'custom');
+    const customDir = path.join(this.outDir, 'custom');
     
     if (!fs.existsSync(customDir)) return '';
     
@@ -123,7 +123,7 @@ export * from './src/custom/types/custom-types';
     
     if (customFiles.length === 0) return '';
     
-    let exports = '\n// Custom exports from src/custom directory\n';
+    let exports = '\n// Custom exports from /custom directory\n';
     
     for (const file of customFiles) {
       const relativePath = path.relative(this.outDir, file);

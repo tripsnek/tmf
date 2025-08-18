@@ -14,19 +14,19 @@ alongside the generated model code. This allows you to:
 ## Usage
 
 - Place any `.ts` files in this directory or its subdirectories
-- **GENERATE YOUR MODEL AGAIN**: All \`.ts\` files will be automatically included in the barrel exports
+- **GENERATE YOUR MODEL AGAIN**: All `.ts` files will be automatically included in the barrel exports
 - Files are exported using relative paths from the project root
 - The directory structure is preserved in the export paths
 
 ## Examples
 
 ```typescript
-// src/custom/utilities.ts
+// custom/utilities.ts
 export function customModelHelper() {
   // Your custom code here
 }
 
-// src/custom/types/custom-types.ts
+// custom/types/custom-types.ts
 export interface CustomModelExtension {
   // Your custom types here
 }
@@ -35,6 +35,6 @@ export interface CustomModelExtension {
 These will automatically be exported as:
 
 ```typescript
-export * from './src/custom/utilities';
-export * from './src/custom/types/custom-types';
+export * from './custom/utilities';
+export * from './custom/types/custom-types';
 ```
