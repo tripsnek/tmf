@@ -43,7 +43,7 @@ export class CoreFactory extends EFactory {
     return CoreFactory.eINSTANCE;
   }
 
-  public create(eClass: EClass): any {
+  public override create(eClass: EClass): any {
     switch (eClass.getClassifierId()) {
       case CorePackage.USER:
         return this.createUser();

@@ -31,7 +31,7 @@ export class ModelFactory extends EFactory {
     return ModelFactory.eINSTANCE;
   }
 
-  public create(eClass: EClass): any {
+  public override create(eClass: EClass): any {
     switch (eClass.getClassifierId()) {
       case ModelPackage.CONTAINER_ROOT_TYPE:
         return this.createContainerRootType();

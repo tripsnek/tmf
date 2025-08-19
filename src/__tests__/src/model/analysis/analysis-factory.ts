@@ -29,7 +29,7 @@ export class AnalysisFactory extends EFactory {
     return AnalysisFactory.eINSTANCE;
   }
 
-  public create(eClass: EClass): any {
+  public override create(eClass: EClass): any {
     switch (eClass.getClassifierId()) {
       case AnalysisPackage.ANALYSIS_RESULT:
         return this.createAnalysisResult();
