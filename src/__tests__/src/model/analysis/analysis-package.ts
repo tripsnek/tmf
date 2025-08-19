@@ -50,7 +50,7 @@ export class AnalysisPackage extends EPackageImpl {
   private isCreated = false;
   private isInitialized = false;
 
-  private analysisResultEClass: EClass = {} as EClass;
+  private analysisResultEClass!: EClass;
 
   //causes EPackage.Registry registration event
   //hard-coded URI, since referring to the static eNS_URI field in constructor can cause issues

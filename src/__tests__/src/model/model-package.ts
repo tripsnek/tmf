@@ -49,8 +49,8 @@ export class ModelPackage extends EPackageImpl {
   private isCreated = false;
   private isInitialized = false;
 
-  private containedRootTypeEClass: EClass = {} as EClass;
-  private containerRootTypeEClass: EClass = {} as EClass;
+  private containedRootTypeEClass!: EClass;
+  private containerRootTypeEClass!: EClass;
 
   //causes EPackage.Registry registration event
   //hard-coded URI, since referring to the static eNS_URI field in constructor can cause issues

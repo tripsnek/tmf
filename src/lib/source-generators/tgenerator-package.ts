@@ -77,7 +77,7 @@ export class TGeneratorPackage {
       else if (eclassifier instanceof EDataTypeImpl) type = 'EDataType';
       const eclassFieldName = DU.uncapitalize(eclassifier.getName()) + type;
       fieldDeclarationsContent += `
-  private ${eclassFieldName}: ${type} = {} as ${type};`;
+  private ${eclassFieldName}!: ${type};`;
 
       //add eclass getter
       const eclassGetter = DU.genEclassGetterName(eclassifier);

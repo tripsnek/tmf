@@ -203,17 +203,17 @@ export class CorePackage extends EPackageImpl {
   private isCreated = false;
   private isInitialized = false;
 
-  private boundedNumberEClass: EClass = {} as EClass;
-  private idedEntityEClass: EClass = {} as EClass;
-  private namedEntityEClass: EClass = {} as EClass;
-  private bazzleEClass: EClass = {} as EClass;
-  private barEClass: EClass = {} as EClass;
-  private barSpecializationWithComponentsEClass: EClass = {} as EClass;
-  private fooEClass: EClass = {} as EClass;
-  private fooSpecializationEClass: EClass = {} as EClass;
-  private fooGroupEClass: EClass = {} as EClass;
-  private userEClass: EClass = {} as EClass;
-  private fooClassEEnum: EEnum = {} as EEnum;
+  private boundedNumberEClass!: EClass;
+  private idedEntityEClass!: EClass;
+  private namedEntityEClass!: EClass;
+  private bazzleEClass!: EClass;
+  private barEClass!: EClass;
+  private barSpecializationWithComponentsEClass!: EClass;
+  private fooEClass!: EClass;
+  private fooSpecializationEClass!: EClass;
+  private fooGroupEClass!: EClass;
+  private userEClass!: EClass;
+  private fooClassEEnum!: EEnum;
 
   //causes EPackage.Registry registration event
   //hard-coded URI, since referring to the static eNS_URI field in constructor can cause issues
