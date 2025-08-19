@@ -539,8 +539,8 @@ export class TGeneratorMain {
     const operations = eClass.getEOperations();
     debug.log(`Processing ${operations.size()} operation(s)...`);
     for (const eop of operations) {
-      if (eop.getEType()) {
-        this.maybeAddMemberImports(pkg, eClass, eop.getEType()!);
+        if (eop.getEType())
+          this.maybeAddMemberImports(pkg, eClass, eop.getEType()!);
         const params = eop.getEParameters();
         for (const param of params) {
           if (param.getEType()) {
@@ -548,7 +548,6 @@ export class TGeneratorMain {
             this.maybeAddMemberImports(pkg, eClass, param.getEType()!);
           }
         }
-      }
     }
 
     debug.groupEnd();

@@ -11,6 +11,8 @@ import { NamedEntity } from '../api/named-entity';
 import { Foo } from '../api/foo';
 import { Bazzle } from '../api/bazzle';
 import { User } from '../api/user';
+import { FooClass } from '../api/foo-class';
+import { BoundedNumber } from '../api/bounded-number';
 
 import { CorePackage } from '../core-package';
 import { Bar } from '../api/bar';
@@ -68,6 +70,13 @@ export abstract class BarGen extends NamedEntityImpl implements Bar {
   // API Operations
 
   public doSomethingWithFooAndBazzles(foo: Foo, bazzles: EList<Bazzle>): void {
+    throw new Error('Not implemented');
+  }
+
+  public doSomethingWithClassesAndNumbers(
+    classes: EList<FooClass>,
+    numbers: EList<BoundedNumber>
+  ): void {
     throw new Error('Not implemented');
   }
   //======================================================================

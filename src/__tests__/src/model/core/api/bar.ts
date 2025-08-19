@@ -12,6 +12,8 @@ import { NamedEntity } from './named-entity';
 import { Foo } from './foo';
 import { Bazzle } from './bazzle';
 import { User } from './user';
+import { FooClass } from './foo-class';
+import { BoundedNumber } from './bounded-number';
 import { CorePackage } from '../core-package';
 
 /**
@@ -23,4 +25,8 @@ export interface Bar extends NamedEntity {
   getBazzles(): EList<Bazzle>;
   getBackupFor(): EList<Bazzle>;
   doSomethingWithFooAndBazzles(foo: Foo, bazzles: EList<Bazzle>): void;
+  doSomethingWithClassesAndNumbers(
+    classes: EList<FooClass>,
+    numbers: EList<BoundedNumber>
+  ): void;
 }

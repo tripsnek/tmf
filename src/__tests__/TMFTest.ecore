@@ -64,6 +64,10 @@
         <eParameters name="foo" eType="#//core/Foo"/>
         <eParameters name="bazzles" upperBound="-1" eType="#//core/Bazzle"/>
       </eOperations>
+      <eOperations name="doSomethingWithClassesAndNumbers">
+        <eParameters name="classes" upperBound="-1" eType="#//core/FooClass"/>
+        <eParameters name="numbers" upperBound="-1" eType="#//core/BoundedNumber"/>
+      </eOperations>      
       <eStructuralFeatures xsi:type="ecore:EReference" name="foo" eType="#//core/Foo" eOpposite="#//core/Foo/bars"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="bazzles" eType="#//core/Bazzle" upperBound="-1" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="backupFor" eType="#//core/Bazzle" upperBound="-1" eOpposite="#//core/Bazzle/backupBar"/>
