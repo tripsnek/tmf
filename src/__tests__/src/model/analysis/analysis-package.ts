@@ -83,7 +83,7 @@ export class AnalysisPackage extends EPackageImpl {
   //this used to be direct lazy retrieval of the
   //factory instance from the corresponding .ts factory file, but
   //that was eliminated to avoid circular imports
-  public getEFactoryInstance(): EFactory {
+  public override getEFactoryInstance(): EFactory {
     return this._eFactoryInstance;
   }
 
@@ -91,7 +91,7 @@ export class AnalysisPackage extends EPackageImpl {
    * This will be invoked by the Factory when it is initialized, any invocations
    * afterwards will have no effect.
    */
-  public setEFactoryInstance(factoryInst: EFactory): void {
+  public override setEFactoryInstance(factoryInst: EFactory): void {
     if (!this._eFactoryInstance) this._eFactoryInstance = factoryInst;
   }
 
@@ -151,7 +151,7 @@ export class AnalysisPackage extends EPackageImpl {
     this.initEReference(
       this.getAnalysisResult_User(),
       CorePackage.eINSTANCE.getUser(),
-      null,
+      undefined,
       'user',
       '',
       0,
@@ -170,7 +170,7 @@ export class AnalysisPackage extends EPackageImpl {
     this.initEReference(
       this.getAnalysisResult_Object(),
       CorePackage.eINSTANCE.getNamedEntity(),
-      null,
+      undefined,
       'object',
       '',
       0,

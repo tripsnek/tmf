@@ -323,14 +323,15 @@ export class EPackage extends ENamedElementImpl {
 
   protected initEOperation(
     eOperation: EOperation,
-    type: EClassifier,
+    type: EClassifier | undefined,
     name: string,
     lowerBound?: number,
     upperBound?: number,
     isUnique?: boolean,
     isOrdered?: boolean
   ): EOperation {
-    eOperation.setEType(type);
+    if(type)
+      eOperation.setEType(type);
     eOperation.setName(name);
     if (lowerBound) eOperation.setLowerBound(lowerBound);
     if (upperBound) eOperation.setUpperBound(upperBound);

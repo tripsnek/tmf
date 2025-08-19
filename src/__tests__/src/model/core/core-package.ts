@@ -249,7 +249,7 @@ export class CorePackage extends EPackageImpl {
   //this used to be direct lazy retrieval of the
   //factory instance from the corresponding .ts factory file, but
   //that was eliminated to avoid circular imports
-  public getEFactoryInstance(): EFactory {
+  public override getEFactoryInstance(): EFactory {
     return this._eFactoryInstance;
   }
 
@@ -257,7 +257,7 @@ export class CorePackage extends EPackageImpl {
    * This will be invoked by the Factory when it is initialized, any invocations
    * afterwards will have no effect.
    */
-  public setEFactoryInstance(factoryInst: EFactory): void {
+  public override setEFactoryInstance(factoryInst: EFactory): void {
     if (!this._eFactoryInstance) this._eFactoryInstance = factoryInst;
   }
 
@@ -664,7 +664,7 @@ export class CorePackage extends EPackageImpl {
     this.initEReference(
       this.getIdedEntity_EditUser(),
       this.getUser(),
-      null,
+      undefined,
       'editUser',
       '',
       0,
@@ -797,7 +797,7 @@ export class CorePackage extends EPackageImpl {
     this.initEReference(
       this.getBar_Bazzles(),
       this.getBazzle(),
-      null,
+      undefined,
       'bazzles',
       '',
       0,
@@ -845,7 +845,7 @@ export class CorePackage extends EPackageImpl {
     this.initEReference(
       this.getBarSpecializationWithComponents_ComponentBars(),
       this.getBar(),
-      null,
+      undefined,
       'componentBars',
       '',
       0,
@@ -883,7 +883,7 @@ export class CorePackage extends EPackageImpl {
     this.initEReference(
       this.getFoo_Group(),
       this.getFooGroup(),
-      null,
+      undefined,
       'group',
       '',
       0,
@@ -936,7 +936,7 @@ export class CorePackage extends EPackageImpl {
     this.initEReference(
       this.getFoo_Range(),
       this.getBoundedNumber(),
-      null,
+      undefined,
       'range',
       '',
       0,
@@ -1027,7 +1027,7 @@ export class CorePackage extends EPackageImpl {
     this.initEReference(
       this.getFoo_UnchangeableReference(),
       this.getBazzle(),
-      null,
+      undefined,
       'unchangeableReference',
       '',
       0,
@@ -1063,7 +1063,7 @@ export class CorePackage extends EPackageImpl {
     this.initEReference(
       this.getFoo_TransientReference(),
       this.getFoo(),
-      null,
+      undefined,
       'transientReference',
       '',
       0,
@@ -1099,7 +1099,7 @@ export class CorePackage extends EPackageImpl {
     this.initEReference(
       this.getFoo_VolatileReference(),
       this.getFoo(),
-      null,
+      undefined,
       'volatileReference',
       '',
       0,
@@ -1118,7 +1118,7 @@ export class CorePackage extends EPackageImpl {
     this.initEReference(
       this.getFoo_ManyCrossAggregate(),
       this.getFoo(),
-      null,
+      undefined,
       'manyCrossAggregate',
       '',
       0,
@@ -1137,7 +1137,7 @@ export class CorePackage extends EPackageImpl {
     this.initEReference(
       this.getFoo_ManyCrossAggregateNested(),
       this.getBar(),
-      null,
+      undefined,
       'manyCrossAggregateNested',
       '',
       0,
@@ -1156,7 +1156,7 @@ export class CorePackage extends EPackageImpl {
     this.initEReference(
       this.getFoo_ManyValueObjects(),
       this.getBoundedNumber(),
-      null,
+      undefined,
       'manyValueObjects',
       '',
       0,
@@ -1175,7 +1175,7 @@ export class CorePackage extends EPackageImpl {
     this.initEReference(
       this.getFoo_OneToOneContainment(),
       this.getBazzle(),
-      null,
+      undefined,
       'oneToOneContainment',
       '',
       0,
@@ -1194,7 +1194,7 @@ export class CorePackage extends EPackageImpl {
     this.initEReference(
       this.getFoo_OwnedFoos(),
       this.getFoo(),
-      null,
+      undefined,
       'ownedFoos',
       '',
       0,
@@ -1232,7 +1232,7 @@ export class CorePackage extends EPackageImpl {
     this.initEReference(
       this.getFooGroup_User(),
       this.getUser(),
-      null,
+      undefined,
       'user',
       '',
       0,
@@ -1268,7 +1268,7 @@ export class CorePackage extends EPackageImpl {
     );
     op = this.initEOperation(
       this.getFooGroup_Freeze(),
-      null,
+      undefined,
       'freeze',
       0,
       1,

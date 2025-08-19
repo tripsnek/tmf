@@ -83,7 +83,7 @@ export class ModelPackage extends EPackageImpl {
   //this used to be direct lazy retrieval of the
   //factory instance from the corresponding .ts factory file, but
   //that was eliminated to avoid circular imports
-  public getEFactoryInstance(): EFactory {
+  public override getEFactoryInstance(): EFactory {
     return this._eFactoryInstance;
   }
 
@@ -91,7 +91,7 @@ export class ModelPackage extends EPackageImpl {
    * This will be invoked by the Factory when it is initialized, any invocations
    * afterwards will have no effect.
    */
-  public setEFactoryInstance(factoryInst: EFactory): void {
+  public override setEFactoryInstance(factoryInst: EFactory): void {
     if (!this._eFactoryInstance) this._eFactoryInstance = factoryInst;
   }
 

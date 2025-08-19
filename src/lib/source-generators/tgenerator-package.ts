@@ -230,7 +230,7 @@ export class TGeneratorPackage {
               eclassifier,
               pkgToImport
             );
-            let eopposite = 'null';
+            let eopposite = 'undefined';
             if (feature.getEOpposite()) {
               eopposite = `${pkgRef}.${DU.genFeatureGetterName(
                 feature.getEOpposite()!
@@ -358,7 +358,7 @@ ${fieldDeclarationsContent}
   //this used to be direct lazy retrieval of the
   //factory instance from the corresponding .ts factory file, but
   //that was eliminated to avoid circular imports
-  public getEFactoryInstance(): EFactory {
+  public override getEFactoryInstance(): EFactory {
     return this._eFactoryInstance;
   }
 
@@ -366,7 +366,7 @@ ${fieldDeclarationsContent}
    * This will be invoked by the Factory when it is initialized, any invocations
    * afterwards will have no effect.
    */
-  public setEFactoryInstance(factoryInst: EFactory): void {
+  public override setEFactoryInstance(factoryInst: EFactory): void {
     if (!this._eFactoryInstance) this._eFactoryInstance = factoryInst;
   }
 ${gettersContent}
@@ -393,7 +393,7 @@ ${initContent}
     pkgToImport: Set<EPackage>,
     pkg: EPackage
   ) {
-    let featureTypeGetter = null;
+    let featureTypeGetter = undefined;
     if (etype) {
       const pkgRef = DU.getReferenceToPackageInstance(
         etype,
