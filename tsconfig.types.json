@@ -3,7 +3,8 @@
   "compilerOptions": {
     "module": "ES2022",
     "moduleResolution": "Bundler",
-    "outDir": "./dist",
+    "outDir": "./dist/types",
+    "emitDeclarationOnly": true,
     "declaration": true,
     "declarationMap": true
   }
