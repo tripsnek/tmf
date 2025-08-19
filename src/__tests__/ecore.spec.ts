@@ -1,6 +1,8 @@
 import { EcoreStringParser, EcoreWriter, EPackage } from '@tripsnek/tmf';
 import { EClass } from '@tripsnek/tmf';
 import { EcoreParser } from '@tripsnek/tmf';
+import path from 'path';
+import fs from 'fs';
 
 //parse the ecore file
 const parser: EcoreParser = new EcoreParser();
@@ -11,9 +13,11 @@ let writtenXml!: string;
 let foo!: EClass;
 
 beforeAll(async () => {
+  const xmlString = fs.readFileSync(path.resolve('src/__tests__/TMFTest.ecore'), "utf8");
+
   const jsonString = JSON.stringify(
     parser.xmlToJs(
-      await parser.fileToXmlStringAsync('src/__tests__/TMFTest.ecore')
+      xmlString
     )
   );
 
