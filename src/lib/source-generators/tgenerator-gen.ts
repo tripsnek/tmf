@@ -10,7 +10,7 @@ import { EReferenceImpl } from '../metamodel/ereference-impl';
 /**
  * Source code generation for *gen.ts files for EClasses.
  *
- * @tripsnek
+ * @author dtuohy
  */
 export class TGeneratorGen {
   private _pkg!: EPackage;

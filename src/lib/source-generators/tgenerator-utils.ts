@@ -6,7 +6,7 @@ import { TGenUtils as DU } from './tgen-utils';
  * The utils file is intended to contain package-specific utility functions
  * and is manually maintained by developers after generation.
  *
- * @author Claude Code
+ * @author dtuohy
  */
 export class TGeneratorUtils {
   public generateUtilsContents(pkg: EPackage): string {
