@@ -89,7 +89,7 @@ describe('TMF Containment ', () => {
     expect(foo.eContainer()).toBe(ar);
   });
   it('nulling containment should unset single-valued eContainer', () => {
-    ar.setObject(null);
+    ar.setObject(undefined);
     expect(foo.eContainer()).toBeNull();
   });
   it('nulling containment with eSet should unset single-valued eContainer', () => {

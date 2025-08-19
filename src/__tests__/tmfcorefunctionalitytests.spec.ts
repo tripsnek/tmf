@@ -82,7 +82,7 @@ describe('TMF Enums', () => {
     expect(
       CorePackage.eINSTANCE
         .getFooClass()
-        .getEEnumLiteral('MEDIUM')
+        .getEEnumLiteral('MEDIUM')!
         .getInstance()
     ).toBe(FooClass.MEDIUM);
   });

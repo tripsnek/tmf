@@ -170,8 +170,8 @@ describe('TJson', () => {
       TJson.makeJsonArray(foos)
     ) as Foo[];
     expect(deserialized.length).toBe(2);
-    expect(deserialized[0].getBars().size()).toBe(2);
-    expect(deserialized[1].getBars().get(0).getName()).toBe('Foo2Bar');
+    expect(deserialized[0]!.getBars().size()).toBe(2);
+    expect(deserialized[1]!.getBars().get(0).getName()).toBe('Foo2Bar');
   });
   it('should stringify arrays of aggregates', () => {
     const foos = [foo, foo2];
