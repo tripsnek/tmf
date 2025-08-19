@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "module": "ES2022", //CommonJS breaks 'fs' etc. in webpack
+    "module": "CommonJS", 
     "lib": ["ES2022"],
     "outDir": "./dist",
     "rootDir": "./src",
@@ -16,7 +16,7 @@
     "useUnknownInCatchVariables": true,
     
     // Module resolution
-    "moduleResolution": "node",
+    "moduleResolution": "node",  // Change from "node" to "Node16"
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
