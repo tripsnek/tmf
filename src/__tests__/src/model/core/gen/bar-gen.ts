@@ -23,15 +23,15 @@ import { NamedEntityImpl } from '../impl/named-entity-impl';
  */
 export abstract class BarGen extends NamedEntityImpl implements Bar {
   /** feature declarations */
-  protected foo: Foo;
+  protected foo!: Foo;
   protected bazzles: EList<Bazzle> = new BasicEList<Bazzle>(
-    null,
+    undefined,
     this,
     CorePackage.BAR__BAZZLES,
-    null
+    undefined
   );
   protected backupFor: EList<Bazzle> = new BasicEList<Bazzle>(
-    null,
+    undefined,
     this,
     CorePackage.BAR__BACKUP_FOR,
     CorePackage.BAZZLE__BACKUP_BAR
@@ -73,7 +73,7 @@ export abstract class BarGen extends NamedEntityImpl implements Bar {
   /**
    * eGet() - provides reflective access to all features.
    */
-  public eGet(feature: number | EStructuralFeature): any {
+  public override eGet(feature: number | EStructuralFeature): any {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -92,7 +92,10 @@ export abstract class BarGen extends NamedEntityImpl implements Bar {
   /**
    * eSet() - provides ability to reflectively set all features.
    */
-  public eSet(feature: number | EStructuralFeature, newValue: any): void {
+  public override eSet(
+    feature: number | EStructuralFeature,
+    newValue: any
+  ): void {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -116,7 +119,7 @@ export abstract class BarGen extends NamedEntityImpl implements Bar {
   /**
    * eIsSet() - provides ability to reflectively check if any feature is set.
    */
-  public eIsSet(feature: number | EStructuralFeature): boolean {
+  public override eIsSet(feature: number | EStructuralFeature): boolean {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -135,14 +138,14 @@ export abstract class BarGen extends NamedEntityImpl implements Bar {
   /**
    * eUnset() - provides ability to reflectively unset any feature.
    */
-  public eUnset(feature: number | EStructuralFeature): void {
+  public override eUnset(feature: number | EStructuralFeature): void {
     const featureID: number =
       typeof feature === 'number'
         ? feature
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
       case CorePackage.BAR__FOO:
-        this.setFoo(undefined);
+        this.setFoo(undefined!);
         return;
       case CorePackage.BAR__BAZZLES:
         this.getBazzles().clear();
@@ -164,7 +167,7 @@ export abstract class BarGen extends NamedEntityImpl implements Bar {
 
   //======================================================================
   // Inverse Adders (if needed)
-  public eInverseAdd(otherEnd: EObject, featureID: number): void {
+  public override eInverseAdd(otherEnd: EObject, featureID: number): void {
     switch (featureID) {
       case CorePackage.BAR__FOO:
         if (this.foo) this.foo.eInverseRemove(this, CorePackage.FOO__BARS);
@@ -177,10 +180,10 @@ export abstract class BarGen extends NamedEntityImpl implements Bar {
 
   //======================================================================
   // Inverse Removers (if needed)
-  public eInverseRemove(otherEnd: EObject, featureID: number): void {
+  public override eInverseRemove(otherEnd: EObject, featureID: number): void {
     switch (featureID) {
       case CorePackage.BAR__FOO:
-        return this.basicSetFoo(null);
+        return this.basicSetFoo(undefined!);
       case CorePackage.BAR__BACKUP_FOR:
         return (<EList<EObject>>this.getBackupFor()).basicRemove(otherEnd);
     }
@@ -190,7 +193,7 @@ export abstract class BarGen extends NamedEntityImpl implements Bar {
   //======================================================================
   // eClass()
 
-  public eClass(): EClass {
+  public override eClass(): EClass {
     return CorePackage.Literals.BAR;
   }
 }

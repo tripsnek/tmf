@@ -20,9 +20,9 @@ import { NamedEntityImpl } from '../impl/named-entity-impl';
  */
 export abstract class UserGen extends NamedEntityImpl implements User {
   /** feature declarations */
-  protected pass: string;
-  protected salt: string;
-  protected email: string;
+  protected pass!: string;
+  protected salt!: string;
+  protected email!: string;
 
   //======================================================================
   // Getters and Setters
@@ -60,7 +60,7 @@ export abstract class UserGen extends NamedEntityImpl implements User {
   /**
    * eGet() - provides reflective access to all features.
    */
-  public eGet(feature: number | EStructuralFeature): any {
+  public override eGet(feature: number | EStructuralFeature): any {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -79,7 +79,10 @@ export abstract class UserGen extends NamedEntityImpl implements User {
   /**
    * eSet() - provides ability to reflectively set all features.
    */
-  public eSet(feature: number | EStructuralFeature, newValue: any): void {
+  public override eSet(
+    feature: number | EStructuralFeature,
+    newValue: any
+  ): void {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -101,7 +104,7 @@ export abstract class UserGen extends NamedEntityImpl implements User {
   /**
    * eIsSet() - provides ability to reflectively check if any feature is set.
    */
-  public eIsSet(feature: number | EStructuralFeature): boolean {
+  public override eIsSet(feature: number | EStructuralFeature): boolean {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -120,20 +123,20 @@ export abstract class UserGen extends NamedEntityImpl implements User {
   /**
    * eUnset() - provides ability to reflectively unset any feature.
    */
-  public eUnset(feature: number | EStructuralFeature): void {
+  public override eUnset(feature: number | EStructuralFeature): void {
     const featureID: number =
       typeof feature === 'number'
         ? feature
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
       case CorePackage.USER__PASS:
-        this.setPass(undefined);
+        this.setPass(undefined!);
         return;
       case CorePackage.USER__SALT:
-        this.setSalt(undefined);
+        this.setSalt(undefined!);
         return;
       case CorePackage.USER__EMAIL:
-        this.setEmail(undefined);
+        this.setEmail(undefined!);
         return;
     }
     return super.eUnset(featureID);
@@ -163,7 +166,7 @@ export abstract class UserGen extends NamedEntityImpl implements User {
   //======================================================================
   // eClass()
 
-  public eClass(): EClass {
+  public override eClass(): EClass {
     return CorePackage.Literals.USER;
   }
 }

@@ -20,10 +20,10 @@ export abstract class BoundedNumberGen
   implements BoundedNumber
 {
   /** feature declarations */
-  protected units: string;
-  protected value: number;
-  protected maxValue: number;
-  protected minValue: number;
+  protected units!: string;
+  protected value!: number;
+  protected maxValue!: number;
+  protected minValue!: number;
 
   //======================================================================
   // Getters and Setters
@@ -69,7 +69,7 @@ export abstract class BoundedNumberGen
   /**
    * eGet() - provides reflective access to all features.
    */
-  public eGet(feature: number | EStructuralFeature): any {
+  public override eGet(feature: number | EStructuralFeature): any {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -90,7 +90,10 @@ export abstract class BoundedNumberGen
   /**
    * eSet() - provides ability to reflectively set all features.
    */
-  public eSet(feature: number | EStructuralFeature, newValue: any): void {
+  public override eSet(
+    feature: number | EStructuralFeature,
+    newValue: any
+  ): void {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -115,7 +118,7 @@ export abstract class BoundedNumberGen
   /**
    * eIsSet() - provides ability to reflectively check if any feature is set.
    */
-  public eIsSet(feature: number | EStructuralFeature): boolean {
+  public override eIsSet(feature: number | EStructuralFeature): boolean {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -136,23 +139,23 @@ export abstract class BoundedNumberGen
   /**
    * eUnset() - provides ability to reflectively unset any feature.
    */
-  public eUnset(feature: number | EStructuralFeature): void {
+  public override eUnset(feature: number | EStructuralFeature): void {
     const featureID: number =
       typeof feature === 'number'
         ? feature
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
       case CorePackage.BOUNDED_NUMBER__UNITS:
-        this.setUnits(undefined);
+        this.setUnits(undefined!);
         return;
       case CorePackage.BOUNDED_NUMBER__VALUE:
-        this.setValue(undefined);
+        this.setValue(undefined!);
         return;
       case CorePackage.BOUNDED_NUMBER__MAX_VALUE:
-        this.setMaxValue(undefined);
+        this.setMaxValue(undefined!);
         return;
       case CorePackage.BOUNDED_NUMBER__MIN_VALUE:
-        this.setMinValue(undefined);
+        this.setMinValue(undefined!);
         return;
     }
     return super.eUnset(featureID);
@@ -186,7 +189,7 @@ export abstract class BoundedNumberGen
   //======================================================================
   // eClass()
 
-  public eClass(): EClass {
+  public override eClass(): EClass {
     return CorePackage.Literals.BOUNDED_NUMBER;
   }
 }

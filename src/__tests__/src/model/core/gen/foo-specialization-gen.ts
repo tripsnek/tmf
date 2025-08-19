@@ -42,7 +42,7 @@ export abstract class FooSpecializationGen
   /**
    * eGet() - provides reflective access to all features.
    */
-  public eGet(feature: number | EStructuralFeature): any {
+  public override eGet(feature: number | EStructuralFeature): any {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -55,7 +55,10 @@ export abstract class FooSpecializationGen
   /**
    * eSet() - provides ability to reflectively set all features.
    */
-  public eSet(feature: number | EStructuralFeature, newValue: any): void {
+  public override eSet(
+    feature: number | EStructuralFeature,
+    newValue: any
+  ): void {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -68,7 +71,7 @@ export abstract class FooSpecializationGen
   /**
    * eIsSet() - provides ability to reflectively check if any feature is set.
    */
-  public eIsSet(feature: number | EStructuralFeature): boolean {
+  public override eIsSet(feature: number | EStructuralFeature): boolean {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -81,7 +84,7 @@ export abstract class FooSpecializationGen
   /**
    * eUnset() - provides ability to reflectively unset any feature.
    */
-  public eUnset(feature: number | EStructuralFeature): void {
+  public override eUnset(feature: number | EStructuralFeature): void {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -103,7 +106,7 @@ export abstract class FooSpecializationGen
   //======================================================================
   // eClass()
 
-  public eClass(): EClass {
+  public override eClass(): EClass {
     return CorePackage.Literals.FOO_SPECIALIZATION;
   }
 }

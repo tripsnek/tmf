@@ -36,7 +36,7 @@ describe('TMF EOpposites ', () => {
     bar1.getBackupFor().clear();
     bar1.getBackupFor().add(baz1);
     bar1.getBackupFor().clear();
-    expect(baz1.getBackupBar()).toBe(null);
+    expect(baz1.getBackupBar()).toBe(undefined);
   });
   it('should unset all inverse references on list clear', () => {
     bar1.getBackupFor().clear();
@@ -49,8 +49,8 @@ describe('TMF EOpposites ', () => {
     expect(baz2.getBackupBar()).toBe(bar1);
     bar1.getBackupFor().clear();
     expect(bar1.getBackupFor().size()).toBe(0);
-    expect(baz1.getBackupBar()).toBe(null);
-    expect(baz2.getBackupBar()).toBe(null);
+    expect(baz1.getBackupBar()).toBe(undefined);
+    expect(baz2.getBackupBar()).toBe(undefined);
   });
   it('should remove from old many-valued EOpposite when added to new eOpposite', () => {
     bar1.getBackupFor().clear();
@@ -75,15 +75,15 @@ describe('TMF EOpposites ', () => {
   //TODO: Two above are the ones to test for eContainer I think?
   it('nulling reference should unset single-valued eOpposite', () => {
     foo.setOneToOneBazzle(baz1);
-    foo.setOneToOneBazzle(null);
-    expect(baz1.getOneToOneFoo()).toBe(null);
+    foo.setOneToOneBazzle(null!);
+    expect(baz1.getOneToOneFoo()).toBe(undefined);
   });
   it('should remove from old single-valued eopposite when added to new single-valued eopposite', () => {
     const foo2 = CoreFactory.eINSTANCE.createFoo();
     foo.setOneToOneBazzle(baz1);
     expect(baz1.getOneToOneFoo()).toBe(foo);
     foo2.setOneToOneBazzle(baz1);
-    expect(foo.getOneToOneBazzle()).toBe(null);
+    expect(foo.getOneToOneBazzle()).toBe(undefined);
     expect(baz1.getOneToOneFoo()).toBe(foo2);
 
     //repeat the process - this was triggering a bug at one point

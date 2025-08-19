@@ -23,8 +23,8 @@ import { NamedEntityImpl } from '../impl/named-entity-impl';
  */
 export abstract class BazzleGen extends NamedEntityImpl implements Bazzle {
   /** feature declarations */
-  protected backupBar: Bar;
-  protected oneToOneFoo: Foo;
+  protected backupBar!: Bar;
+  protected oneToOneFoo!: Foo;
 
   //======================================================================
   // Getters and Setters
@@ -73,7 +73,7 @@ export abstract class BazzleGen extends NamedEntityImpl implements Bazzle {
   /**
    * eGet() - provides reflective access to all features.
    */
-  public eGet(feature: number | EStructuralFeature): any {
+  public override eGet(feature: number | EStructuralFeature): any {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -90,7 +90,10 @@ export abstract class BazzleGen extends NamedEntityImpl implements Bazzle {
   /**
    * eSet() - provides ability to reflectively set all features.
    */
-  public eSet(feature: number | EStructuralFeature, newValue: any): void {
+  public override eSet(
+    feature: number | EStructuralFeature,
+    newValue: any
+  ): void {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -109,7 +112,7 @@ export abstract class BazzleGen extends NamedEntityImpl implements Bazzle {
   /**
    * eIsSet() - provides ability to reflectively check if any feature is set.
    */
-  public eIsSet(feature: number | EStructuralFeature): boolean {
+  public override eIsSet(feature: number | EStructuralFeature): boolean {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -126,17 +129,17 @@ export abstract class BazzleGen extends NamedEntityImpl implements Bazzle {
   /**
    * eUnset() - provides ability to reflectively unset any feature.
    */
-  public eUnset(feature: number | EStructuralFeature): void {
+  public override eUnset(feature: number | EStructuralFeature): void {
     const featureID: number =
       typeof feature === 'number'
         ? feature
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
       case CorePackage.BAZZLE__BACKUP_BAR:
-        this.setBackupBar(undefined);
+        this.setBackupBar(undefined!);
         return;
       case CorePackage.BAZZLE__ONE_TO_ONE_FOO:
-        this.setOneToOneFoo(undefined);
+        this.setOneToOneFoo(undefined!);
         return;
     }
     return super.eUnset(featureID);
@@ -155,7 +158,7 @@ export abstract class BazzleGen extends NamedEntityImpl implements Bazzle {
 
   //======================================================================
   // Inverse Adders (if needed)
-  public eInverseAdd(otherEnd: EObject, featureID: number): void {
+  public override eInverseAdd(otherEnd: EObject, featureID: number): void {
     switch (featureID) {
       case CorePackage.BAZZLE__BACKUP_BAR:
         if (this.backupBar)
@@ -174,12 +177,12 @@ export abstract class BazzleGen extends NamedEntityImpl implements Bazzle {
 
   //======================================================================
   // Inverse Removers (if needed)
-  public eInverseRemove(otherEnd: EObject, featureID: number): void {
+  public override eInverseRemove(otherEnd: EObject, featureID: number): void {
     switch (featureID) {
       case CorePackage.BAZZLE__BACKUP_BAR:
-        return this.basicSetBackupBar(null);
+        return this.basicSetBackupBar(undefined!);
       case CorePackage.BAZZLE__ONE_TO_ONE_FOO:
-        return this.basicSetOneToOneFoo(null);
+        return this.basicSetOneToOneFoo(undefined!);
     }
     return super.eInverseRemove(otherEnd, featureID);
   }
@@ -187,7 +190,7 @@ export abstract class BazzleGen extends NamedEntityImpl implements Bazzle {
   //======================================================================
   // eClass()
 
-  public eClass(): EClass {
+  public override eClass(): EClass {
     return CorePackage.Literals.BAZZLE;
   }
 }

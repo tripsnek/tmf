@@ -26,54 +26,54 @@ import { NamedEntityImpl } from '../impl/named-entity-impl';
  */
 export abstract class FooGen extends NamedEntityImpl implements Foo {
   /** feature declarations */
-  protected group: FooGroup;
-  protected creationDate: Date;
-  protected fooClass: FooClass;
-  protected range: BoundedNumber;
+  protected group!: FooGroup;
+  protected creationDate!: Date;
+  protected fooClass!: FooClass;
+  protected range!: BoundedNumber;
   protected bars: EList<Bar> = new BasicEList<Bar>(
-    null,
+    undefined,
     this,
     CorePackage.FOO__BARS,
     CorePackage.BAR__FOO
   );
-  protected oneToOneBazzle: Bazzle;
+  protected oneToOneBazzle!: Bazzle;
   protected manyAttribute: EList<string> = new BasicEList<string>(
-    null,
+    undefined,
     this,
     CorePackage.FOO__MANY_ATTRIBUTE,
-    null
+    undefined
   );
-  protected unchangeableAttribute: string;
-  protected unchangeableReference: Bazzle;
-  protected transientAttribute: string;
-  protected transientReference: Foo;
-  protected volatileAttribute: string;
-  protected volatileReference: Foo;
+  protected unchangeableAttribute!: string;
+  protected unchangeableReference!: Bazzle;
+  protected transientAttribute!: string;
+  protected transientReference!: Foo;
+  protected volatileAttribute!: string;
+  protected volatileReference!: Foo;
   protected manyCrossAggregate: EList<Foo> = new BasicEList<Foo>(
-    null,
+    undefined,
     this,
     CorePackage.FOO__MANY_CROSS_AGGREGATE,
-    null
+    undefined
   );
   protected manyCrossAggregateNested: EList<Bar> = new BasicEList<Bar>(
-    null,
+    undefined,
     this,
     CorePackage.FOO__MANY_CROSS_AGGREGATE_NESTED,
-    null
+    undefined
   );
   protected manyValueObjects: EList<BoundedNumber> =
     new BasicEList<BoundedNumber>(
-      null,
+      undefined,
       this,
       CorePackage.FOO__MANY_VALUE_OBJECTS,
-      null
+      undefined
     );
-  protected oneToOneContainment: Bazzle;
+  protected oneToOneContainment!: Bazzle;
   protected ownedFoos: EList<Foo> = new BasicEList<Foo>(
-    null,
+    undefined,
     this,
     CorePackage.FOO__OWNED_FOOS,
-    null
+    undefined
   );
 
   //======================================================================
@@ -109,7 +109,7 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
 
   public setRange(newRange: BoundedNumber): void {
     const oldRange = this.range;
-    if (oldRange) oldRange.setEContainer(null, null);
+    if (oldRange) oldRange.setEContainer(undefined, undefined);
     if (newRange) newRange.setEContainer(this, CorePackage.FOO__RANGE);
     this.basicSetRange(newRange);
   }
@@ -156,7 +156,7 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
   private setUnchangeableReference(newUnchangeableReference: Bazzle): void {
     const oldUnchangeableReference = this.unchangeableReference;
     if (oldUnchangeableReference)
-      oldUnchangeableReference.setEContainer(null, null);
+      oldUnchangeableReference.setEContainer(undefined, undefined);
     if (newUnchangeableReference)
       newUnchangeableReference.setEContainer(
         this,
@@ -179,7 +179,8 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
 
   public setTransientReference(newTransientReference: Foo): void {
     const oldTransientReference = this.transientReference;
-    if (oldTransientReference) oldTransientReference.setEContainer(null, null);
+    if (oldTransientReference)
+      oldTransientReference.setEContainer(undefined, undefined);
     if (newTransientReference)
       newTransientReference.setEContainer(
         this,
@@ -231,7 +232,7 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
   public setOneToOneContainment(newOneToOneContainment: Bazzle): void {
     const oldOneToOneContainment = this.oneToOneContainment;
     if (oldOneToOneContainment)
-      oldOneToOneContainment.setEContainer(null, null);
+      oldOneToOneContainment.setEContainer(undefined, undefined);
     if (newOneToOneContainment)
       newOneToOneContainment.setEContainer(
         this,
@@ -256,7 +257,7 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
   /**
    * eGet() - provides reflective access to all features.
    */
-  public eGet(feature: number | EStructuralFeature): any {
+  public override eGet(feature: number | EStructuralFeature): any {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -305,7 +306,10 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
   /**
    * eSet() - provides ability to reflectively set all features.
    */
-  public eSet(feature: number | EStructuralFeature, newValue: any): void {
+  public override eSet(
+    feature: number | EStructuralFeature,
+    newValue: any
+  ): void {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -378,7 +382,7 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
   /**
    * eIsSet() - provides ability to reflectively check if any feature is set.
    */
-  public eIsSet(feature: number | EStructuralFeature): boolean {
+  public override eIsSet(feature: number | EStructuralFeature): boolean {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -427,50 +431,50 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
   /**
    * eUnset() - provides ability to reflectively unset any feature.
    */
-  public eUnset(feature: number | EStructuralFeature): void {
+  public override eUnset(feature: number | EStructuralFeature): void {
     const featureID: number =
       typeof feature === 'number'
         ? feature
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
       case CorePackage.FOO__GROUP:
-        this.setGroup(undefined);
+        this.setGroup(undefined!);
         return;
       case CorePackage.FOO__CREATION_DATE:
-        this.setCreationDate(undefined);
+        this.setCreationDate(undefined!);
         return;
       case CorePackage.FOO__FOO_CLASS:
-        this.setFooClass(undefined);
+        this.setFooClass(undefined!);
         return;
       case CorePackage.FOO__RANGE:
-        this.setRange(undefined);
+        this.setRange(undefined!);
         return;
       case CorePackage.FOO__BARS:
         this.getBars().clear();
         return;
       case CorePackage.FOO__ONE_TO_ONE_BAZZLE:
-        this.setOneToOneBazzle(undefined);
+        this.setOneToOneBazzle(undefined!);
         return;
       case CorePackage.FOO__MANY_ATTRIBUTE:
         this.getManyAttribute().clear();
         return;
       case CorePackage.FOO__UNCHANGEABLE_ATTRIBUTE:
-        this.setUnchangeableAttribute(undefined);
+        this.setUnchangeableAttribute(undefined!);
         return;
       case CorePackage.FOO__UNCHANGEABLE_REFERENCE:
-        this.setUnchangeableReference(undefined);
+        this.setUnchangeableReference(undefined!);
         return;
       case CorePackage.FOO__TRANSIENT_ATTRIBUTE:
-        this.setTransientAttribute(undefined);
+        this.setTransientAttribute(undefined!);
         return;
       case CorePackage.FOO__TRANSIENT_REFERENCE:
-        this.setTransientReference(undefined);
+        this.setTransientReference(undefined!);
         return;
       case CorePackage.FOO__VOLATILE_ATTRIBUTE:
-        this.setVolatileAttribute(undefined);
+        this.setVolatileAttribute(undefined!);
         return;
       case CorePackage.FOO__VOLATILE_REFERENCE:
-        this.setVolatileReference(undefined);
+        this.setVolatileReference(undefined!);
         return;
       case CorePackage.FOO__MANY_CROSS_AGGREGATE:
         this.getManyCrossAggregate().clear();
@@ -482,7 +486,7 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
         this.getManyValueObjects().clear();
         return;
       case CorePackage.FOO__ONE_TO_ONE_CONTAINMENT:
-        this.setOneToOneContainment(undefined);
+        this.setOneToOneContainment(undefined!);
         return;
       case CorePackage.FOO__OWNED_FOOS:
         this.getOwnedFoos().clear();
@@ -540,7 +544,7 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
 
   //======================================================================
   // Inverse Adders (if needed)
-  public eInverseAdd(otherEnd: EObject, featureID: number): void {
+  public override eInverseAdd(otherEnd: EObject, featureID: number): void {
     switch (featureID) {
       case CorePackage.FOO__BARS:
         return (<EList<EObject>>this.getBars()).basicAdd(otherEnd);
@@ -557,12 +561,12 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
 
   //======================================================================
   // Inverse Removers (if needed)
-  public eInverseRemove(otherEnd: EObject, featureID: number): void {
+  public override eInverseRemove(otherEnd: EObject, featureID: number): void {
     switch (featureID) {
       case CorePackage.FOO__BARS:
         return (<EList<EObject>>this.getBars()).basicRemove(otherEnd);
       case CorePackage.FOO__ONE_TO_ONE_BAZZLE:
-        return this.basicSetOneToOneBazzle(null);
+        return this.basicSetOneToOneBazzle(undefined!);
     }
     return super.eInverseRemove(otherEnd, featureID);
   }
@@ -570,7 +574,7 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
   //======================================================================
   // eClass()
 
-  public eClass(): EClass {
+  public override eClass(): EClass {
     return CorePackage.Literals.FOO;
   }
 }

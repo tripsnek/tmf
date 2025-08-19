@@ -18,11 +18,11 @@ import { IdedEntity } from '../api/ided-entity';
  */
 export abstract class IdedEntityGen extends EObjectImpl implements IdedEntity {
   /** feature declarations */
-  protected id: string;
-  protected editDate: Date;
-  protected editUser: User;
-  protected locked: boolean;
-  protected id2: string;
+  protected id!: string;
+  protected editDate!: Date;
+  protected editUser!: User;
+  protected locked!: boolean;
+  protected id2!: string;
 
   //======================================================================
   // Getters and Setters
@@ -76,7 +76,7 @@ export abstract class IdedEntityGen extends EObjectImpl implements IdedEntity {
   /**
    * eGet() - provides reflective access to all features.
    */
-  public eGet(feature: number | EStructuralFeature): any {
+  public override eGet(feature: number | EStructuralFeature): any {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -99,7 +99,10 @@ export abstract class IdedEntityGen extends EObjectImpl implements IdedEntity {
   /**
    * eSet() - provides ability to reflectively set all features.
    */
-  public eSet(feature: number | EStructuralFeature, newValue: any): void {
+  public override eSet(
+    feature: number | EStructuralFeature,
+    newValue: any
+  ): void {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -127,7 +130,7 @@ export abstract class IdedEntityGen extends EObjectImpl implements IdedEntity {
   /**
    * eIsSet() - provides ability to reflectively check if any feature is set.
    */
-  public eIsSet(feature: number | EStructuralFeature): boolean {
+  public override eIsSet(feature: number | EStructuralFeature): boolean {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -150,26 +153,26 @@ export abstract class IdedEntityGen extends EObjectImpl implements IdedEntity {
   /**
    * eUnset() - provides ability to reflectively unset any feature.
    */
-  public eUnset(feature: number | EStructuralFeature): void {
+  public override eUnset(feature: number | EStructuralFeature): void {
     const featureID: number =
       typeof feature === 'number'
         ? feature
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
       case CorePackage.IDED_ENTITY__ID:
-        this.setId(undefined);
+        this.setId(undefined!);
         return;
       case CorePackage.IDED_ENTITY__EDIT_DATE:
-        this.setEditDate(undefined);
+        this.setEditDate(undefined!);
         return;
       case CorePackage.IDED_ENTITY__EDIT_USER:
-        this.setEditUser(undefined);
+        this.setEditUser(undefined!);
         return;
       case CorePackage.IDED_ENTITY__LOCKED:
-        this.setLocked(undefined);
+        this.setLocked(undefined!);
         return;
       case CorePackage.IDED_ENTITY__ID2:
-        this.setId2(undefined);
+        this.setId2(undefined!);
         return;
     }
     return super.eUnset(featureID);
@@ -207,7 +210,7 @@ export abstract class IdedEntityGen extends EObjectImpl implements IdedEntity {
   //======================================================================
   // eClass()
 
-  public eClass(): EClass {
+  public override eClass(): EClass {
     return CorePackage.Literals.IDED_ENTITY;
   }
 }

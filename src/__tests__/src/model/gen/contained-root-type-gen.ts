@@ -21,7 +21,7 @@ export abstract class ContainedRootTypeGen
   implements ContainedRootType
 {
   /** feature declarations */
-  protected container: ContainerRootType;
+  protected container!: ContainerRootType;
 
   //======================================================================
   // Getters and Setters
@@ -57,7 +57,7 @@ export abstract class ContainedRootTypeGen
   /**
    * eGet() - provides reflective access to all features.
    */
-  public eGet(feature: number | EStructuralFeature): any {
+  public override eGet(feature: number | EStructuralFeature): any {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -72,7 +72,10 @@ export abstract class ContainedRootTypeGen
   /**
    * eSet() - provides ability to reflectively set all features.
    */
-  public eSet(feature: number | EStructuralFeature, newValue: any): void {
+  public override eSet(
+    feature: number | EStructuralFeature,
+    newValue: any
+  ): void {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -88,7 +91,7 @@ export abstract class ContainedRootTypeGen
   /**
    * eIsSet() - provides ability to reflectively check if any feature is set.
    */
-  public eIsSet(feature: number | EStructuralFeature): boolean {
+  public override eIsSet(feature: number | EStructuralFeature): boolean {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -103,14 +106,14 @@ export abstract class ContainedRootTypeGen
   /**
    * eUnset() - provides ability to reflectively unset any feature.
    */
-  public eUnset(feature: number | EStructuralFeature): void {
+  public override eUnset(feature: number | EStructuralFeature): void {
     const featureID: number =
       typeof feature === 'number'
         ? feature
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
       case ModelPackage.CONTAINED_ROOT_TYPE__CONTAINER:
-        this.setContainer(undefined);
+        this.setContainer(undefined!);
         return;
     }
     return super.eUnset(featureID);
@@ -129,7 +132,7 @@ export abstract class ContainedRootTypeGen
 
   //======================================================================
   // Inverse Adders (if needed)
-  public eInverseAdd(otherEnd: EObject, featureID: number): void {
+  public override eInverseAdd(otherEnd: EObject, featureID: number): void {
     switch (featureID) {
       case ModelPackage.CONTAINED_ROOT_TYPE__CONTAINER:
         if (this.container)
@@ -144,10 +147,10 @@ export abstract class ContainedRootTypeGen
 
   //======================================================================
   // Inverse Removers (if needed)
-  public eInverseRemove(otherEnd: EObject, featureID: number): void {
+  public override eInverseRemove(otherEnd: EObject, featureID: number): void {
     switch (featureID) {
       case ModelPackage.CONTAINED_ROOT_TYPE__CONTAINER:
-        return this.basicSetContainer(null);
+        return this.basicSetContainer(undefined!);
     }
     return super.eInverseRemove(otherEnd, featureID);
   }
@@ -155,7 +158,7 @@ export abstract class ContainedRootTypeGen
   //======================================================================
   // eClass()
 
-  public eClass(): EClass {
+  public override eClass(): EClass {
     return ModelPackage.Literals.CONTAINED_ROOT_TYPE;
   }
 }

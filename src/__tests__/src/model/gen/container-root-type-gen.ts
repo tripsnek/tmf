@@ -23,7 +23,7 @@ export abstract class ContainerRootTypeGen
   /** feature declarations */
   protected contained: EList<ContainedRootType> =
     new BasicEList<ContainedRootType>(
-      null,
+      undefined,
       this,
       ModelPackage.CONTAINER_ROOT_TYPE__CONTAINED,
       ModelPackage.CONTAINED_ROOT_TYPE__CONTAINER
@@ -45,7 +45,7 @@ export abstract class ContainerRootTypeGen
   /**
    * eGet() - provides reflective access to all features.
    */
-  public eGet(feature: number | EStructuralFeature): any {
+  public override eGet(feature: number | EStructuralFeature): any {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -60,7 +60,10 @@ export abstract class ContainerRootTypeGen
   /**
    * eSet() - provides ability to reflectively set all features.
    */
-  public eSet(feature: number | EStructuralFeature, newValue: any): void {
+  public override eSet(
+    feature: number | EStructuralFeature,
+    newValue: any
+  ): void {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -77,7 +80,7 @@ export abstract class ContainerRootTypeGen
   /**
    * eIsSet() - provides ability to reflectively check if any feature is set.
    */
-  public eIsSet(feature: number | EStructuralFeature): boolean {
+  public override eIsSet(feature: number | EStructuralFeature): boolean {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -92,7 +95,7 @@ export abstract class ContainerRootTypeGen
   /**
    * eUnset() - provides ability to reflectively unset any feature.
    */
-  public eUnset(feature: number | EStructuralFeature): void {
+  public override eUnset(feature: number | EStructuralFeature): void {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -110,7 +113,7 @@ export abstract class ContainerRootTypeGen
 
   //======================================================================
   // Inverse Adders (if needed)
-  public eInverseAdd(otherEnd: EObject, featureID: number): void {
+  public override eInverseAdd(otherEnd: EObject, featureID: number): void {
     switch (featureID) {
       case ModelPackage.CONTAINER_ROOT_TYPE__CONTAINED:
         return (<EList<EObject>>this.getContained()).basicAdd(otherEnd);
@@ -120,7 +123,7 @@ export abstract class ContainerRootTypeGen
 
   //======================================================================
   // Inverse Removers (if needed)
-  public eInverseRemove(otherEnd: EObject, featureID: number): void {
+  public override eInverseRemove(otherEnd: EObject, featureID: number): void {
     switch (featureID) {
       case ModelPackage.CONTAINER_ROOT_TYPE__CONTAINED:
         return (<EList<EObject>>this.getContained()).basicRemove(otherEnd);
@@ -131,7 +134,7 @@ export abstract class ContainerRootTypeGen
   //======================================================================
   // eClass()
 
-  public eClass(): EClass {
+  public override eClass(): EClass {
     return ModelPackage.Literals.CONTAINER_ROOT_TYPE;
   }
 }

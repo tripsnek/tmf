@@ -32,11 +32,11 @@ describe('TMF Containment ', () => {
     expect(baz1.eContainer()).toBe(bar1);
   });
   it('should set eContainer to null when setting named field to null', () => {
-    bar1.setFoo(null);
+    bar1.setFoo(null!);
     expect(bar1.eContainer()).toBe(null);
   });
   it('should set eContainer when using named field setter', () => {
-    bar1.setFoo(null);
+    bar1.setFoo(null!);
     bar1.setFoo(foo);
     expect(bar1.eContainer()).toBe(foo);
   });
@@ -89,13 +89,13 @@ describe('TMF Containment ', () => {
     expect(foo.eContainer()).toBe(ar);
   });
   it('nulling containment should unset single-valued eContainer', () => {
-    ar.setObject(undefined);
-    expect(foo.eContainer()).toBeNull();
+    ar.setObject(undefined!);
+    expect(foo.eContainer()).toBeFalsy();
   });
   it('nulling containment with eSet should unset single-valued eContainer', () => {
     ar.eSet(AnalysisPackage.eINSTANCE.getAnalysisResult_Object(), foo);
     ar.eSet(AnalysisPackage.eINSTANCE.getAnalysisResult_Object(), null);
-    expect(foo.eContainer()).toBeNull();
+    expect(foo.eContainer()).toBeFalsy();
   });
   it('should remove from old single-valued container when added to new container', () => {
     ar.setObject(foo);

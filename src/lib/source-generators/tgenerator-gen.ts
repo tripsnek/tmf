@@ -67,7 +67,7 @@ ${this.genEInverseRemove(eClass)}
   //======================================================================
   // eClass()
 
-  public eClass(): EClass {
+  public override eClass(): EClass {
     return ${this._packageName}.Literals.${DU.snakeUpperCase(
       eClass.getName()
     )};
@@ -168,7 +168,7 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
       let initializer = '';
       if (f.isMany()) {
         //get feature ID for inverse reference, if specified
-        let inverseFeatureId = 'null';
+        let inverseFeatureId = 'undefined';
         if (f instanceof EReferenceImpl) {
           if (f.getEOpposite()) {
             const oppRef = f.getEOpposite();
@@ -183,13 +183,17 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
         //list is initialized with information about owning object, the
         //field it represents, and any inverse field
         initializer += ` = new Basic${typeName}(
-    null,
+    undefined,
     this,
     ${this._packageName}.${DU.genFeatureIdFieldName(f)},
     ${inverseFeatureId}
   )`;
       }
-      sourceContent += `  protected ${f.getName()}: ${typeName}${initializer};\n`;
+      //TODO: only add '!' is feature is marked as required (lowerBound = 1)
+
+      let optionalityOperator = f.isMany() ? '' : '!';
+
+      sourceContent += `  protected ${f.getName()}${optionalityOperator}: ${typeName}${initializer};\n`;
     }
     return sourceContent;
   }
@@ -297,7 +301,7 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
           const oldVar = 'old' + DU.capitalize(field.getName());
           result += `
     const ${oldVar} = this.${field.getName()};
-    if (${oldVar}) ${oldVar}.setEContainer(null, null);
+    if (${oldVar}) ${oldVar}.setEContainer(undefined, undefined);
     if (${paramName}) ${paramName}.setEContainer(this, ${DU.genPackageClassName(
             this._pkg
           )}.${DU.genFeatureIdFieldName(field)});`;
@@ -379,7 +383,7 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
   /**
    * eGet() - provides reflective access to all features.
    */
-  public eGet(feature: number | EStructuralFeature): any {
+  public override eGet(feature: number | EStructuralFeature): any {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -404,7 +408,7 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
   /**
    * eSet() - provides ability to reflectively set all features.
    */
-  public eSet(feature: number | EStructuralFeature, newValue: any): void {
+  public override eSet(feature: number | EStructuralFeature, newValue: any): void {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -440,7 +444,7 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
   /**
    * eIsSet() - provides ability to reflectively check if any feature is set.
    */
-  public eIsSet(feature: number | EStructuralFeature): boolean {
+  public override eIsSet(feature: number | EStructuralFeature): boolean {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -472,7 +476,7 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
   /**
    * eUnset() - provides ability to reflectively unset any feature.
    */
-  public eUnset(feature: number | EStructuralFeature): void {
+  public override eUnset(feature: number | EStructuralFeature): void {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -484,7 +488,7 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
       case ${this._packageName}.${featureIdField}:`;
       if (!feature.isMany()) {
         result += `
-        this.${DU.setterName(feature)}(undefined);
+        this.${DU.setterName(feature)}(undefined!);
         return;`;
       } else {
         const getter = DU.getterName(feature);
@@ -510,7 +514,7 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
         if (!f.isVolatile() && f.getEOpposite()) {
           if (numSwitches === 0) {
             result += `
-  public eInverseAdd(otherEnd: EObject, featureID: number): void {
+  public override eInverseAdd(otherEnd: EObject, featureID: number): void {
     switch (featureID) {`;
           }
           //TODO: Do I also need to do a basic remove from container if this sets a new container?
@@ -562,7 +566,7 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
         if (!f.isVolatile() && f.getEOpposite()) {
           if (numSwitches === 0) {
             result += `
-  public eInverseRemove(otherEnd: EObject, featureID: number): void {
+  public override eInverseRemove(otherEnd: EObject, featureID: number): void {
     switch (featureID) {`;
           }
           result += `
@@ -574,7 +578,7 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
             )}()).basicRemove(otherEnd);`;
           } else {
             result += `
-        return this.basic${DU.capitalize(DU.setterName(f))}(null);`;
+        return this.basic${DU.capitalize(DU.setterName(f))}(undefined!);`;
           }
           numSwitches++;
         }
