@@ -22,7 +22,7 @@ import { Foo } from '../api/foo';
  * Editable Impl class.
  */
 export class FooImpl extends FooGen {
-  public copyFoo(): Foo {
+  public override copyFoo(): Foo {
     throw new Error('Not implemented');
   }
 }

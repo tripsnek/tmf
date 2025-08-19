@@ -20,13 +20,13 @@ import { FooGroup } from '../api/foo-group';
  * Editable Impl class.
  */
 export class FooGroupImpl extends FooGroupGen {
-  public computeFoosOfClass(fooClass: FooClass): number {
+  public override computeFoosOfClass(fooClass: FooClass): number {
     throw new Error('Not implemented');
   }
-  public getFoosWithBazzles(bazzles: EList<Bazzle>): EList<Foo> {
+  public override getFoosWithBazzles(bazzles: EList<Bazzle>): EList<Foo> {
     throw new Error('Not implemented');
   }
-  public freeze(): void {
+  public override freeze(): void {
     throw new Error('Not implemented');
   }
 }

@@ -18,7 +18,7 @@ import { AnalysisResult } from '../api/analysis-result';
  * Editable Impl class.
  */
 export class AnalysisResultImpl extends AnalysisResultGen {
-  public cloneObject(deepCopy: boolean, newUser: User): NamedEntity {
+  public override cloneObject(deepCopy: boolean, newUser: User): NamedEntity {
     throw new Error('Not implemented');
   }
 }

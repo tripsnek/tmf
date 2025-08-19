@@ -34,7 +34,7 @@ export class TGeneratorImpl {
   private generateOperations(eClass: EClass): string {
     let result = '';
     for (const eop of eClass.getEOperations()) {
-      result += `public ${DU.eopSignature(
+      result += `public override ${DU.eopSignature(
         eop
       )} {throw new Error('Not implemented');}`;
     }
