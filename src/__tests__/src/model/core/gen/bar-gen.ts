@@ -67,6 +67,9 @@ export abstract class BarGen extends NamedEntityImpl implements Bar {
   //======================================================================
   // API Operations
 
+  public doSomethingWithFooAndBazzles(foo: Foo, bazzles: EList<Bazzle>): void {
+    throw new Error('Not implemented');
+  }
   //======================================================================
   // Standard EObject behavior
 

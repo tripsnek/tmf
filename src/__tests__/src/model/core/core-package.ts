@@ -45,6 +45,7 @@ export class CorePackage extends EPackageImpl {
   public static BAR__FOO = CorePackage.NAMED_ENTITY_FEATURE_COUNT + 0;
   public static BAR__BAZZLES = CorePackage.NAMED_ENTITY_FEATURE_COUNT + 1;
   public static BAR__BACKUP_FOR = CorePackage.NAMED_ENTITY_FEATURE_COUNT + 2;
+  public static BAR__DO_SOMETHING_WITH_FOO_AND_BAZZLES = 0;
   public static BAR_SPECIALIZATION_WITH_COMPONENTS = 5;
   public static BAR_SPECIALIZATION_WITH_COMPONENTS_FEATURE_COUNT =
     CorePackage.BAR_FEATURE_COUNT + 2;
@@ -321,6 +322,9 @@ export class CorePackage extends EPackageImpl {
   public getBar_BackupFor(): EReference {
     return <EReference>this.barEClass.getEStructuralFeatures().get(2);
   }
+  public getBar_DoSomethingWithFooAndBazzles(): EOperation {
+    return this.barEClass.getEOperations().get(0);
+  }
   public getBarSpecializationWithComponents(): EClass {
     return this.barSpecializationWithComponentsEClass;
   }
@@ -478,6 +482,10 @@ export class CorePackage extends EPackageImpl {
     this.createEReference(this.barEClass, CorePackage.BAR__FOO);
     this.createEReference(this.barEClass, CorePackage.BAR__BAZZLES);
     this.createEReference(this.barEClass, CorePackage.BAR__BACKUP_FOR);
+    this.createEOperation(
+      this.barEClass,
+      CorePackage.BAR__DO_SOMETHING_WITH_FOO_AND_BAZZLES
+    );
     this.barSpecializationWithComponentsEClass = this.createEClass(
       CorePackage.BAR_SPECIALIZATION_WITH_COMPONENTS
     );
@@ -831,6 +839,15 @@ export class CorePackage extends EPackageImpl {
       false,
       false,
       false
+    );
+    op = this.initEOperation(
+      this.getBar_DoSomethingWithFooAndBazzles(),
+      undefined,
+      'doSomethingWithFooAndBazzles',
+      0,
+      1,
+      true,
+      true
     );
     this.barSpecializationWithComponentsEClass
       .getESuperTypes()

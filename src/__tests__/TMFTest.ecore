@@ -60,6 +60,10 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="specialName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="Bar" eSuperTypes="#//core/NamedEntity">
+      <eOperations name="doSomethingWithFooAndBazzles">
+        <eParameters name="foo" eType="#//core/Foo"/>
+        <eParameters name="bazzles" upperBound="-1" eType="#//core/Bazzle"/>
+      </eOperations>
       <eStructuralFeatures xsi:type="ecore:EReference" name="foo" eType="#//core/Foo" eOpposite="#//core/Foo/bars"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="bazzles" eType="#//core/Bazzle" upperBound="-1" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="backupFor" eType="#//core/Bazzle" upperBound="-1" eOpposite="#//core/Bazzle/backupBar"/>

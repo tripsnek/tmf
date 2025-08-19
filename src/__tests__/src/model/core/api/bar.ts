@@ -22,4 +22,5 @@ export interface Bar extends NamedEntity {
   setFoo(newFoo: Foo): void;
   getBazzles(): EList<Bazzle>;
   getBackupFor(): EList<Bazzle>;
+  doSomethingWithFooAndBazzles(foo: Foo, bazzles: EList<Bazzle>): void;
 }
