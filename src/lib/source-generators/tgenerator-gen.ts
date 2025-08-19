@@ -13,8 +13,8 @@ import { EReferenceImpl } from '../metamodel/ereference-impl';
  * @tripsnek
  */
 export class TGeneratorGen {
-  private _pkg: EPackage;
-  private _packageName: string;
+  private _pkg!: EPackage;
+  private _packageName!: string;
 
   /**
    * Generates a template string containing all source code for the *gen.ts
@@ -173,9 +173,11 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
           if (f.getEOpposite()) {
             const oppRef = f.getEOpposite();
 
-            inverseFeatureId = `${DU.genPackageClassName(
-              oppRef.getEContainingClass().getEPackage()
-            )}.${DU.genFeatureIdFieldName(oppRef)}`;
+            if(oppRef){
+              inverseFeatureId = `${DU.genPackageClassName(
+                oppRef.getEContainingClass().getEPackage()
+              )}.${DU.genFeatureIdFieldName(oppRef)}`;
+            }
           }
         }
         //list is initialized with information about owning object, the
@@ -194,10 +196,10 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
 
   private genConstructor(eClass: EClass): string {
     // Build sorted list of all constructor arguments
-    let argFields = [];
+    let argFields: any[] = [];
 
     // Build sorted list constructor arguments from possible superType
-    const superFields = [];
+    const superFields : any[] = [];
 
     let result = '';
     if (argFields.length > 0) {
@@ -305,7 +307,7 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
           //TODO: handle opposites in other packages?
           const oppositeIdField = `${
             this._packageName
-          }.${DU.genFeatureIdFieldName(field.getEOpposite())}`;
+          }.${DU.genFeatureIdFieldName(field.getEOpposite()!)}`;
           result += `
     if (this.${field.getName()} !== ${paramName}) {
       if (this.${field.getName()}) {
@@ -342,7 +344,7 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
         if (
           field instanceof EReferenceImpl &&
           field.getEOpposite() &&
-          field.getEOpposite().isContainment()
+          field.getEOpposite()!.isContainment()
         ) {
           result += `
     this.eBasicSetContainer(${paramName}, ${DU.genPackageClassName(
@@ -523,7 +525,7 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
             if (f.getEOpposite()) {
               const oppositeFeatureField = `${
                 this._packageName
-              }.${DU.genFeatureIdFieldName(f.getEOpposite())}`;
+              }.${DU.genFeatureIdFieldName(f.getEOpposite()!)}`;
               result += `
         if (this.${f.getName()})
           this.${f.getName()}.eInverseRemove(

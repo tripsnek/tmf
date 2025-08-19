@@ -119,7 +119,7 @@ export class TGeneratorMain {
   public constructor(
     public pkg: EPackage,
     public outDir: string,
-    public overwriteImpl?: boolean,
+    public overwriteImpl: boolean = false,
     public barrelFileDir?: string
   ) {
     debug.log(
@@ -519,21 +519,18 @@ export class TGeneratorMain {
     const features = eClass.getEAllStructuralFeatures();
     debug.log(`Processing ${features.size()} structural feature(s)...`);
     for (const field of features) {
-      debug.log(
-        `Processing feature: ${field.getName()} of type: ${field
-          .getEType()
-          .getName()}`
-      );
-      this.maybeAddMemberImports(pkg, eClass, field.getEType());
-      if (field instanceof EReferenceImpl) {
-        const opposite = field.getEOpposite();
-        if (opposite) {
-          debug.log(`Processing opposite reference: ${opposite.getName()}`);
-          this.maybeAddMemberImports(
-            pkg,
-            eClass,
-            opposite.getEContainingClass()
-          );
+      if (field.getEType()) {
+        this.maybeAddMemberImports(pkg, eClass, field.getEType()!);
+        if (field instanceof EReferenceImpl) {
+          const opposite = field.getEOpposite();
+          if (opposite) {
+            debug.log(`Processing opposite reference: ${opposite.getName()}`);
+            this.maybeAddMemberImports(
+              pkg,
+              eClass,
+              opposite.getEContainingClass()
+            );
+          }
         }
       }
     }
@@ -542,11 +539,15 @@ export class TGeneratorMain {
     const operations = eClass.getEOperations();
     debug.log(`Processing ${operations.size()} operation(s)...`);
     for (const eop of operations) {
-      this.maybeAddMemberImports(pkg, eClass, eop.getEType());
-      const params = eop.getEParameters();
-      for (const param of params) {
-        // make sure to import any parameter type, if necessary
-        this.maybeAddMemberImports(pkg, eClass, param.getEType());
+      if (eop.getEType()) {
+        this.maybeAddMemberImports(pkg, eClass, eop.getEType()!);
+        const params = eop.getEParameters();
+        for (const param of params) {
+          if (param.getEType()) {
+            // make sure to import any parameter type, if necessary
+            this.maybeAddMemberImports(pkg, eClass, param.getEType()!);
+          }
+        }
       }
     }
 

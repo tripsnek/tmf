@@ -38,11 +38,11 @@ export class EcoreStringParser {
     //add primitive types
     const primitiveTypes = TUtils.PRIMITIVES;
     for (const type of primitiveTypes) {
-      typesMap['ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//' + type] = new EDataTypeImpl(null, null, type);
+      typesMap.set('ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//' + type,new EDataTypeImpl(undefined, undefined, type));
     }
-    for (const key of typesMap.keys()) {
-      console.error('KEY ' + key + ' : ' + typeof typesMap[key]);
-    }
+    // for (const key of typesMap.keys()) {
+    //   console.error('KEY ' + key + ' : ' + typeof typesMap[key]);
+    // }
 
     //parse all classifiers first, so that we can resolve them later
     this.instantiateAllClassifiersAndFeatures(
@@ -53,10 +53,10 @@ export class EcoreStringParser {
     );
 
     //parse the root EPackage and all contents
-    const pkgPath = [];
+    const pkgPath : any[] = [];
     const rootPackage = this.parsePackage(
       ePackage,
-      null,
+      undefined,
       typesMap,
       featuresMap,
       pkgPath
@@ -112,13 +112,13 @@ export class EcoreStringParser {
           (<EClass>eclassifier).setInterface(classEntry['$']['interface']);
         }
         const eclassUri = this.getEClassifierUri(path, eclassifier.getName());
-        typesMap[eclassUri] = eclassifier;
+        typesMap.set(eclassUri,eclassifier);
 
         if (classEntry['eStructuralFeatures']) {
           for (const featureEntry of classEntry['eStructuralFeatures']) {
             //instantiate the feature
             const fprops = featureEntry['$'];
-            let efeature: EStructuralFeature = null;
+            let efeature: EStructuralFeature | undefined;
             if (fprops['xsi:type'] === 'ecore:EAttribute') {
               efeature = new EAttributeImpl();
               if (fprops.iD) (<EAttribute>efeature).setId(true);
@@ -130,7 +130,8 @@ export class EcoreStringParser {
             }
 
             //create map entry from uri to the feature
-            featuresMap[eclassUri + '/' + fprops['name']] = efeature;
+            if(efeature)
+              featuresMap.set(eclassUri + '/' + fprops['name'],efeature);
           }
         }
       }
@@ -170,7 +171,7 @@ export class EcoreStringParser {
    */
   private parsePackage(
     pkgJson: any,
-    parentPkg: EPackage,
+    parentPkg: EPackage | undefined,
     typesMap: Map<string, EClassifier>,
     featuresMap: Map<string, EStructuralFeature>,
     path: string[]
@@ -189,7 +190,7 @@ export class EcoreStringParser {
     if (pkgJson['eClassifiers']) {
       for (const classEntry of pkgJson['eClassifiers']) {
         const eclassUri = this.getEClassifierUri(path, classEntry['$']['name']);
-        const eclass: EClassifier = typesMap[eclassUri];
+        const eclass: EClassifier = typesMap.get(eclassUri) as EClassifier;
         if (!eclass) {
           console.error('COULD NOT FIND ECLASS IDENTIFIED BY ' + eclassUri);
         }
@@ -201,7 +202,7 @@ export class EcoreStringParser {
         //parse out super types
         if (classEntry['$']['eSuperTypes']) {
           for (const superType of classEntry['$']['eSuperTypes'].split(' ')) {
-            const superTypeEClass = <EClass>typesMap[superType];
+            const superTypeEClass = <EClass>typesMap.get(superType);
             if (!superTypeEClass) {
               console.error('COULD NOT FIND ECLASS IDENTIFIED BY ' + superType);
             }
@@ -234,7 +235,7 @@ export class EcoreStringParser {
                 nameToEop.set(eOperation.getName(), eOperation);
                 eclass.getEOperations().add(eOperation);
                 eOperation.setEContainingClass(eclass);
-                if (fprops.eType) eOperation.setEType(typesMap[fprops.eType]);
+                if (fprops.eType) eOperation.setEType(typesMap.get(fprops.eType) as EClassifier);
                 if (fprops.upperBound) {
                   eOperation.setUpperBound(Number(fprops.upperBound));
                 }
@@ -250,7 +251,7 @@ export class EcoreStringParser {
                     const param = new EParameterImpl();
                     param.setName(paramEntry.$.name);
                     if (paramEntry.$.eType) {
-                      param.setEType(typesMap[paramEntry.$.eType]);
+                      param.setEType(typesMap.get(paramEntry.$.eType) as EClassifier);
                     }
                     if (paramEntry.$.upperBound) {
                       param.setUpperBound(Number(paramEntry.$.upperBound));
@@ -300,10 +301,10 @@ export class EcoreStringParser {
       for (const featureEntry of classEntry['eStructuralFeatures']) {
         const fprops = featureEntry['$'];
         const efeature: EStructuralFeature =
-          featuresMap[eclassUri + '/' + fprops['name']];
+          featuresMap.get(eclassUri + '/' + fprops['name']) as EStructuralFeature;
         if (efeature) {
           efeature.setName(fprops['name']);
-          const type: EClassifier = typesMap[fprops['eType']];
+          const type: EClassifier = typesMap.get(fprops['eType']) as EClassifier;
           if (!type) {
             console.error(
               'WARNING: COULD NOT LOCATE TYPE FOR ' +
@@ -334,7 +335,7 @@ export class EcoreStringParser {
           //eopposites and containment
           if (efeature instanceof EReferenceImpl) {
             if (fprops['eOpposite']) {
-              const eopp = <EReference>featuresMap[fprops['eOpposite']];
+              const eopp = <EReference>featuresMap.get(fprops['eOpposite']);
               efeature.setEOpposite(eopp);
             }
             efeature.setContainment(

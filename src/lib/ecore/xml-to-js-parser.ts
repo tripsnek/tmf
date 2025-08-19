@@ -8,39 +8,39 @@ declare global {
   interface DOMParser {
     parseFromString(source: string, mimeType: string): Document;
   }
-  
+
   interface Document {
     documentElement: Element | null;
     querySelector(selector: string): Element | null;
   }
-  
+
   interface Element {
     tagName: string;
     attributes: NamedNodeMap;
     childNodes: NodeList;
     textContent: string | null;
   }
-  
+
   interface NamedNodeMap {
     length: number;
     [index: number]: Attr;
   }
-  
+
   interface Attr {
     name: string;
     value: string;
   }
-  
+
   interface NodeList {
     length: number;
     [index: number]: Node;
   }
-  
+
   interface Node {
     nodeType: number;
     textContent: string | null;
   }
-  
+
   const Node: {
     ELEMENT_NODE: number;
     TEXT_NODE: number;
@@ -52,16 +52,16 @@ declare global {
 const NODE_TYPES = {
   ELEMENT_NODE: 1,
   TEXT_NODE: 3,
-  CDATA_SECTION_NODE: 4
+  CDATA_SECTION_NODE: 4,
 } as const;
 
 export interface XmlToJsOptions {
   explicitArray?: boolean; // Default: true - always use arrays for child elements
-  mergeAttrs?: boolean;    // Default: false - keep attributes in $ object
-  explicitRoot?: boolean;  // Default: true - keep root element
-  ignoreAttrs?: boolean;   // Default: false - include attributes
-  trim?: boolean;          // Default: false - trim text content
-  normalize?: boolean;     // Default: false - normalize whitespace
+  mergeAttrs?: boolean; // Default: false - keep attributes in $ object
+  explicitRoot?: boolean; // Default: true - keep root element
+  ignoreAttrs?: boolean; // Default: false - include attributes
+  trim?: boolean; // Default: false - trim text content
+  normalize?: boolean; // Default: false - normalize whitespace
 }
 
 export class XmlToJsParser {
@@ -75,7 +75,7 @@ export class XmlToJsParser {
       ignoreAttrs: options.ignoreAttrs === true,
       trim: options.trim === true,
       normalize: options.normalize === true,
-      ...options
+      ...options,
     };
   }
 
@@ -110,8 +110,10 @@ export class XmlToJsParser {
    * Check if DOMParser is available (browser environment)
    */
   private isDOMParserAvailable(): boolean {
-    return typeof globalThis !== 'undefined' && 
-           typeof (globalThis as any).DOMParser !== 'undefined';
+    return (
+      typeof globalThis !== 'undefined' &&
+      typeof (globalThis as any).DOMParser !== 'undefined'
+    );
   }
 
   /**
@@ -121,26 +123,30 @@ export class XmlToJsParser {
     try {
       const parser = new (globalThis as any).DOMParser();
       const xmlDoc = parser.parseFromString(xml, 'text/xml');
-      
+
       // Check for parser errors
       const parserError = xmlDoc.querySelector('parsererror');
       if (parserError) {
         throw new Error(`XML Parse Error: ${parserError.textContent}`);
       }
-      
+
       if (!xmlDoc.documentElement) {
         throw new Error('Invalid XML: No document element found');
       }
-      
+
       const result = this.domElementToJs(xmlDoc.documentElement, true); // true = isRootLevel
-      
+
       if (this.options.explicitRoot) {
         return { [xmlDoc.documentElement.tagName]: result };
       } else {
         return result;
       }
     } catch (error) {
-      throw new Error(`XML parsing failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      throw new Error(
+        `XML parsing failed: ${
+          error instanceof Error ? error.message : 'Unknown error'
+        }`
+      );
     }
   }
 
@@ -190,19 +196,22 @@ export class XmlToJsParser {
         const element: any = {};
 
         // Parse attributes
-        if (!this.options.ignoreAttrs && attributesStr.trim()) {
-          const attrs = this.parseAttributes(attributesStr);
-          if (Object.keys(attrs).length > 0) {
-            if (this.options.mergeAttrs) {
-              Object.assign(element, attrs);
-            } else {
-              element.$ = attrs;
+        if (attributesStr) {
+          if (!this.options.ignoreAttrs && attributesStr.trim()) {
+            const attrs = this.parseAttributes(attributesStr);
+            if (Object.keys(attrs).length > 0) {
+              if (this.options.mergeAttrs) {
+                Object.assign(element, attrs);
+              } else {
+                element.$ = attrs;
+              }
             }
           }
         }
 
         // Add element to current parent (don't force array for root level)
-        this.addChildElement(current, tagName, element, isRootLevel);
+        if (tagName)
+          this.addChildElement(current, tagName, element, isRootLevel);
 
         // If not self-closing, push to stack for children
         if (!isSelfClosing) {
@@ -228,7 +237,7 @@ export class XmlToJsParser {
     if (rootKeys.length === 1 && this.options.explicitRoot) {
       return result;
     } else if (rootKeys.length === 1) {
-      return result[rootKeys[0]];
+      return result[rootKeys[0]!];
     } else {
       return result;
     }
@@ -241,13 +250,17 @@ export class XmlToJsParser {
     const result: any = {};
 
     // Handle attributes
-    if (!this.options.ignoreAttrs && element.attributes && element.attributes.length > 0) {
+    if (
+      !this.options.ignoreAttrs &&
+      element.attributes &&
+      element.attributes.length > 0
+    ) {
       const attrs: any = {};
       for (let i = 0; i < element.attributes.length; i++) {
         const attr = element.attributes[i];
         attrs[attr.name] = attr.value;
       }
-      
+
       if (this.options.mergeAttrs) {
         Object.assign(result, attrs);
       } else {
@@ -262,16 +275,19 @@ export class XmlToJsParser {
     // Process all child nodes
     for (let i = 0; i < element.childNodes.length; i++) {
       const child = element.childNodes[i];
-      
+
       if (child.nodeType === NODE_TYPES.ELEMENT_NODE) {
         const childElement = child;
         const tagName = childElement.tagName;
-        
+
         if (!childElements[tagName]) {
           childElements[tagName] = [];
         }
         childElements[tagName].push(childElement);
-      } else if (child.nodeType === NODE_TYPES.TEXT_NODE || child.nodeType === NODE_TYPES.CDATA_SECTION_NODE) {
+      } else if (
+        child.nodeType === NODE_TYPES.TEXT_NODE ||
+        child.nodeType === NODE_TYPES.CDATA_SECTION_NODE
+      ) {
         const textContent = child.textContent || '';
         if (textContent.trim()) {
           textParts.push(textContent);
@@ -281,8 +297,8 @@ export class XmlToJsParser {
 
     // Add child elements to result
     for (const [tagName, elements] of Object.entries(childElements)) {
-      const childObjects = elements.map(el => this.domElementToJs(el, false)); // children are not root level
-      
+      const childObjects = elements.map((el) => this.domElementToJs(el, false)); // children are not root level
+
       // Use the helper method to maintain consistency with Node.js implementation
       if (elements.length === 1) {
         this.addChildElement(result, tagName, childObjects[0], false);
@@ -316,7 +332,8 @@ export class XmlToJsParser {
 
     while ((match = attrRegex.exec(attributesStr)) !== null) {
       const [, name, value] = match;
-      attrs[name] = value;
+      if(name)
+        attrs[name] = value;
     }
 
     return attrs;
@@ -329,8 +346,10 @@ export class XmlToJsParser {
     const trimmed = textContent.trim();
     if (trimmed) {
       const finalText = this.options.trim ? trimmed : textContent;
-      const normalizedText = this.options.normalize ? finalText.replace(/\s+/g, ' ') : finalText;
-      
+      const normalizedText = this.options.normalize
+        ? finalText.replace(/\s+/g, ' ')
+        : finalText;
+
       if (current._) {
         current._ += normalizedText;
       } else {
@@ -342,7 +361,12 @@ export class XmlToJsParser {
   /**
    * Add child element to parent
    */
-  private addChildElement(parent: any, tagName: string, element: any, isRootLevel: boolean = false): void {
+  private addChildElement(
+    parent: any,
+    tagName: string,
+    element: any,
+    isRootLevel: boolean = false
+  ): void {
     if (parent[tagName]) {
       // Convert to array if not already
       if (!Array.isArray(parent[tagName])) {
@@ -368,17 +392,21 @@ const defaultParser = new XmlToJsParser({
   explicitRoot: true,
   ignoreAttrs: false,
   trim: false,
-  normalize: false
+  normalize: false,
 });
 
 /**
  * Drop-in replacement for xml2js.parseString()
  */
-export function parseString(xml: string, callback?: (err: Error | null, result?: any) => void): Promise<any> {
+export function parseString(
+  xml: string,
+  callback?: (err: Error | null, result?: any) => void
+): Promise<any> {
   if (callback) {
-    defaultParser.parseString(xml)
-      .then(result => callback(null, result))
-      .catch(err => callback(err));
+    defaultParser
+      .parseString(xml)
+      .then((result) => callback(null, result))
+      .catch((err) => callback(err));
     return Promise.resolve();
   } else {
     return defaultParser.parseString(xml);

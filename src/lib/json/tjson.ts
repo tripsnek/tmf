@@ -24,7 +24,7 @@ export class TJson {
   public static JSON_FIELD_TYPESCRIPT_TYPE = '@type';
 
   //TODO: Need to inject these on application boot
-  static packages = [];
+  static packages : EPackage[] = [];
   public static setPackages(packages: EPackage[]) {
     this.packages = packages;
   }
@@ -44,11 +44,12 @@ export class TJson {
    * @param json
    * @return
    */
-  public static makeEObject(jsonObj: any): EObject {
+  public static makeEObject(jsonObj: any): EObject | undefined{
     const serializedReferences = new Array<SerializedReference>();
 
     //build containment heirarchy
     const eobj = this.jsonToEObject(jsonObj, serializedReferences);
+    if(!eobj) return undefined;
 
     //build index of all contained objects
     const idsToObjs = new Map<string, EObject>();
@@ -69,7 +70,7 @@ export class TJson {
    * @param obj
    */
   public static makeJsonArray(objs: EObject[]): any[] {
-    const jsonArray = [];
+    const jsonArray : any[] = [];
     if (objs) {
       objs.forEach((element) => {
         jsonArray.push(this.makeJson(element));
@@ -85,9 +86,11 @@ export class TJson {
    * @return
    */
   public static makeEObjectArray(jsonArray: any[]): EObject[] {
-    const eobjArray = [];
+    const eobjArray : EObject[] = [];
     jsonArray.forEach((element) => {
-      eobjArray.push(this.makeEObject(element));
+      const eobj = this.makeEObject(element);
+      if(eobj)
+       eobjArray.push(eobj);
     });
     return eobjArray;
   }
@@ -95,7 +98,7 @@ export class TJson {
   private static jsonToEObject(
     jsonObj: any,
     serializedRefs: Array<SerializedReference>
-  ): EObject {
+  ): EObject | undefined {
     if (jsonObj == null) {
       throw new Error(
         'ERROR: null value for JSON Object. Cannot convert to EObject.'
@@ -111,19 +114,19 @@ export class TJson {
           ' was specified for the JSON object: ' +
           jsonObj
       );
-      return null;
+      return undefined;
     }
 
-    let eClass: EClass = null;
-    let eObj: EObject = null;
+    let eClass: EClass | undefined;
+    let eObj: EObject | undefined;
     for (const pkg of this.packages) {
       eClass = this.eClassByNameCaseInsensitive(objectType, pkg);
-      if (eClass != null) {
+      if (eClass) {
         eObj = pkg.getEFactoryInstance().create(eClass);
         break;
       }
     }
-    if (eClass != null) {
+    if (eClass && eObj) {
       //handle all primitive attributes
       this.setPrimitiveValuesOnJson(jsonObj, eObj);
       //handle all references
@@ -175,7 +178,7 @@ export class TJson {
         if (!containeTJsonObj[this.JSON_FIELD_TYPESCRIPT_TYPE]) {
           containeTJsonObj.put(
             this.JSON_FIELD_TYPESCRIPT_TYPE,
-            ref.getEType().getName()
+            ref.getEType()!.getName()
           );
         }
         const referencedEmfObj = this.jsonToEObject(
@@ -208,7 +211,7 @@ export class TJson {
         if (ref.isContainment()) {
           if (!containedTJsonObj[this.JSON_FIELD_TYPESCRIPT_TYPE]) {
             containedTJsonObj[this.JSON_FIELD_TYPESCRIPT_TYPE] = ref
-              .getEType()
+              .getEType()!
               .getName();
           }
           const containedDObj = this.jsonToEObject(
@@ -241,7 +244,7 @@ export class TJson {
       return null;
     }
 
-    const jsonObj = {};
+    const jsonObj : any = {};
 
     //Generate IDs for all Entities in the heirarchy which do not have them
 
@@ -284,7 +287,7 @@ export class TJson {
     obj: EObject,
     ref: EReference,
     serializedSoFar: Map<EObject, any>,
-    jsonObj: {}
+    jsonObj: any
   ) {
     const jsonFieldName = this.getJsonFieldName(ref);
     const referencedColl = <BasicEList<any>>obj.eGet(ref);
@@ -315,7 +318,7 @@ export class TJson {
     obj: EObject,
     ref: EReference,
     serializedSoFar: Map<EObject, any>,
-    jsonObj: {}
+    jsonObj: any
   ) {
     const jsonFieldName = this.getJsonFieldName(ref);
     const referencedObj = <EObject>obj.eGet(ref);
@@ -346,7 +349,7 @@ export class TJson {
     }
   }
 
-  private static attributesToJson(obj: EObject, jsonObj: {}) {
+  private static attributesToJson(obj: EObject, jsonObj: any) {
     for (const attr of obj.eClass().getEAllAttributes()) {
       if (!attr.isVolatile() && !attr.isTransient()) {
         const jsonFieldName = this.getJsonFieldName(attr);

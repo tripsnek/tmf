@@ -129,21 +129,23 @@ import { EObjectImpl } from '@tripsnek/tmf';`;
     //add parameters
     let paramInd = 0;
     for (const param of eop.getEParameters()) {
-      if (paramInd > 0) signature += ', ';
-      let paramType = TUtils.getTypescriptName(param.getEType());
-      if (param.isMany()) {
-        paramType = `EList<${paramType}>`;
+      if (param.getEType()) {
+        if (paramInd > 0) signature += ', ';
+        let paramType = TUtils.getTypescriptName(param.getEType()!);
+        if (param.isMany()) {
+          paramType = `EList<${paramType}>`;
+        }
+        const paramName = param.getName() + (param.isOptional() ? '?' : '');
+        signature += `${paramName}: ${paramType}`;
+        paramInd++;
       }
-      const paramName = param.getName() + (param.isOptional() ? '?' : '');
-      signature += `${paramName}: ${paramType}`;
-      paramInd++;
     }
     return `${signature}): ${returnType}`;
   }
 
   public static eopReturnType(eop: EOperation) {
     let returnType = eop.getEType()
-      ? TUtils.getTypescriptName(eop.getEType())
+      ? TUtils.getTypescriptName(eop.getEType()!)
       : 'void';
 
     //handle lists
@@ -196,7 +198,7 @@ import { EObjectImpl } from '@tripsnek/tmf';`;
    */
   public static getterName(f: EStructuralFeature) {
     return (
-      (f.getEType().getName() === 'EBoolean' ? 'is' : 'get') +
+      (f.getEType()?.getName() === 'EBoolean' ? 'is' : 'get') +
       TGenUtils.capitalize(f.getName())
     );
   }
@@ -238,18 +240,18 @@ import { EObjectImpl } from '@tripsnek/tmf';`;
    * @param f
    */
   public static getTypeName(f: EStructuralFeature): string {
-    let typeName = f.getEType() ? f.getEType().getName() : 'any';
+    let typeName = f.getEType()?.getName ? f.getEType()?.getName() : 'any';
     if (f instanceof EAttributeImpl) {
       if (f.getEType() instanceof EEnumImpl) {
-        typeName = f.getEType().getName();
+        typeName = f.getEType()?.getName();
       } else {
-        typeName = TUtils.toTypeScriptPrimitive(f.getEType());
+        typeName = TUtils.toTypeScriptPrimitive(f.getEType()!);
       }
     }
     if (f.isMany()) {
       typeName = `EList<${typeName}>`;
     }
-    return typeName;
+    return typeName!;
   }
 
   //======================================================================

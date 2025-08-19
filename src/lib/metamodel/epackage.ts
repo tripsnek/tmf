@@ -43,27 +43,27 @@ export class EPackage extends ENamedElementImpl {
      * Looks up the value in the map.
      */
     getEPackage(nsURI: string): EPackage {
-      return this.get(nsURI);
+      return this.get(nsURI)!;
     }
 
     /**
      * Looks up the value in the map.
      */
     getEFactory(nsURI: string): EFactory {
-      return this.get(nsURI).getEFactoryInstance();
+      return this.get(nsURI)!.getEFactoryInstance();
     }
   };
 
   private _eClassifiers: EList<EClassifier> = new BasicEList();
   private _eSubPackages: EList<EPackage> = new BasicEList();
-  private _eSuperPackage: EPackage;
-  private _nsPrefix: string;
-  private _nsURI: string;
+  private _eSuperPackage!: EPackage;
+  private _nsPrefix!: string;
+  private _nsURI!: string;
 
-  protected _eFactoryInstance;
+  protected _eFactoryInstance! : EFactory;
 
   public constructor(name: string, nsUri?: string) {
-    super(null, name);
+    super(undefined, name);
     if (nsUri) {
       this.setNsURI(nsUri);
       EPackage.Registry.INSTANCE.register(this);
@@ -71,11 +71,11 @@ export class EPackage extends ENamedElementImpl {
   }
 
   public getEClassifier(name: string): EClassifier {
-    return this._eClassifiers.find((e) => e.getName() === name);
+    return this._eClassifiers.find((e) => e.getName() === name)!;
   }
 
   public getESubPackageByName(name: string): EPackage {
-    return this._eSubPackages.find((e) => e.getName() === name);
+    return this._eSubPackages.find((e) => e.getName() === name)!;
   }
 
   // TODO: Protected is probably not right
@@ -211,7 +211,7 @@ export class EPackage extends ENamedElementImpl {
   protected initEReference(
     r: EReference,
     type: EClassifier,
-    otherEnd: EReference,
+    otherEnd: EReference | undefined,
     name: string,
     defaultValue: string,
     lowerBound: number,

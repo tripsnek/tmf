@@ -38,7 +38,7 @@ export class TUtils {
   static genIdIfNotExists(obj: EObject) {
     //TODO: Support IDs other than string uuids
     if (obj && obj.eClass().getEIDAttribute() && !obj.fullId()) {
-      obj.eSet(obj.eClass().getEIDAttribute(), uuid());
+      obj.eSet(obj.eClass().getEIDAttribute() as EAttribute, uuid());
     }
   }
 
@@ -126,7 +126,7 @@ export class TUtils {
 
   static safeStringify(object: any): string {
     // Note: cache should not be re-used by repeated calls to JSON.stringify.
-    const cache = [];
+    const cache : any[] = [];
     const stringified = JSON.stringify(object, (key, value) => {
       if (typeof value === 'object' && value !== null) {
         // Duplicate reference found, discard key
@@ -143,25 +143,29 @@ export class TUtils {
   static lookupNamedField(
     object: EObject,
     fieldName: string
-  ): EStructuralFeature {
+  ): EStructuralFeature | undefined{
     const curClass = object.eClass();
     const field = curClass.getEStructuralFeature(fieldName);
 
     if (!field) {
       console.log(curClass.getName(), ' has no field named', fieldName);
-      return null;
+      return undefined;
     }
     return field;
   }
 
   static getNamedFieldValue(object: EObject, fieldName: string): any {
     const field = this.lookupNamedField(object, fieldName);
-    return object.eGet(field);
+    if(field)
+      return object.eGet(field);
+    return undefined;
   }
 
   static setNamedFieldValue(object: EObject, fieldName: string, newValue: any) {
     const field = this.lookupNamedField(object, fieldName);
-    object.eSet(field, newValue);
+    if(field)
+      object.eSet(field, newValue);
+    return undefined;
   }
 
   /**
@@ -171,7 +175,7 @@ export class TUtils {
    * @param jsonVal
    */
   public static parseAttrValFromString(attr: EAttribute, stringVal: any): any {
-    return this.parseValueFromString(attr.getEType(), stringVal + '');
+    return this.parseValueFromString(attr.getEType() as EClassifier, stringVal + '');
   }
 
   public static parseValueFromString(attrType: EClassifier, stringVal: string) {
@@ -274,7 +278,7 @@ export class TUtils {
       : new Map<EObject, EObject>();
 
     //recursive duplication of containment hierachy
-    this.cloneInto<T>(toClone, newContainer, prune, traverse, oldToNew);
+    this.cloneInto<T>(toClone, newContainer, prune ? prune : [], traverse ? traverse : [], oldToNew);
 
     //re-establish container internal references for all entities in the
     //container, including the container root itself
@@ -328,7 +332,7 @@ export class TUtils {
 
     //assign new ID to entity
     if (copyInto.eClass().getEIDAttribute())
-      copyInto.eSet(copyInto.eClass().getEIDAttribute(), uuid());
+      copyInto.eSet(copyInto.eClass().getEIDAttribute() as EAttribute, uuid());
 
     //register old to new entity in Map, if specified
     if (oldToNew) oldToNew.set(copyFrom, copyInto);
@@ -450,6 +454,6 @@ export class TUtils {
 
   public static fromMMDDYYYY(value: string): Date {
     const [month, day, year] = value.split('-');
-    return new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+    return new Date(parseInt(year  + ''), parseInt(month + '') - 1, parseInt(day + ''));
   }
 }

@@ -45,7 +45,7 @@ export class ETypedElementImpl
     this.unique = value;
   }
 
-  public getEType(): EClassifier | undefined {
+  public getEType(): EClassifier {
     return this.eType;
   }
 

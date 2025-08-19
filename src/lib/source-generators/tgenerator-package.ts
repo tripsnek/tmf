@@ -198,7 +198,7 @@ export class TGeneratorPackage {
 
           //the getter for the feature's type (Eclassifier instance)
           const featureTypeGetter = this.getterForEType(
-            feature.getEType(),
+            feature.getEType()!,
             eclassifier,
             pkgToImport,
             pkg
@@ -226,14 +226,14 @@ export class TGeneratorPackage {
       ${feature.isOrdered() ?? false}`;
           } else if (feature instanceof EReferenceImpl) {
             const pkgRef = DU.getReferenceToPackageInstance(
-              feature.getEType(),
+              feature.getEType()!,
               eclassifier,
               pkgToImport
             );
             let eopposite = 'null';
             if (feature.getEOpposite()) {
               eopposite = `${pkgRef}.${DU.genFeatureGetterName(
-                feature.getEOpposite()
+                feature.getEOpposite()!
               )}()`;
             }
             initContent += `,
@@ -277,7 +277,7 @@ export class TGeneratorPackage {
     op = this.initEOperation(
       this.${featureGetterName}(),
       ${this.getterForEType(
-            eop.getEType(),
+            eop.getEType()!,
             eclassifier,
             pkgToImport,
             pkg

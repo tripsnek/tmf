@@ -35,12 +35,14 @@ export class SerializedReference {
     //gather the objects and feature
     const fromObj = allObjs.get(this.fromId);
     const toObj = allObjs.get(this.toId);
-    const feature = fromObj.eClass().getEStructuralFeature(this.refName);
+    if (fromObj && toObj) {
+      const feature = fromObj.eClass().getEStructuralFeature(this.refName);
 
-    //enforce the reference
-    if (fromObj && toObj && feature) {
-      if (feature.isMany()) fromObj.eGet(feature).add(toObj);
-      else fromObj.eSet(feature, toObj);
+      //enforce the reference
+      if (fromObj && toObj && feature) {
+        if (feature.isMany()) fromObj.eGet(feature).add(toObj);
+        else fromObj.eSet(feature, toObj);
+      }
     }
   }
 }
