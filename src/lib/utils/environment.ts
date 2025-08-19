@@ -53,10 +53,14 @@ export class Environment {
   }
 }
 
-// Conditional imports helper
+// Conditional imports helper - now redundant but kept for backward compatibility
 export class ConditionalImports {
   private static nodeModules: Map<string, any> = new Map();
 
+  /**
+   * @deprecated Use direct dynamic imports instead: await import('moduleName')
+   * This method is kept for backward compatibility but direct imports are preferred
+   */
   static async getNodeModule(moduleName: string): Promise<any> {
     Environment.requireNodeEnvironment(`Loading ${moduleName}`);
     
@@ -64,11 +68,25 @@ export class ConditionalImports {
       try {
         const module = await import(moduleName);
         this.nodeModules.set(moduleName, module);
-      } catch (error:any) {
+        return module;
+      } catch (error: any) {
         throw new Error(`Failed to load Node.js module '${moduleName}': ${error.message}`);
       }
     }
     
     return this.nodeModules.get(moduleName);
+  }
+
+  /**
+   * Helper method for safe dynamic imports with better error messages
+   */
+  static async safeImport(moduleName: string, operation: string): Promise<any> {
+    Environment.requireNodeEnvironment(operation);
+    
+    try {
+      return await import(moduleName);
+    } catch (error: any) {
+      throw new Error(`${operation} failed: Cannot load '${moduleName}' module. This operation requires Node.js environment. ${error.message}`);
+    }
   }
 }

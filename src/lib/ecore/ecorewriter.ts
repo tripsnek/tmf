@@ -22,17 +22,10 @@ export class EcoreWriter {
    * Writes an EPackage to an Ecore XML file.
    * @param ePackage The root package to serialize
    * @param filePath The path where the .ecore file will be written
+   * @deprecated Use writeToFileAsync instead for bundle-safe operation
    */
-  public writeToFile(ePackage: EPackage, filePath: string): void {
-    Environment.requireNodeEnvironment('File writing');
-    
-    const xmlContent = this.writeToString(ePackage);
-    
-    // Use sync require for backward compatibility
-    const fs = require('fs');
-    const path = require('path');
-    
-    fs.writeFileSync(path.resolve(filePath), xmlContent, 'utf8');
+  public async writeToFile(ePackage: EPackage, filePath: string): Promise<void> {
+    return this.writeToFileAsync(ePackage, filePath);
   }
 
   /**
@@ -43,10 +36,14 @@ export class EcoreWriter {
     
     const xmlContent = this.writeToString(ePackage);
     
-    const fs = await ConditionalImports.getNodeModule('fs');
-    const path = await ConditionalImports.getNodeModule('path');
-    
-    fs.writeFileSync(path.resolve(filePath), xmlContent, 'utf8');
+    try {
+      const fs = await import('fs');
+      const path = await import('path');
+      
+      fs.writeFileSync(path.resolve(filePath), xmlContent, 'utf8');
+    } catch (error: any) {
+      throw new Error(`File system access failed: ${error.message}. This operation requires Node.js environment.`);
+    }
   }
 
   /**
@@ -80,9 +77,9 @@ export class EcoreWriter {
   /**
    * Universal save method - chooses appropriate strategy based on environment
    */
-  public save(ePackage: EPackage, pathOrFilename: string): void {
+  public async save(ePackage: EPackage, pathOrFilename: string): Promise<void> {
     if (Environment.isNode) {
-      this.writeToFile(ePackage, pathOrFilename);
+      await this.writeToFileAsync(ePackage, pathOrFilename);
     } else if (Environment.isBrowser) {
       this.saveAsDownload(ePackage, pathOrFilename);
     } else {
@@ -94,13 +91,7 @@ export class EcoreWriter {
    * Universal async save method
    */
   public async saveAsync(ePackage: EPackage, pathOrFilename: string): Promise<void> {
-    if (Environment.isNode) {
-      await this.writeToFileAsync(ePackage, pathOrFilename);
-    } else if (Environment.isBrowser) {
-      this.saveAsDownload(ePackage, pathOrFilename);
-    } else {
-      throw new Error('File saving not supported in this environment');
-    }
+    return this.save(ePackage, pathOrFilename);
   }
 
   /**

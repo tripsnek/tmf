@@ -2,27 +2,39 @@ import { EcoreStringParser, EcoreWriter, EPackage } from '@tripsnek/tmf';
 import { EClass } from '@tripsnek/tmf';
 import { EcoreParser } from '@tripsnek/tmf';
 
-describe('EcoreParser', () => {
-  //parse the ecore file
-  const parser: EcoreParser = new EcoreParser();
+//parse the ecore file
+const parser: EcoreParser = new EcoreParser();
 
-  //verify we can convert XML to JSON string, then parse THAT after simple JSON parse (useful for vscode extension)
+let rootPkg!: EPackage;
+let corePkg!: EPackage;
+let writtenXml!: string;
+let foo!: EClass;
+
+beforeAll(async () => {
   const jsonString = JSON.stringify(
-    parser.xmlToJs(parser.fileToXmlString('src/__tests__/TMFTest.ecore'))
+    parser.xmlToJs(
+      await parser.fileToXmlStringAsync('src/__tests__/TMFTest.ecore')
+    )
   );
-  // console.log(jsonString);
 
-  const rootPkg: EPackage = new EcoreStringParser().parseFromJsString(
-    jsonString
-  );
-  // console.log(tutils.safeStringify(rootPkg));
+  rootPkg = new EcoreStringParser().parseFromJsString(jsonString);
 
   const writer: EcoreWriter = new EcoreWriter();
-  const writtenXml = writer.writeToString(rootPkg);
+  writtenXml = writer.writeToString(rootPkg);
   // console.log(writtenXml);
 
   //validate the correct number of subpackages
-  const corePkg = rootPkg.getESubPackageByName('core');
+  corePkg = rootPkg.getESubPackageByName('core');
+
+  //verify concrete class
+  foo = corePkg.getEClassifier('Foo') as EClass;
+});
+
+describe('EcoreParser', () => {
+  //verify we can convert XML to JSON string, then parse THAT after simple JSON parse (useful for vscode extension)
+  // console.log(jsonString);
+
+  // console.log(tutils.safeStringify(rootPkg));
 
   it('should create an instance', () => {
     expect(new EcoreParser()).toBeTruthy();
@@ -33,15 +45,14 @@ describe('EcoreParser', () => {
     expect(corePkg).toBeTruthy();
   });
 
-  //verify concrete class
-  const foo: EClass = corePkg.getEClassifier('Foo') as EClass;
   it('should parse eclasses', () => {
     expect(foo).toBeTruthy();
   });
 
   //verify attribute
-  const fooClass = foo.getEStructuralFeature('fooClass');
+
   it('should parse eattributes', () => {
+    const fooClass = foo.getEStructuralFeature('fooClass');
     expect(fooClass).toBeTruthy();
   });
 
@@ -66,6 +77,4 @@ describe('EcoreParser', () => {
   it('rewritten ecore has correct paths in eopposites', () => {
     expect(writtenXml).toContain('eOpposite="#//core/Bazzle/backupBar"');
   });
-
-  
 });

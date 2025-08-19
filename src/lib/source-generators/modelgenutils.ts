@@ -23,17 +23,25 @@ export async function generateFromEcore(
   Environment.requireNodeEnvironment('File-based code generation');
 
   // parse the package
-  const pkg = new EcoreParser().parse(ecorePath);
+  const pkg = await new EcoreParser().parseAsync(ecorePath);
 
   // auto-determine destination path from ecore location, if necessary
-  const path = require('path');
-  const destPath : string = destinationPath
-    ? destinationPath
-    : path.dirname(ecorePath);  // <-- Use path.dirname() instead
+  let destPath: string;
+  if (destinationPath) {
+    destPath = destinationPath;
+  } else {
+    try {
+      const path = await import('path');
+      destPath = path.dirname(ecorePath);
+    } catch (error: any) {
+      throw new Error(`Path resolution failed: ${error.message}. This operation requires Node.js environment.`);
+    }
+  }
 
   // generate the source
   return generateFromEPackage(pkg, destPath, overwriteImpl, attemptFormatWithPrettier);
 }
+
 /**
  * (1) Generates source code into destinationPath/src/lib
  * (2) Generates barrel file (index.ts) into destinationPath/src
@@ -50,15 +58,18 @@ export async function generateFromEPackage(
 ): Promise<string> {
   Environment.requireNodeEnvironment('Code generation');
 
-
-  const path = require('path');
-  const srcPath = path.resolve(destPath + '/src');
-  console.log('running TGeneratorMain, output to ' + srcPath);
-  new TGeneratorMain(
-    pkg,
-    path.resolve(destPath + '/src'),
-    overwriteImpl,
-    path.resolve(destPath + '/src')
-  ).generate(attemptInvokePrettier);
-  return srcPath;
+  try {
+    const path = await import('path');
+    const srcPath = path.resolve(destPath + '/src');
+    console.log('running TGeneratorMain, output to ' + srcPath);
+    new TGeneratorMain(
+      pkg,
+      path.resolve(destPath + '/src'),
+      overwriteImpl,
+      path.resolve(destPath + '/src')
+    ).generate(attemptInvokePrettier);
+    return srcPath;
+  } catch (error: any) {
+    throw new Error(`Path resolution failed: ${error.message}. This operation requires Node.js environment.`);
+  }
 }

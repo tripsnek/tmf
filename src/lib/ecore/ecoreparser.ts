@@ -11,16 +11,6 @@ export class EcoreParser {
   private stringParser = new EcoreStringParser();
 
   /**
-   * Returns a root EPackage - as a TMF instance - containing all subpackages
-   * in the specified Ecore file.
-   * @param ecoreFilePath
-   */
-  public parse(ecoreFilePath: string): EPackage {
-    const ecoreXml = this.fileToXmlString(ecoreFilePath);
-    return this.parseFromXmlString(ecoreXml);
-  }
-
-  /**
    * Async version of parse for better error handling
    */
   public async parseAsync(ecoreFilePath: string): Promise<EPackage> {
@@ -28,27 +18,19 @@ export class EcoreParser {
     return this.parseFromXmlStringAsync(ecoreXml);
   }
 
-  public fileToXmlString(ecoreFilePath: string): string {
-    Environment.requireNodeEnvironment('File parsing');
-    
-    // Use sync require for backward compatibility
-    const fs = require('fs');
-    const path = require('path');
-    
-    const message = "Parsing " + ecoreFilePath + " from filesystem";
-    // console.log(message);
-    return fs.readFileSync(path.resolve(ecoreFilePath), "utf8");
-  }
-
   public async fileToXmlStringAsync(ecoreFilePath: string): Promise<string> {
     Environment.requireNodeEnvironment('File parsing');
     
-    const fs = await ConditionalImports.getNodeModule('fs');
-    const path = await ConditionalImports.getNodeModule('path');
-    
-    const message = "Parsing " + ecoreFilePath + " from filesystem";
-    // console.log(message);
-    return fs.readFileSync(path.resolve(ecoreFilePath), "utf8");
+    try {
+      const fs = await import('fs');
+      const path = await import('path');
+      
+      const message = "Parsing " + ecoreFilePath + " from filesystem";
+      // console.log(message);
+      return fs.readFileSync(path.resolve(ecoreFilePath), "utf8");
+    } catch (error: any) {
+      throw new Error(`File system access failed: ${error.message}. This operation requires Node.js environment.`);
+    }
   }
 
   /**
