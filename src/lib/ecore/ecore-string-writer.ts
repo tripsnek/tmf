@@ -167,7 +167,7 @@ export class EcoreStringWriter {
     
     // Add return type if present
     if (operation.getEType()) {
-      xml += ` eType="${this.getClassifierReference(operation.getEType(), containingPackage)}"`;
+      xml += ` eType="${this.getClassifierReference(operation.getEType()!, containingPackage)}"`;
     }
     
     // Add upper bound if not 1
@@ -231,7 +231,7 @@ export class EcoreStringWriter {
     
     // Add type
     if (feature.getEType()) {
-      xml += ` eType="${this.getClassifierReference(feature.getEType(), containingPackage)}"`;
+      xml += ` eType="${this.getClassifierReference(feature.getEType()!, containingPackage)}"`;
     }
     
     //TODO: lowerbound? only seems to make sense if we have 'required' features  
@@ -251,7 +251,7 @@ export class EcoreStringWriter {
         xml += ' containment="true"';
       }
       if (ref.getEOpposite()) {
-        xml += ` eOpposite="${this.getFeatureReference(ref.getEOpposite())}"`;
+        xml += ` eOpposite="${this.getFeatureReference(ref.getEOpposite()!)}"`;
       }
     }
     
