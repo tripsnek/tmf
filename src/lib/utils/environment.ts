@@ -58,7 +58,6 @@ export class ConditionalImports {
   private static nodeModules: Map<string, any> = new Map();
 
   /**
-   * @deprecated Use direct dynamic imports instead: await import('moduleName')
    * This method is kept for backward compatibility but direct imports are preferred
    */
   static async getNodeModule(moduleName: string): Promise<any> {
@@ -66,7 +65,7 @@ export class ConditionalImports {
     
     if (!this.nodeModules.has(moduleName)) {
       try {
-        const module = await import(moduleName);
+        const module = await safeDynamicImport(moduleName);
         this.nodeModules.set(moduleName, module);
         return module;
       } catch (error: any) {
@@ -84,7 +83,7 @@ export class ConditionalImports {
     Environment.requireNodeEnvironment(operation);
     
     try {
-      return await import(moduleName);
+      return await safeDynamicImport(moduleName);
     } catch (error: any) {
       throw new Error(`${operation} failed: Cannot load '${moduleName}' module. This operation requires Node.js environment. ${error.message}`);
     }
