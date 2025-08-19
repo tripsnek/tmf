@@ -2,8 +2,7 @@ import { EClass } from '../metamodel/eclass';
 import { EClassImpl } from '../metamodel/eclass-impl';
 import { EPackage } from '../metamodel/epackage';
 import { TGenUtils as DU } from './tgen-utils';
-import * as fs from 'fs';
-import * as path from 'path';
+import { Environment } from '../utils/environment';
 
 /**
  * Source code generation for .ts file that exports external facing
@@ -13,13 +12,13 @@ import * as path from 'path';
 export class TGeneratorBarrelIndexTs {
   private outDir: string = '';
 
-  public generate(ePackage: EPackage, outDir?: string): string {
+  public async generate(ePackage: EPackage, outDir?: string): Promise<string> {
     if (outDir) {
       this.outDir = outDir;
-      this.ensureCustomDirectory();
+      await this.ensureCustomDirectory();
     }
     const packageContents = this.generatePackageContents('', ePackage);
-    const customExports = this.generateCustomExports();
+    const customExports = await this.generateCustomExports();
     return packageContents + customExports;
   }
 
@@ -58,15 +57,21 @@ ${this.generateEClassifierExports(ePackage, path)}`;
     return exports;
   }
 
-  private ensureCustomDirectory(): void {
+  private async ensureCustomDirectory(): Promise<void> {
     if (!this.outDir) return;
     
-    const customDir = path.join(this.outDir, 'custom');
+    Environment.requireNodeEnvironment('Custom directory creation');
     
-    if (!fs.existsSync(customDir)) {
-      fs.mkdirSync(customDir, { recursive: true });
+    try {
+      const fs = await import('fs');
+      const path = await import('path');
       
-      const readmeContent = `# Custom Directory
+      const customDir = path.join(this.outDir, 'custom');
+      
+      if (!fs.existsSync(customDir)) {
+        fs.mkdirSync(customDir, { recursive: true });
+        
+        const readmeContent = `# Custom Directory
 
 This directory is automatically created by the TMF code generator to store your custom TypeScript files.
 
@@ -106,51 +111,72 @@ export * from './custom/utilities';
 export * from './custom/types/custom-types';
 \`\`\`
 `;
-      
-      const readmePath = path.join(customDir, 'README.md');
-      fs.writeFileSync(readmePath, readmeContent, 'utf8');
+        
+        const readmePath = path.join(customDir, 'README.md');
+        fs.writeFileSync(readmePath, readmeContent, 'utf8');
+      }
+    } catch (error: any) {
+      throw new Error(`Custom directory creation failed: ${error.message}. This operation requires Node.js environment.`);
     }
   }
 
-  private generateCustomExports(): string {
+  private async generateCustomExports(): Promise<string> {
     if (!this.outDir) return '';
     
-    const customDir = path.join(this.outDir, 'custom');
+    Environment.requireNodeEnvironment('Custom exports generation');
     
-    if (!fs.existsSync(customDir)) return '';
-    
-    const customFiles = this.findTypeScriptFiles(customDir);
-    
-    if (customFiles.length === 0) return '';
-    
-    let exports = '\n// Custom exports from /custom directory\n';
-    
-    for (const file of customFiles) {
-      const relativePath = path.relative(this.outDir, file);
-      const exportPath = relativePath.replace(/\.ts$/, '').replace(/\\/g, '/');
-      exports += `export * from './${exportPath}';\n`;
+    try {
+      const fs = await import('fs');
+      const path = await import('path');
+      
+      const customDir = path.join(this.outDir, 'custom');
+      
+      if (!fs.existsSync(customDir)) return '';
+      
+      const customFiles = await this.findTypeScriptFiles(customDir);
+      
+      if (customFiles.length === 0) return '';
+      
+      let exports = '\n// Custom exports from /custom directory\n';
+      
+      for (const file of customFiles) {
+        const relativePath = path.relative(this.outDir, file);
+        const exportPath = relativePath.replace(/\.ts$/, '').replace(/\\/g, '/');
+        exports += `export * from './${exportPath}';\n`;
+      }
+      
+      return exports;
+    } catch (error: any) {
+      throw new Error(`Custom exports generation failed: ${error.message}. This operation requires Node.js environment.`);
     }
-    
-    return exports;
   }
 
-  private findTypeScriptFiles(dir: string): string[] {
-    const files: string[] = [];
+  private async findTypeScriptFiles(dir: string): Promise<string[]> {
+    Environment.requireNodeEnvironment('TypeScript file discovery');
     
-    if (!fs.existsSync(dir)) return files;
-    
-    const items = fs.readdirSync(dir, { withFileTypes: true });
-    
-    for (const item of items) {
-      const fullPath = path.join(dir, item.name);
+    try {
+      const fs = await import('fs');
+      const path = await import('path');
       
-      if (item.isDirectory()) {
-        files.push(...this.findTypeScriptFiles(fullPath));
-      } else if (item.isFile() && item.name.endsWith('.ts') && item.name !== 'README.md') {
-        files.push(fullPath);
+      const files: string[] = [];
+      
+      if (!fs.existsSync(dir)) return files;
+      
+      const items = fs.readdirSync(dir, { withFileTypes: true });
+      
+      for (const item of items) {
+        const fullPath = path.join(dir, item.name);
+        
+        if (item.isDirectory()) {
+          files.push(...await this.findTypeScriptFiles(fullPath));
+        } else if (item.isFile() && item.name.endsWith('.ts') && item.name !== 'README.md') {
+          files.push(fullPath);
+        }
       }
+      
+      return files;
+    } catch (error: any) {
+      throw new Error(`TypeScript file discovery failed: ${error.message}. This operation requires Node.js environment.`);
     }
-    
-    return files;
   }
 }

@@ -340,7 +340,7 @@ export class TGeneratorMain {
   private async writeBarrelFile(): Promise<void> {
     debug.log('Generating barrel file content...');
     const generator = new TGeneratorBarrelIndexTs();
-    const content = generator.generate(this.pkg, this.barrelFileOutDir);
+    const content = await generator.generate(this.pkg, this.barrelFileOutDir);
     debug.log('Writing barrel file to:', this.barrelFileOutDir);
     await this.writeSourceFile(
       this.barrelFileOutDir,
