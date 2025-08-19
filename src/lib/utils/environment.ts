@@ -90,3 +90,8 @@ export class ConditionalImports {
     }
   }
 }
+
+// Or use Function constructor (more robust):
+export function safeDynamicImport(moduleName: string): Promise<any> {
+  return new Function('moduleName', 'return import(moduleName)')(moduleName);
+}

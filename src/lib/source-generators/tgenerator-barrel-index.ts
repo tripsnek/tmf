@@ -2,7 +2,7 @@ import { EClass } from '../metamodel/eclass';
 import { EClassImpl } from '../metamodel/eclass-impl';
 import { EPackage } from '../metamodel/epackage';
 import { TGenUtils as DU } from './tgen-utils';
-import { Environment } from '../utils/environment';
+import { Environment, safeDynamicImport } from '../utils/environment';
 
 /**
  * Source code generation for .ts file that exports external facing
@@ -63,8 +63,8 @@ ${this.generateEClassifierExports(ePackage, path)}`;
     Environment.requireNodeEnvironment('Custom directory creation');
     
     try {
-      const fs = await import('fs');
-      const path = await import('path');
+      const fs = await safeDynamicImport('fs');
+      const path = await safeDynamicImport('path');
       
       const customDir = path.join(this.outDir, 'custom');
       
@@ -126,8 +126,8 @@ export * from './custom/types/custom-types';
     Environment.requireNodeEnvironment('Custom exports generation');
     
     try {
-      const fs = await import('fs');
-      const path = await import('path');
+      const fs = await safeDynamicImport('fs');
+      const path = await safeDynamicImport('path');
       
       const customDir = path.join(this.outDir, 'custom');
       
@@ -155,8 +155,8 @@ export * from './custom/types/custom-types';
     Environment.requireNodeEnvironment('TypeScript file discovery');
     
     try {
-      const fs = await import('fs');
-      const path = await import('path');
+      const fs = await safeDynamicImport('fs');
+      const path = await safeDynamicImport('path');
       
       const files: string[] = [];
       

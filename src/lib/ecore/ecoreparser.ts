@@ -1,7 +1,7 @@
 // ecoreparser-safe.ts
 import { EPackage } from "../metamodel/epackage";
 import { EcoreStringParser } from "./ecore-string-parser";
-import { Environment, ConditionalImports } from '../utils/environment';
+import { Environment, ConditionalImports, safeDynamicImport } from '../utils/environment';
 import { parseString, parseStringSync } from "./xml-to-js-parser";
 
 /**
@@ -22,8 +22,8 @@ export class EcoreParser {
     Environment.requireNodeEnvironment('File parsing');
     
     try {
-      const fs = await import('fs');
-      const path = await import('path');
+      const fs = await safeDynamicImport('fs');
+      const path = await safeDynamicImport('path');
       
       const message = "Parsing " + ecoreFilePath + " from filesystem";
       // console.log(message);

@@ -1,7 +1,7 @@
 import { EcoreParser } from '../ecore/ecoreparser';
 import { EPackage } from '../metamodel/epackage';
 import { TGeneratorMain } from './tgenerator-main';
-import { Environment, ConditionalImports } from '../utils/environment';
+import { Environment, ConditionalImports, safeDynamicImport } from '../utils/environment';
 
 /**
  * (1) Parses an ECore file.
@@ -31,7 +31,7 @@ export async function generateFromEcore(
     destPath = destinationPath;
   } else {
     try {
-      const path = await import('path');
+      const path = await safeDynamicImport('path');
       destPath = path.dirname(ecorePath);
     } catch (error: any) {
       throw new Error(`Path resolution failed: ${error.message}. This operation requires Node.js environment.`);
@@ -59,7 +59,7 @@ export async function generateFromEPackage(
   Environment.requireNodeEnvironment('Code generation');
 
   try {
-    const path = await import('path');
+    const path = await safeDynamicImport('path');
     const srcPath = path.resolve(destPath + '/src');
     console.log('running TGeneratorMain, output to ' + srcPath);
     new TGeneratorMain(

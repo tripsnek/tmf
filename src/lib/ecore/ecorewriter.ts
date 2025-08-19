@@ -1,7 +1,7 @@
 // ecorewriter-safe.ts
 import { EPackage } from '../metamodel/epackage';
 import { EcoreStringWriter } from './ecore-string-writer';
-import { Environment, ConditionalImports } from '../utils/environment';
+import { Environment, ConditionalImports, safeDynamicImport } from '../utils/environment';
 
 /**
  * Writes an EPackage metamodel to an XML Ecore file.
@@ -37,8 +37,8 @@ export class EcoreWriter {
     const xmlContent = this.writeToString(ePackage);
     
     try {
-      const fs = await import('fs');
-      const path = await import('path');
+      const fs = await safeDynamicImport('fs');
+      const path = await safeDynamicImport('path');
       
       fs.writeFileSync(path.resolve(filePath), xmlContent, 'utf8');
     } catch (error: any) {
