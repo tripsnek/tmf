@@ -9,6 +9,8 @@ import { Foo } from './src/model/core/api/foo';
 import { Bar } from './src/model/core/api/bar';
 import { Bazzle } from './src/model/core/api/bazzle';
 
+const corePkg = CorePackage.eINSTANCE;
+
 //create a Foo container and contents
 const foo: Foo = CoreFactory.eINSTANCE.createFoo();
 foo.setName('TestFoo');
@@ -50,6 +52,15 @@ describe('TMF', () => {
   it('should compute eAllContents()', () => {
     expect(foo.eAllContents().length).toBe(6);
   });
+
+  it('should return EClass', () => {
+    expect(foo.eClass()).toBe(corePkg.getFoo());
+  });    
+
+  it('should get features by Id', () => {
+    const barFeature = foo.eClass().getEStructuralFeature(corePkg.getFoo_Bars().getFeatureID());
+    expect(barFeature?.getName()).toBe('bars');
+  });    
 
   it('should allow retrieval of EPackages by URI', () => {
     // tslint:disable-next-line: no-unused-expression

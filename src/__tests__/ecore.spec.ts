@@ -3,12 +3,13 @@ import { EClass } from '@tripsnek/tmf';
 import { EcoreParser } from '@tripsnek/tmf';
 import path from 'path';
 import fs from 'fs';
+import { CorePackage } from './src/model/core/core-package';
 
 //parse the ecore file
 const parser: EcoreParser = new EcoreParser();
 
 let rootPkg!: EPackage;
-let corePkg!: EPackage;
+let corePkg!: CorePackage;
 let writtenXml!: string;
 let foo!: EClass;
 
@@ -57,7 +58,7 @@ describe('EcoreParser', () => {
 
   it('should parse eattributes', () => {
     const fooClass = foo.getEStructuralFeature('fooClass');
-    expect(fooClass).toBeTruthy();
+    expect(fooClass?.getName()).toBe('fooClass');
   });
 
   it('rewritten ecore has correct paths in root package references', () => {
