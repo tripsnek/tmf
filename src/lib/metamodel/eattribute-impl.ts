@@ -11,12 +11,11 @@ export class EAttributeImpl
   // private eAttributeType!: EDataType;
 
   public constructor(
-    eClass?: EClass,
     name?: string,
     containingEClass?: EClass,
     attrType?: EDataType
   ) {
-    super(eClass, name, attrType);
+    super(name, attrType);
     // this.eAttributeType = attrType!;
     this.setEContainingClass(containingEClass);
   }

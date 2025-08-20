@@ -30,13 +30,12 @@ export class EClassImpl extends EClassifierImpl implements EClass {
   private eAllOperations!: EList<EOperation>;
 
   public constructor(
-    eClass?: EClass,
     owner?: EPackage,
     name?: string,
     abstract?: boolean,
     isInterface?: boolean
   ) {
-    super(eClass, owner, name);
+    super(owner, name);
     if (abstract) this.classIsAbstract = abstract;
     if (isInterface) this.classIsInterface = isInterface;
   }

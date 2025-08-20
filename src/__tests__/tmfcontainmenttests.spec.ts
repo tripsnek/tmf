@@ -5,6 +5,9 @@ import { FooClass } from './src/model/core/api/foo-class';
 import { Foo } from './src/model/core/api/foo';
 import { Bar } from './src/model/core/api/bar';
 import { Bazzle } from './src/model/core/api/bazzle';
+import { CorePackage } from './src/model/core/core-package';
+
+const core = CorePackage.eINSTANCE;
 
 //create a Foo container and contents
 const foo: Foo = CoreFactory.eINSTANCE.createFoo();
@@ -31,6 +34,9 @@ describe('TMF Containment ', () => {
     expect(bar1.eContainer()).toBe(foo);
     expect(baz1.eContainer()).toBe(bar1);
   });
+  // it('should expose eContainingFeature', () => {
+  //   expect(bar1.eContainingFeature()).toBe(core.getFoo_Bars());
+  // });  
   it('should set eContainer to null when setting named field to null', () => {
     bar1.setFoo(null!);
     expect(bar1.eContainer()).toBe(null);

@@ -3,23 +3,24 @@ import { EStructuralFeature } from './estructural-feature';
 
 import { EObject } from './eobject';
 import { EAttribute } from './eattribute';
+// import { EcorePackage } from './ecorepackage';
 
 export abstract class EObjectImpl implements EObject {
-  private _eClass: EClass;
+  // private _eClass: EClass;
   private _eContainer!: EObject;
   private _eContainingFeature!: number;
 
-  public constructor(eClass?: EClass) {
-    this._eClass = eClass!;
+  public constructor() {
+    // this._eClass = eClass!;
   }
 
   public eClass(): EClass {
-    return this._eClass;
+    return undefined!;
   }
 
-  public setEClass(eClass: EClass) {
-    this._eClass = eClass;
-  }
+  // public setEClass(eClass: EClass) {
+  //   this._eClass = eClass;
+  // }
 
   public eContainer(): EObject {
     return this._eContainer;

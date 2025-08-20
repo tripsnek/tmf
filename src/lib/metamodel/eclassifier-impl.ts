@@ -12,8 +12,8 @@ export abstract class EClassifierImpl
   // private instanceTypeName!: string;
   private ePackage!: EPackage;
 
-  public constructor(eClass?: EClass, public owner?: EPackage, name?: string) {
-    super(eClass, name);
+  public constructor(public owner?: EPackage, name?: string) {
+    super(name);
   }
 
   public getEPackage(): EPackage {

@@ -10,12 +10,11 @@ export class EReferenceImpl
   private eOpposite!: EReference;
   private containment: boolean = false;
   public constructor(
-    eClass?: EClass,
     name?: string,
     eContainingClass?: EClass,
     eReferenceType?: EClass
   ) {
-    super(eClass, name, eReferenceType);
+    super(name, eReferenceType);
     // if (eReferenceType) this.eRefType = eReferenceType;
     if (eContainingClass) this.setEContainingClass(eContainingClass);
   }

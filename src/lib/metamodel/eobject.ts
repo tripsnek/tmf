@@ -4,7 +4,7 @@ import { EClass } from './eclass';
 export interface EObject {
   eClass(): EClass;
 
-  setEClass(eClass: EClass) : void;
+  // setEClass(eClass: EClass) : void;
 
   eContainer(): EObject;
 

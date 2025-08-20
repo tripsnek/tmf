@@ -38,7 +38,7 @@ export class EcoreStringParser {
     //add primitive types
     const primitiveTypes = TUtils.PRIMITIVES;
     for (const type of primitiveTypes) {
-      typesMap.set('ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//' + type,new EDataTypeImpl(undefined, undefined, type));
+      typesMap.set('ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//' + type,new EDataTypeImpl(undefined, type));
     }
     // for (const key of typesMap.keys()) {
     //   console.error('KEY ' + key + ' : ' + typeof typesMap[key]);

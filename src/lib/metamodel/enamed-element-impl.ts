@@ -8,8 +8,8 @@ export abstract class ENamedElementImpl
 {
   name!: string;
 
-  public constructor(eClass?: EClass, name?: string) {
-    super(eClass);
+  public constructor(name?: string) {
+    super();
     if (name) this.name = name;
   }
 

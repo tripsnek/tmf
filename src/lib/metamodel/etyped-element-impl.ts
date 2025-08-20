@@ -16,8 +16,8 @@ export class ETypedElementImpl
   private lowerBound: number = ETypedElementImpl.UNSPECIFIED_MULTIPLICITY;
   private upperBound: number = ETypedElementImpl.UNSPECIFIED_MULTIPLICITY;
 
-  public constructor(eClass?: EClass, name?: string, eType?: EClassifier) {
-    super(eClass, name);
+  public constructor(name?: string, eType?: EClassifier) {
+    super( name);
     if (eType) this.eType = eType;
   }
 

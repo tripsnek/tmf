@@ -63,7 +63,7 @@ export class EPackage extends ENamedElementImpl {
   protected _eFactoryInstance! : EFactory;
 
   public constructor(name: string, nsUri?: string) {
-    super(undefined, name);
+    super(name);
     if (nsUri) {
       this.setNsURI(nsUri);
       EPackage.Registry.INSTANCE.register(this);

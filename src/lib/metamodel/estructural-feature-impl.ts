@@ -21,8 +21,8 @@ export class EStructuralFeatureImpl
 
   //**********************************************************************
 
-  public constructor(eClass?: EClass, name?: string, eType?: EClassifier) {
-    super(eClass, name, eType);
+  public constructor(name?: string, eType?: EClassifier) {
+    super(name, eType);
   }
 
   // public isDerived(): boolean {

@@ -9,12 +9,11 @@ export class EParameterImpl extends ETypedElementImpl implements EParameter {
   private eOperation!: EOperation;
 
   public constructor(
-    eClass?: EClass,
     name?: string,
     eType?: EClassifier,
     eOperation?: EOperation
   ) {
-    super(eClass, name, eType);
+    super(name, eType);
     if (eOperation) this.eOperation = eOperation;
   }
   public setEOperation(op: EOperation): void {

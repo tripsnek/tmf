@@ -13,12 +13,11 @@ export class EOperationImpl extends ETypedElementImpl implements EOperation {
   private eContainingClass!: EClass;
 
   public constructor(
-    eClass?: EClass,
     name?: string,
     eContainingClass?: EClass,
     eType?: EClassifier
   ) {
-    super(eClass, name, eType);
+    super(name, eType);
     if (eContainingClass) this.setEContainingClass(eContainingClass);
   }
 
