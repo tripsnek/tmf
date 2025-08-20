@@ -8,7 +8,7 @@ export class EAttributeImpl
   implements EAttribute
 {
   private representsId: boolean = false;
-  private eAttributeType!: EDataType;
+  // private eAttributeType!: EDataType;
 
   public constructor(
     eClass?: EClass,
@@ -17,13 +17,13 @@ export class EAttributeImpl
     attrType?: EDataType
   ) {
     super(eClass, name, attrType);
-    this.eAttributeType = attrType!;
+    // this.eAttributeType = attrType!;
     this.setEContainingClass(containingEClass);
   }
 
-  public getEAttributeType(): EDataType {
-    return this.eAttributeType;
-  }
+  // public getEAttributeType(): EDataType {
+  //   return this.eAttributeType;
+  // }
 
   public isId(): boolean {
     return this.representsId;
