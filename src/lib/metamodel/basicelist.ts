@@ -40,6 +40,14 @@ export class BasicEList<T> implements EList<T> {
     }
   }
 
+  //should only be used for new objects with no existing container (optimization)
+  //may provide modest performance boost in certain cases
+  public fastContainmentAddHack(item: T): void {
+    this._elements.push(item);
+    (item as any)['_eContainer'] = this.owner;
+    (item as any)['_eContainingFeature'] = this.eFeatureId;
+  }
+
   public basicAdd(item: T, index?: number): void {
     if (!index && index !== 0) this._elements.push(item);
     else this._elements.splice(index, 0, item);
