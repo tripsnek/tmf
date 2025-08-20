@@ -309,7 +309,7 @@ export class EPackage extends ENamedElementImpl {
     s.setTransient(isTransient);
     s.setVolatile(isVolatile);
     s.setChangeable(isChangeable);
-    s.setUnsettable(isUnsettable);
+    // s.setUnsettable(isUnsettable);
     s.setUnique(isUnique);
     // s.setDerived(isDerived);
     // s.setOrdered(isOrdered);

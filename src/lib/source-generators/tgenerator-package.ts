@@ -218,8 +218,8 @@ export class TGeneratorPackage {
       '',
       ${feature.isTransient() ?? false},
       ${feature.isVolatile() ?? false},
-      ${feature.isChangeable() ?? false},
-      ${feature.isUnsettable() ?? false},
+      ${feature.isChangeable() ?? true},
+      true, //TODO: isUnsettable,
       ${feature.isId() ?? false},
       ${feature.isUnique() ?? false},
       false, //TODO: isDerived
@@ -249,7 +249,7 @@ export class TGeneratorPackage {
       ${feature.isChangeable() ?? false},
       ${feature.isContainment() ?? false},
       false,
-      ${feature.isUnsettable() ?? false},
+      true, //TODO: isUnsettable
       ${feature.isUnique() ?? false},
       false, //TODO: isDerived
       false //TODO: isOrdered`;

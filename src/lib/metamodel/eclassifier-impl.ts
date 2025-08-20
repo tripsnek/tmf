@@ -9,7 +9,7 @@ export abstract class EClassifierImpl
 {
   private classifierId = -1;
   // private instanceClassName!: string;
-  private instanceTypeName!: string;
+  // private instanceTypeName!: string;
   private ePackage!: EPackage;
 
   public constructor(eClass?: EClass, public owner?: EPackage, name?: string) {
@@ -41,17 +41,17 @@ export abstract class EClassifierImpl
     this.classifierId = id;
   }
 
-  public getInstanceTypeName(): string {
-    return this.instanceTypeName;
-  }
+  // public getInstanceTypeName(): string {
+  //   return this.instanceTypeName;
+  // }
 
-  public setInstanceTypeName(value: string): void {
-    this.instanceTypeName = value;
-  }
+  // public setInstanceTypeName(value: string): void {
+  //   this.instanceTypeName = value;
+  // }
 
-  public getETypeParameters() {
-    throw new Error('Not implemented');
-  }
+  // public getETypeParameters() {
+  //   throw new Error('Not implemented');
+  // }
 
   // public getInstanceClass(): string {
   //   //not implemented

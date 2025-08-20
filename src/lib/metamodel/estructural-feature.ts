@@ -10,9 +10,9 @@ export interface EStructuralFeature extends ETypedElement {
 
   setTransient(value: boolean): void;
 
-  isUnsettable(): boolean;
+  // isUnsettable(): boolean;
 
-  setUnsettable(value: boolean): void;
+  // setUnsettable(value: boolean): void;
 
   isVolatile(): boolean;
 

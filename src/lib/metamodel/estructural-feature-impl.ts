@@ -10,7 +10,7 @@ export class EStructuralFeatureImpl
 {
   protected featureID = -1;
   private transient = false;
-  private unsettable = true;
+  // private unsettable = true;
   // private derived: boolean = false;
   private defaultValueLiteral!: string;
   private defaultValue: any;
@@ -41,13 +41,13 @@ export class EStructuralFeatureImpl
     this.transient = value;
   }
 
-  public isUnsettable(): boolean {
-    return this.unsettable;
-  }
+  // public isUnsettable(): boolean {
+  //   return this.unsettable;
+  // }
 
-  public setUnsettable(value: boolean): void {
-    this.unsettable = value;
-  }
+  // public setUnsettable(value: boolean): void {
+  //   this.unsettable = value;
+  // }
 
   public isVolatile(): boolean {
     return this.volatile;

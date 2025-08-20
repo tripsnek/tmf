@@ -162,7 +162,7 @@ export class AnalysisPackage extends EPackageImpl {
       true,
       false,
       false,
-      true,
+      true, //TODO: isUnsettable
       false,
       false, //TODO: isDerived
       false //TODO: isOrdered
@@ -181,7 +181,7 @@ export class AnalysisPackage extends EPackageImpl {
       true,
       true,
       false,
-      true,
+      true, //TODO: isUnsettable
       false,
       false, //TODO: isDerived
       false //TODO: isOrdered

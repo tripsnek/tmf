@@ -585,7 +585,7 @@ export class CorePackage extends EPackageImpl {
       false,
       false,
       true,
-      true,
+      true, //TODO: isUnsettable,
       false,
       false,
       false, //TODO: isDerived
@@ -602,7 +602,7 @@ export class CorePackage extends EPackageImpl {
       false,
       false,
       true,
-      true,
+      true, //TODO: isUnsettable,
       false,
       false,
       false, //TODO: isDerived
@@ -619,7 +619,7 @@ export class CorePackage extends EPackageImpl {
       false,
       false,
       true,
-      true,
+      true, //TODO: isUnsettable,
       false,
       false,
       false, //TODO: isDerived
@@ -636,7 +636,7 @@ export class CorePackage extends EPackageImpl {
       false,
       false,
       true,
-      true,
+      true, //TODO: isUnsettable,
       false,
       false,
       false, //TODO: isDerived
@@ -654,7 +654,7 @@ export class CorePackage extends EPackageImpl {
       false,
       false,
       true,
-      true,
+      true, //TODO: isUnsettable,
       true,
       false,
       false, //TODO: isDerived
@@ -671,7 +671,7 @@ export class CorePackage extends EPackageImpl {
       false,
       false,
       true,
-      true,
+      true, //TODO: isUnsettable,
       false,
       false,
       false, //TODO: isDerived
@@ -691,7 +691,7 @@ export class CorePackage extends EPackageImpl {
       true,
       false,
       false,
-      true,
+      true, //TODO: isUnsettable
       false,
       false, //TODO: isDerived
       false //TODO: isOrdered
@@ -707,7 +707,7 @@ export class CorePackage extends EPackageImpl {
       false,
       false,
       true,
-      true,
+      true, //TODO: isUnsettable,
       false,
       false,
       false, //TODO: isDerived
@@ -724,7 +724,7 @@ export class CorePackage extends EPackageImpl {
       false,
       false,
       true,
-      true,
+      true, //TODO: isUnsettable,
       true,
       false,
       false, //TODO: isDerived
@@ -743,7 +743,7 @@ export class CorePackage extends EPackageImpl {
       false,
       false,
       true,
-      true,
+      true, //TODO: isUnsettable,
       false,
       false,
       false, //TODO: isDerived
@@ -765,7 +765,7 @@ export class CorePackage extends EPackageImpl {
       true,
       false,
       false,
-      true,
+      true, //TODO: isUnsettable
       false,
       false, //TODO: isDerived
       false //TODO: isOrdered
@@ -784,7 +784,7 @@ export class CorePackage extends EPackageImpl {
       true,
       false,
       false,
-      true,
+      true, //TODO: isUnsettable
       false,
       false, //TODO: isDerived
       false //TODO: isOrdered
@@ -805,7 +805,7 @@ export class CorePackage extends EPackageImpl {
       true,
       false,
       false,
-      true,
+      true, //TODO: isUnsettable
       false,
       false, //TODO: isDerived
       false //TODO: isOrdered
@@ -824,7 +824,7 @@ export class CorePackage extends EPackageImpl {
       true,
       true,
       false,
-      true,
+      true, //TODO: isUnsettable
       false,
       false, //TODO: isDerived
       false //TODO: isOrdered
@@ -843,7 +843,7 @@ export class CorePackage extends EPackageImpl {
       true,
       false,
       false,
-      true,
+      true, //TODO: isUnsettable
       false,
       false, //TODO: isDerived
       false //TODO: isOrdered
@@ -890,7 +890,7 @@ export class CorePackage extends EPackageImpl {
       true,
       true,
       false,
-      true,
+      true, //TODO: isUnsettable
       false,
       false, //TODO: isDerived
       false //TODO: isOrdered
@@ -906,7 +906,7 @@ export class CorePackage extends EPackageImpl {
       false,
       false,
       true,
-      true,
+      true, //TODO: isUnsettable,
       false,
       false,
       false, //TODO: isDerived
@@ -928,7 +928,7 @@ export class CorePackage extends EPackageImpl {
       true,
       false,
       false,
-      true,
+      true, //TODO: isUnsettable
       false,
       false, //TODO: isDerived
       false //TODO: isOrdered
@@ -944,7 +944,7 @@ export class CorePackage extends EPackageImpl {
       false,
       false,
       true,
-      true,
+      true, //TODO: isUnsettable,
       false,
       false,
       false, //TODO: isDerived
@@ -961,7 +961,7 @@ export class CorePackage extends EPackageImpl {
       false,
       false,
       true,
-      true,
+      true, //TODO: isUnsettable,
       false,
       false,
       false, //TODO: isDerived
@@ -981,7 +981,7 @@ export class CorePackage extends EPackageImpl {
       true,
       true,
       false,
-      true,
+      true, //TODO: isUnsettable
       false,
       false, //TODO: isDerived
       false //TODO: isOrdered
@@ -1000,7 +1000,7 @@ export class CorePackage extends EPackageImpl {
       true,
       true,
       false,
-      true,
+      true, //TODO: isUnsettable
       false,
       false, //TODO: isDerived
       false //TODO: isOrdered
@@ -1019,7 +1019,7 @@ export class CorePackage extends EPackageImpl {
       true,
       false,
       false,
-      true,
+      true, //TODO: isUnsettable
       false,
       false, //TODO: isDerived
       false //TODO: isOrdered
@@ -1035,7 +1035,7 @@ export class CorePackage extends EPackageImpl {
       false,
       false,
       true,
-      true,
+      true, //TODO: isUnsettable,
       false,
       false,
       false, //TODO: isDerived
@@ -1052,7 +1052,7 @@ export class CorePackage extends EPackageImpl {
       false,
       false,
       false,
-      true,
+      true, //TODO: isUnsettable,
       false,
       false,
       false, //TODO: isDerived
@@ -1072,7 +1072,7 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      true,
+      true, //TODO: isUnsettable
       false,
       false, //TODO: isDerived
       false //TODO: isOrdered
@@ -1088,7 +1088,7 @@ export class CorePackage extends EPackageImpl {
       true,
       false,
       true,
-      true,
+      true, //TODO: isUnsettable,
       false,
       false,
       false, //TODO: isDerived
@@ -1108,7 +1108,7 @@ export class CorePackage extends EPackageImpl {
       true,
       true,
       false,
-      true,
+      true, //TODO: isUnsettable
       false,
       false, //TODO: isDerived
       false //TODO: isOrdered
@@ -1124,7 +1124,7 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       true,
-      true,
+      true, //TODO: isUnsettable,
       false,
       false,
       false, //TODO: isDerived
@@ -1144,7 +1144,7 @@ export class CorePackage extends EPackageImpl {
       true,
       false,
       false,
-      true,
+      true, //TODO: isUnsettable
       false,
       false, //TODO: isDerived
       false //TODO: isOrdered
@@ -1163,7 +1163,7 @@ export class CorePackage extends EPackageImpl {
       true,
       false,
       false,
-      true,
+      true, //TODO: isUnsettable
       false,
       false, //TODO: isDerived
       false //TODO: isOrdered
@@ -1182,7 +1182,7 @@ export class CorePackage extends EPackageImpl {
       true,
       false,
       false,
-      true,
+      true, //TODO: isUnsettable
       false,
       false, //TODO: isDerived
       false //TODO: isOrdered
@@ -1201,7 +1201,7 @@ export class CorePackage extends EPackageImpl {
       true,
       true,
       false,
-      true,
+      true, //TODO: isUnsettable
       false,
       false, //TODO: isDerived
       false //TODO: isOrdered
@@ -1220,7 +1220,7 @@ export class CorePackage extends EPackageImpl {
       true,
       true,
       false,
-      true,
+      true, //TODO: isUnsettable
       false,
       false, //TODO: isDerived
       false //TODO: isOrdered
@@ -1239,7 +1239,7 @@ export class CorePackage extends EPackageImpl {
       true,
       false,
       false,
-      true,
+      true, //TODO: isUnsettable
       false,
       false, //TODO: isDerived
       false //TODO: isOrdered
@@ -1277,7 +1277,7 @@ export class CorePackage extends EPackageImpl {
       true,
       true,
       false,
-      true,
+      true, //TODO: isUnsettable
       false,
       false, //TODO: isDerived
       false //TODO: isOrdered
@@ -1322,7 +1322,7 @@ export class CorePackage extends EPackageImpl {
       false,
       false,
       true,
-      true,
+      true, //TODO: isUnsettable,
       false,
       false,
       false, //TODO: isDerived
@@ -1339,7 +1339,7 @@ export class CorePackage extends EPackageImpl {
       false,
       false,
       true,
-      true,
+      true, //TODO: isUnsettable,
       false,
       false,
       false, //TODO: isDerived
@@ -1356,7 +1356,7 @@ export class CorePackage extends EPackageImpl {
       false,
       false,
       true,
-      true,
+      true, //TODO: isUnsettable,
       false,
       false,
       false, //TODO: isDerived
