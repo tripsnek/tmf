@@ -11,6 +11,8 @@ Modern JavaScript environments have different module system requirements:
 
 Rather than forcing users to choose between formats or use different import syntax, this package automatically serves the correct format based on how it's imported.
 
+For example, the motivating context for dual build for this package was the implementation of an npm monorepo with a Node Server and Angular client (see tmf-examples on github). If we packaged for ESM, the node server could not resolve imports, and fixing it would have required altering imports inside TMF itself. 
+
 ### TypeScript Configuration Architecture
 
 The build system uses six specialized TypeScript configuration files, each serving a specific purpose:
