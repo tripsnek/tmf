@@ -18,14 +18,17 @@ import { NamedEntityImpl } from '../impl/named-entity-impl';
  * This file is source-code generated and should never be edited. It implements
  * the core TMF functionality for User.
  */
-export abstract class UserGen extends NamedEntityImpl implements User {
+export abstract class UserGen  extends NamedEntityImpl implements User {
   /** feature declarations */
   protected pass!: string;
   protected salt!: string;
   protected email!: string;
 
+
+
   //======================================================================
   // Getters and Setters
+
 
   public getPass(): string {
     return this.pass;
@@ -76,13 +79,11 @@ export abstract class UserGen extends NamedEntityImpl implements User {
     return super.eGet(featureID);
   }
 
+
   /**
    * eSet() - provides ability to reflectively set all features.
    */
-  public override eSet(
-    feature: number | EStructuralFeature,
-    newValue: any
-  ): void {
+  public override eSet(feature: number | EStructuralFeature, newValue: any): void {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -100,6 +101,7 @@ export abstract class UserGen extends NamedEntityImpl implements User {
     }
     return super.eSet(featureID, newValue);
   }
+
 
   /**
    * eIsSet() - provides ability to reflectively check if any feature is set.
@@ -119,6 +121,7 @@ export abstract class UserGen extends NamedEntityImpl implements User {
     }
     return super.eIsSet(featureID);
   }
+
 
   /**
    * eUnset() - provides ability to reflectively unset any feature.
@@ -145,6 +148,7 @@ export abstract class UserGen extends NamedEntityImpl implements User {
   //======================================================================
   // Basic setters (allow EOpposite enforcement without triggering infinite cycles)
 
+
   public basicSetPass(newPass: string): void {
     this.pass = newPass;
   }
@@ -159,6 +163,7 @@ export abstract class UserGen extends NamedEntityImpl implements User {
 
   //======================================================================
   // Inverse Adders (if needed)
+
 
   //======================================================================
   // Inverse Removers (if needed)
