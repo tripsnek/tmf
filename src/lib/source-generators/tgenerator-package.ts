@@ -215,15 +215,15 @@ export class TGeneratorPackage {
       ${feature.getDefaultValueLiteral() ? feature.getDefaultValueLiteral() : `''`},
       ${feature.getLowerBound()},
       ${feature.getUpperBound()},
-      ${feature.getContainerClass() ? feature.getContainerClass() : `''`},
+      '',
       ${feature.isTransient() ?? false},
       ${feature.isVolatile() ?? false},
       ${feature.isChangeable() ?? false},
       ${feature.isUnsettable() ?? false},
       ${feature.isId() ?? false},
       ${feature.isUnique() ?? false},
-      ${feature.isDerived() ?? false},
-      ${feature.isOrdered() ?? false}`;
+      false, //TODO: isDerived
+      false //TODO: isOrdered;` 
           } else if (feature instanceof EReferenceImpl) {
             const pkgRef = DU.getReferenceToPackageInstance(
               feature.getEType()!,
@@ -243,7 +243,7 @@ export class TGeneratorPackage {
       '',
       ${feature.getLowerBound()},
       ${feature.getUpperBound()},
-      ${feature.getContainerClass() ? feature.getContainerClass() : `''`},
+      '', //TODO: Container Class
       ${feature.isTransient() ?? false},
       ${feature.isVolatile() ?? false},
       ${feature.isChangeable() ?? false},
@@ -251,8 +251,8 @@ export class TGeneratorPackage {
       false,
       ${feature.isUnsettable() ?? false},
       ${feature.isUnique() ?? false},
-      ${feature.isDerived() ?? false},
-      ${feature.isOrdered() ?? false}`;
+      false, //TODO: isDerived
+      false //TODO: isOrdered`;
           }
           initContent += `
     );`;

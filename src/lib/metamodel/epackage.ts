@@ -199,9 +199,9 @@ export class EPackage extends ENamedElementImpl {
     isGenerated: boolean
   ) {
     o.setName(instanceClassName);
-    if (instanceClassName != null) {
-      o.setInstanceClass(instanceClassName);
-    }
+    // if (instanceClassName != null) {
+    //   o.setInstanceClass(instanceClassName);
+    // }
     if (isGenerated) {
       //TODO: Should we add this generated class name stuff to EClassifier?
       // setGeneratedClassName(o);
@@ -311,8 +311,8 @@ export class EPackage extends ENamedElementImpl {
     s.setChangeable(isChangeable);
     s.setUnsettable(isUnsettable);
     s.setUnique(isUnique);
-    s.setDerived(isDerived);
-    s.setOrdered(isOrdered);
+    // s.setDerived(isDerived);
+    // s.setOrdered(isOrdered);
     s.setLowerBound(lowerBound);
     s.setUpperBound(upperBound);
     s.setEType(type);
@@ -336,7 +336,7 @@ export class EPackage extends ENamedElementImpl {
     if (lowerBound) eOperation.setLowerBound(lowerBound);
     if (upperBound) eOperation.setUpperBound(upperBound);
     eOperation.setUnique(isUnique ?? false);
-    eOperation.setOrdered(isOrdered ?? false);
+    // eOperation.setOrdered(isOrdered ?? false);
     return eOperation;
   }
 

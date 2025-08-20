@@ -6,9 +6,9 @@ export interface EClassifier extends ENamedElement {
 
   setEPackage(pkg: EPackage): void;
 
-  getInstanceClassName(): string;
+  // getInstanceClassName(): string;
 
-  setInstanceClassName(value: string): void;
+  // setInstanceClassName(value: string): void;
 
   getClassifierId(): number;
 
@@ -20,9 +20,9 @@ export interface EClassifier extends ENamedElement {
 
   getETypeParameters() : any;
 
-  getInstanceClass(): string;
+  // getInstanceClass(): string;
 
-  setInstanceClass(value: any) : any;
+  // setInstanceClass(value: any) : any;
 
   getRootPackage(): EPackage | undefined;
 }

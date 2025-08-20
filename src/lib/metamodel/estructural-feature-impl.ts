@@ -11,7 +11,7 @@ export class EStructuralFeatureImpl
   protected featureID = -1;
   private transient = false;
   private unsettable = true;
-  private derived: boolean = false;
+  // private derived: boolean = false;
   private defaultValueLiteral!: string;
   private defaultValue: any;
 
@@ -25,13 +25,13 @@ export class EStructuralFeatureImpl
     super(eClass, name, eType);
   }
 
-  public isDerived(): boolean {
-    return this.derived;
-  }
+  // public isDerived(): boolean {
+  //   return this.derived;
+  // }
 
-  public setDerived(value: boolean): void {
-    this.derived = value;
-  }
+  // public setDerived(value: boolean): void {
+  //   this.derived = value;
+  // }
 
   public isTransient(): boolean {
     return this.transient;
@@ -65,20 +65,20 @@ export class EStructuralFeatureImpl
     return this.featureID;
   }
 
-  public isList() {
-    return (
-      this.getUpperBound() === EStructuralFeatureImpl.UNBOUNDED_MULTIPLICITY &&
-      this.isOrdered() &&
-      !this.isUnique()
-    );
-  }
-  public isSet() {
-    return (
-      this.getUpperBound() === EStructuralFeatureImpl.UNBOUNDED_MULTIPLICITY &&
-      !this.isOrdered() &&
-      this.isUnique()
-    );
-  }
+  // public isList() {
+  //   return (
+  //     this.getUpperBound() === EStructuralFeatureImpl.UNBOUNDED_MULTIPLICITY &&
+  //     this.isOrdered() &&
+  //     !this.isUnique()
+  //   );
+  // }
+  // public isSet() {
+  //   return (
+  //     this.getUpperBound() === EStructuralFeatureImpl.UNBOUNDED_MULTIPLICITY &&
+  //     !this.isOrdered() &&
+  //     this.isUnique()
+  //   );
+  // }
   /**
    * Needed for BasicEList, which cannot import EReference without inducing
    * a circular import.
@@ -87,11 +87,11 @@ export class EStructuralFeatureImpl
     return false;
   }
 
-  public getContainerClass(): string | null {
-    // TODO: Note that EClass.getInstanceClass() is not yet implemented...
-    // return this._eContainingClass.getInstanceClass();
-    return null;
-  }
+  // public getContainerClass(): string | null {
+  //   // TODO: Note that EClass.getInstanceClass() is not yet implemented...
+  //   // return this._eContainingClass.getInstanceClass();
+  //   return null;
+  // }
 
   public getDefaultValue(): any {
     return this.defaultValue;

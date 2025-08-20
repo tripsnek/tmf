@@ -152,7 +152,7 @@ export class ModelPackage extends EPackageImpl {
       '',
       0,
       1,
-      '',
+      '', //TODO: Container Class
       false,
       false,
       true,
@@ -160,8 +160,8 @@ export class ModelPackage extends EPackageImpl {
       false,
       true,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered
     );
     this.initEClass(
       this.containerRootTypeEClass,
@@ -178,7 +178,7 @@ export class ModelPackage extends EPackageImpl {
       '',
       0,
       -1,
-      '',
+      '', //TODO: Container Class
       false,
       false,
       true,
@@ -186,8 +186,8 @@ export class ModelPackage extends EPackageImpl {
       false,
       true,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered
     );
   }
 }

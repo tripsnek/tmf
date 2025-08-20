@@ -156,7 +156,7 @@ export class AnalysisPackage extends EPackageImpl {
       '',
       0,
       1,
-      '',
+      '', //TODO: Container Class
       false,
       false,
       true,
@@ -164,8 +164,8 @@ export class AnalysisPackage extends EPackageImpl {
       false,
       true,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered
     );
     this.initEReference(
       this.getAnalysisResult_Object(),
@@ -175,7 +175,7 @@ export class AnalysisPackage extends EPackageImpl {
       '',
       0,
       1,
-      '',
+      '', //TODO: Container Class
       false,
       false,
       true,
@@ -183,8 +183,8 @@ export class AnalysisPackage extends EPackageImpl {
       false,
       true,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered
     );
     op = this.initEOperation(
       this.getAnalysisResult_CloneObject(),

@@ -588,8 +588,8 @@ export class CorePackage extends EPackageImpl {
       true,
       false,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered;
     );
     this.initEAttribute(
       this.getBoundedNumber_Value(),
@@ -605,8 +605,8 @@ export class CorePackage extends EPackageImpl {
       true,
       false,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered;
     );
     this.initEAttribute(
       this.getBoundedNumber_MaxValue(),
@@ -622,8 +622,8 @@ export class CorePackage extends EPackageImpl {
       true,
       false,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered;
     );
     this.initEAttribute(
       this.getBoundedNumber_MinValue(),
@@ -639,8 +639,8 @@ export class CorePackage extends EPackageImpl {
       true,
       false,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered;
     );
     this.initEClass(this.idedEntityEClass, 'IdedEntity', true, false, true);
     this.initEAttribute(
@@ -657,8 +657,8 @@ export class CorePackage extends EPackageImpl {
       true,
       true,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered;
     );
     this.initEAttribute(
       this.getIdedEntity_EditDate(),
@@ -674,8 +674,8 @@ export class CorePackage extends EPackageImpl {
       true,
       false,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered;
     );
     this.initEReference(
       this.getIdedEntity_EditUser(),
@@ -685,7 +685,7 @@ export class CorePackage extends EPackageImpl {
       '',
       0,
       1,
-      '',
+      '', //TODO: Container Class
       false,
       false,
       true,
@@ -693,8 +693,8 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered
     );
     this.initEAttribute(
       this.getIdedEntity_Locked(),
@@ -710,8 +710,8 @@ export class CorePackage extends EPackageImpl {
       true,
       false,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered;
     );
     this.initEAttribute(
       this.getIdedEntity_Id2(),
@@ -727,8 +727,8 @@ export class CorePackage extends EPackageImpl {
       true,
       true,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered;
     );
     this.namedEntityEClass.getESuperTypes().add(this.getIdedEntity());
     this.initEClass(this.namedEntityEClass, 'NamedEntity', true, false, true);
@@ -746,8 +746,8 @@ export class CorePackage extends EPackageImpl {
       true,
       false,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered;
     );
     this.bazzleEClass.getESuperTypes().add(this.getNamedEntity());
     this.initEClass(this.bazzleEClass, 'Bazzle', false, false, true);
@@ -759,7 +759,7 @@ export class CorePackage extends EPackageImpl {
       '',
       0,
       1,
-      '',
+      '', //TODO: Container Class
       false,
       false,
       true,
@@ -767,8 +767,8 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered
     );
     this.initEReference(
       this.getBazzle_OneToOneFoo(),
@@ -778,7 +778,7 @@ export class CorePackage extends EPackageImpl {
       '',
       0,
       1,
-      '',
+      '', //TODO: Container Class
       false,
       false,
       true,
@@ -786,8 +786,8 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered
     );
     this.barEClass.getESuperTypes().add(this.getNamedEntity());
     this.initEClass(this.barEClass, 'Bar', false, false, true);
@@ -799,7 +799,7 @@ export class CorePackage extends EPackageImpl {
       '',
       0,
       1,
-      '',
+      '', //TODO: Container Class
       false,
       false,
       true,
@@ -807,8 +807,8 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered
     );
     this.initEReference(
       this.getBar_Bazzles(),
@@ -818,7 +818,7 @@ export class CorePackage extends EPackageImpl {
       '',
       0,
       -1,
-      '',
+      '', //TODO: Container Class
       false,
       false,
       true,
@@ -826,8 +826,8 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered
     );
     this.initEReference(
       this.getBar_BackupFor(),
@@ -837,7 +837,7 @@ export class CorePackage extends EPackageImpl {
       '',
       0,
       -1,
-      '',
+      '', //TODO: Container Class
       false,
       false,
       true,
@@ -845,8 +845,8 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered
     );
     op = this.initEOperation(
       this.getBar_DoSomethingWithFooAndBazzles(),
@@ -884,7 +884,7 @@ export class CorePackage extends EPackageImpl {
       '',
       0,
       -1,
-      '',
+      '', //TODO: Container Class
       false,
       false,
       true,
@@ -892,8 +892,8 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered
     );
     this.initEAttribute(
       this.getBarSpecializationWithComponents_SpecialName(),
@@ -909,8 +909,8 @@ export class CorePackage extends EPackageImpl {
       true,
       false,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered;
     );
     this.fooEClass.getESuperTypes().add(this.getNamedEntity());
     this.initEClass(this.fooEClass, 'Foo', false, false, true);
@@ -922,7 +922,7 @@ export class CorePackage extends EPackageImpl {
       '',
       0,
       1,
-      '',
+      '', //TODO: Container Class
       false,
       false,
       true,
@@ -930,8 +930,8 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered
     );
     this.initEAttribute(
       this.getFoo_CreationDate(),
@@ -947,8 +947,8 @@ export class CorePackage extends EPackageImpl {
       true,
       false,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered;
     );
     this.initEAttribute(
       this.getFoo_FooClass(),
@@ -964,8 +964,8 @@ export class CorePackage extends EPackageImpl {
       true,
       false,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered;
     );
     this.initEReference(
       this.getFoo_Range(),
@@ -975,7 +975,7 @@ export class CorePackage extends EPackageImpl {
       '',
       0,
       1,
-      '',
+      '', //TODO: Container Class
       false,
       false,
       true,
@@ -983,8 +983,8 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered
     );
     this.initEReference(
       this.getFoo_Bars(),
@@ -994,7 +994,7 @@ export class CorePackage extends EPackageImpl {
       '',
       0,
       -1,
-      '',
+      '', //TODO: Container Class
       false,
       false,
       true,
@@ -1002,8 +1002,8 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered
     );
     this.initEReference(
       this.getFoo_OneToOneBazzle(),
@@ -1013,7 +1013,7 @@ export class CorePackage extends EPackageImpl {
       '',
       0,
       1,
-      '',
+      '', //TODO: Container Class
       false,
       false,
       true,
@@ -1021,8 +1021,8 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered
     );
     this.initEAttribute(
       this.getFoo_ManyAttribute(),
@@ -1038,8 +1038,8 @@ export class CorePackage extends EPackageImpl {
       true,
       false,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered;
     );
     this.initEAttribute(
       this.getFoo_UnchangeableAttribute(),
@@ -1055,8 +1055,8 @@ export class CorePackage extends EPackageImpl {
       true,
       false,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered;
     );
     this.initEReference(
       this.getFoo_UnchangeableReference(),
@@ -1066,7 +1066,7 @@ export class CorePackage extends EPackageImpl {
       '',
       0,
       1,
-      '',
+      '', //TODO: Container Class
       false,
       false,
       false,
@@ -1074,8 +1074,8 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered
     );
     this.initEAttribute(
       this.getFoo_TransientAttribute(),
@@ -1091,8 +1091,8 @@ export class CorePackage extends EPackageImpl {
       true,
       false,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered;
     );
     this.initEReference(
       this.getFoo_TransientReference(),
@@ -1102,7 +1102,7 @@ export class CorePackage extends EPackageImpl {
       '',
       0,
       1,
-      '',
+      '', //TODO: Container Class
       true,
       false,
       true,
@@ -1110,8 +1110,8 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered
     );
     this.initEAttribute(
       this.getFoo_VolatileAttribute(),
@@ -1127,8 +1127,8 @@ export class CorePackage extends EPackageImpl {
       true,
       false,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered;
     );
     this.initEReference(
       this.getFoo_VolatileReference(),
@@ -1138,7 +1138,7 @@ export class CorePackage extends EPackageImpl {
       '',
       0,
       1,
-      '',
+      '', //TODO: Container Class
       false,
       true,
       true,
@@ -1146,8 +1146,8 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered
     );
     this.initEReference(
       this.getFoo_ManyCrossAggregate(),
@@ -1157,7 +1157,7 @@ export class CorePackage extends EPackageImpl {
       '',
       0,
       -1,
-      '',
+      '', //TODO: Container Class
       false,
       false,
       true,
@@ -1165,8 +1165,8 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered
     );
     this.initEReference(
       this.getFoo_ManyCrossAggregateNested(),
@@ -1176,7 +1176,7 @@ export class CorePackage extends EPackageImpl {
       '',
       0,
       -1,
-      '',
+      '', //TODO: Container Class
       false,
       false,
       true,
@@ -1184,8 +1184,8 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered
     );
     this.initEReference(
       this.getFoo_ManyValueObjects(),
@@ -1195,7 +1195,7 @@ export class CorePackage extends EPackageImpl {
       '',
       0,
       -1,
-      '',
+      '', //TODO: Container Class
       false,
       false,
       true,
@@ -1203,8 +1203,8 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered
     );
     this.initEReference(
       this.getFoo_OneToOneContainment(),
@@ -1214,7 +1214,7 @@ export class CorePackage extends EPackageImpl {
       '',
       0,
       1,
-      '',
+      '', //TODO: Container Class
       false,
       false,
       true,
@@ -1222,8 +1222,8 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered
     );
     this.initEReference(
       this.getFoo_OwnedFoos(),
@@ -1233,7 +1233,7 @@ export class CorePackage extends EPackageImpl {
       '',
       0,
       -1,
-      '',
+      '', //TODO: Container Class
       false,
       false,
       true,
@@ -1241,8 +1241,8 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered
     );
     op = this.initEOperation(
       this.getFoo_CopyFoo(),
@@ -1271,7 +1271,7 @@ export class CorePackage extends EPackageImpl {
       '',
       0,
       1,
-      '',
+      '', //TODO: Container Class
       false,
       false,
       true,
@@ -1279,8 +1279,8 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered
     );
     op = this.initEOperation(
       this.getFooGroup_ComputeFoosOfClass(),
@@ -1325,8 +1325,8 @@ export class CorePackage extends EPackageImpl {
       true,
       false,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered;
     );
     this.initEAttribute(
       this.getUser_Salt(),
@@ -1342,8 +1342,8 @@ export class CorePackage extends EPackageImpl {
       true,
       false,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered;
     );
     this.initEAttribute(
       this.getUser_Email(),
@@ -1359,8 +1359,8 @@ export class CorePackage extends EPackageImpl {
       true,
       false,
       false,
-      false,
-      false
+      false, //TODO: isDerived
+      false //TODO: isOrdered;
     );
     this.initEEnum(this.fooClassEEnum, 'FooClass');
     this.addEEnumLiteral(this.fooClassEEnum, 'SHORT', 0);

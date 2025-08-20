@@ -2,9 +2,9 @@ import { ETypedElement } from './etyped-element';
 import { EClass } from './eclass';
 
 export interface EStructuralFeature extends ETypedElement {
-  isDerived(): boolean;
+  // isDerived(): boolean;
 
-  setDerived(value: boolean): void;
+  // setDerived(value: boolean): void;
 
   isTransient(): boolean;
 
@@ -22,11 +22,11 @@ export interface EStructuralFeature extends ETypedElement {
 
   getFeatureID(): number;
 
-  isList(): boolean;
+  // isList(): boolean;
 
   isContainment(): boolean;
 
-  getContainerClass(): string | null;
+  // getContainerClass(): string | null;
 
   getDefaultValue(): any;
 

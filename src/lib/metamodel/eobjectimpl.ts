@@ -81,7 +81,7 @@ export abstract class EObjectImpl implements EObject {
   }
 
   //================================================================================
-  // Serializable DId strategy
+  // Serializable Id strategy
 
   fullId(): string {
     //TODO: support encoding of multiple ID attributes
@@ -100,13 +100,14 @@ export abstract class EObjectImpl implements EObject {
   // Reflection
 
   public eContainingFeature() : EStructuralFeature | undefined {
-    //implemented by subtypes
+    if(this._eContainer) return this._eContainer.eClass().getEStructuralFeature(this._eContainingFeature);
     return undefined;
   }
-  public eContainmentFeature() : EStructuralFeature | undefined{
-    //implemented by subtypes
-    return  undefined;
-  }
+
+  //   //TODO: What does this even mean?
+  // public eContainmentFeature() : EStructuralFeature | undefined{
+  //   return  undefined;
+  // }
 
   public eContents(): EObject[] {
     const contents = new Array<EObject>();

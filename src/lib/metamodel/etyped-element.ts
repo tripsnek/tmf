@@ -20,9 +20,9 @@ export interface ETypedElement extends ENamedElement {
 
   isMany(): boolean;
 
-  isOrdered(): boolean;
+  // isOrdered(): boolean;
 
-  setOrdered(value: boolean): void;
+  // setOrdered(value: boolean): void;
 
   isRequired(): boolean;
 }

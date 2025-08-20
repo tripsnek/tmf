@@ -30,7 +30,8 @@ export interface EObject {
 
   eContainingFeature() : EStructuralFeature | undefined;
 
-  eContainmentFeature() : EStructuralFeature | undefined;
+  //TODO: what does this even mean?
+  // eContainmentFeature() : EStructuralFeature | undefined;
 
   eContents(): EObject[];
 

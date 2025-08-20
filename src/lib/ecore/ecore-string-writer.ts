@@ -259,9 +259,9 @@ export class EcoreStringWriter {
     if (feature.isTransient()) {
       xml += ' transient="true"';
     }
-    if (feature.isDerived()) {
-      xml += ' derived="true"';
-    }
+    // if (feature.isDerived()) {
+    //   xml += ' derived="true"';
+    // }
     if (!feature.isChangeable()) {
       xml += ' changeable="false"';
     }
@@ -331,9 +331,9 @@ export class EcoreStringWriter {
     const indent = this.getIndent();
     let xml = `${indent}<eClassifiers xsi:type="ecore:EDataType" name="${this.escapeXml(dataType.getName())}"`;
     
-    if (dataType.getInstanceClassName()) {
-      xml += ` instanceClassName="${this.escapeXml(dataType.getInstanceClassName())}"`;
-    }
+    // if (dataType.getInstanceClassName()) {
+    //   xml += ` instanceClassName="${this.escapeXml(dataType.getInstanceClassName())}"`;
+    // }
     
     xml += '/>';
     return xml;

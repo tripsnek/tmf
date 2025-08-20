@@ -21,7 +21,10 @@ import { BarImpl } from '../impl/bar-impl';
  * This file is source-code generated and should never be edited. It implements
  * the core TMF functionality for BarSpecializationWithComponents.
  */
-export abstract class BarSpecializationWithComponentsGen  extends BarImpl implements BarSpecializationWithComponents {
+export abstract class BarSpecializationWithComponentsGen
+  extends BarImpl
+  implements BarSpecializationWithComponents
+{
   /** feature declarations */
   protected componentBars: EList<Bar> = new BasicEList<Bar>(
     undefined,
@@ -31,11 +34,8 @@ export abstract class BarSpecializationWithComponentsGen  extends BarImpl implem
   );
   protected specialName!: string;
 
-
-
   //======================================================================
   // Getters and Setters
-
 
   public getComponentBars(): EList<Bar> {
     return this.componentBars;
@@ -72,11 +72,13 @@ export abstract class BarSpecializationWithComponentsGen  extends BarImpl implem
     return super.eGet(featureID);
   }
 
-
   /**
    * eSet() - provides ability to reflectively set all features.
    */
-  public override eSet(feature: number | EStructuralFeature, newValue: any): void {
+  public override eSet(
+    feature: number | EStructuralFeature,
+    newValue: any
+  ): void {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -92,7 +94,6 @@ export abstract class BarSpecializationWithComponentsGen  extends BarImpl implem
     }
     return super.eSet(featureID, newValue);
   }
-
 
   /**
    * eIsSet() - provides ability to reflectively check if any feature is set.
@@ -110,7 +111,6 @@ export abstract class BarSpecializationWithComponentsGen  extends BarImpl implem
     }
     return super.eIsSet(featureID);
   }
-
 
   /**
    * eUnset() - provides ability to reflectively unset any feature.
@@ -134,14 +134,12 @@ export abstract class BarSpecializationWithComponentsGen  extends BarImpl implem
   //======================================================================
   // Basic setters (allow EOpposite enforcement without triggering infinite cycles)
 
-
   public basicSetSpecialName(newSpecialName: string): void {
     this.specialName = newSpecialName;
   }
 
   //======================================================================
   // Inverse Adders (if needed)
-
 
   //======================================================================
   // Inverse Removers (if needed)

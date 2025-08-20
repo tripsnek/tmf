@@ -8,7 +8,7 @@ export abstract class EClassifierImpl
   implements EClassifier
 {
   private classifierId = -1;
-  private instanceClassName!: string;
+  // private instanceClassName!: string;
   private instanceTypeName!: string;
   private ePackage!: EPackage;
 
@@ -25,13 +25,13 @@ export abstract class EClassifierImpl
     this.ePackage = pkg;
   }
 
-  public getInstanceClassName(): string {
-    return this.instanceClassName;
-  }
+  // public getInstanceClassName(): string {
+  //   return this.instanceClassName;
+  // }
 
-  public setInstanceClassName(value: string): void {
-    this.instanceClassName = value;
-  }
+  // public setInstanceClassName(value: string): void {
+  //   this.instanceClassName = value;
+  // }
 
   public getClassifierId(): number {
     return this.classifierId;
@@ -53,14 +53,14 @@ export abstract class EClassifierImpl
     throw new Error('Not implemented');
   }
 
-  public getInstanceClass(): string {
-    //not implemented
-    return this.getName();
-  }
+  // public getInstanceClass(): string {
+  //   //not implemented
+  //   return this.getName();
+  // }
 
-  public setInstanceClass(value: string): void {
-    //not implemented
-  }
+  // public setInstanceClass(value: string): void {
+  //   //not implemented
+  // }
 
   public getRootPackage(): EPackage | undefined {
     if (!this.getEPackage()) return undefined;

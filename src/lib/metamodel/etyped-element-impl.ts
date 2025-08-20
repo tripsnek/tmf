@@ -10,7 +10,7 @@ export class ETypedElementImpl
   public static UNBOUNDED_MULTIPLICITY = -1;
   public static UNSPECIFIED_MULTIPLICITY = 0;
 
-  private ordered = false;
+  // private ordered = false;
   private unique = false;
   private eType!: EClassifier;
   private lowerBound: number = ETypedElementImpl.UNSPECIFIED_MULTIPLICITY;
@@ -60,13 +60,13 @@ export class ETypedElementImpl
     );
   }
 
-  public isOrdered(): boolean {
-    return this.ordered;
-  }
+  // public isOrdered(): boolean {
+  //   return this.ordered;
+  // }
 
-  public setOrdered(value: boolean): void {
-    this.ordered = value;
-  }
+  // public setOrdered(value: boolean): void {
+  //   this.ordered = value;
+  // }
 
   public isRequired(): boolean {
     return this.lowerBound > 0;
