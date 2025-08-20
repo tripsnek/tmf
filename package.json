@@ -34,7 +34,7 @@
     "test": "jest",
     "lint": "eslint src/**/*.ts",
     "format": "prettier --write src/**/*.ts",
-    "gen-model": "node gen-model.js"
+    "gen-model": "npm run build:cjs && node scripts/generate-model.cjs"
   },
   "keywords": [
     "emf",
