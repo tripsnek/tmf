@@ -353,7 +353,7 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
           result += `
     this.eBasicSetContainer(${paramName}, ${DU.genPackageClassName(
             eClass.getEPackage()
-          )}.${DU.genFeatureIdFieldName(field)});`;
+          )}.${DU.genFeatureIdFieldName(field.getEOpposite()!)});`;
         }
         result += `
     this.${field.getName()} = ${paramName};

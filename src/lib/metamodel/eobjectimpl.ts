@@ -101,7 +101,11 @@ export abstract class EObjectImpl implements EObject {
   // Reflection
 
   public eContainingFeature() : EStructuralFeature | undefined {
-    if(this._eContainer) return this._eContainer.eClass().getEStructuralFeature(this._eContainingFeature);
+    const containerEClass = this._eContainer?.eClass();
+    if(containerEClass){
+      const containingFeature = containerEClass.getEStructuralFeature(this._eContainingFeature);
+      return containingFeature;
+    }
     return undefined;
   }
 

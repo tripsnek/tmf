@@ -173,7 +173,7 @@ export abstract class BarGen extends NamedEntityImpl implements Bar {
   // Basic setters (allow EOpposite enforcement without triggering infinite cycles)
 
   public basicSetFoo(newFoo: Foo): void {
-    this.eBasicSetContainer(newFoo, CorePackage.BAR__FOO);
+    this.eBasicSetContainer(newFoo, CorePackage.FOO__BARS);
     this.foo = newFoo;
   }
 

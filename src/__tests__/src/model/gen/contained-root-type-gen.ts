@@ -125,7 +125,7 @@ export abstract class ContainedRootTypeGen
   public basicSetContainer(newContainer: ContainerRootType): void {
     this.eBasicSetContainer(
       newContainer,
-      ModelPackage.CONTAINED_ROOT_TYPE__CONTAINER
+      ModelPackage.CONTAINER_ROOT_TYPE__CONTAINED
     );
     this.container = newContainer;
   }
