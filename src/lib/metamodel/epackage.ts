@@ -19,6 +19,7 @@ import { EReferenceImpl } from './ereference-impl';
 import { EEnumImpl } from './eenum-impl';
 import { EDataTypeImpl } from './edata-type-impl';
 import { EEnumLiteralImpl } from './eenum-literal-impl';
+import { EParameterImpl } from './eparameter-impl';
 
 export class EPackage extends ENamedElementImpl {
   public static EPACKAGE: EClass; // Initialized in EClass
@@ -60,7 +61,7 @@ export class EPackage extends ENamedElementImpl {
   private _nsPrefix!: string;
   private _nsURI!: string;
 
-  protected _eFactoryInstance! : EFactory;
+  protected _eFactoryInstance!: EFactory;
 
   public constructor(name: string, nsUri?: string) {
     super(name);
@@ -330,8 +331,7 @@ export class EPackage extends ENamedElementImpl {
     isUnique?: boolean,
     isOrdered?: boolean
   ): EOperation {
-    if(type)
-      eOperation.setEType(type);
+    if (type) eOperation.setEType(type);
     eOperation.setName(name);
     if (lowerBound) eOperation.setLowerBound(lowerBound);
     if (upperBound) eOperation.setUpperBound(upperBound);
@@ -345,6 +345,21 @@ export class EPackage extends ENamedElementImpl {
     o.setOperationID(id);
     o.setEContainingClass(owner);
     owner.getEOperations().add(o);
+  }
+
+  protected createEParameter(
+    owner: EOperation,
+    name: string,
+    upperBound: number,
+    type?: EClassifier
+  ) {
+    const param = new EParameterImpl();
+    param.setName(name);
+    if (type) param.setEType(type);
+    param.setUpperBound(upperBound);
+
+    //TODO: Would not have to do both if model was source generated
+    owner.getEParameters().add(param);
   }
 
   protected createEAttribute(owner: EClass, id: number): void {
