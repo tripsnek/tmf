@@ -25,4 +25,5 @@ export interface IdedEntity extends EObject {
   setLocked(newLocked: boolean): void;
   getId2(): string;
   setId2(newId2: string): void;
+  genId(): void;
 }

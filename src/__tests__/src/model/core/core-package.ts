@@ -30,6 +30,7 @@ export class CorePackage extends EPackageImpl {
   public static IDED_ENTITY__EDIT_USER = 2;
   public static IDED_ENTITY__LOCKED = 3;
   public static IDED_ENTITY__ID2 = 4;
+  public static IDED_ENTITY__GEN_ID = 0;
   public static NAMED_ENTITY = 2;
   public static NAMED_ENTITY_FEATURE_COUNT =
     CorePackage.IDED_ENTITY_FEATURE_COUNT + 1;
@@ -296,6 +297,9 @@ export class CorePackage extends EPackageImpl {
   public getIdedEntity_Id2(): EAttribute {
     return <EAttribute>this.idedEntityEClass.getEStructuralFeatures().get(4);
   }
+  public getIdedEntity_GenId(): EOperation {
+    return this.idedEntityEClass.getEOperations().get(0);
+  }
   public getNamedEntity(): EClass {
     return this.namedEntityEClass;
   }
@@ -471,6 +475,10 @@ export class CorePackage extends EPackageImpl {
       CorePackage.IDED_ENTITY__LOCKED
     );
     this.createEAttribute(this.idedEntityEClass, CorePackage.IDED_ENTITY__ID2);
+    this.createEOperation(
+      this.idedEntityEClass,
+      CorePackage.IDED_ENTITY__GEN_ID
+    );
     this.namedEntityEClass = this.createEClass(CorePackage.NAMED_ENTITY);
     this.createEAttribute(
       this.namedEntityEClass,
@@ -729,6 +737,15 @@ export class CorePackage extends EPackageImpl {
       false,
       false, //TODO: isDerived
       false //TODO: isOrdered;
+    );
+    op = this.initEOperation(
+      this.getIdedEntity_GenId(),
+      undefined,
+      'genId',
+      0,
+      1,
+      true,
+      true
     );
     this.namedEntityEClass.getESuperTypes().add(this.getIdedEntity());
     this.initEClass(this.namedEntityEClass, 'NamedEntity', true, false, true);

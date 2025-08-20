@@ -70,6 +70,9 @@ export abstract class IdedEntityGen extends EObjectImpl implements IdedEntity {
   //======================================================================
   // API Operations
 
+  public genId(): void {
+    throw new Error('Not implemented');
+  }
   //======================================================================
   // Standard EObject behavior
 
