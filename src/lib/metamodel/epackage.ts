@@ -247,7 +247,7 @@ export class EPackage extends ENamedElementImpl {
     if (otherEnd != null) {
       r.setEOpposite(otherEnd);
     }
-    r.setResolveProxies(isResolveProxies);
+    // r.setResolveProxies(isResolveProxies);
     return r;
   }
 

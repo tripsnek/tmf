@@ -2,7 +2,8 @@ import { EClass } from './eclass';
 import { EStructuralFeature } from './estructural-feature';
 
 export interface EReference extends EStructuralFeature {
-  getEReferenceType(): EClass;
+  //not used in TMF
+  // getEReferenceType(): EClass;
 
   isContainer(): boolean;
 
@@ -10,9 +11,9 @@ export interface EReference extends EStructuralFeature {
 
   setContainment(containment: boolean): void;
 
-  isResolveProxies(): boolean;
+  // isResolveProxies(): boolean;
 
-  setResolveProxies(value: boolean): void;
+  // setResolveProxies(value: boolean): void;
 
   getEOpposite(): EReference | undefined;
 

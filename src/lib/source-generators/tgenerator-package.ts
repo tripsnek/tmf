@@ -248,7 +248,7 @@ export class TGeneratorPackage {
       ${feature.isVolatile() ?? false},
       ${feature.isChangeable() ?? false},
       ${feature.isContainment() ?? false},
-      ${feature.isResolveProxies() ?? false},
+      false,
       ${feature.isUnsettable() ?? false},
       ${feature.isUnique() ?? false},
       ${feature.isDerived() ?? false},

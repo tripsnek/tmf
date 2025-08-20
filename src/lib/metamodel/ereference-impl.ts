@@ -6,7 +6,7 @@ export class EReferenceImpl
   extends EStructuralFeatureImpl
   implements EReference
 {
-  private eRefType!: EClass;
+  // private eRefType!: EClass;
   private eOpposite!: EReference;
   private containment: boolean = false;
   public constructor(
@@ -16,13 +16,13 @@ export class EReferenceImpl
     eReferenceType?: EClass
   ) {
     super(eClass, name, eReferenceType);
-    if (eReferenceType) this.eRefType = eReferenceType;
+    // if (eReferenceType) this.eRefType = eReferenceType;
     if (eContainingClass) this.setEContainingClass(eContainingClass);
   }
 
-  public getEReferenceType(): EClass {
-    return this.eRefType;
-  }
+  // public getEReferenceType(): EClass {
+  //   return this.eRefType;
+  // }
 
   public isContainer(): boolean {
     return this.getEOpposite() !== undefined && this.getEOpposite()!.isContainment();
@@ -36,11 +36,11 @@ export class EReferenceImpl
     this.containment = containment;
   }
 
-  public isResolveProxies(): boolean {
-    return false;
-  }
+  // public isResolveProxies(): boolean {
+  //   return false;
+  // }
 
-  public setResolveProxies(value: boolean): void {}
+  // public setResolveProxies(value: boolean): void {}
 
   public getEOpposite(): EReference | undefined {
     return this.eOpposite;
