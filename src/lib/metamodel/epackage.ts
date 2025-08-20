@@ -352,7 +352,7 @@ export class EPackage extends ENamedElementImpl {
     name: string,
     upperBound: number,
     type?: EClassifier
-  ) {
+  ) : void {
     const param = new EParameterImpl();
     param.setName(name);
     if (type) param.setEType(type);

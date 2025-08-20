@@ -276,18 +276,23 @@ export class TGeneratorPackage {
           initContent += `
     op = this.initEOperation(
       this.${featureGetterName}(),
-      ${this.getterForEType(
-            eop.getEType()!,
-            eclassifier,
-            pkgToImport,
-            pkg
-          )},
+      ${this.getterForEType(eop.getEType()!, eclassifier, pkgToImport, pkg)},
       '${eop.getName()}',
       0,
       ${eop.isMany() ? -1 : 1},
       true,
       true
     );`;
+          for (const p of eop.getEParameters()) {
+            //TODO: Create parameters and add them to EOphere
+            initContent += `
+    this.createEParameter(
+      op,
+      '${p.getName()}',
+      ${p.isMany() ? -1 : 1},
+       ${this.getterForEType(p.getEType(), eclassifier, pkgToImport, pkg)}
+    );`
+          }
           eopIndex++;
         }
       }

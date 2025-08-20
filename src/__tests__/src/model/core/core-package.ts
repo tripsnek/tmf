@@ -874,6 +874,8 @@ export class CorePackage extends EPackageImpl {
       true,
       true
     );
+    this.createEParameter(op, 'foo', 1, this.getFoo());
+    this.createEParameter(op, 'bazzles', -1, this.getBazzle());
     op = this.initEOperation(
       this.getBar_DoSomethingWithClassesAndNumbers(),
       undefined,
@@ -883,6 +885,8 @@ export class CorePackage extends EPackageImpl {
       true,
       true
     );
+    this.createEParameter(op, 'classes', -1, this.getFooClass());
+    this.createEParameter(op, 'numbers', -1, this.getBoundedNumber());
     this.barSpecializationWithComponentsEClass
       .getESuperTypes()
       .add(this.getBar());
@@ -1308,6 +1312,7 @@ export class CorePackage extends EPackageImpl {
       true,
       true
     );
+    this.createEParameter(op, 'fooClass', 1, this.getFooClass());
     op = this.initEOperation(
       this.getFooGroup_GetFoosWithBazzles(),
       this.getFoo(),
@@ -1317,6 +1322,7 @@ export class CorePackage extends EPackageImpl {
       true,
       true
     );
+    this.createEParameter(op, 'bazzles', -1, this.getBazzle());
     op = this.initEOperation(
       this.getFooGroup_Freeze(),
       undefined,

@@ -195,5 +195,12 @@ export class AnalysisPackage extends EPackageImpl {
       true,
       true
     );
+    this.createEParameter(
+      op,
+      'deepCopy',
+      1,
+      this.getEcorePackage().getEBoolean()
+    );
+    this.createEParameter(op, 'newUser', 1, CorePackage.eINSTANCE.getUser());
   }
 }
