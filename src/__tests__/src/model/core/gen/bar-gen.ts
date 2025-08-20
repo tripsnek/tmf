@@ -138,11 +138,11 @@ export abstract class BarGen extends NamedEntityImpl implements Bar {
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
       case CorePackage.BAR__FOO:
-        return this.getFoo === undefined;
+        return this.getFoo() != null;
       case CorePackage.BAR__BAZZLES:
-        return this.getBazzles().isEmpty();
+        return !this.getBazzles().isEmpty();
       case CorePackage.BAR__BACKUP_FOR:
-        return this.getBackupFor().isEmpty();
+        return !this.getBackupFor().isEmpty();
     }
     return super.eIsSet(featureID);
   }

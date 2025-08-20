@@ -101,7 +101,7 @@ export abstract class FooGroupGen extends NamedEntityImpl implements FooGroup {
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
       case CorePackage.FOO_GROUP__USER:
-        return this.getUser === undefined;
+        return this.getUser() != null;
     }
     return super.eIsSet(featureID);
   }

@@ -87,7 +87,7 @@ export abstract class ContainerRootTypeGen
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
       case ModelPackage.CONTAINER_ROOT_TYPE__CONTAINED:
-        return this.getContained().isEmpty();
+        return !this.getContained().isEmpty();
     }
     return super.eIsSet(featureID);
   }

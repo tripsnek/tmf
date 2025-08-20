@@ -111,11 +111,11 @@ export abstract class UserGen extends NamedEntityImpl implements User {
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
       case CorePackage.USER__PASS:
-        return this.getPass === undefined;
+        return this.getPass() != null;
       case CorePackage.USER__SALT:
-        return this.getSalt === undefined;
+        return this.getSalt() != null;
       case CorePackage.USER__EMAIL:
-        return this.getEmail === undefined;
+        return this.getEmail() != null;
     }
     return super.eIsSet(featureID);
   }

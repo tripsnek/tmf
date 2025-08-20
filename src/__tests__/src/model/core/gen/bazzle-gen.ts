@@ -119,9 +119,9 @@ export abstract class BazzleGen extends NamedEntityImpl implements Bazzle {
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
       case CorePackage.BAZZLE__BACKUP_BAR:
-        return this.getBackupBar === undefined;
+        return this.getBackupBar() != null;
       case CorePackage.BAZZLE__ONE_TO_ONE_FOO:
-        return this.getOneToOneFoo === undefined;
+        return this.getOneToOneFoo() != null;
     }
     return super.eIsSet(featureID);
   }

@@ -87,7 +87,7 @@ export abstract class NamedEntityGen
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
       case CorePackage.NAMED_ENTITY__NAME:
-        return this.getName === undefined;
+        return this.getName() != null;
     }
     return super.eIsSet(featureID);
   }

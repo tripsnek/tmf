@@ -142,18 +142,18 @@ export abstract class EObjectImpl implements EObject {
   // Generic getting/setting
 
   public eGet(feature: EStructuralFeature | number): any {
-    throw new Error('Unknown or unsettable field: ' + feature);
+    return undefined;
   }
 
   public eSet(feature: EStructuralFeature | number, value: any): void {
-    throw new Error('Unknown or unsettable field: ' + feature);
+    //do nothing
   }
 
   public eIsSet(feature: EStructuralFeature | number): boolean {
-    throw new Error('Not implemented');
+    throw false;
   }
 
   public eUnset(feature: EStructuralFeature | number): void {
-    throw new Error('Not implemented');
+    //do nothing
   }
 }

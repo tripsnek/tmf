@@ -456,11 +456,11 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
       case ${this._packageName}.${featureIdField}:`;
       if (!feature.isMany()) {
         result += `
-        return this.${DU.getterName(feature)} === undefined;`;
+        return this.${DU.getterName(feature)}() != null;`;
       } else {
         const getter = DU.getterName(feature);
         result += `
-        return this.${getter}().isEmpty();`;
+        return !this.${getter}().isEmpty();`;
       }
     }
     result += `

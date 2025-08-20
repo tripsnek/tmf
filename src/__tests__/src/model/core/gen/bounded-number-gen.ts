@@ -125,13 +125,13 @@ export abstract class BoundedNumberGen
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
       case CorePackage.BOUNDED_NUMBER__UNITS:
-        return this.getUnits === undefined;
+        return this.getUnits() != null;
       case CorePackage.BOUNDED_NUMBER__VALUE:
-        return this.getValue === undefined;
+        return this.getValue() != null;
       case CorePackage.BOUNDED_NUMBER__MAX_VALUE:
-        return this.getMaxValue === undefined;
+        return this.getMaxValue() != null;
       case CorePackage.BOUNDED_NUMBER__MIN_VALUE:
-        return this.getMinValue === undefined;
+        return this.getMinValue() != null;
     }
     return super.eIsSet(featureID);
   }

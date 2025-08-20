@@ -140,15 +140,15 @@ export abstract class IdedEntityGen extends EObjectImpl implements IdedEntity {
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
       case CorePackage.IDED_ENTITY__ID:
-        return this.getId === undefined;
+        return this.getId() != null;
       case CorePackage.IDED_ENTITY__EDIT_DATE:
-        return this.getEditDate === undefined;
+        return this.getEditDate() != null;
       case CorePackage.IDED_ENTITY__EDIT_USER:
-        return this.getEditUser === undefined;
+        return this.getEditUser() != null;
       case CorePackage.IDED_ENTITY__LOCKED:
-        return this.isLocked === undefined;
+        return this.isLocked() != null;
       case CorePackage.IDED_ENTITY__ID2:
-        return this.getId2 === undefined;
+        return this.getId2() != null;
     }
     return super.eIsSet(featureID);
   }

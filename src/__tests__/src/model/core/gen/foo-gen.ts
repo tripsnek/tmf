@@ -389,41 +389,41 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
       case CorePackage.FOO__GROUP:
-        return this.getGroup === undefined;
+        return this.getGroup() != null;
       case CorePackage.FOO__CREATION_DATE:
-        return this.getCreationDate === undefined;
+        return this.getCreationDate() != null;
       case CorePackage.FOO__FOO_CLASS:
-        return this.getFooClass === undefined;
+        return this.getFooClass() != null;
       case CorePackage.FOO__RANGE:
-        return this.getRange === undefined;
+        return this.getRange() != null;
       case CorePackage.FOO__BARS:
-        return this.getBars().isEmpty();
+        return !this.getBars().isEmpty();
       case CorePackage.FOO__ONE_TO_ONE_BAZZLE:
-        return this.getOneToOneBazzle === undefined;
+        return this.getOneToOneBazzle() != null;
       case CorePackage.FOO__MANY_ATTRIBUTE:
-        return this.getManyAttribute().isEmpty();
+        return !this.getManyAttribute().isEmpty();
       case CorePackage.FOO__UNCHANGEABLE_ATTRIBUTE:
-        return this.getUnchangeableAttribute === undefined;
+        return this.getUnchangeableAttribute() != null;
       case CorePackage.FOO__UNCHANGEABLE_REFERENCE:
-        return this.getUnchangeableReference === undefined;
+        return this.getUnchangeableReference() != null;
       case CorePackage.FOO__TRANSIENT_ATTRIBUTE:
-        return this.getTransientAttribute === undefined;
+        return this.getTransientAttribute() != null;
       case CorePackage.FOO__TRANSIENT_REFERENCE:
-        return this.getTransientReference === undefined;
+        return this.getTransientReference() != null;
       case CorePackage.FOO__VOLATILE_ATTRIBUTE:
-        return this.getVolatileAttribute === undefined;
+        return this.getVolatileAttribute() != null;
       case CorePackage.FOO__VOLATILE_REFERENCE:
-        return this.getVolatileReference === undefined;
+        return this.getVolatileReference() != null;
       case CorePackage.FOO__MANY_CROSS_AGGREGATE:
-        return this.getManyCrossAggregate().isEmpty();
+        return !this.getManyCrossAggregate().isEmpty();
       case CorePackage.FOO__MANY_CROSS_AGGREGATE_NESTED:
-        return this.getManyCrossAggregateNested().isEmpty();
+        return !this.getManyCrossAggregateNested().isEmpty();
       case CorePackage.FOO__MANY_VALUE_OBJECTS:
-        return this.getManyValueObjects().isEmpty();
+        return !this.getManyValueObjects().isEmpty();
       case CorePackage.FOO__ONE_TO_ONE_CONTAINMENT:
-        return this.getOneToOneContainment === undefined;
+        return this.getOneToOneContainment() != null;
       case CorePackage.FOO__OWNED_FOOS:
-        return this.getOwnedFoos().isEmpty();
+        return !this.getOwnedFoos().isEmpty();
     }
     return super.eIsSet(featureID);
   }

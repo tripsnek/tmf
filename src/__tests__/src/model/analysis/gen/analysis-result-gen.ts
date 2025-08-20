@@ -109,9 +109,9 @@ export abstract class AnalysisResultGen
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
       case AnalysisPackage.ANALYSIS_RESULT__USER:
-        return this.getUser === undefined;
+        return this.getUser() != null;
       case AnalysisPackage.ANALYSIS_RESULT__OBJECT:
-        return this.getObject === undefined;
+        return this.getObject() != null;
     }
     return super.eIsSet(featureID);
   }

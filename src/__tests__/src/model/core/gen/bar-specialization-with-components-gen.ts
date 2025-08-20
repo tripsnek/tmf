@@ -105,9 +105,9 @@ export abstract class BarSpecializationWithComponentsGen
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
       case CorePackage.BAR_SPECIALIZATION_WITH_COMPONENTS__COMPONENT_BARS:
-        return this.getComponentBars().isEmpty();
+        return !this.getComponentBars().isEmpty();
       case CorePackage.BAR_SPECIALIZATION_WITH_COMPONENTS__SPECIAL_NAME:
-        return this.getSpecialName === undefined;
+        return this.getSpecialName() != null;
     }
     return super.eIsSet(featureID);
   }
