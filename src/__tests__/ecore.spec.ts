@@ -29,7 +29,7 @@ beforeAll(async () => {
   // console.log(writtenXml);
 
   //validate the correct number of subpackages
-  corePkg = rootPkg.getESubPackageByName('core');
+  corePkg = rootPkg.getESubPackageByName('core') as CorePackage;
 
   //verify concrete class
   foo = corePkg.getEClassifier('Foo') as EClass;

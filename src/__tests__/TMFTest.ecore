@@ -14,6 +14,7 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="editUser" eType="#//core/User"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="locked" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="id2" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" iD="true"/>
+      <eOperations name="genId"/>      
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="NamedEntity" eSuperTypes="#//core/IdedEntity" abstract="true">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
