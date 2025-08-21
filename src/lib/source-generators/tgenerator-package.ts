@@ -309,6 +309,16 @@ export class TGeneratorPackage {
     const toExtend =
       pkg.getName().toLowerCase() === 'ecore' ? 'EPackage' : 'EPackageImpl';
 
+  let subPkgSetters = '';
+
+    for(const subPkg of pkg.getESubPackages()){
+      if(!pkgToImport.has(subPkg)){
+        pkgToImport.add(subPkg);
+      }
+      subPkgSetters += `
+    ${DU.genPackageClassName(subPkg)}.eINSTANCE.setESuperPackage(the${className})`;
+    }
+
     return `${this.generateImports(pkgToImport, pkg)}
 export class ${className} extends ${toExtend} {${idFieldsContent}
 
@@ -352,6 +362,7 @@ ${fieldDeclarationsContent}
     //this is necessary specifically for EcorePackage generation, which needs to refer to itself
     this.eINSTANCE = the${className};
     ${className}.isInited = true;
+${subPkgSetters}    
 
     // Create package meta-data objects
     the${className}.createPackageContents();
@@ -427,7 +438,7 @@ ${initContent}
   }
 
   private generateImports(pkgToImport: Set<EPackage>, pkg: EPackage) {
-    let imports = `${DU.generateImportStatementsForExternalPackages(pkgToImport, pkg, '')}
+    let imports = `${DU.generateImportStatementsForExternalPackages(pkgToImport, pkg, './')}
 ${DU.DEFAULT_IMPORTS}
 
 import { EPackage } from '@tripsnek/tmf';

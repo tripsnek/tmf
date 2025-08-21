@@ -86,53 +86,53 @@ describe('EPackage Tests', () => {
     });
   });
 
-  //   describe('Package Hierarchy', () => {
-  //     it('should return correct super package relationships', () => {
-  //       const coreSuperPackage = corePackage.getESuperPackage();
-  //       const analysisSuperPackage = analysisPackage.getESuperPackage();
+    describe('Package Hierarchy', () => {
+      it('should return correct super package relationships', () => {
+        const coreSuperPackage = corePackage.getESuperPackage();
+        const analysisSuperPackage = analysisPackage.getESuperPackage();
 
-  //       if (coreSuperPackage) {
-  //         expect(coreSuperPackage.getName()).toBe('model');
-  //       }
+        if (coreSuperPackage) {
+          expect(coreSuperPackage.getName()).toBe('model');
+        }
 
-  //       if (analysisSuperPackage) {
-  //         expect(analysisSuperPackage.getName()).toBe('model');
-  //       }
-  //     });
+        if (analysisSuperPackage) {
+          expect(analysisSuperPackage.getName()).toBe('model');
+        }
+      });
 
-  //     it('should return correct subpackages', () => {
-  //       if (rootPackage !== corePackage) {
-  //         const subPackages = rootPackage.getESubPackages();
-  //         expect(subPackages.size()).toBeGreaterThanOrEqual(2);
+      it('should return correct subpackages', () => {
 
-  //         const subPackageNames = subPackages.map((pkg) => pkg.getName());
-  //         expect(subPackageNames.contains('core')).toBe(true);
-  //         expect(subPackageNames.contains('analysis')).toBe(true);
-  //       }
-  //     });
+          const subPackages = rootPackage.getESubPackages();
+          expect(subPackages.size()).toBe(3);
 
-  //     it('should find subpackages by name', () => {
-  //       const foundCorePackage = rootPackage.getESubPackageByName('core');
-  //       const foundAnalysisPackage = rootPackage.getESubPackageByName('analysis');
+          const subPackageNames = subPackages.map((pkg) => pkg.getName());
+          expect(subPackageNames.contains('core')).toBe(true);
+          expect(subPackageNames.contains('analysis')).toBe(true);
+        
+      })
 
-  //       expect(foundCorePackage).toBe(corePackage);
-  //       expect(foundAnalysisPackage).toBe(analysisPackage);
+      it('should find subpackages by name', () => {
+        const foundCorePackage = rootPackage.getESubPackageByName('core');
+        const foundAnalysisPackage = rootPackage.getESubPackageByName('analysis');
 
-  //       const nonExistentPackage =
-  //         rootPackage.getESubPackageByName('nonexistent');
-  //       expect(nonExistentPackage).toBeUndefined();
-  //     });
+        expect(foundCorePackage).toBe(corePackage);
+        expect(foundAnalysisPackage).toBe(analysisPackage);
 
-  //     it('should return correct root package', () => {
-  //       const coreRoot = corePackage.getRootPackage();
-  //       const analysisRoot = analysisPackage.getRootPackage();
+        const nonExistentPackage =
+          rootPackage.getESubPackageByName('nonexistent');
+        expect(nonExistentPackage).toBeUndefined();
+      });
 
-  //       if (coreRoot && analysisRoot) {
-  //         expect(coreRoot).toBe(analysisRoot); // Should be same root
-  //         expect(coreRoot.getName()).toBe('model');
-  //       }
-  //     });
-  //   });
+      it('should return correct root package', () => {
+        const coreRoot = corePackage.getRootPackage();
+        const analysisRoot = analysisPackage.getRootPackage();
+
+        if (coreRoot && analysisRoot) {
+          expect(coreRoot).toBe(analysisRoot); // Should be same root
+          expect(coreRoot.getName()).toBe('model');
+        }
+      });
+    });
 
   describe('Classifier Management', () => {
     it('should return all classifiers in core package', () => {

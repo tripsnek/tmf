@@ -58,14 +58,12 @@ import { EObjectImpl } from '@tripsnek/tmf';`;
           let pkgPath = this.getPathToOtherPackage(host, pkgDependency);
 
           //for packages defined as 'x-data' folders in lib without nesting
-          if (!host.getESuperPackage())
-            pkgPath = this.getPathToOtherPackageFlat(host, pkgDependency);
+          // if (!host.getESuperPackage())
+          //   pkgPath = this.getPathToOtherPackageFlat(host, pkgDependency);
 
           // if packages share a root, use relative imports
           if (host.getRootPackage() === pkgDependency.getRootPackage()) {
-            pkgImports += `import {${pkgName}} from '${prefix}${pkgPath}${pkgDependency
-              .getName()
-              .toLowerCase()}-package';`;
+            pkgImports += `import { ${pkgName }} from '${prefix}${pkgPath}${this.kebabLowerCase(pkgDependency.getName())}-package';`;
           } else {
             console.log('WARNING: CROSS-PACKAGE IMPORTS NOT SUPPORTED');
           }

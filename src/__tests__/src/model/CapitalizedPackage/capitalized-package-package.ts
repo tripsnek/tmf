@@ -1,4 +1,4 @@
-import { CorePackage } from '../core/core-package';
+import { CorePackage } from './../core/core-package';
 import { EObject } from '@tripsnek/tmf';
 import { TUtils } from '@tripsnek/tmf';
 import { EStructuralFeature } from '@tripsnek/tmf';

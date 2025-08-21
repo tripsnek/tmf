@@ -103,6 +103,8 @@ export class EPackage extends ENamedElementImpl {
   public setESuperPackage(superPkg: EPackage): void {
     //TODO: should handle inverse reference on both ends
     this._eSuperPackage = superPkg;
+    if(!this._eSuperPackage.getESubPackages().contains(this))
+      this._eSuperPackage.getESubPackages().add(this);
   }
 
   public getNsPrefix(): string {
