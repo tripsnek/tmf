@@ -223,7 +223,8 @@ export class CorePackage extends EPackageImpl {
   constructor() {
     super(
       'core',
-      'http://www.tripsnek.com/emf.com.tripsnek.tmftest.model.core'
+      'http://www.tripsnek.com/emf.com.tripsnek.tmftest.model.core',
+      'core'
     );
   }
 

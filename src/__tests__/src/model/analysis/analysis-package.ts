@@ -55,7 +55,7 @@ export class AnalysisPackage extends EPackageImpl {
   //causes EPackage.Registry registration event
   //hard-coded URI, since referring to the static eNS_URI field in constructor can cause issues
   constructor() {
-    super('analysis', 'undefined');
+    super('analysis', 'undefined', 'undefined');
   }
 
   /**

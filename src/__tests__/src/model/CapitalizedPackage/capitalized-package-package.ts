@@ -47,7 +47,7 @@ export class CapitalizedPackagePackage extends EPackageImpl {
   //causes EPackage.Registry registration event
   //hard-coded URI, since referring to the static eNS_URI field in constructor can cause issues
   constructor() {
-    super('CapitalizedPackage', 'http://www.example.org/package1');
+    super('CapitalizedPackage', 'http://www.example.org/package1', 'package1');
   }
 
   /**

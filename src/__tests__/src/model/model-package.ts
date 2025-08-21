@@ -55,7 +55,11 @@ export class ModelPackage extends EPackageImpl {
   //causes EPackage.Registry registration event
   //hard-coded URI, since referring to the static eNS_URI field in constructor can cause issues
   constructor() {
-    super('model', 'http://www.tripsnek.com/emf.com.tripsnek.tmftest.model');
+    super(
+      'model',
+      'http://www.tripsnek.com/emf.com.tripsnek.tmftest.model',
+      'emf.com.tripsnek.tmftest.model'
+    );
   }
 
   /**

@@ -334,7 +334,8 @@ ${fieldDeclarationsContent}
   constructor() {
     super(
       '${pkg.getName()}',
-      '${pkg.getNsURI()}'
+      '${pkg.getNsURI()}',
+      '${pkg.getNsPrefix()}'
     );
   }
 

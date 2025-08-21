@@ -130,23 +130,6 @@ export class TUtils {
     }
   }
 
-  // ----- Used primarily for testing/debugging
-
-  static safeStringify(object: any): string {
-    // Note: cache should not be re-used by repeated calls to JSON.stringify.
-    const cache: any[] = [];
-    const stringified = JSON.stringify(object, (key, value) => {
-      if (typeof value === 'object' && value !== null) {
-        // Duplicate reference found, discard key
-        if (cache.includes(value)) return;
-
-        // Store value in our collection
-        cache.push(value);
-      }
-      return value;
-    });
-    return stringified;
-  }
 
   static lookupNamedField(
     object: EObject,
@@ -459,39 +442,40 @@ export class TUtils {
     }
   }
 
-  public static toMMDDYYYY(date: Date): string {
-    return [
-      (date.getMonth() + 1).toString().padStart(2, '0'),
-      date.getDate().toString().padStart(2, '0'),
-      date.getFullYear(),
-    ].join('-');
+  /**
+   * Returns the package and transitive closure of all contained subpackages.
+   * 
+   * @param pkg
+   * @returns 
+   */
+  public static allPackagesRecursive(pkg: EPackage, addTo?: EPackage[]) : EPackage[] {
+    let pkgs = addTo ? addTo : [pkg];
+    for(const sp of pkg.getESubPackages()){
+      pkgs = pkgs.concat(this.allPackagesRecursive(sp), pkgs);
+    }
+    return pkgs;
   }
 
-  public static fromMMDDYYYY(value: string): Date {
-    const [month, day, year] = value.split('-');
-    return new Date(
-      parseInt(year + ''),
-      parseInt(month + '') - 1,
-      parseInt(day + '')
-    );
-  }
+  public static getRootEClasses(root: EPackage): EClass[] {
+    if (!root) return [];
 
-  public static getRootEClasses(ePackage: EPackage): EClass[] {
-    if (!ePackage) return [];
-
+    const allPkgs: EPackage[] = this.allPackagesRecursive(root);
     const allClasses: EClass[] = [];
     const containedClasses = new Set<EClass>();
 
+
     // First, collect all non-abstract, non-interface classes
-    ePackage.getEClassifiers().forEach((classifier) => {
-      if (
-        classifier instanceof EClassImpl &&
-        !classifier.isAbstract() &&
-        !classifier.isInterface()
-      ) {
-        allClasses.push(classifier);
-      }
-    });
+    for (const ePackage of allPkgs) {
+      ePackage.getEClassifiers().forEach((classifier) => {
+        if (
+          classifier instanceof EClassImpl &&
+          !classifier.isAbstract() &&
+          !classifier.isInterface()
+        ) {
+          allClasses.push(classifier);
+        }
+      });
+    }
 
     // Then, find which classes are contained by others
     allClasses.forEach((eClass) => {
