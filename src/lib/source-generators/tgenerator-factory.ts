@@ -40,7 +40,7 @@ ${this.genClassCreators(pkg)}
 import { EReference } from '@tripsnek/tmf';
 import { EAttribute } from '@tripsnek/tmf';
 import { EFactory } from '@tripsnek/tmf';
-import { ${pkgClassName} } from './${pkg.getName()}-package';`;
+import { ${pkgClassName} } from './${DU.genPackageFileName(pkg)}';`;
   }
 
   /**

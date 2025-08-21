@@ -9,12 +9,12 @@
   </eClassifiers>
   <eSubpackages name="core" nsURI="http://www.tripsnek.com/emf.com.tripsnek.tmftest.model.core" nsPrefix="core">
     <eClassifiers xsi:type="ecore:EClass" name="IdedEntity" abstract="true">
+      <eOperations name="genId"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" iD="true"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="editDate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="editUser" eType="#//core/User"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="locked" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="id2" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" iD="true"/>
-      <eOperations name="genId"/>      
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="NamedEntity" eSuperTypes="#//core/IdedEntity" abstract="true">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -68,7 +68,7 @@
       <eOperations name="doSomethingWithClassesAndNumbers">
         <eParameters name="classes" upperBound="-1" eType="#//core/FooClass"/>
         <eParameters name="numbers" upperBound="-1" eType="#//core/BoundedNumber"/>
-      </eOperations>      
+      </eOperations>
       <eStructuralFeatures xsi:type="ecore:EReference" name="foo" eType="#//core/Foo" eOpposite="#//core/Foo/bars"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="bazzles" eType="#//core/Bazzle" upperBound="-1" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="backupFor" eType="#//core/Bazzle" upperBound="-1" eOpposite="#//core/Bazzle/backupBar"/>
@@ -98,6 +98,13 @@
       </eOperations>
       <eStructuralFeatures xsi:type="ecore:EReference" name="user" eType="#//core/User"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="object" eType="#//core/NamedEntity" containment="true"/>
+    </eClassifiers>
+  </eSubpackages>
+  <eSubpackages name="CapitalizedPackage" nsURI="http://www.example.org/package1" nsPrefix="package1">
+    <eClassifiers xsi:type="ecore:EClass" name="ExampleInterface" interface="true">
+      <eOperations name="interfaceOperation" eType="#//core/Foo">
+        <eParameters name="fooGroup" upperBound="-1" eType="#//core/FooGroup"/>
+      </eOperations>
     </eClassifiers>
   </eSubpackages>
 </ecore:EPackage>

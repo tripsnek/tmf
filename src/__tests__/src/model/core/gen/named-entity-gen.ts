@@ -19,15 +19,15 @@ import { IdedEntityImpl } from '../impl/ided-entity-impl';
  * This file is source-code generated and should never be edited. It implements
  * the core TMF functionality for NamedEntity.
  */
-export abstract class NamedEntityGen  extends IdedEntityImpl implements NamedEntity {
+export abstract class NamedEntityGen
+  extends IdedEntityImpl
+  implements NamedEntity
+{
   /** feature declarations */
   protected name!: string;
 
-
-
   //======================================================================
   // Getters and Setters
-
 
   public getName(): string {
     return this.name;
@@ -58,11 +58,13 @@ export abstract class NamedEntityGen  extends IdedEntityImpl implements NamedEnt
     return super.eGet(featureID);
   }
 
-
   /**
    * eSet() - provides ability to reflectively set all features.
    */
-  public override eSet(feature: number | EStructuralFeature, newValue: any): void {
+  public override eSet(
+    feature: number | EStructuralFeature,
+    newValue: any
+  ): void {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -74,7 +76,6 @@ export abstract class NamedEntityGen  extends IdedEntityImpl implements NamedEnt
     }
     return super.eSet(featureID, newValue);
   }
-
 
   /**
    * eIsSet() - provides ability to reflectively check if any feature is set.
@@ -90,7 +91,6 @@ export abstract class NamedEntityGen  extends IdedEntityImpl implements NamedEnt
     }
     return super.eIsSet(featureID);
   }
-
 
   /**
    * eUnset() - provides ability to reflectively unset any feature.
@@ -111,14 +111,12 @@ export abstract class NamedEntityGen  extends IdedEntityImpl implements NamedEnt
   //======================================================================
   // Basic setters (allow EOpposite enforcement without triggering infinite cycles)
 
-
   public basicSetName(newName: string): void {
     this.name = newName;
   }
 
   //======================================================================
   // Inverse Adders (if needed)
-
 
   //======================================================================
   // Inverse Removers (if needed)

@@ -24,11 +24,8 @@ export abstract class IdedEntityGen extends EObjectImpl implements IdedEntity {
   protected locked!: boolean;
   protected id2!: string;
 
-
-
   //======================================================================
   // Getters and Setters
-
 
   public getId(): string {
     return this.id;
@@ -73,7 +70,6 @@ export abstract class IdedEntityGen extends EObjectImpl implements IdedEntity {
   //======================================================================
   // API Operations
 
-
   public genId(): void {
     throw new Error('Not implemented');
   }
@@ -103,11 +99,13 @@ export abstract class IdedEntityGen extends EObjectImpl implements IdedEntity {
     return super.eGet(featureID);
   }
 
-
   /**
    * eSet() - provides ability to reflectively set all features.
    */
-  public override eSet(feature: number | EStructuralFeature, newValue: any): void {
+  public override eSet(
+    feature: number | EStructuralFeature,
+    newValue: any
+  ): void {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -132,7 +130,6 @@ export abstract class IdedEntityGen extends EObjectImpl implements IdedEntity {
     return super.eSet(featureID, newValue);
   }
 
-
   /**
    * eIsSet() - provides ability to reflectively check if any feature is set.
    */
@@ -155,7 +152,6 @@ export abstract class IdedEntityGen extends EObjectImpl implements IdedEntity {
     }
     return super.eIsSet(featureID);
   }
-
 
   /**
    * eUnset() - provides ability to reflectively unset any feature.
@@ -188,7 +184,6 @@ export abstract class IdedEntityGen extends EObjectImpl implements IdedEntity {
   //======================================================================
   // Basic setters (allow EOpposite enforcement without triggering infinite cycles)
 
-
   public basicSetId(newId: string): void {
     this.id = newId;
   }
@@ -211,7 +206,6 @@ export abstract class IdedEntityGen extends EObjectImpl implements IdedEntity {
 
   //======================================================================
   // Inverse Adders (if needed)
-
 
   //======================================================================
   // Inverse Removers (if needed)

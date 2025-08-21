@@ -8,16 +8,13 @@ import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
 
-import { Foo } from './foo';
-import { FooGroup } from './foo-group';
-import { FooClass } from './foo-class';
-import { BoundedNumber } from './bounded-number';
-import { Bar } from './bar';
-import { Bazzle } from './bazzle';
-import { User } from './user';
-import { CorePackage } from '../core-package';
+import { Foo } from '../../core/api/foo';
+import { FooGroup } from '../../core/api/foo-group';
+import { CapitalizedPackagePackage } from '../capitalized-package-package';
 
 /**
- * Source-gen API for FooSpecialization.
+ * Source-gen API for ExampleInterface.
  */
-export interface FooSpecialization extends Foo {}
+export interface ExampleInterface extends EObject {
+  interfaceOperation(fooGroup: EList<FooGroup>): Foo;
+}
