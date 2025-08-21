@@ -178,14 +178,6 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
   }
 
   public setTransientReference(newTransientReference: Foo): void {
-    const oldTransientReference = this.transientReference;
-    if (oldTransientReference)
-      oldTransientReference.setEContainer(undefined, undefined);
-    if (newTransientReference)
-      newTransientReference.setEContainer(
-        this,
-        CorePackage.FOO__TRANSIENT_REFERENCE
-      );
     this.basicSetTransientReference(newTransientReference);
   }
 

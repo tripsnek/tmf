@@ -1128,7 +1128,7 @@ export class CorePackage extends EPackageImpl {
       true,
       false,
       true,
-      true,
+      false,
       false,
       true, //TODO: isUnsettable
       false,

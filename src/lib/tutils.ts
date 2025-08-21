@@ -449,9 +449,10 @@ export class TUtils {
    * @returns 
    */
   public static allPackagesRecursive(pkg: EPackage, addTo?: EPackage[]) : EPackage[] {
-    let pkgs = addTo ? addTo : [pkg];
+    let pkgs = addTo ? addTo : [];
+    pkgs.push(pkg);
     for(const sp of pkg.getESubPackages()){
-      pkgs = pkgs.concat(this.allPackagesRecursive(sp), pkgs);
+      this.allPackagesRecursive(sp,pkgs);
     }
     return pkgs;
   }

@@ -46,7 +46,7 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="unchangeableAttribute" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" changeable="false"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="unchangeableReference" eType="#//core/Bazzle" containment="true" changeable="false"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="transientAttribute" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" transient="true"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="transientReference" eType="#//core/Foo" containment="true" transient="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="transientReference" eType="#//core/Foo" transient="true"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="volatileAttribute" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" volatile="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="volatileReference" eType="#//core/Foo" volatile="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="manyCrossAggregate" eType="#//core/Foo" upperBound="-1"/>
