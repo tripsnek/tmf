@@ -10,6 +10,9 @@ import { TJson } from './json/tjson';
 import { EEnumImpl } from './metamodel/eenum-impl';
 import { EDataTypeImpl } from './metamodel/edata-type-impl';
 import { EList } from './metamodel/elist';
+import { EClass } from './metamodel/eclass';
+import { EPackage } from './metamodel/epackage';
+import { EClassImpl } from './metamodel/eclass-impl';
 
 /**
  * Various utilities for interacting with TMF-modeled data objects, some
@@ -17,10 +20,18 @@ import { EList } from './metamodel/elist';
  * source code.
  */
 export class TUtils {
-
   //All primitive EDataTypes supported by TMF
-  public static PRIMITIVES = ['EString', 'EBoolean', 'EDouble', 'EDoubleObject', 
-                           'EFloat', 'EFloatObject', 'EInt', 'EIntegerObject', 'EDate'];
+  public static PRIMITIVES = [
+    'EString',
+    'EBoolean',
+    'EDouble',
+    'EDoubleObject',
+    'EFloat',
+    'EFloatObject',
+    'EInt',
+    'EIntegerObject',
+    'EDate',
+  ];
 
   /**
    * Ensures all objects have IDs.
@@ -113,9 +124,6 @@ export class TUtils {
       case 'earray': {
         return '[]';
       }
-      case 'cudresult': {
-        return 'CudResult';
-      }
       default: {
         return 'any';
       }
@@ -126,7 +134,7 @@ export class TUtils {
 
   static safeStringify(object: any): string {
     // Note: cache should not be re-used by repeated calls to JSON.stringify.
-    const cache : any[] = [];
+    const cache: any[] = [];
     const stringified = JSON.stringify(object, (key, value) => {
       if (typeof value === 'object' && value !== null) {
         // Duplicate reference found, discard key
@@ -143,7 +151,7 @@ export class TUtils {
   static lookupNamedField(
     object: EObject,
     fieldName: string
-  ): EStructuralFeature | undefined{
+  ): EStructuralFeature | undefined {
     const curClass = object.eClass();
     const field = curClass.getEStructuralFeature(fieldName);
 
@@ -156,15 +164,13 @@ export class TUtils {
 
   static getNamedFieldValue(object: EObject, fieldName: string): any {
     const field = this.lookupNamedField(object, fieldName);
-    if(field)
-      return object.eGet(field);
+    if (field) return object.eGet(field);
     return undefined;
   }
 
   static setNamedFieldValue(object: EObject, fieldName: string, newValue: any) {
     const field = this.lookupNamedField(object, fieldName);
-    if(field)
-      object.eSet(field, newValue);
+    if (field) object.eSet(field, newValue);
     return undefined;
   }
 
@@ -175,7 +181,10 @@ export class TUtils {
    * @param jsonVal
    */
   public static parseAttrValFromString(attr: EAttribute, stringVal: any): any {
-    return this.parseValueFromString(attr.getEType() as EClassifier, stringVal + '');
+    return this.parseValueFromString(
+      attr.getEType() as EClassifier,
+      stringVal + ''
+    );
   }
 
   public static parseValueFromString(attrType: EClassifier, stringVal: string) {
@@ -278,7 +287,13 @@ export class TUtils {
       : new Map<EObject, EObject>();
 
     //recursive duplication of containment hierachy
-    this.cloneInto<T>(toClone, newContainer, prune ? prune : [], traverse ? traverse : [], oldToNew);
+    this.cloneInto<T>(
+      toClone,
+      newContainer,
+      prune ? prune : [],
+      traverse ? traverse : [],
+      oldToNew
+    );
 
     //re-establish container internal references for all entities in the
     //container, including the container root itself
@@ -454,6 +469,49 @@ export class TUtils {
 
   public static fromMMDDYYYY(value: string): Date {
     const [month, day, year] = value.split('-');
-    return new Date(parseInt(year  + ''), parseInt(month + '') - 1, parseInt(day + ''));
+    return new Date(
+      parseInt(year + ''),
+      parseInt(month + '') - 1,
+      parseInt(day + '')
+    );
+  }
+
+  public static getRootEClasses(ePackage: EPackage): EClass[] {
+    if (!ePackage) return [];
+
+    const allClasses: EClass[] = [];
+    const containedClasses = new Set<EClass>();
+
+    // First, collect all non-abstract, non-interface classes
+    ePackage.getEClassifiers().forEach((classifier) => {
+      if (
+        classifier instanceof EClassImpl &&
+        !classifier.isAbstract() &&
+        !classifier.isInterface()
+      ) {
+        allClasses.push(classifier);
+      }
+    });
+
+    // Then, find which classes are contained by others
+    allClasses.forEach((eClass) => {
+      eClass.getEAllReferences().forEach((ref) => {
+        if (ref.isContainment()) {
+          const targetType = ref.getEType();
+          if (targetType instanceof EClassImpl) {
+            containedClasses.add(targetType);
+            // Also add all subtypes
+            allClasses.forEach((otherClass) => {
+              if (otherClass.getEAllSuperTypes().contains(targetType)) {
+                containedClasses.add(otherClass);
+              }
+            });
+          }
+        }
+      });
+    });
+
+    // Return classes that are not contained by any other class
+    return allClasses.filter((c) => !containedClasses.has(c)).reverse();
   }
 }
