@@ -30,6 +30,11 @@ describe('TMF EList', () => {
     expect(bar1.getBazzles().contains(baz1)).toBe(true);
     expect(bar1.getBazzles().contains(baz2)).toBe(false);
   });
+  it('compatibility with Array.from', () => {
+    const array = Array.from(bar1.getBazzles());
+    expect(array.indexOf(baz1)).toBeGreaterThan(-1);
+    expect(array.indexOf(baz2)).toBe(-1);
+  });
   it('should implement addAll', () => {
     bar1.getBazzles().clear();
     expect(bar1.getBazzles().size()).toBe(0);
