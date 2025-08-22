@@ -117,12 +117,12 @@ export class EClassImpl extends EClassifierImpl implements EClass {
 
   public getEAllSuperTypes(): EList<EClass> {
     if (this.eAllSuperTypes === undefined) {
-      this.calcEAllSuperTypes();
+      this.computeEAllSuperTypes();
     }
     return this.eAllSuperTypes;
   }
 
-  private calcEAllSuperTypes(): void {
+  private computeEAllSuperTypes(): void {
     this.eAllSuperTypes = new BasicEList<EClass>();
     for (let i = 0; i < this.eSuperTypes.size(); i++) {
       const st = this.eSuperTypes.get(i);
@@ -280,6 +280,7 @@ export class EClassImpl extends EClassifierImpl implements EClass {
 
   //hacky method for when a metamodel is being manipulated at runtime (e.g. in Ecore Editor)
   public recomputeAllLists(){
+    this.computeEAllSuperTypes();
     this.computeAllStructuralFeatures();
     this.computeEAllAttributes();
     this.computeEAllReferences();
