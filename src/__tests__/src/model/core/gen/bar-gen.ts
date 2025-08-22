@@ -24,8 +24,6 @@ import { BazzleGen } from './bazzle-gen';
 import { BazzleImpl } from '../impl/bazzle-impl';
 import { UserGen } from './user-gen';
 import { UserImpl } from '../impl/user-impl';
-import { FooClassGen } from './foo-class-gen';
-import { FooClassImpl } from '../impl/foo-class-impl';
 import { BoundedNumberGen } from './bounded-number-gen';
 import { BoundedNumberImpl } from '../impl/bounded-number-impl';
 

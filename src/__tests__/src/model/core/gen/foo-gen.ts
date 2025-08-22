@@ -22,8 +22,6 @@ import { NamedEntityGen } from './named-entity-gen';
 import { NamedEntityImpl } from '../impl/named-entity-impl';
 import { FooGroupGen } from './foo-group-gen';
 import { FooGroupImpl } from '../impl/foo-group-impl';
-import { FooClassGen } from './foo-class-gen';
-import { FooClassImpl } from '../impl/foo-class-impl';
 import { BoundedNumberGen } from './bounded-number-gen';
 import { BoundedNumberImpl } from '../impl/bounded-number-impl';
 import { BarGen } from './bar-gen';

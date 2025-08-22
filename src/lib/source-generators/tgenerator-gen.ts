@@ -6,6 +6,7 @@ import { TGenUtils as DU } from './tgen-utils';
 import { TUtils } from '../tutils';
 import { EStructuralFeature } from '../metamodel/estructural-feature';
 import { EReferenceImpl } from '../metamodel/ereference-impl';
+import { EClassImpl } from '../metamodel/eclass-impl';
 
 /**
  * Source code generation for *gen.ts files for EClasses.
@@ -110,28 +111,32 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
     for (const ec of genToImport) {
       if (ec) {
         let pathToImport = './';
-        if (ec.getEPackage() !== eClass.getEPackage()) {
-          //if root package is shared, the classes are assumed to exist in the same lib, and can be imported with relative paths
-          if (ec.getRootPackage() === eClass.getRootPackage()) {
-            pathToImport = `${DU.getPathToTypeInOtherPkg(eClass, ec)}/`;
-            result += `import { ${ec.getName()}Gen } from '${
-              pathToImport + 'gen/' + DU.genClassGenName(<EClass>ec)
-            }';\n`;
-            result += `import { ${ec.getName()}Impl } from '${
-              pathToImport + 'impl/' + DU.genClassImplName(<EClass>ec)
-            }';\n`;
+
+        //only import Gen and Impl if it is an EClass (not an EEnum)
+        if (ec instanceof EClassImpl) {
+          if (ec.getEPackage() !== eClass.getEPackage()) {
+            //if root package is shared, the classes are assumed to exist in the same lib, and can be imported with relative paths
+            if (ec.getRootPackage() === eClass.getRootPackage()) {
+              pathToImport = `${DU.getPathToTypeInOtherPkg(eClass, ec)}/`;
+              result += `import { ${ec.getName()}Gen } from '${
+                pathToImport + 'gen/' + DU.genClassGenName(<EClass>ec)
+              }';\n`;
+              result += `import { ${ec.getName()}Impl } from '${
+                pathToImport + 'impl/' + DU.genClassImplName(<EClass>ec)
+              }';\n`;
+            }
+            //otherwise, use non-relative paths
+            else {
+              console.log('WARNING: CROSS-PACKAGE IMPORTS NOT SUPPORTED');
+            }
+          } else {
+            result += `import { ${ec.getName()}Gen } from './${DU.genClassGenName(
+              ec as EClass
+            )}';\n`;
+            result += `import { ${ec.getName()}Impl } from '../impl/${DU.genClassImplName(
+              ec as EClass
+            )}';\n`;
           }
-          //otherwise, use non-relative paths
-          else {
-            console.log('WARNING: CROSS-PACKAGE IMPORTS NOT SUPPORTED');
-          }
-        } else {
-          result += `import { ${ec.getName()}Gen } from './${DU.genClassGenName(
-            ec as EClass
-          )}';\n`;
-          result += `import { ${ec.getName()}Impl } from '../impl/${DU.genClassImplName(
-            ec as EClass
-          )}';\n`;
         }
       }
     }
