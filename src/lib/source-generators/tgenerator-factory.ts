@@ -2,12 +2,16 @@ import { EPackage } from '../metamodel/epackage';
 import { EClass } from '../metamodel/eclass';
 import { TGenUtils as DU } from './tgen-utils';
 import { EClassImpl } from '../metamodel/eclass-impl';
+import { TGeneratorPackageInitializer } from './tgenerator-package-initializer';
 
 /**
  * Generates *-factory.ts files, which provide static access to
  * methods for instantiating data objects for a TMF model.
  */
 export class TGeneratorFactory {
+
+  rootPackage!: EPackage;
+
   /**
    * Single public static method for generating a XXXFactory class.
    * @param pkg
@@ -17,9 +21,12 @@ export class TGeneratorFactory {
     //build path to root package initializer
     const pathToRoot = DU.getPathToRoot(pkg);
 
+    this.rootPackage = pkg;
+    while(this.rootPackage.getESuperPackage()) this.rootPackage = this.rootPackage.getESuperPackage();
+
     return `${this.genGenericImports(pkg)}
 ${this.genSpecificImports(pkg)}
-import { ModelPackageInitializer } from '${pathToRoot}model-package-initializer';
+import { ${TGeneratorPackageInitializer.generateClassName(this.rootPackage)}} from '${pathToRoot}${TGeneratorPackageInitializer.generateFileName(this.rootPackage)}';
 
 export class ${DU.genFactoryClassName(pkg)} extends EFactory {
 ${this.genSingleton(pkg)}
@@ -90,7 +97,7 @@ import { ${eClass.getName()}Impl } from './impl/${DU.genClassImplName(
   }
   
   static get eINSTANCE(): ${className} {
-    ModelPackageInitializer.registerAll();
+    ${TGeneratorPackageInitializer.generateClassName(this.rootPackage)}.registerAll();
     return this._eINSTANCE;
   }
   `;

@@ -625,7 +625,7 @@ export class TGeneratorMain {
     }
 
     const generator = new TGeneratorPackageInitializer();
-    const fileName = generator.generateFileName(this.pkg);
+    const fileName = TGeneratorPackageInitializer.generateFileName(this.pkg);
     debug.log('Generating package initializer file:', fileName + '.ts');
 
     const content = generator.generate(this.pkg);

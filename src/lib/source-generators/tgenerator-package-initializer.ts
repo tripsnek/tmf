@@ -18,8 +18,8 @@ export class TGeneratorPackageInitializer {
     }
 
     const allPackages = this.collectAllPackages(rootPackage);
-    const className = this.generateClassName(rootPackage);
-    const fileName = this.generateFileName(rootPackage);
+    const className = TGeneratorPackageInitializer.generateClassName(rootPackage);
+    const fileName = TGeneratorPackageInitializer.generateFileName(rootPackage);
     
     return this.generateContent(rootPackage, allPackages, className);
   }
@@ -27,14 +27,14 @@ export class TGeneratorPackageInitializer {
   /**
    * Generates the class name for the package initializer.
    */
-  public generateClassName(rootPackage: EPackage): string {
+  public static generateClassName(rootPackage: EPackage): string {
     return DU.capitalize(rootPackage.getName()) + 'PackageInitializer';
   }
 
   /**
    * Generates the file name for the package initializer.
    */
-  public generateFileName(rootPackage: EPackage): string {
+  public static generateFileName(rootPackage: EPackage): string {
     return DU.kebabLowerCase(rootPackage.getName()) + '-package-initializer';
   }
 

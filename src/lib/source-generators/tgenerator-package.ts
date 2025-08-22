@@ -13,6 +13,7 @@ import { EClassImpl } from '../metamodel/eclass-impl';
 import { EReferenceImpl } from '../metamodel/ereference-impl';
 import { EEnumImpl } from '../metamodel/eenum-impl';
 import { EDataTypeImpl } from '../metamodel/edata-type-impl';
+import { TGeneratorPackageInitializer } from './tgenerator-package-initializer';
 
 /**
  * Responsible for generating the interface and implementation of an
@@ -26,8 +27,13 @@ import { EDataTypeImpl } from '../metamodel/edata-type-impl';
  * be difficult to separate them out.
  */
 export class TGeneratorPackage {
+
+   rootPackage! : EPackage;
+
   public generatePackageContents(pkg: EPackage): string {
     const className = DU.genPackageClassName(pkg);
+    this.rootPackage = pkg;
+    while(this.rootPackage.getESuperPackage()) this.rootPackage = this.rootPackage.getESuperPackage();
 
     //track package dependencies, import them at the end
     const pkgToImport = new Set<EPackage>();
@@ -387,7 +393,7 @@ ${subPkgSetters}
   }
 
   static get eINSTANCE(): ${className}{
-    ModelPackageInitializer.registerAll();
+    ${TGeneratorPackageInitializer.generateClassName(this.rootPackage)}.registerAll();
     return this._eINSTANCE;
   }  
 
@@ -464,7 +470,7 @@ ${initContent}
     let imports = `${DU.generateImportStatementsForExternalPackages(pkgToImport, pkg, './')}
 ${DU.DEFAULT_IMPORTS}
 
-import { ModelPackageInitializer } from '${pathToRoot}model-package-initializer';
+import { ${TGeneratorPackageInitializer.generateClassName(this.rootPackage)}} from '${pathToRoot}${TGeneratorPackageInitializer.generateFileName(this.rootPackage)}';
 import { EPackage } from '@tripsnek/tmf';
 import { EPackageImpl } from '@tripsnek/tmf';
 import { EAttribute } from '@tripsnek/tmf';
