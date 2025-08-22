@@ -36,12 +36,23 @@ export class TJson {
     }
   }
 
+  // Simple check - warn if no packages registered
+  private static warnIfNotInitialized(): void {
+    if (this.packages.length === 0) {
+      console.warn(
+        'TJson: No packages registered. Call TJson.setPackages([...]) or ' +
+        'import and touch your package (e.g., MyPackage.eINSTANCE) before using TJson.'
+      );
+    }
+  }
+
   /**
    * Converts a TMF EObject to JSON.
    *
    * @param obj
    */
   public static makeJson(obj: EObject): any {
+    this.warnIfNotInitialized();
     return this.eObjectToJsonAux(obj, new Map<EObject, any>(), false);
   }
 
@@ -51,7 +62,9 @@ export class TJson {
    * @param json
    * @return
    */
-  public static makeEObject(jsonObj: any): EObject | undefined{
+  public static makeEObject(jsonObj: any): EObject | undefined {
+    this.warnIfNotInitialized();
+    
     const serializedReferences = new Array<SerializedReference>();
 
     //build containment heirarchy
@@ -77,7 +90,9 @@ export class TJson {
    * @param obj
    */
   public static makeJsonArray(objs: EObject[]): any[] {
-    const jsonArray : any[] = [];
+    this.warnIfNotInitialized();
+    
+    const jsonArray: any[] = [];
     if (objs) {
       objs.forEach((element) => {
         jsonArray.push(this.makeJson(element));
@@ -86,18 +101,19 @@ export class TJson {
     return jsonArray;
   }
 
-  /**
+ /**
    * Converts an object in JSON Array into am array of TMF EObjects.
    *
    * @param json
    * @return
    */
   public static makeEObjectArray(jsonArray: any[]): EObject[] {
-    const eobjArray : EObject[] = [];
+    this.warnIfNotInitialized();
+    
+    const eobjArray: EObject[] = [];
     jsonArray.forEach((element) => {
       const eobj = this.makeEObject(element);
-      if(eobj)
-       eobjArray.push(eobj);
+      if (eobj) eobjArray.push(eobj);
     });
     return eobjArray;
   }
