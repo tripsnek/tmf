@@ -29,19 +29,26 @@ import { Bazzle } from './api/bazzle';
 import { BazzleImpl } from './impl/bazzle-impl';
 import { BoundedNumber } from './api/bounded-number';
 import { BoundedNumberImpl } from './impl/bounded-number-impl';
+import { ModelPackageInitializer } from '../model-package-initializer';
 
 export class CoreFactory extends EFactory {
   /* Singleton */
-  public static eINSTANCE: CoreFactory = CoreFactory.init();
+  public static _eINSTANCE: CoreFactory = CoreFactory.init();
   public static init(): CoreFactory {
-    if (!CoreFactory.eINSTANCE) {
-      CoreFactory.eINSTANCE = new CoreFactory();
+    if (!CoreFactory._eINSTANCE) {
+      CoreFactory._eINSTANCE = new CoreFactory();
     }
 
     //inject the factory instance into the package, so that it can be retrieved reflectively
-    CorePackage.eINSTANCE.setEFactoryInstance(this.eINSTANCE);
-    return CoreFactory.eINSTANCE;
+    // CorePackage.eINSTANCE.setEFactoryInstance(this.eINSTANCE);
+    return CoreFactory._eINSTANCE;
   }
+  
+  static get eINSTANCE(): CoreFactory {
+    ModelPackageInitializer.registerAll();
+    return this._eINSTANCE;
+  }
+
 
   public override create(eClass: EClass): any {
     switch (eClass.getClassifierId()) {

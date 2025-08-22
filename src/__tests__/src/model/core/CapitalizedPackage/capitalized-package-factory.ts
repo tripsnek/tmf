@@ -17,19 +17,25 @@ import { ExampleInterface } from './api/example-interface';
 import { ExampleInterfaceImpl } from './impl/example-interface-impl';
 import { ClassInCapitalizedPackage } from './api/class-in-capitalized-package';
 import { ClassInCapitalizedPackageImpl } from './impl/class-in-capitalized-package-impl';
+import { ModelPackageInitializer } from '../../model-package-initializer';
 
 export class CapitalizedPackageFactory extends EFactory {
   /* Singleton */
-  public static eINSTANCE: CapitalizedPackageFactory =
+  public static _eINSTANCE: CapitalizedPackageFactory =
     CapitalizedPackageFactory.init();
   public static init(): CapitalizedPackageFactory {
-    if (!CapitalizedPackageFactory.eINSTANCE) {
-      CapitalizedPackageFactory.eINSTANCE = new CapitalizedPackageFactory();
+    if (!CapitalizedPackageFactory._eINSTANCE) {
+      CapitalizedPackageFactory._eINSTANCE = new CapitalizedPackageFactory();
     }
 
     //inject the factory instance into the package, so that it can be retrieved reflectively
-    CapitalizedPackagePackage.eINSTANCE.setEFactoryInstance(this.eINSTANCE);
-    return CapitalizedPackageFactory.eINSTANCE;
+    // CapitalizedPackagePackage.eINSTANCE.setEFactoryInstance(this.eINSTANCE);
+    return CapitalizedPackageFactory._eINSTANCE;
+  }
+
+  static get eINSTANCE(): CapitalizedPackageFactory {
+    ModelPackageInitializer.registerAll();
+    return this._eINSTANCE;
   }
 
   public override create(eClass: EClass): any {

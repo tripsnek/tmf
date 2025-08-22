@@ -17,18 +17,24 @@ import { ContainerRootType } from './api/container-root-type';
 import { ContainerRootTypeImpl } from './impl/container-root-type-impl';
 import { ContainedRootType } from './api/contained-root-type';
 import { ContainedRootTypeImpl } from './impl/contained-root-type-impl';
+import { ModelPackageInitializer } from './model-package-initializer';
 
 export class ModelFactory extends EFactory {
   /* Singleton */
-  public static eINSTANCE: ModelFactory = ModelFactory.init();
+  public static _eINSTANCE: ModelFactory = ModelFactory.init();
   public static init(): ModelFactory {
-    if (!ModelFactory.eINSTANCE) {
-      ModelFactory.eINSTANCE = new ModelFactory();
+    if (!ModelFactory._eINSTANCE) {
+      ModelFactory._eINSTANCE = new ModelFactory();
     }
 
     //inject the factory instance into the package, so that it can be retrieved reflectively
-    ModelPackage.eINSTANCE.setEFactoryInstance(this.eINSTANCE);
-    return ModelFactory.eINSTANCE;
+    // ModelPackage.eINSTANCE.setEFactoryInstance(this.eINSTANCE);
+    return ModelFactory._eINSTANCE;
+  }
+
+  static get eINSTANCE(): ModelFactory {
+    ModelPackageInitializer.registerAll();
+    return this._eINSTANCE;
   }
 
   public override create(eClass: EClass): any {

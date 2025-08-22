@@ -1,8 +1,12 @@
 import { ModelPackage } from './model-package';
+import { ModelFactory } from './model-factory';
 import { CorePackage } from './core/core-package';
+import { CoreFactory } from './core/core-factory';
 import { CapitalizedPackagePackage } from './core/CapitalizedPackage/capitalized-package-package';
+import { CapitalizedPackageFactory } from './core/CapitalizedPackage/capitalized-package-factory';
 import { AnalysisPackage } from './analysis/analysis-package';
-import { TJson } from '@tripsnek/tmf';
+import { AnalysisFactory } from './analysis/analysis-factory';
+import { EClassImpl, TJson } from '@tripsnek/tmf';
 
 /**
  * A "global initializer" solution for ensuring that package contents
@@ -43,6 +47,22 @@ export class ModelPackageInitializer {
     core.initializePackageContents();
     capitalizedPackage.initializePackageContents();
     analysis.initializePackageContents();
+
+    model.setEFactoryInstance(ModelFactory._eINSTANCE);
+    core.setEFactoryInstance(CoreFactory.eINSTANCE);
+    capitalizedPackage.setEFactoryInstance(CapitalizedPackageFactory._eINSTANCE);
+    analysis.setEFactoryInstance(AnalysisFactory._eINSTANCE);
+
+    const eclass = AnalysisPackage.eINSTANCE.getAnalysisResult();
+
+    const allPkgs = [model, core, capitalizedPackage, analysis];
+    for (const p of allPkgs) {
+      for (const e of p.getEClassifiers()) {
+        if (e instanceof EClassImpl) {
+          e.recomputeAllLists();
+        }
+      }
+    }
 
     //default TJson configuration
     TJson.addPackages([model, core, capitalizedPackage, analysis]);
