@@ -29,6 +29,13 @@ export class TJson {
     this.packages = packages;
   }
 
+  //automatically used by package initializers to add JSON serialization support when they are touched
+  public static addPackages(packages: EPackage[]){
+    for(const p of packages){
+      if(!this.packages.includes(p)) this.packages.push(p);
+    }
+  }
+
   /**
    * Converts a TMF EObject to JSON.
    *

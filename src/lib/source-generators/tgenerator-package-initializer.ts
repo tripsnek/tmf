@@ -85,6 +85,7 @@ ${classBody}`;
       
       imports += `import { ${packageClassName} } from '${relativePath}${packageFileName}';\n`;
     }
+    imports += `import { TJson } from '@tripsnek/tmf';\n`;
     
     return imports;
   }
@@ -118,6 +119,7 @@ ${classBody}`;
     const instanceDeclarations = this.generateInstanceDeclarations(allPackages);
     const packageRelationships = this.generatePackageRelationships(allPackages);
     const initializationCalls = this.generateInitializationCalls(allPackages);
+    const jsonAddPackages = this.generateTjsonAddPackages(allPackages);
     
     return `/**
  * A "global initializer" solution for ensuring that package contents
@@ -146,6 +148,8 @@ export class ${className} {
 ${instanceDeclarations}
 ${packageRelationships}
 ${initializationCalls}
+${jsonAddPackages}
+
   }
 }`;
   }
@@ -200,6 +204,18 @@ ${initializationCalls}
     }
     
     return calls;
+  }
+
+  private generateTjsonAddPackages(allPackages: EPackage[]){
+    let names = '';
+    for(const p of allPackages){
+      if(names.length>0) names += ',';
+      names += DU.uncapitalize(p.getName());
+    }
+    return `
+    //default TJson configuration
+    TJson.addPackages([${names}]);
+    `
   }
 
   /**

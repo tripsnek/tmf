@@ -45,6 +45,6 @@ export class ModelPackageInitializer {
     analysis.initializePackageContents();
 
     //default TJson configuration
-    TJson.addPackages([model,core,capitalizedPackage,analysis]);
+    TJson.addPackages([model, core, capitalizedPackage, analysis]);
   }
 }

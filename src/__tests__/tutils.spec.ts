@@ -15,7 +15,6 @@ import {ModelPackage} from './src/model/model-package';
 import { CapitalizedPackagePackage } from './src/model/core/CapitalizedPackage/capitalized-package-package';
 
 //configure TJson with test packages
-TJson.setPackages([CorePackage.eINSTANCE, AnalysisPackage.eINSTANCE]);
 const fact = CoreFactory.eINSTANCE;
 
 const currentDate = new Date();

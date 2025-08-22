@@ -13,7 +13,6 @@ import { CorePackage } from './src/model/core/core-package';
 import { BoundedNumberImpl } from './src/model/core/impl/bounded-number-impl';
 
 //configure TJson with test packages
-TJson.setPackages([CorePackage.eINSTANCE, AnalysisPackage.eINSTANCE]);
 const fact = CoreFactory.eINSTANCE;
 
 const currentDate = new Date();
