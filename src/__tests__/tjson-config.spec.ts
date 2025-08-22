@@ -20,7 +20,7 @@ const toDeserialize =
 const toDeserializeArray = `[${toDeserialize}]`;
 
 AnalysisPackage.eINSTANCE;
-// AnalysisFactory.eINSTANCE;
+// AnalysisFactory.eINSTANCE; //this works too!
 
 const ar = new AnalysisResultImpl();
 ar.setId('ar1');
