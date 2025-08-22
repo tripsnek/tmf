@@ -9,6 +9,7 @@ import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
 
+import { ModelPackageInitializer } from '../model-package-initializer';
 import { EPackage } from '@tripsnek/tmf';
 import { EPackageImpl } from '@tripsnek/tmf';
 import { EAttribute } from '@tripsnek/tmf';
@@ -33,83 +34,62 @@ export class CorePackage extends EPackageImpl {
   public static IDED_ENTITY__ID2 = 4;
   public static IDED_ENTITY__GEN_ID = 0;
   public static NAMED_ENTITY = 2;
-  public static NAMED_ENTITY_FEATURE_COUNT =
-    CorePackage.IDED_ENTITY_FEATURE_COUNT + 1;
-  public static NAMED_ENTITY__NAME = CorePackage.IDED_ENTITY_FEATURE_COUNT + 0;
+  public static NAMED_ENTITY_FEATURE_COUNT = 6;
+  public static NAMED_ENTITY__NAME = 5;
   public static BAZZLE = 3;
-  public static BAZZLE_FEATURE_COUNT =
-    CorePackage.NAMED_ENTITY_FEATURE_COUNT + 2;
-  public static BAZZLE__BACKUP_BAR = CorePackage.NAMED_ENTITY_FEATURE_COUNT + 0;
-  public static BAZZLE__ONE_TO_ONE_FOO =
-    CorePackage.NAMED_ENTITY_FEATURE_COUNT + 1;
+  public static BAZZLE_FEATURE_COUNT = 8;
+  public static BAZZLE__BACKUP_BAR = 6;
+  public static BAZZLE__ONE_TO_ONE_FOO = 7;
   public static BAR = 4;
-  public static BAR_FEATURE_COUNT = CorePackage.NAMED_ENTITY_FEATURE_COUNT + 3;
-  public static BAR__FOO = CorePackage.NAMED_ENTITY_FEATURE_COUNT + 0;
-  public static BAR__BAZZLES = CorePackage.NAMED_ENTITY_FEATURE_COUNT + 1;
-  public static BAR__BACKUP_FOR = CorePackage.NAMED_ENTITY_FEATURE_COUNT + 2;
+  public static BAR_FEATURE_COUNT = 9;
+  public static BAR__FOO = 6;
+  public static BAR__BAZZLES = 7;
+  public static BAR__BACKUP_FOR = 8;
   public static BAR__DO_SOMETHING_WITH_FOO_AND_BAZZLES = 0;
   public static BAR__DO_SOMETHING_WITH_CLASSES_AND_NUMBERS = 1;
   public static BAR_SPECIALIZATION_WITH_COMPONENTS = 5;
-  public static BAR_SPECIALIZATION_WITH_COMPONENTS_FEATURE_COUNT =
-    CorePackage.BAR_FEATURE_COUNT + 2;
-  public static BAR_SPECIALIZATION_WITH_COMPONENTS__COMPONENT_BARS =
-    CorePackage.BAR_FEATURE_COUNT + 0;
-  public static BAR_SPECIALIZATION_WITH_COMPONENTS__SPECIAL_NAME =
-    CorePackage.BAR_FEATURE_COUNT + 1;
+  public static BAR_SPECIALIZATION_WITH_COMPONENTS_FEATURE_COUNT = 11;
+  public static BAR_SPECIALIZATION_WITH_COMPONENTS__COMPONENT_BARS = 9;
+  public static BAR_SPECIALIZATION_WITH_COMPONENTS__SPECIAL_NAME = 10;
   public static FOO = 6;
-  public static FOO_FEATURE_COUNT = CorePackage.NAMED_ENTITY_FEATURE_COUNT + 19;
-  public static FOO__GROUP = CorePackage.NAMED_ENTITY_FEATURE_COUNT + 0;
-  public static FOO__CREATION_DATE = CorePackage.NAMED_ENTITY_FEATURE_COUNT + 1;
-  public static FOO__FOO_CLASS = CorePackage.NAMED_ENTITY_FEATURE_COUNT + 2;
-  public static FOO__RANGE = CorePackage.NAMED_ENTITY_FEATURE_COUNT + 3;
-  public static FOO__BARS = CorePackage.NAMED_ENTITY_FEATURE_COUNT + 4;
-  public static FOO__ONE_TO_ONE_BAZZLE =
-    CorePackage.NAMED_ENTITY_FEATURE_COUNT + 5;
-  public static FOO__MANY_ATTRIBUTE =
-    CorePackage.NAMED_ENTITY_FEATURE_COUNT + 6;
-  public static FOO__UNCHANGEABLE_ATTRIBUTE =
-    CorePackage.NAMED_ENTITY_FEATURE_COUNT + 7;
-  public static FOO__UNCHANGEABLE_REFERENCE =
-    CorePackage.NAMED_ENTITY_FEATURE_COUNT + 8;
-  public static FOO__TRANSIENT_ATTRIBUTE =
-    CorePackage.NAMED_ENTITY_FEATURE_COUNT + 9;
-  public static FOO__TRANSIENT_REFERENCE =
-    CorePackage.NAMED_ENTITY_FEATURE_COUNT + 10;
-  public static FOO__VOLATILE_ATTRIBUTE =
-    CorePackage.NAMED_ENTITY_FEATURE_COUNT + 11;
-  public static FOO__VOLATILE_REFERENCE =
-    CorePackage.NAMED_ENTITY_FEATURE_COUNT + 12;
-  public static FOO__MANY_CROSS_AGGREGATE =
-    CorePackage.NAMED_ENTITY_FEATURE_COUNT + 13;
-  public static FOO__MANY_CROSS_AGGREGATE_NESTED =
-    CorePackage.NAMED_ENTITY_FEATURE_COUNT + 14;
-  public static FOO__MANY_VALUE_OBJECTS =
-    CorePackage.NAMED_ENTITY_FEATURE_COUNT + 15;
-  public static FOO__ONE_TO_ONE_CONTAINMENT =
-    CorePackage.NAMED_ENTITY_FEATURE_COUNT + 16;
-  public static FOO__OWNED_FOOS = CorePackage.NAMED_ENTITY_FEATURE_COUNT + 17;
-  public static FOO__SUBPACKAGE_REFERENCE =
-    CorePackage.NAMED_ENTITY_FEATURE_COUNT + 18;
+  public static FOO_FEATURE_COUNT = 25;
+  public static FOO__GROUP = 6;
+  public static FOO__CREATION_DATE = 7;
+  public static FOO__FOO_CLASS = 8;
+  public static FOO__RANGE = 9;
+  public static FOO__BARS = 10;
+  public static FOO__ONE_TO_ONE_BAZZLE = 11;
+  public static FOO__MANY_ATTRIBUTE = 12;
+  public static FOO__UNCHANGEABLE_ATTRIBUTE = 13;
+  public static FOO__UNCHANGEABLE_REFERENCE = 14;
+  public static FOO__TRANSIENT_ATTRIBUTE = 15;
+  public static FOO__TRANSIENT_REFERENCE = 16;
+  public static FOO__VOLATILE_ATTRIBUTE = 17;
+  public static FOO__VOLATILE_REFERENCE = 18;
+  public static FOO__MANY_CROSS_AGGREGATE = 19;
+  public static FOO__MANY_CROSS_AGGREGATE_NESTED = 20;
+  public static FOO__MANY_VALUE_OBJECTS = 21;
+  public static FOO__ONE_TO_ONE_CONTAINMENT = 22;
+  public static FOO__OWNED_FOOS = 23;
+  public static FOO__SUBPACKAGE_REFERENCE = 24;
   public static FOO__COPY_FOO = 0;
   public static FOO_SPECIALIZATION = 7;
-  public static FOO_SPECIALIZATION_FEATURE_COUNT =
-    CorePackage.FOO_FEATURE_COUNT + 0;
+  public static FOO_SPECIALIZATION_FEATURE_COUNT = 25;
   public static FOO_GROUP = 8;
-  public static FOO_GROUP_FEATURE_COUNT =
-    CorePackage.NAMED_ENTITY_FEATURE_COUNT + 1;
-  public static FOO_GROUP__USER = CorePackage.NAMED_ENTITY_FEATURE_COUNT + 0;
+  public static FOO_GROUP_FEATURE_COUNT = 7;
+  public static FOO_GROUP__USER = 6;
   public static FOO_GROUP__COMPUTE_FOOS_OF_CLASS = 0;
   public static FOO_GROUP__GET_FOOS_WITH_BAZZLES = 1;
   public static FOO_GROUP__FREEZE = 2;
   public static USER = 9;
-  public static USER_FEATURE_COUNT = CorePackage.NAMED_ENTITY_FEATURE_COUNT + 3;
-  public static USER__PASS = CorePackage.NAMED_ENTITY_FEATURE_COUNT + 0;
-  public static USER__SALT = CorePackage.NAMED_ENTITY_FEATURE_COUNT + 1;
-  public static USER__EMAIL = CorePackage.NAMED_ENTITY_FEATURE_COUNT + 2;
+  public static USER_FEATURE_COUNT = 9;
+  public static USER__PASS = 6;
+  public static USER__SALT = 7;
+  public static USER__EMAIL = 8;
   public static FOO_CLASS = 10;
 
   /** Singleton */
-  public static eINSTANCE: CorePackage = CorePackage.init();
+  public static _eINSTANCE: CorePackage = CorePackage.init();
 
   //if the singleton is initialized
   private static isInited = false;
@@ -121,90 +101,91 @@ export class CorePackage extends EPackageImpl {
 
   /** Provides static access to EClass and EStructuralFeature instances */
   public static Literals = class {
-    static BOUNDED_NUMBER: EClass = CorePackage.eINSTANCE.getBoundedNumber();
+    static BOUNDED_NUMBER: EClass = CorePackage._eINSTANCE.getBoundedNumber();
     static BOUNDED_NUMBER__UNITS: EAttribute =
-      CorePackage.eINSTANCE.getBoundedNumber_Units();
+      CorePackage._eINSTANCE.getBoundedNumber_Units();
     static BOUNDED_NUMBER__VALUE: EAttribute =
-      CorePackage.eINSTANCE.getBoundedNumber_Value();
+      CorePackage._eINSTANCE.getBoundedNumber_Value();
     static BOUNDED_NUMBER__MAX_VALUE: EAttribute =
-      CorePackage.eINSTANCE.getBoundedNumber_MaxValue();
+      CorePackage._eINSTANCE.getBoundedNumber_MaxValue();
     static BOUNDED_NUMBER__MIN_VALUE: EAttribute =
-      CorePackage.eINSTANCE.getBoundedNumber_MinValue();
-    static IDED_ENTITY: EClass = CorePackage.eINSTANCE.getIdedEntity();
+      CorePackage._eINSTANCE.getBoundedNumber_MinValue();
+    static IDED_ENTITY: EClass = CorePackage._eINSTANCE.getIdedEntity();
     static IDED_ENTITY__ID: EAttribute =
-      CorePackage.eINSTANCE.getIdedEntity_Id();
+      CorePackage._eINSTANCE.getIdedEntity_Id();
     static IDED_ENTITY__EDIT_DATE: EAttribute =
-      CorePackage.eINSTANCE.getIdedEntity_EditDate();
+      CorePackage._eINSTANCE.getIdedEntity_EditDate();
     static IDED_ENTITY__EDIT_USER: EReference =
-      CorePackage.eINSTANCE.getIdedEntity_EditUser();
+      CorePackage._eINSTANCE.getIdedEntity_EditUser();
     static IDED_ENTITY__LOCKED: EAttribute =
-      CorePackage.eINSTANCE.getIdedEntity_Locked();
+      CorePackage._eINSTANCE.getIdedEntity_Locked();
     static IDED_ENTITY__ID2: EAttribute =
-      CorePackage.eINSTANCE.getIdedEntity_Id2();
-    static NAMED_ENTITY: EClass = CorePackage.eINSTANCE.getNamedEntity();
+      CorePackage._eINSTANCE.getIdedEntity_Id2();
+    static NAMED_ENTITY: EClass = CorePackage._eINSTANCE.getNamedEntity();
     static NAMED_ENTITY__NAME: EAttribute =
-      CorePackage.eINSTANCE.getNamedEntity_Name();
-    static BAZZLE: EClass = CorePackage.eINSTANCE.getBazzle();
+      CorePackage._eINSTANCE.getNamedEntity_Name();
+    static BAZZLE: EClass = CorePackage._eINSTANCE.getBazzle();
     static BAZZLE__BACKUP_BAR: EReference =
-      CorePackage.eINSTANCE.getBazzle_BackupBar();
+      CorePackage._eINSTANCE.getBazzle_BackupBar();
     static BAZZLE__ONE_TO_ONE_FOO: EReference =
-      CorePackage.eINSTANCE.getBazzle_OneToOneFoo();
-    static BAR: EClass = CorePackage.eINSTANCE.getBar();
-    static BAR__FOO: EReference = CorePackage.eINSTANCE.getBar_Foo();
-    static BAR__BAZZLES: EReference = CorePackage.eINSTANCE.getBar_Bazzles();
+      CorePackage._eINSTANCE.getBazzle_OneToOneFoo();
+    static BAR: EClass = CorePackage._eINSTANCE.getBar();
+    static BAR__FOO: EReference = CorePackage._eINSTANCE.getBar_Foo();
+    static BAR__BAZZLES: EReference = CorePackage._eINSTANCE.getBar_Bazzles();
     static BAR__BACKUP_FOR: EReference =
-      CorePackage.eINSTANCE.getBar_BackupFor();
+      CorePackage._eINSTANCE.getBar_BackupFor();
     static BAR_SPECIALIZATION_WITH_COMPONENTS: EClass =
-      CorePackage.eINSTANCE.getBarSpecializationWithComponents();
+      CorePackage._eINSTANCE.getBarSpecializationWithComponents();
     static BAR_SPECIALIZATION_WITH_COMPONENTS__COMPONENT_BARS: EReference =
-      CorePackage.eINSTANCE.getBarSpecializationWithComponents_ComponentBars();
+      CorePackage._eINSTANCE.getBarSpecializationWithComponents_ComponentBars();
     static BAR_SPECIALIZATION_WITH_COMPONENTS__SPECIAL_NAME: EAttribute =
-      CorePackage.eINSTANCE.getBarSpecializationWithComponents_SpecialName();
-    static FOO: EClass = CorePackage.eINSTANCE.getFoo();
-    static FOO__GROUP: EReference = CorePackage.eINSTANCE.getFoo_Group();
+      CorePackage._eINSTANCE.getBarSpecializationWithComponents_SpecialName();
+    static FOO: EClass = CorePackage._eINSTANCE.getFoo();
+    static FOO__GROUP: EReference = CorePackage._eINSTANCE.getFoo_Group();
     static FOO__CREATION_DATE: EAttribute =
-      CorePackage.eINSTANCE.getFoo_CreationDate();
-    static FOO__FOO_CLASS: EAttribute = CorePackage.eINSTANCE.getFoo_FooClass();
-    static FOO__RANGE: EReference = CorePackage.eINSTANCE.getFoo_Range();
-    static FOO__BARS: EReference = CorePackage.eINSTANCE.getFoo_Bars();
+      CorePackage._eINSTANCE.getFoo_CreationDate();
+    static FOO__FOO_CLASS: EAttribute =
+      CorePackage._eINSTANCE.getFoo_FooClass();
+    static FOO__RANGE: EReference = CorePackage._eINSTANCE.getFoo_Range();
+    static FOO__BARS: EReference = CorePackage._eINSTANCE.getFoo_Bars();
     static FOO__ONE_TO_ONE_BAZZLE: EReference =
-      CorePackage.eINSTANCE.getFoo_OneToOneBazzle();
+      CorePackage._eINSTANCE.getFoo_OneToOneBazzle();
     static FOO__MANY_ATTRIBUTE: EAttribute =
-      CorePackage.eINSTANCE.getFoo_ManyAttribute();
+      CorePackage._eINSTANCE.getFoo_ManyAttribute();
     static FOO__UNCHANGEABLE_ATTRIBUTE: EAttribute =
-      CorePackage.eINSTANCE.getFoo_UnchangeableAttribute();
+      CorePackage._eINSTANCE.getFoo_UnchangeableAttribute();
     static FOO__UNCHANGEABLE_REFERENCE: EReference =
-      CorePackage.eINSTANCE.getFoo_UnchangeableReference();
+      CorePackage._eINSTANCE.getFoo_UnchangeableReference();
     static FOO__TRANSIENT_ATTRIBUTE: EAttribute =
-      CorePackage.eINSTANCE.getFoo_TransientAttribute();
+      CorePackage._eINSTANCE.getFoo_TransientAttribute();
     static FOO__TRANSIENT_REFERENCE: EReference =
-      CorePackage.eINSTANCE.getFoo_TransientReference();
+      CorePackage._eINSTANCE.getFoo_TransientReference();
     static FOO__VOLATILE_ATTRIBUTE: EAttribute =
-      CorePackage.eINSTANCE.getFoo_VolatileAttribute();
+      CorePackage._eINSTANCE.getFoo_VolatileAttribute();
     static FOO__VOLATILE_REFERENCE: EReference =
-      CorePackage.eINSTANCE.getFoo_VolatileReference();
+      CorePackage._eINSTANCE.getFoo_VolatileReference();
     static FOO__MANY_CROSS_AGGREGATE: EReference =
-      CorePackage.eINSTANCE.getFoo_ManyCrossAggregate();
+      CorePackage._eINSTANCE.getFoo_ManyCrossAggregate();
     static FOO__MANY_CROSS_AGGREGATE_NESTED: EReference =
-      CorePackage.eINSTANCE.getFoo_ManyCrossAggregateNested();
+      CorePackage._eINSTANCE.getFoo_ManyCrossAggregateNested();
     static FOO__MANY_VALUE_OBJECTS: EReference =
-      CorePackage.eINSTANCE.getFoo_ManyValueObjects();
+      CorePackage._eINSTANCE.getFoo_ManyValueObjects();
     static FOO__ONE_TO_ONE_CONTAINMENT: EReference =
-      CorePackage.eINSTANCE.getFoo_OneToOneContainment();
+      CorePackage._eINSTANCE.getFoo_OneToOneContainment();
     static FOO__OWNED_FOOS: EReference =
-      CorePackage.eINSTANCE.getFoo_OwnedFoos();
+      CorePackage._eINSTANCE.getFoo_OwnedFoos();
     static FOO__SUBPACKAGE_REFERENCE: EReference =
-      CorePackage.eINSTANCE.getFoo_SubpackageReference();
+      CorePackage._eINSTANCE.getFoo_SubpackageReference();
     static FOO_SPECIALIZATION: EClass =
-      CorePackage.eINSTANCE.getFooSpecialization();
-    static FOO_GROUP: EClass = CorePackage.eINSTANCE.getFooGroup();
+      CorePackage._eINSTANCE.getFooSpecialization();
+    static FOO_GROUP: EClass = CorePackage._eINSTANCE.getFooGroup();
     static FOO_GROUP__USER: EReference =
-      CorePackage.eINSTANCE.getFooGroup_User();
-    static USER: EClass = CorePackage.eINSTANCE.getUser();
-    static USER__PASS: EAttribute = CorePackage.eINSTANCE.getUser_Pass();
-    static USER__SALT: EAttribute = CorePackage.eINSTANCE.getUser_Salt();
-    static USER__EMAIL: EAttribute = CorePackage.eINSTANCE.getUser_Email();
-    static FOO_CLASS: EEnum = CorePackage.eINSTANCE.getFooClass();
+      CorePackage._eINSTANCE.getFooGroup_User();
+    static USER: EClass = CorePackage._eINSTANCE.getUser();
+    static USER__PASS: EAttribute = CorePackage._eINSTANCE.getUser_Pass();
+    static USER__SALT: EAttribute = CorePackage._eINSTANCE.getUser_Salt();
+    static USER__EMAIL: EAttribute = CorePackage._eINSTANCE.getUser_Email();
+    static FOO_CLASS: EEnum = CorePackage._eINSTANCE.getFooClass();
   };
 
   //flags that keep track of whether package is initialized
@@ -240,21 +221,24 @@ export class CorePackage extends EPackageImpl {
    * other packages from the same model to register interdependencies, and freezes the package meta-data.
    */
   private static init(): CorePackage {
-    if (CorePackage.isInited) return this.eINSTANCE;
+    if (CorePackage.isInited) return this._eINSTANCE;
     // Obtain or create and register package
     const theCorePackage = new CorePackage();
     //this is necessary specifically for EcorePackage generation, which needs to refer to itself
-    this.eINSTANCE = theCorePackage;
+    this._eINSTANCE = theCorePackage;
     CorePackage.isInited = true;
-
-    CapitalizedPackagePackage.eINSTANCE.setESuperPackage(theCorePackage);
 
     // Create package meta-data objects
     theCorePackage.createPackageContents();
 
     // Initialize created meta-data
-    theCorePackage.initializePackageContents();
-    return theCorePackage;
+    // theCorePackage.initializePackageContents();
+    return this._eINSTANCE;
+  }
+
+  static get eINSTANCE(): CorePackage {
+    ModelPackageInitializer.registerAll();
+    return this._eINSTANCE;
   }
 
   //this used to be direct lazy retrieval of the

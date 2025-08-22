@@ -9,6 +9,7 @@ import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
 
+import { ModelPackageInitializer } from '../model-package-initializer';
 import { EPackage } from '@tripsnek/tmf';
 import { EPackageImpl } from '@tripsnek/tmf';
 import { EAttribute } from '@tripsnek/tmf';
@@ -18,16 +19,13 @@ import { EOperation } from '@tripsnek/tmf';
 import { EcorePackage } from '@tripsnek/tmf';
 export class AnalysisPackage extends EPackageImpl {
   public static ANALYSIS_RESULT = 0;
-  public static ANALYSIS_RESULT_FEATURE_COUNT =
-    CorePackage.IDED_ENTITY_FEATURE_COUNT + 2;
-  public static ANALYSIS_RESULT__USER =
-    CorePackage.IDED_ENTITY_FEATURE_COUNT + 0;
-  public static ANALYSIS_RESULT__OBJECT =
-    CorePackage.IDED_ENTITY_FEATURE_COUNT + 1;
+  public static ANALYSIS_RESULT_FEATURE_COUNT = 7;
+  public static ANALYSIS_RESULT__USER = 5;
+  public static ANALYSIS_RESULT__OBJECT = 6;
   public static ANALYSIS_RESULT__CLONE_OBJECT = 0;
 
   /** Singleton */
-  public static eINSTANCE: AnalysisPackage = AnalysisPackage.init();
+  public static _eINSTANCE: AnalysisPackage = AnalysisPackage.init();
 
   //if the singleton is initialized
   private static isInited = false;
@@ -39,11 +37,11 @@ export class AnalysisPackage extends EPackageImpl {
   /** Provides static access to EClass and EStructuralFeature instances */
   public static Literals = class {
     static ANALYSIS_RESULT: EClass =
-      AnalysisPackage.eINSTANCE.getAnalysisResult();
+      AnalysisPackage._eINSTANCE.getAnalysisResult();
     static ANALYSIS_RESULT__USER: EReference =
-      AnalysisPackage.eINSTANCE.getAnalysisResult_User();
+      AnalysisPackage._eINSTANCE.getAnalysisResult_User();
     static ANALYSIS_RESULT__OBJECT: EReference =
-      AnalysisPackage.eINSTANCE.getAnalysisResult_Object();
+      AnalysisPackage._eINSTANCE.getAnalysisResult_Object();
   };
 
   //flags that keep track of whether package is initialized
@@ -65,19 +63,24 @@ export class AnalysisPackage extends EPackageImpl {
    * other packages from the same model to register interdependencies, and freezes the package meta-data.
    */
   private static init(): AnalysisPackage {
-    if (AnalysisPackage.isInited) return this.eINSTANCE;
+    if (AnalysisPackage.isInited) return this._eINSTANCE;
     // Obtain or create and register package
     const theAnalysisPackage = new AnalysisPackage();
     //this is necessary specifically for EcorePackage generation, which needs to refer to itself
-    this.eINSTANCE = theAnalysisPackage;
+    this._eINSTANCE = theAnalysisPackage;
     AnalysisPackage.isInited = true;
 
     // Create package meta-data objects
     theAnalysisPackage.createPackageContents();
 
     // Initialize created meta-data
-    theAnalysisPackage.initializePackageContents();
-    return theAnalysisPackage;
+    // theAnalysisPackage.initializePackageContents();
+    return this._eINSTANCE;
+  }
+
+  static get eINSTANCE(): AnalysisPackage {
+    ModelPackageInitializer.registerAll();
+    return this._eINSTANCE;
   }
 
   //this used to be direct lazy retrieval of the

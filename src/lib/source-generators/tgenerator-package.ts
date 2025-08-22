@@ -92,7 +92,7 @@ export class TGeneratorPackage {
 
       //add Literals entry for EClassifier
       literalsContent += `
-    static ${eclassIdField}: ${type} = ${className}.eINSTANCE.${DU.genEclassGetterName(
+    static ${eclassIdField}: ${type} = ${className}._eINSTANCE.${DU.genEclassGetterName(
         eclassifier
       )}();`;
 
@@ -144,40 +144,54 @@ export class TGeneratorPackage {
 
         //write out feature count field (will be the starting point for ID'ing new fields on this eclass)
         const featureCountField = DU.genFeatureCountFieldName(eclassifier);
-        const superTypeCountField = superType
-          ? DU.genPackageClassName(superType.getEPackage()) +
-            '.' +
-            DU.genFeatureCountFieldName(superType) +
-            ' + '
-          : '';
+
+        const superTypeFeatureCount =  superType? superType.getEAllStructuralFeatures().size() : 0;
         
-        if (superTypeCountField) {
+          //Eliminating references to super types in static initializers, since they could be in other packages (circular import)
+        // const superTypeCountField = superType
+        //   ? DU.genPackageClassName(superType.getEPackage()) +
+        //     '.' +
+        //     DU.genFeatureCountFieldName(superType) +
+        //     ' + '
+        //   : '';
+        
+  //       if (superTypeCountField) {
+  //         idFieldsContent += `
+  // public static ${featureCountField} =
+  //   ${superTypeCountField}${eclassifier.getEStructuralFeatures().size()};`;
+  //       } else {
+  //         idFieldsContent += `
+  // public static ${featureCountField} = ${eclassifier.getEStructuralFeatures().size()};`;
+  //       }
+
+          //this is the replacement - just a straight count of all features, shoudl be same
           idFieldsContent += `
-  public static ${featureCountField} =
-    ${superTypeCountField}${eclassifier.getEStructuralFeatures().size()};`;
-        } else {
-          idFieldsContent += `
-  public static ${featureCountField} = ${eclassifier.getEStructuralFeatures().size()};`;
-        }
+  public static ${featureCountField} = ${eclassifier.getEAllStructuralFeatures().size()};`;
 
         //keeps track of the feature's index in it's eClass (used for feature getter)
         let thisClassFeatureIndex = 0;
         for (const feature of (<EClass>eclassifier).getEStructuralFeatures()) {
           const featureIdField = DU.genFeatureIdFieldName(feature);
           
-          if (superTypeCountField) {
+          //Eliminating references to super types in static initializers, since they could be in other packages (circular import)          
+  //         if (superTypeCountField) {
+  //           idFieldsContent += `
+  // public static ${featureIdField} = ${superTypeCountField}${thisClassFeatureIndex};`;
+  //         } else {
+  //           idFieldsContent += `
+  // public static ${featureIdField} = ${thisClassFeatureIndex};`;
+  //         }
+
+        //this is the replacement - just add to the super type feature count
             idFieldsContent += `
-  public static ${featureIdField} = ${superTypeCountField}${thisClassFeatureIndex};`;
-          } else {
-            idFieldsContent += `
-  public static ${featureIdField} = ${thisClassFeatureIndex};`;
-          }
+  public static ${featureIdField} = ${superTypeFeatureCount + thisClassFeatureIndex};`;        
+
 
           const featureType =
             feature instanceof EAttributeImpl ? 'EAttribute' : 'EReference';
           literalsContent += `
     static ${featureIdField}: ${featureType} =
-      ${className}.eINSTANCE.get${DU.capitalize(
+      ${className}._eINSTANCE.get${DU.capitalize(
             eclassifier.getName()
           )}_${DU.capitalize(feature.getName())}();`;
 
@@ -311,19 +325,19 @@ export class TGeneratorPackage {
 
   let subPkgSetters = '';
 
-    for(const subPkg of pkg.getESubPackages()){
-      if(!pkgToImport.has(subPkg)){
-        pkgToImport.add(subPkg);
-      }
-      subPkgSetters += `
-    ${DU.genPackageClassName(subPkg)}.eINSTANCE.setESuperPackage(the${className})`;
-    }
+    // for(const subPkg of pkg.getESubPackages()){
+    //   if(!pkgToImport.has(subPkg)){
+    //     pkgToImport.add(subPkg);
+    //   }
+    //   subPkgSetters += `
+    // ${DU.genPackageClassName(subPkg)}.eINSTANCE.setESuperPackage(the${className})`;
+    // }
 
     return `${this.generateImports(pkgToImport, pkg)}
 export class ${className} extends ${toExtend} {${idFieldsContent}
 
   /** Singleton */
-  public static eINSTANCE: ${className} = ${className}.init();
+  public static _eINSTANCE: ${className} = ${className}.init();
 
   //if the singleton is initialized
   private static isInited = false;
@@ -356,11 +370,11 @@ ${fieldDeclarationsContent}
    * other packages from the same model to register interdependencies, and freezes the package meta-data.
    */
   private static init(): ${className} {
-    if (${className}.isInited) return this.eINSTANCE;
+    if (${className}.isInited) return this._eINSTANCE;
     // Obtain or create and register package
     const the${className} = new ${className}();
     //this is necessary specifically for EcorePackage generation, which needs to refer to itself
-    this.eINSTANCE = the${className};
+    this._eINSTANCE = the${className};
     ${className}.isInited = true;
 ${subPkgSetters}    
 
@@ -368,9 +382,14 @@ ${subPkgSetters}
     the${className}.createPackageContents();
 
     // Initialize created meta-data
-    the${className}.initializePackageContents();
-    return the${className};
+    // the${className}.initializePackageContents();
+    return this._eINSTANCE;
   }
+
+  static get eINSTANCE(): ${className}{
+    ModelPackageInitializer.registerAll();
+    return this._eINSTANCE;
+  }  
 
   //this used to be direct lazy retrieval of the
   //factory instance from the corresponding .ts factory file, but
@@ -438,9 +457,22 @@ ${initContent}
   }
 
   private generateImports(pkgToImport: Set<EPackage>, pkg: EPackage) {
+
+    //build path to root package initializer
+    let pathToRoot = './';
+    if(pkg.getESuperPackage()){
+      let cursor = pkg;
+      pathToRoot = '';
+      while(cursor.getESuperPackage()){
+        pathToRoot += '../';
+        cursor = cursor.getESuperPackage();
+      }
+    }
+
     let imports = `${DU.generateImportStatementsForExternalPackages(pkgToImport, pkg, './')}
 ${DU.DEFAULT_IMPORTS}
 
+import { ModelPackageInitializer } from '${pathToRoot}model-package-initializer';
 import { EPackage } from '@tripsnek/tmf';
 import { EPackageImpl } from '@tripsnek/tmf';
 import { EAttribute } from '@tripsnek/tmf';

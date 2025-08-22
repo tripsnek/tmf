@@ -1,5 +1,3 @@
-import { CorePackage } from './core/core-package';
-import { AnalysisPackage } from './analysis/analysis-package';
 import { EObject } from '@tripsnek/tmf';
 import { TUtils } from '@tripsnek/tmf';
 import { EStructuralFeature } from '@tripsnek/tmf';
@@ -10,6 +8,7 @@ import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
 
+import { ModelPackageInitializer } from './model-package-initializer';
 import { EPackage } from '@tripsnek/tmf';
 import { EPackageImpl } from '@tripsnek/tmf';
 import { EAttribute } from '@tripsnek/tmf';
@@ -26,7 +25,7 @@ export class ModelPackage extends EPackageImpl {
   public static CONTAINER_ROOT_TYPE__CONTAINED = 0;
 
   /** Singleton */
-  public static eINSTANCE: ModelPackage = ModelPackage.init();
+  public static _eINSTANCE: ModelPackage = ModelPackage.init();
 
   //if the singleton is initialized
   private static isInited = false;
@@ -38,13 +37,13 @@ export class ModelPackage extends EPackageImpl {
   /** Provides static access to EClass and EStructuralFeature instances */
   public static Literals = class {
     static CONTAINED_ROOT_TYPE: EClass =
-      ModelPackage.eINSTANCE.getContainedRootType();
+      ModelPackage._eINSTANCE.getContainedRootType();
     static CONTAINED_ROOT_TYPE__CONTAINER: EReference =
-      ModelPackage.eINSTANCE.getContainedRootType_Container();
+      ModelPackage._eINSTANCE.getContainedRootType_Container();
     static CONTAINER_ROOT_TYPE: EClass =
-      ModelPackage.eINSTANCE.getContainerRootType();
+      ModelPackage._eINSTANCE.getContainerRootType();
     static CONTAINER_ROOT_TYPE__CONTAINED: EReference =
-      ModelPackage.eINSTANCE.getContainerRootType_Contained();
+      ModelPackage._eINSTANCE.getContainerRootType_Contained();
   };
 
   //flags that keep track of whether package is initialized
@@ -71,22 +70,24 @@ export class ModelPackage extends EPackageImpl {
    * other packages from the same model to register interdependencies, and freezes the package meta-data.
    */
   private static init(): ModelPackage {
-    if (ModelPackage.isInited) return this.eINSTANCE;
+    if (ModelPackage.isInited) return this._eINSTANCE;
     // Obtain or create and register package
     const theModelPackage = new ModelPackage();
     //this is necessary specifically for EcorePackage generation, which needs to refer to itself
-    this.eINSTANCE = theModelPackage;
+    this._eINSTANCE = theModelPackage;
     ModelPackage.isInited = true;
-
-    CorePackage.eINSTANCE.setESuperPackage(theModelPackage);
-    AnalysisPackage.eINSTANCE.setESuperPackage(theModelPackage);
 
     // Create package meta-data objects
     theModelPackage.createPackageContents();
 
     // Initialize created meta-data
-    theModelPackage.initializePackageContents();
-    return theModelPackage;
+    // theModelPackage.initializePackageContents();
+    return this._eINSTANCE;
+  }
+
+  static get eINSTANCE(): ModelPackage {
+    ModelPackageInitializer.registerAll();
+    return this._eINSTANCE;
   }
 
   //this used to be direct lazy retrieval of the

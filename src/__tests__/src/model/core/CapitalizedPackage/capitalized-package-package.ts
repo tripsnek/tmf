@@ -9,6 +9,7 @@ import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
 
+import { ModelPackageInitializer } from '../../model-package-initializer';
 import { EPackage } from '@tripsnek/tmf';
 import { EPackageImpl } from '@tripsnek/tmf';
 import { EAttribute } from '@tripsnek/tmf';
@@ -21,13 +22,11 @@ export class CapitalizedPackagePackage extends EPackageImpl {
   public static EXAMPLE_INTERFACE_FEATURE_COUNT = 0;
   public static EXAMPLE_INTERFACE__INTERFACE_OPERATION = 0;
   public static CLASS_IN_CAPITALIZED_PACKAGE = 1;
-  public static CLASS_IN_CAPITALIZED_PACKAGE_FEATURE_COUNT =
-    CapitalizedPackagePackage.EXAMPLE_INTERFACE_FEATURE_COUNT + 1;
-  public static CLASS_IN_CAPITALIZED_PACKAGE__STRING_ATTR =
-    CapitalizedPackagePackage.EXAMPLE_INTERFACE_FEATURE_COUNT + 0;
+  public static CLASS_IN_CAPITALIZED_PACKAGE_FEATURE_COUNT = 1;
+  public static CLASS_IN_CAPITALIZED_PACKAGE__STRING_ATTR = 0;
 
   /** Singleton */
-  public static eINSTANCE: CapitalizedPackagePackage =
+  public static _eINSTANCE: CapitalizedPackagePackage =
     CapitalizedPackagePackage.init();
 
   //if the singleton is initialized
@@ -40,11 +39,11 @@ export class CapitalizedPackagePackage extends EPackageImpl {
   /** Provides static access to EClass and EStructuralFeature instances */
   public static Literals = class {
     static EXAMPLE_INTERFACE: EClass =
-      CapitalizedPackagePackage.eINSTANCE.getExampleInterface();
+      CapitalizedPackagePackage._eINSTANCE.getExampleInterface();
     static CLASS_IN_CAPITALIZED_PACKAGE: EClass =
-      CapitalizedPackagePackage.eINSTANCE.getClassInCapitalizedPackage();
+      CapitalizedPackagePackage._eINSTANCE.getClassInCapitalizedPackage();
     static CLASS_IN_CAPITALIZED_PACKAGE__STRING_ATTR: EAttribute =
-      CapitalizedPackagePackage.eINSTANCE.getClassInCapitalizedPackage_StringAttr();
+      CapitalizedPackagePackage._eINSTANCE.getClassInCapitalizedPackage_StringAttr();
   };
 
   //flags that keep track of whether package is initialized
@@ -67,19 +66,24 @@ export class CapitalizedPackagePackage extends EPackageImpl {
    * other packages from the same model to register interdependencies, and freezes the package meta-data.
    */
   private static init(): CapitalizedPackagePackage {
-    if (CapitalizedPackagePackage.isInited) return this.eINSTANCE;
+    if (CapitalizedPackagePackage.isInited) return this._eINSTANCE;
     // Obtain or create and register package
     const theCapitalizedPackagePackage = new CapitalizedPackagePackage();
     //this is necessary specifically for EcorePackage generation, which needs to refer to itself
-    this.eINSTANCE = theCapitalizedPackagePackage;
+    this._eINSTANCE = theCapitalizedPackagePackage;
     CapitalizedPackagePackage.isInited = true;
 
     // Create package meta-data objects
     theCapitalizedPackagePackage.createPackageContents();
 
     // Initialize created meta-data
-    theCapitalizedPackagePackage.initializePackageContents();
-    return theCapitalizedPackagePackage;
+    // theCapitalizedPackagePackage.initializePackageContents();
+    return this._eINSTANCE;
+  }
+
+  static get eINSTANCE(): CapitalizedPackagePackage {
+    ModelPackageInitializer.registerAll();
+    return this._eINSTANCE;
   }
 
   //this used to be direct lazy retrieval of the
