@@ -27,8 +27,6 @@ export class ModelFactory extends EFactory {
       ModelFactory._eINSTANCE = new ModelFactory();
     }
 
-    //inject the factory instance into the package, so that it can be retrieved reflectively
-    // ModelPackage.eINSTANCE.setEFactoryInstance(this.eINSTANCE);
     return ModelFactory._eINSTANCE;
   }
 

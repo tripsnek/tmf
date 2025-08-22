@@ -25,8 +25,6 @@ export class AnalysisFactory extends EFactory {
       AnalysisFactory._eINSTANCE = new AnalysisFactory();
     }
 
-    //inject the factory instance into the package, so that it can be retrieved reflectively
-    // AnalysisPackage.eINSTANCE.setEFactoryInstance(this.eINSTANCE);
     return AnalysisFactory._eINSTANCE;
   }
 
@@ -34,7 +32,6 @@ export class AnalysisFactory extends EFactory {
     ModelPackageInitializer.registerAll();
     return this._eINSTANCE;
   }
-  
 
   public override create(eClass: EClass): any {
     switch (eClass.getClassifierId()) {

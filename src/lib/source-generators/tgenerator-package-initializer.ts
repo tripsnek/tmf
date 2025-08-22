@@ -79,13 +79,16 @@ ${classBody}`;
     for (const pkg of allPackages) {
       const packageClassName = DU.genPackageClassName(pkg);
       const packageFileName = DU.genPackageFileName(pkg);
-      
+      const factoryClassName = DU.genFactoryClassName(pkg);
+      const factoryFileName = DU.genFactoryFileName(pkg);
+
       // Calculate relative path from root to this package
       const relativePath = this.getRelativePathToPackage(pkg);
       
       imports += `import { ${packageClassName} } from '${relativePath}${packageFileName}';\n`;
+      imports += `import { ${factoryClassName} } from '${relativePath}${factoryFileName}';\n`;
     }
-    imports += `import { TJson } from '@tripsnek/tmf';\n`;
+    imports += `import { TJson, EClassImpl } from '@tripsnek/tmf';\n`;
     
     return imports;
   }
@@ -119,7 +122,13 @@ ${classBody}`;
     const instanceDeclarations = this.generateInstanceDeclarations(allPackages);
     const packageRelationships = this.generatePackageRelationships(allPackages);
     const initializationCalls = this.generateInitializationCalls(allPackages);
-    const jsonAddPackages = this.generateTjsonAddPackages(allPackages);
+    const pkgToFactoryRefs = this.generatePkgToFactoryRefs(allPackages);
+
+        let names = '';
+    for(const p of allPackages){
+      if(names.length>0) names += ',';
+      names += DU.uncapitalize(p.getName());
+    }
     
     return `/**
  * A "global initializer" solution for ensuring that package contents
@@ -148,7 +157,20 @@ export class ${className} {
 ${instanceDeclarations}
 ${packageRelationships}
 ${initializationCalls}
-${jsonAddPackages}
+${pkgToFactoryRefs}
+
+    const allPkgs = [${names}];
+
+    for (const p of allPkgs) {
+      for (const e of p.getEClassifiers()) {
+        if (e instanceof EClassImpl) {
+          e.recomputeAllLists();
+        }
+      }
+    }
+
+    //default TJson configuration
+    TJson.addPackages(allPkgs);
 
   }
 }`;
@@ -206,17 +228,19 @@ ${jsonAddPackages}
     return calls;
   }
 
-  private generateTjsonAddPackages(allPackages: EPackage[]){
-    let names = '';
-    for(const p of allPackages){
-      if(names.length>0) names += ',';
-      names += DU.uncapitalize(p.getName());
+  private generatePkgToFactoryRefs(allPackages: EPackage[]): string {
+    let calls = '\n    //initialize package to factory refs\n';
+    
+    // Initialize in dependency order (root first, then children)
+    const sortedPackages = this.sortPackagesByDependency(allPackages);
+    
+    for (const pkg of sortedPackages) {
+      const variableName = DU.uncapitalize(pkg.getName());
+      calls += `    ${variableName}.setEFactoryInstance(${DU.genFactoryClassName(pkg)}.eINSTANCE);\n`;
     }
-    return `
-    //default TJson configuration
-    TJson.addPackages([${names}]);
-    `
+    return calls;
   }
+
 
   /**
    * Sorts packages by dependency order (parents before children).

@@ -39,16 +39,13 @@ export class CoreFactory extends EFactory {
       CoreFactory._eINSTANCE = new CoreFactory();
     }
 
-    //inject the factory instance into the package, so that it can be retrieved reflectively
-    // CorePackage.eINSTANCE.setEFactoryInstance(this.eINSTANCE);
     return CoreFactory._eINSTANCE;
   }
-  
+
   static get eINSTANCE(): CoreFactory {
     ModelPackageInitializer.registerAll();
     return this._eINSTANCE;
   }
-
 
   public override create(eClass: EClass): any {
     switch (eClass.getClassifierId()) {

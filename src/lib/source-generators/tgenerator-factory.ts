@@ -13,8 +13,13 @@ export class TGeneratorFactory {
    * @param pkg
    */
   public generateFactoryContents(pkg: EPackage): string {
+
+    //build path to root package initializer
+    const pathToRoot = DU.getPathToRoot(pkg);
+
     return `${this.genGenericImports(pkg)}
 ${this.genSpecificImports(pkg)}
+import { ModelPackageInitializer } from '${pathToRoot}model-package-initializer';
 
 export class ${DU.genFactoryClassName(pkg)} extends EFactory {
 ${this.genSingleton(pkg)}
@@ -75,16 +80,21 @@ import { ${eClass.getName()}Impl } from './impl/${DU.genClassImplName(
     const className = DU.genFactoryClassName(pkg);
     const pkgClassName = DU.genPackageClassName(pkg);
     return `  /* Singleton */
-  public static eINSTANCE: ${className} = ${className}.init();
+  public static _eINSTANCE: ${className} = ${className}.init();
   public static init(): ${className} {
-    if (!${className}.eINSTANCE) {
-      ${className}.eINSTANCE = new ${className}();
+    if (!${className}._eINSTANCE) {
+      ${className}._eINSTANCE = new ${className}();
     }
 
-    //inject the factory instance into the package, so that it can be retrieved reflectively
-    ${pkgClassName}.eINSTANCE.setEFactoryInstance(this.eINSTANCE);
-    return ${className}.eINSTANCE;
-  }`;
+    return ${className}._eINSTANCE;
+  }
+  
+  static get eINSTANCE(): ${className} {
+    ModelPackageInitializer.registerAll();
+    return this._eINSTANCE;
+  }
+  `;
+  
   }
 
   /**

@@ -459,15 +459,7 @@ ${initContent}
   private generateImports(pkgToImport: Set<EPackage>, pkg: EPackage) {
 
     //build path to root package initializer
-    let pathToRoot = './';
-    if(pkg.getESuperPackage()){
-      let cursor = pkg;
-      pathToRoot = '';
-      while(cursor.getESuperPackage()){
-        pathToRoot += '../';
-        cursor = cursor.getESuperPackage();
-      }
-    }
+    const pathToRoot = DU.getPathToRoot(pkg);
 
     let imports = `${DU.generateImportStatementsForExternalPackages(pkgToImport, pkg, './')}
 ${DU.DEFAULT_IMPORTS}

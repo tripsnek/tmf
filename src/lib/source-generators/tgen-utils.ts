@@ -422,6 +422,20 @@ import { EObjectImpl } from '@tripsnek/tmf';`;
     return pkgRef;
   }
 
+  public static getPathToRoot(pkg: EPackage) {
+    let pathToRoot = './';
+    if (pkg.getESuperPackage()) {
+      let cursor = pkg;
+      pathToRoot = '';
+      while (cursor.getESuperPackage()) {
+        pathToRoot += '../';
+        cursor = cursor.getESuperPackage();
+      }
+    }
+    return pathToRoot;
+  }
+
+
   //======================================================================
   // File/path related methods (TODO: Should use imported PATH library???)
 

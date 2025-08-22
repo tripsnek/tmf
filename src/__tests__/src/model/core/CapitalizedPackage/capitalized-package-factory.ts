@@ -28,8 +28,6 @@ export class CapitalizedPackageFactory extends EFactory {
       CapitalizedPackageFactory._eINSTANCE = new CapitalizedPackageFactory();
     }
 
-    //inject the factory instance into the package, so that it can be retrieved reflectively
-    // CapitalizedPackagePackage.eINSTANCE.setEFactoryInstance(this.eINSTANCE);
     return CapitalizedPackageFactory._eINSTANCE;
   }
 
