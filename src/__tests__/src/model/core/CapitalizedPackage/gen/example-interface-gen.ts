@@ -7,27 +7,19 @@ import { EList } from '@tripsnek/tmf';
 import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
-import { Foo } from '../api/foo';
-import { FooGroup } from '../api/foo-group';
-import { FooClass } from '../api/foo-class';
-import { BoundedNumber } from '../api/bounded-number';
-import { Bar } from '../api/bar';
-import { Bazzle } from '../api/bazzle';
-import { ClassInCapitalizedPackage } from '../../core/CapitalizedPackage/api/class-in-capitalized-package';
-import { User } from '../api/user';
+import { Foo } from '../../../core/api/foo';
+import { FooGroup } from '../../../core/api/foo-group';
 
-import { CorePackage } from '../core-package';
-import { FooSpecialization } from '../api/foo-specialization';
-import { FooGen } from './foo-gen';
-import { FooImpl } from '../impl/foo-impl';
-import { CapitalizedPackagePackage } from '../../core/CapitalizedPackage/capitalized-package-package';
+import { CapitalizedPackagePackage } from '../capitalized-package-package';
+import { ExampleInterface } from '../api/example-interface';
+import { CorePackage } from '../../../core/core-package';
 /**
  * This file is source-code generated and should never be edited. It implements
- * the core TMF functionality for FooSpecialization.
+ * the core TMF functionality for ExampleInterface.
  */
-export abstract class FooSpecializationGen
-  extends FooImpl
-  implements FooSpecialization
+export abstract class ExampleInterfaceGen
+  extends EObjectImpl
+  implements ExampleInterface
 {
   /** feature declarations */
 
@@ -37,6 +29,9 @@ export abstract class FooSpecializationGen
   //======================================================================
   // API Operations
 
+  public interfaceOperation(fooGroup: EList<FooGroup>): Foo {
+    throw new Error('Not implemented');
+  }
   //======================================================================
   // Standard EObject behavior
 
@@ -108,6 +103,6 @@ export abstract class FooSpecializationGen
   // eClass()
 
   public override eClass(): EClass {
-    return CorePackage.Literals.FOO_SPECIALIZATION;
+    return CapitalizedPackagePackage.Literals.EXAMPLE_INTERFACE;
   }
 }

@@ -12,7 +12,7 @@ import { CoreFactory } from './src/model/core/core-factory';
 import { CorePackage } from './src/model/core/core-package';
 import { BoundedNumberImpl } from './src/model/core/impl/bounded-number-impl';
 import {ModelPackage} from './src/model/model-package';
-import {CapitalizedPackagePackage} from './src/model/CapitalizedPackage/capitalized-package-package';
+import { CapitalizedPackagePackage } from './src/model/core/CapitalizedPackage/capitalized-package-package';
 
 //configure TJson with test packages
 TJson.setPackages([CorePackage.eINSTANCE, AnalysisPackage.eINSTANCE]);
@@ -101,7 +101,7 @@ describe('TUtils', () => {
 
   it('should get roots', () => {
     const allRoots = TUtils.getRootEClasses(ModelPackage.eINSTANCE);
-    expect(allRoots.length).toBe(2);
+    expect(allRoots.length).toBe(3);
   });
 
 });

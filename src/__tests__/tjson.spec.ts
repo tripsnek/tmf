@@ -195,4 +195,10 @@ describe('TJson', () => {
       throughJson.getBars().get(0).getBazzles().get(0).getBackupBar()
     ).toBeFalsy();
   });
+  it('should be informative when packages are not initialized', () => {
+    // const 
+    const foos = [foo, foo2];
+    const serialized = TJson.makeJsonArray(foos);
+    expect(serialized.length).toBe(2);
+  });
 });

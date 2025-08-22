@@ -13,13 +13,14 @@ import { FooClass } from '../api/foo-class';
 import { BoundedNumber } from '../api/bounded-number';
 import { Bar } from '../api/bar';
 import { Bazzle } from '../api/bazzle';
+import { ClassInCapitalizedPackage } from '../../core/CapitalizedPackage/api/class-in-capitalized-package';
 import { User } from '../api/user';
 
 import { CorePackage } from '../core-package';
 import { Foo } from '../api/foo';
 import { NamedEntityGen } from './named-entity-gen';
 import { NamedEntityImpl } from '../impl/named-entity-impl';
-
+import { CapitalizedPackagePackage } from '../../core/CapitalizedPackage/capitalized-package-package';
 /**
  * This file is source-code generated and should never be edited. It implements
  * the core TMF functionality for Foo.
@@ -75,6 +76,7 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
     CorePackage.FOO__OWNED_FOOS,
     undefined
   );
+  protected subpackageReference!: ClassInCapitalizedPackage;
 
   //======================================================================
   // Getters and Setters
@@ -237,6 +239,16 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
     return this.ownedFoos;
   }
 
+  public getSubpackageReference(): ClassInCapitalizedPackage {
+    return this.subpackageReference;
+  }
+
+  public setSubpackageReference(
+    newSubpackageReference: ClassInCapitalizedPackage
+  ): void {
+    this.basicSetSubpackageReference(newSubpackageReference);
+  }
+
   //======================================================================
   // API Operations
 
@@ -291,6 +303,8 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
         return this.getOneToOneContainment();
       case CorePackage.FOO__OWNED_FOOS:
         return this.getOwnedFoos();
+      case CorePackage.FOO__SUBPACKAGE_REFERENCE:
+        return this.getSubpackageReference();
     }
     return super.eGet(featureID);
   }
@@ -367,6 +381,9 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
         this.getOwnedFoos().clear();
         this.getOwnedFoos().addAll(newValue);
         return;
+      case CorePackage.FOO__SUBPACKAGE_REFERENCE:
+        this.setSubpackageReference(newValue);
+        return;
     }
     return super.eSet(featureID, newValue);
   }
@@ -416,6 +433,8 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
         return this.getOneToOneContainment() != null;
       case CorePackage.FOO__OWNED_FOOS:
         return !this.getOwnedFoos().isEmpty();
+      case CorePackage.FOO__SUBPACKAGE_REFERENCE:
+        return this.getSubpackageReference() != null;
     }
     return super.eIsSet(featureID);
   }
@@ -483,6 +502,9 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
       case CorePackage.FOO__OWNED_FOOS:
         this.getOwnedFoos().clear();
         return;
+      case CorePackage.FOO__SUBPACKAGE_REFERENCE:
+        this.setSubpackageReference(undefined!);
+        return;
     }
     return super.eUnset(featureID);
   }
@@ -532,6 +554,12 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
 
   public basicSetOneToOneContainment(newOneToOneContainment: Bazzle): void {
     this.oneToOneContainment = newOneToOneContainment;
+  }
+
+  public basicSetSubpackageReference(
+    newSubpackageReference: ClassInCapitalizedPackage
+  ): void {
+    this.subpackageReference = newSubpackageReference;
   }
 
   //======================================================================

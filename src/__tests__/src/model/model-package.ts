@@ -1,6 +1,5 @@
 import { CorePackage } from './core/core-package';
 import { AnalysisPackage } from './analysis/analysis-package';
-import { CapitalizedPackagePackage } from './CapitalizedPackage/capitalized-package-package';
 import { EObject } from '@tripsnek/tmf';
 import { TUtils } from '@tripsnek/tmf';
 import { EStructuralFeature } from '@tripsnek/tmf';
@@ -81,7 +80,6 @@ export class ModelPackage extends EPackageImpl {
 
     CorePackage.eINSTANCE.setESuperPackage(theModelPackage);
     AnalysisPackage.eINSTANCE.setESuperPackage(theModelPackage);
-    CapitalizedPackagePackage.eINSTANCE.setESuperPackage(theModelPackage);
 
     // Create package meta-data objects
     theModelPackage.createPackageContents();

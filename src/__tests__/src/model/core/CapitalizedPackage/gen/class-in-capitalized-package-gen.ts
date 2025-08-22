@@ -7,32 +7,32 @@ import { EList } from '@tripsnek/tmf';
 import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
-import { Foo } from '../api/foo';
-import { FooGroup } from '../api/foo-group';
-import { FooClass } from '../api/foo-class';
-import { BoundedNumber } from '../api/bounded-number';
-import { Bar } from '../api/bar';
-import { Bazzle } from '../api/bazzle';
-import { ClassInCapitalizedPackage } from '../../core/CapitalizedPackage/api/class-in-capitalized-package';
-import { User } from '../api/user';
+import { ExampleInterface } from '../api/example-interface';
 
-import { CorePackage } from '../core-package';
-import { FooSpecialization } from '../api/foo-specialization';
-import { FooGen } from './foo-gen';
-import { FooImpl } from '../impl/foo-impl';
-import { CapitalizedPackagePackage } from '../../core/CapitalizedPackage/capitalized-package-package';
+import { CapitalizedPackagePackage } from '../capitalized-package-package';
+import { ClassInCapitalizedPackage } from '../api/class-in-capitalized-package';
+
 /**
  * This file is source-code generated and should never be edited. It implements
- * the core TMF functionality for FooSpecialization.
+ * the core TMF functionality for ClassInCapitalizedPackage.
  */
-export abstract class FooSpecializationGen
-  extends FooImpl
-  implements FooSpecialization
+export abstract class ClassInCapitalizedPackageGen
+  extends EObjectImpl
+  implements ClassInCapitalizedPackage
 {
   /** feature declarations */
+  protected stringAttr!: string;
 
   //======================================================================
   // Getters and Setters
+
+  public getStringAttr(): string {
+    return this.stringAttr;
+  }
+
+  public setStringAttr(newStringAttr: string): void {
+    this.basicSetStringAttr(newStringAttr);
+  }
 
   //======================================================================
   // API Operations
@@ -49,6 +49,8 @@ export abstract class FooSpecializationGen
         ? feature
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
+      case CapitalizedPackagePackage.CLASS_IN_CAPITALIZED_PACKAGE__STRING_ATTR:
+        return this.getStringAttr();
     }
     return super.eGet(featureID);
   }
@@ -65,6 +67,9 @@ export abstract class FooSpecializationGen
         ? feature
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
+      case CapitalizedPackagePackage.CLASS_IN_CAPITALIZED_PACKAGE__STRING_ATTR:
+        this.setStringAttr(newValue);
+        return;
     }
     return super.eSet(featureID, newValue);
   }
@@ -78,6 +83,8 @@ export abstract class FooSpecializationGen
         ? feature
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
+      case CapitalizedPackagePackage.CLASS_IN_CAPITALIZED_PACKAGE__STRING_ATTR:
+        return this.getStringAttr() != null;
     }
     return super.eIsSet(featureID);
   }
@@ -91,12 +98,19 @@ export abstract class FooSpecializationGen
         ? feature
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
+      case CapitalizedPackagePackage.CLASS_IN_CAPITALIZED_PACKAGE__STRING_ATTR:
+        this.setStringAttr(undefined!);
+        return;
     }
     return super.eUnset(featureID);
   }
 
   //======================================================================
   // Basic setters (allow EOpposite enforcement without triggering infinite cycles)
+
+  public basicSetStringAttr(newStringAttr: string): void {
+    this.stringAttr = newStringAttr;
+  }
 
   //======================================================================
   // Inverse Adders (if needed)
@@ -108,6 +122,6 @@ export abstract class FooSpecializationGen
   // eClass()
 
   public override eClass(): EClass {
-    return CorePackage.Literals.FOO_SPECIALIZATION;
+    return CapitalizedPackagePackage.Literals.CLASS_IN_CAPITALIZED_PACKAGE;
   }
 }

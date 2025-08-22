@@ -103,7 +103,7 @@ describe('EPackage Tests', () => {
       it('should return correct subpackages', () => {
 
           const subPackages = rootPackage.getESubPackages();
-          expect(subPackages.size()).toBe(3);
+          expect(subPackages.size()).toBe(2);
 
           const subPackageNames = subPackages.map((pkg) => pkg.getName());
           expect(subPackageNames.contains('core')).toBe(true);

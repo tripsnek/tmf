@@ -46,7 +46,7 @@ describe('EcoreParser', () => {
   });
 
   it('should parse subpackages', () => {
-    expect(rootPkg.getESubPackages().size()).toBe(3);
+    expect(rootPkg.getESubPackages().size()).toBe(2);
     expect(corePkg).toBeTruthy();
   });
 

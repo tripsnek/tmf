@@ -1,3 +1,4 @@
+import { CapitalizedPackagePackage } from './../core/CapitalizedPackage/capitalized-package-package';
 import { EObject } from '@tripsnek/tmf';
 import { TUtils } from '@tripsnek/tmf';
 import { EStructuralFeature } from '@tripsnek/tmf';
@@ -56,7 +57,7 @@ export class CorePackage extends EPackageImpl {
   public static BAR_SPECIALIZATION_WITH_COMPONENTS__SPECIAL_NAME =
     CorePackage.BAR_FEATURE_COUNT + 1;
   public static FOO = 6;
-  public static FOO_FEATURE_COUNT = CorePackage.NAMED_ENTITY_FEATURE_COUNT + 18;
+  public static FOO_FEATURE_COUNT = CorePackage.NAMED_ENTITY_FEATURE_COUNT + 19;
   public static FOO__GROUP = CorePackage.NAMED_ENTITY_FEATURE_COUNT + 0;
   public static FOO__CREATION_DATE = CorePackage.NAMED_ENTITY_FEATURE_COUNT + 1;
   public static FOO__FOO_CLASS = CorePackage.NAMED_ENTITY_FEATURE_COUNT + 2;
@@ -87,6 +88,8 @@ export class CorePackage extends EPackageImpl {
   public static FOO__ONE_TO_ONE_CONTAINMENT =
     CorePackage.NAMED_ENTITY_FEATURE_COUNT + 16;
   public static FOO__OWNED_FOOS = CorePackage.NAMED_ENTITY_FEATURE_COUNT + 17;
+  public static FOO__SUBPACKAGE_REFERENCE =
+    CorePackage.NAMED_ENTITY_FEATURE_COUNT + 18;
   public static FOO__COPY_FOO = 0;
   public static FOO_SPECIALIZATION = 7;
   public static FOO_SPECIALIZATION_FEATURE_COUNT =
@@ -190,6 +193,8 @@ export class CorePackage extends EPackageImpl {
       CorePackage.eINSTANCE.getFoo_OneToOneContainment();
     static FOO__OWNED_FOOS: EReference =
       CorePackage.eINSTANCE.getFoo_OwnedFoos();
+    static FOO__SUBPACKAGE_REFERENCE: EReference =
+      CorePackage.eINSTANCE.getFoo_SubpackageReference();
     static FOO_SPECIALIZATION: EClass =
       CorePackage.eINSTANCE.getFooSpecialization();
     static FOO_GROUP: EClass = CorePackage.eINSTANCE.getFooGroup();
@@ -241,6 +246,8 @@ export class CorePackage extends EPackageImpl {
     //this is necessary specifically for EcorePackage generation, which needs to refer to itself
     this.eINSTANCE = theCorePackage;
     CorePackage.isInited = true;
+
+    CapitalizedPackagePackage.eINSTANCE.setESuperPackage(theCorePackage);
 
     // Create package meta-data objects
     theCorePackage.createPackageContents();
@@ -404,6 +411,9 @@ export class CorePackage extends EPackageImpl {
   public getFoo_OwnedFoos(): EReference {
     return <EReference>this.fooEClass.getEStructuralFeatures().get(17);
   }
+  public getFoo_SubpackageReference(): EReference {
+    return <EReference>this.fooEClass.getEStructuralFeatures().get(18);
+  }
   public getFoo_CopyFoo(): EOperation {
     return this.fooEClass.getEOperations().get(0);
   }
@@ -548,6 +558,10 @@ export class CorePackage extends EPackageImpl {
       CorePackage.FOO__ONE_TO_ONE_CONTAINMENT
     );
     this.createEReference(this.fooEClass, CorePackage.FOO__OWNED_FOOS);
+    this.createEReference(
+      this.fooEClass,
+      CorePackage.FOO__SUBPACKAGE_REFERENCE
+    );
     this.createEOperation(this.fooEClass, CorePackage.FOO__COPY_FOO);
     this.fooSpecializationEClass = this.createEClass(
       CorePackage.FOO_SPECIALIZATION
@@ -1255,6 +1269,25 @@ export class CorePackage extends EPackageImpl {
       '',
       0,
       -1,
+      '', //TODO: Container Class
+      false,
+      false,
+      true,
+      false,
+      false,
+      true, //TODO: isUnsettable
+      false,
+      false, //TODO: isDerived
+      false //TODO: isOrdered
+    );
+    this.initEReference(
+      this.getFoo_SubpackageReference(),
+      CapitalizedPackagePackage.eINSTANCE.getClassInCapitalizedPackage(),
+      undefined,
+      'subpackageReference',
+      '',
+      0,
+      1,
       '', //TODO: Container Class
       false,
       false,
