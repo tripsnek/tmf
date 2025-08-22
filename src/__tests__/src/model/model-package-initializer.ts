@@ -2,6 +2,7 @@ import { ModelPackage } from './model-package';
 import { CorePackage } from './core/core-package';
 import { CapitalizedPackagePackage } from './core/CapitalizedPackage/capitalized-package-package';
 import { AnalysisPackage } from './analysis/analysis-package';
+import { TJson } from '@tripsnek/tmf';
 
 /**
  * A "global initializer" solution for ensuring that package contents
@@ -42,5 +43,8 @@ export class ModelPackageInitializer {
     core.initializePackageContents();
     capitalizedPackage.initializePackageContents();
     analysis.initializePackageContents();
+
+    //default TJson configuration
+    TJson.addPackages([model,core,capitalizedPackage,analysis]);
   }
 }
