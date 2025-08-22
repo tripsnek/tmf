@@ -16,6 +16,10 @@ import { EClassImpl } from '../metamodel/eclass-impl';
 import { EReferenceImpl } from '../metamodel/ereference-impl';
 import { EEnumImpl } from '../metamodel/eenum-impl';
 import { Environment, ConditionalImports } from '../utils/environment';
+import { TGeneratorPackageInitializer } from './tgenerator-package-initializer';
+import { EOperation } from '../metamodel/eoperation';
+import { BasicEList } from '../metamodel/basicelist';
+import { EList } from '../metamodel/elist';
 
 // Debug flag - set to true to enable detailed logging
 const DEBUG = false;
@@ -197,6 +201,11 @@ export class TGeneratorMain {
 
     debug.log('Writing utils file...');
     await this.writeUtilsFile();
+
+    // Add this new section:
+    debug.log('Writing package initializer file...');
+    await this.writePackageInitializerFile();
+    
 
     // Generate EClass artifacts
     debug.log(`Processing ${eClasses.size()} EClass(es)...`);
@@ -536,21 +545,31 @@ export class TGeneratorMain {
     }
 
     // Add imports to support EOperations
-    const operations = eClass.getEOperations();
-    debug.log(`Processing ${operations.size()} operation(s)...`);
-    for (const eop of operations) {
-        if (eop.getEType())
-          this.maybeAddMemberImports(pkg, eClass, eop.getEType()!);
-        const params = eop.getEParameters();
-        for (const param of params) {
-          if (param.getEType()) {
-            // make sure to import any parameter type, if necessary
-            this.maybeAddMemberImports(pkg, eClass, param.getEType()!);
-          }
+    const operationsToImplement = this.eopsToImplement(eClass);
+    debug.log(`Processing ${operationsToImplement.size()} operation(s) for ${eClass.getName()}...`);
+    for (const eop of operationsToImplement) {
+      if (eop.getEType())
+        this.maybeAddMemberImports(pkg, eClass, eop.getEType()!);
+      const params = eop.getEParameters();
+      for (const param of params) {
+        if (param.getEType()) {
+          // make sure to import any parameter type, if necessary
+          this.maybeAddMemberImports(pkg, eClass, param.getEType()!);
         }
+      }
     }
 
     debug.groupEnd();
+  }
+
+  private eopsToImplement(eClass: EClass) : EList<EOperation>{
+    let operationsToImplement = new BasicEList<EOperation>(eClass.getEOperations().elements());
+    for (const st of eClass.getESuperTypes()) {
+      if (st.isInterface()) {
+        operationsToImplement.addAll(st.getEOperations().elements());
+      }
+    }
+    return operationsToImplement;
   }
 
   /**
@@ -575,12 +594,18 @@ export class TGeneratorMain {
         this.eClassPkgImports.add(candidatePackage);
       }
 
-      if (!this.eClassApiImports.has(candidate) && candidate !== thisEClass) {
+      if (candidate !== thisEClass) {
         // Ecore types are imported for everything
-        if (candidatePackage !== EcorePackage.eINSTANCE) {
+        if (candidatePackage !== EcorePackage.eINSTANCE && !this.eClassApiImports.has(candidate)) {
           debug.log(`Adding API import: ${candidate.getName()}`);
           this.eClassApiImports.add(candidate);
-        } else {
+        } 
+        if (candidatePackage !== EcorePackage.eINSTANCE && !this.eClassGenImports.has(candidate)) {
+          debug.log(`Adding Gen import for ${thisEClass.getName()}: ${candidate.getName()}`);
+          this.eClassGenImports.add(candidate);
+        }         
+        
+        else {
           debug.log(`Skipping Ecore type: ${candidate.getName()}`);
         }
       } else {
@@ -589,6 +614,27 @@ export class TGeneratorMain {
         );
       }
     }
+  }
+
+  // Add this method to the TGeneratorMain class
+  private async writePackageInitializerFile(): Promise<void> {
+    // Only generate for root packages (packages without a super package)
+    if (this.pkg.getESuperPackage()) {
+      debug.log('Skipping package initializer for ' + this.pkg.getName() + ' - not a root package');
+      return;
+    }
+
+    const generator = new TGeneratorPackageInitializer();
+    const fileName = generator.generateFileName(this.pkg);
+    debug.log('Generating package initializer file:', fileName + '.ts');
+
+    const content = generator.generate(this.pkg);
+    await this.writeSourceFile(
+      this.pkgRootOutDir,
+      fileName + '.ts',
+      content,
+      true
+    );
   }
 
   /**

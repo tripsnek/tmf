@@ -15,6 +15,10 @@ import { AnalysisPackage } from '../analysis-package';
 import { AnalysisResult } from '../api/analysis-result';
 import { IdedEntityGen } from '../../core//gen/ided-entity-gen';
 import { IdedEntityImpl } from '../../core//impl/ided-entity-impl';
+import { UserGen } from '../../core//gen/user-gen';
+import { UserImpl } from '../../core//impl/user-impl';
+import { NamedEntityGen } from '../../core//gen/named-entity-gen';
+import { NamedEntityImpl } from '../../core//impl/named-entity-impl';
 import { CorePackage } from '../../core/core-package';
 /**
  * This file is source-code generated and should never be edited. It implements

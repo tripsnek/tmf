@@ -375,6 +375,21 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
     throw new Error('Not implemented');
   }`;
     }
+
+    //if this class directly inherits from an interface, need to add implementations of those as well
+    for (const st of eClass.getESuperTypes()) {
+      if (st.isInterface()) {
+        for (const eop of st.getEOperations()) {
+          result += `
+
+  public ${DU.eopSignature(eop)} {
+    throw new Error('Not implemented');
+  }`;
+        }
+      }
+    }
+
+
     return result;
   }
 

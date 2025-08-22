@@ -20,6 +20,20 @@ import { CorePackage } from '../core-package';
 import { Foo } from '../api/foo';
 import { NamedEntityGen } from './named-entity-gen';
 import { NamedEntityImpl } from '../impl/named-entity-impl';
+import { FooGroupGen } from './foo-group-gen';
+import { FooGroupImpl } from '../impl/foo-group-impl';
+import { FooClassGen } from './foo-class-gen';
+import { FooClassImpl } from '../impl/foo-class-impl';
+import { BoundedNumberGen } from './bounded-number-gen';
+import { BoundedNumberImpl } from '../impl/bounded-number-impl';
+import { BarGen } from './bar-gen';
+import { BarImpl } from '../impl/bar-impl';
+import { BazzleGen } from './bazzle-gen';
+import { BazzleImpl } from '../impl/bazzle-impl';
+import { ClassInCapitalizedPackageGen } from '../../core/CapitalizedPackage//gen/class-in-capitalized-package-gen';
+import { ClassInCapitalizedPackageImpl } from '../../core/CapitalizedPackage//impl/class-in-capitalized-package-impl';
+import { UserGen } from './user-gen';
+import { UserImpl } from '../impl/user-impl';
 import { CapitalizedPackagePackage } from '../../core/CapitalizedPackage/capitalized-package-package';
 /**
  * This file is source-code generated and should never be edited. It implements

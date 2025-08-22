@@ -11,6 +11,8 @@ import { ContainedRootType } from '../api/contained-root-type';
 
 import { ModelPackage } from '../model-package';
 import { ContainerRootType } from '../api/container-root-type';
+import { ContainedRootTypeGen } from './contained-root-type-gen';
+import { ContainedRootTypeImpl } from '../impl/contained-root-type-impl';
 
 /**
  * This file is source-code generated and should never be edited. It implements

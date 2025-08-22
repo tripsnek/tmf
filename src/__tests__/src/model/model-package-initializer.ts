@@ -1,8 +1,7 @@
-import { EPackageRegistry } from '../../../../dist/types';
-import { CapitalizedPackagePackage } from './core/CapitalizedPackage/capitalized-package-package';
-import { CorePackage } from './core/core-package';
-import { AnalysisPackage } from './analysis/analysis-package';
 import { ModelPackage } from './model-package';
+import { CorePackage } from './core/core-package';
+import { CapitalizedPackagePackage } from './core/CapitalizedPackage/capitalized-package-package';
+import { AnalysisPackage } from './analysis/analysis-package';
 
 /**
  * A "global initializer" solution for ensuring that package contents
@@ -28,20 +27,20 @@ export class ModelPackageInitializer {
     //if registration is completed, return immediately
     if (this.registered) return;
     this.registered = true;
-    const core = CorePackage._eINSTANCE;
-    const capitalized = CapitalizedPackagePackage._eINSTANCE;
-    const analysis = AnalysisPackage._eINSTANCE;
     const model = ModelPackage._eINSTANCE;
+    const core = CorePackage._eINSTANCE;
+    const capitalizedPackage = CapitalizedPackagePackage._eINSTANCE;
+    const analysis = AnalysisPackage._eINSTANCE;
 
     //set package/sub-package relationships
-    capitalized.setESuperPackage(core);
     core.setESuperPackage(model);
+    capitalizedPackage.setESuperPackage(core);
     analysis.setESuperPackage(model);
 
     //initialize package contents
     model.initializePackageContents();
     core.initializePackageContents();
+    capitalizedPackage.initializePackageContents();
     analysis.initializePackageContents();
-    capitalized.initializePackageContents();
   }
 }

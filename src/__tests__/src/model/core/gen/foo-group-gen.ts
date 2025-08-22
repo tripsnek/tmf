@@ -17,6 +17,14 @@ import { CorePackage } from '../core-package';
 import { FooGroup } from '../api/foo-group';
 import { NamedEntityGen } from './named-entity-gen';
 import { NamedEntityImpl } from '../impl/named-entity-impl';
+import { UserGen } from './user-gen';
+import { UserImpl } from '../impl/user-impl';
+import { FooClassGen } from './foo-class-gen';
+import { FooClassImpl } from '../impl/foo-class-impl';
+import { FooGen } from './foo-gen';
+import { FooImpl } from '../impl/foo-impl';
+import { BazzleGen } from './bazzle-gen';
+import { BazzleImpl } from '../impl/bazzle-impl';
 
 /**
  * This file is source-code generated and should never be edited. It implements

@@ -12,6 +12,10 @@ import { FooGroup } from '../../../core/api/foo-group';
 
 import { CapitalizedPackagePackage } from '../capitalized-package-package';
 import { ExampleInterface } from '../api/example-interface';
+import { FooGen } from '../../../core//gen/foo-gen';
+import { FooImpl } from '../../../core//impl/foo-impl';
+import { FooGroupGen } from '../../../core//gen/foo-group-gen';
+import { FooGroupImpl } from '../../../core//impl/foo-group-impl';
 import { CorePackage } from '../../../core/core-package';
 /**
  * This file is source-code generated and should never be edited. It implements

@@ -14,6 +14,8 @@ import { CorePackage } from '../core-package';
 import { NamedEntity } from '../api/named-entity';
 import { IdedEntityGen } from './ided-entity-gen';
 import { IdedEntityImpl } from '../impl/ided-entity-impl';
+import { UserGen } from './user-gen';
+import { UserImpl } from '../impl/user-impl';
 
 /**
  * This file is source-code generated and should never be edited. It implements

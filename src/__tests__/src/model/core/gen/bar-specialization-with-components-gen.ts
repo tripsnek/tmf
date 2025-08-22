@@ -16,6 +16,12 @@ import { CorePackage } from '../core-package';
 import { BarSpecializationWithComponents } from '../api/bar-specialization-with-components';
 import { BarGen } from './bar-gen';
 import { BarImpl } from '../impl/bar-impl';
+import { FooGen } from './foo-gen';
+import { FooImpl } from '../impl/foo-impl';
+import { BazzleGen } from './bazzle-gen';
+import { BazzleImpl } from '../impl/bazzle-impl';
+import { UserGen } from './user-gen';
+import { UserImpl } from '../impl/user-impl';
 
 /**
  * This file is source-code generated and should never be edited. It implements

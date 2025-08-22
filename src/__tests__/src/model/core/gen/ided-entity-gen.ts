@@ -11,6 +11,8 @@ import { User } from '../api/user';
 
 import { CorePackage } from '../core-package';
 import { IdedEntity } from '../api/ided-entity';
+import { UserGen } from './user-gen';
+import { UserImpl } from '../impl/user-impl';
 
 /**
  * This file is source-code generated and should never be edited. It implements
