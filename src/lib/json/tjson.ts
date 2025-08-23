@@ -18,12 +18,15 @@ import { EClassImpl } from '../metamodel/eclass-impl';
  * (3) TJson.makeJsonArray(EObject[]) - converts an array of EObjects to a JSON Array.
  * (4) TJson.makeEObjectArray(json) - converts a JSON Array to an array of EObjects.
  *
+ * You may also configure which EClasses are eligible for conversion with
+ * 'addPackages(EPackage[])' and 'setPackages(EPackage[])'.
+ * 
  */
 export class TJson {
   //the name of the special JSON field that indicates each object's type
   public static JSON_FIELD_TYPESCRIPT_TYPE = '@type';
 
-  //TODO: Need to inject these on application boot
+  //These will be automatically added by the PackageInitializer when a Package is "touched"
   static packages : EPackage[] = [];
   public static setPackages(packages: EPackage[]) {
     this.packages = packages;
@@ -34,6 +37,11 @@ export class TJson {
     for(const p of packages){
       if(!this.packages.includes(p)) this.packages.push(p);
     }
+  }
+
+  //the currently registered EPackages
+  public static getPackages():EPackage[]{
+    return TJson.packages;
   }
 
   // Simple check - warn if no packages registered
