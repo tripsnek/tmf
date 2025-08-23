@@ -1,14 +1,8 @@
-import { AnalysisFactory } from './src/model/analysis/analysis-factory';
 import { Bar } from './src/model/core/api/bar';
 import { CoreFactory } from './src/model/core/core-factory';
 import { Foo } from './src/model/core/api/foo';
-import { FooClass } from './src/model/core/api/foo-class';
 import { Bazzle } from './src/model/core/api/bazzle';
 import { User } from './src/model/core/api/user';
-import { FooGroup } from './src/model/core/api/foo-group';
-import { BoundedNumber } from './src/model/core/api/bounded-number';
-import { BarSpecializationWithComponents } from './src/model/core/api/bar-specialization-with-components';
-import { FooSpecialization } from './src/model/core/api/foo-specialization';
 import {EClass} from '@tripsnek/tmf';
 
 // Create test data

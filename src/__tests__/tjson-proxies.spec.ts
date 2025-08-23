@@ -1,16 +1,10 @@
-import { TJson, EList, EObject } from '@tripsnek/tmf';
+import { TJson } from '@tripsnek/tmf';
 
 import { TUtils } from '@tripsnek/tmf';
 import { AnalysisFactory } from './src/model/analysis/analysis-factory';
-import { AnalysisPackage } from './src/model/analysis/analysis-package';
 import { AnalysisResult } from './src/model/analysis/api/analysis-result';
-import { Bar } from './src/model/core/api/bar';
-import { Bazzle } from './src/model/core/api/bazzle';
 import { Foo } from './src/model/core/api/foo';
-import { FooClass } from './src/model/core/api/foo-class';
 import { CoreFactory } from './src/model/core/core-factory';
-import { CorePackage } from './src/model/core/core-package';
-import { BoundedNumberImpl } from './src/model/core/impl/bounded-number-impl';
 
 //configure TJson with test packages
 const fact = CoreFactory.eINSTANCE;
