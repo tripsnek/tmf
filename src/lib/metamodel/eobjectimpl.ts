@@ -10,6 +10,8 @@ export abstract class EObjectImpl implements EObject {
   private _eContainer!: EObject;
   private _eContainingFeature!: number;
 
+  private _eIsProxy: boolean = false;
+
   public constructor() {
     // this._eClass = eClass!;
   }
@@ -138,6 +140,14 @@ export abstract class EObjectImpl implements EObject {
     return all;
   }
 
+  public eIsProxy(): boolean{
+    return this._eIsProxy;
+  }
+
+  public eSetProxy(proxy: boolean){
+    this._eIsProxy = proxy;
+  }
+
   //================================================================================
   // Generic getting/setting
 
@@ -156,4 +166,6 @@ export abstract class EObjectImpl implements EObject {
   public eUnset(feature: EStructuralFeature | number): void {
     //do nothing
   }
+
+
 }

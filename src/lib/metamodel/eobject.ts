@@ -39,7 +39,7 @@ export interface EObject {
   eAllContents(): EObject[];
 
   //================================================================================
-  // Serializable DId strategy
+  // Serializable ID strategy strategy
 
   /**
    * Encodes type name and EAttributes marked as ID into a String.
@@ -56,4 +56,8 @@ export interface EObject {
   eIsSet(feature: EStructuralFeature | number): boolean;
 
   eUnset(feature: EStructuralFeature | number): void;
+
+  eIsProxy() : boolean;
+
+  eSetProxy(proxy: boolean): void;
 }
