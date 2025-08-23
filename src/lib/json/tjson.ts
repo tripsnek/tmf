@@ -9,6 +9,7 @@ import { EAttribute } from '../metamodel/eattribute';
 import { TUtils } from '../tutils';
 import { SerializedReference } from './serialized-reference';
 import { EClassImpl } from '../metamodel/eclass-impl';
+import { EReferenceImpl } from '../metamodel/ereference-impl';
 
 /**
  * Utilities for converting between EObjects and JSON. Usage:
@@ -66,6 +67,7 @@ export class TJson {
 
   /**
    * Converts an object in JSON Object into a TMF EObject.
+   * Creates proxy objects for unresolved non-containment references.
    *
    * @param json
    * @return
@@ -85,11 +87,122 @@ export class TJson {
       idsToObjs.set(elem.fullId(), elem);
     });
 
-    //deserialize references
+    //deserialize references, collecting unresolved ones
+    const unresolvedRefs = new Array<SerializedReference>();
     serializedReferences.forEach((ref) => {
-      ref.deserialize(idsToObjs);
+      if (!ref.deserialize(idsToObjs)) {
+        unresolvedRefs.push(ref);
+      }
     });
+
+    // Create proxies for unresolved references
+    unresolvedRefs.forEach((ref) => {
+      this.createAndSetProxy(ref, idsToObjs);
+    });
+
     return eobj;
+  }
+
+  /**
+   * Creates a proxy object for an unresolved reference and sets it on the source object.
+   * 
+   * @param ref The unresolved serialized reference
+   * @param idsToObjs Map of all resolved objects
+   */
+  private static createAndSetProxy(ref: SerializedReference, idsToObjs: Map<string, EObject>): void {
+    const fromObj = idsToObjs.get(ref.fromId);
+    if (!fromObj) return;
+
+    const feature = fromObj.eClass().getEStructuralFeature(ref.refName);
+    if (!feature || !(feature instanceof EReferenceImpl)) return;
+
+    // Check if proxy already exists for this target
+    let proxy = idsToObjs.get(ref.toId);
+    if (!proxy) {
+      proxy = this.createProxy(ref.toId, feature as EReference);
+      if (proxy) {
+        // Add proxy to the index so future references to it can be resolved
+        idsToObjs.set(ref.toId, proxy);
+      }
+    }
+
+    if (proxy) {
+      // Set the reference
+      if (feature.isMany()) {
+        fromObj.eGet(feature).add(proxy);
+      } else {
+        fromObj.eSet(feature, proxy);
+      }
+    }
+  }
+
+  /**
+   * Creates a proxy EObject for an unresolved reference.
+   * 
+   * @param fullId The full ID of the target object (format: "ClassName_actualId")
+   * @param reference The reference feature to determine the target EClass
+   * @returns A proxy EObject or undefined if creation failed
+   */
+  private static createProxy(fullId: string, reference: EReference): EObject | undefined {
+    // Parse the fullId to extract class name and actual ID
+    const underscoreIndex = fullId.indexOf('_');
+    if (underscoreIndex === -1) {
+      console.warn(`Invalid fullId format for proxy creation: ${fullId}`);
+      return undefined;
+    }
+    
+    const className = fullId.substring(0, underscoreIndex);
+    const actualId = fullId.substring(underscoreIndex + 1);
+    
+    // Get the target EClass from the reference type
+    const targetEClass = reference.getEType() as EClass;
+    if (!targetEClass) {
+      console.warn(`No target EClass found for reference: ${reference.getName()}`);
+      return undefined;
+    }
+    
+    // Verify the class name matches (safety check)
+    if (targetEClass.getName() !== className) {
+      console.warn(`Class name mismatch for proxy: expected ${className}, got ${targetEClass.getName()}`);
+      // Continue anyway - the reference type is authoritative
+    }
+    
+    // Find the appropriate EPackage and factory
+    for (const pkg of this.packages) {
+      const classifiers = pkg.getEClassifiers();
+      for (const classifier of classifiers) {
+        if (classifier === targetEClass) {
+          try {
+            // Create the proxy object
+            const proxy = pkg.getEFactoryInstance().create(targetEClass);
+            
+            // Set the ID attribute if it exists
+            const idAttribute = targetEClass.getEIDAttribute();
+            if (idAttribute) {
+              try {
+                // Parse the ID value to the correct type using TUtils
+                const parsedId = TUtils.parseAttrValFromString(idAttribute, actualId);
+                proxy.eSet(idAttribute, parsedId);
+              } catch (error) {
+                console.warn(`Failed to parse ID value for proxy: ${actualId}`, error);
+              }
+            }
+            
+            // Mark as proxy
+            proxy.eSetProxy(true);
+            
+            // console.debug(`Created proxy object for ${fullId}`);
+            return proxy;
+          } catch (error) {
+            console.error(`Failed to create proxy for ${fullId}:`, error);
+            return undefined;
+          }
+        }
+      }
+    }
+    
+    console.warn(`No EPackage found containing EClass ${targetEClass.getName()} for proxy creation`);
+    return undefined;
   }
 
   /**
@@ -167,6 +280,7 @@ export class TJson {
     }
     return eObj;
   }
+
   private static deserializeReferencedObjects(
     jsonObj: any,
     dObj: EObject,
@@ -260,11 +374,9 @@ export class TJson {
           );
         }
       });
-      // if (ref.isContainment()) {
-      //   dObj.eSet(ref, dCollection);
-      // }
     }
   }
+
   protected static eObjectToJsonAux(
     obj: EObject,
     serializedSoFar: Map<EObject, any>,
@@ -278,12 +390,7 @@ export class TJson {
     const jsonObj : any = {};
 
     //Generate IDs for all Entities in the heirarchy which do not have them
-
     if (!TUtils.getOrCreateIdForObject(obj)) TUtils.genIdIfNotExists(obj);
-    //FAILSAFE: make sure the same object is never serialized twice - otherwise could get infinite loops
-    // if(serializedSoFar.containsKey(o))
-    //   return null;
-    // serializedSoFar.put(o, jsonObj);
 
     //add a type indicator for everything (the class name)
     jsonObj[this.JSON_FIELD_TYPESCRIPT_TYPE] = obj.eClass().getName();
@@ -295,6 +402,7 @@ export class TJson {
     }
     return jsonObj;
   }
+
   private static referencesToJson(
     obj: EObject,
     serializedSoFar: Map<EObject, any>,

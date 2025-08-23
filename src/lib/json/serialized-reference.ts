@@ -30,8 +30,9 @@ export class SerializedReference {
    * Restores the swizzled reference.
    *
    * @param allObjs
+   * @returns true if the reference was successfully resolved, false if target object not found
    */
-  public deserialize(allObjs: Map<String, EObject>) {
+  public deserialize(allObjs: Map<String, EObject>): boolean {
     //gather the objects and feature
     const fromObj = allObjs.get(this.fromId);
     const toObj = allObjs.get(this.toId);
@@ -42,7 +43,9 @@ export class SerializedReference {
       if (fromObj && toObj && feature) {
         if (feature.isMany()) fromObj.eGet(feature).add(toObj);
         else fromObj.eSet(feature, toObj);
+        return true;
       }
     }
+    return false;
   }
 }

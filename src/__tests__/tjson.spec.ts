@@ -158,6 +158,7 @@ describe('TJson', () => {
     const br2 = deserializedFoo.getBars().get(1);
     expect(br2.getBackupFor().size()).toBe(2);
   });
+
   it('should serialize arrays of aggregates', () => {
     const foos = [foo, foo2];
     const serialized = TJson.makeJsonArray(foos);
@@ -178,7 +179,7 @@ describe('TJson', () => {
     // console.log(serialized);
     JSON.stringify(serialized);
   });
-  it('should null out in-aggregate references to external instances', () => {
+  it('should create proxies for in-aggregate references to external instances', () => {
     const f1 = fact.createFoo();
     const f2 = fact.createFoo();
     const b1 = fact.createBar();
@@ -191,8 +192,8 @@ describe('TJson', () => {
     baz1.setBackupBar(b2);
     const throughJson = TJson.makeEObject(TJson.makeJson(f1)) as Foo;
     expect(
-      throughJson.getBars().get(0).getBazzles().get(0).getBackupBar()
-    ).toBeFalsy();
+      throughJson.getBars().get(0).getBazzles().get(0).getBackupBar().eIsProxy()
+    ).toBe(true);
   });
   it('should be informative when packages are not initialized', () => {
     // const 
@@ -200,4 +201,5 @@ describe('TJson', () => {
     const serialized = TJson.makeJsonArray(foos);
     expect(serialized.length).toBe(2);
   });
+
 });

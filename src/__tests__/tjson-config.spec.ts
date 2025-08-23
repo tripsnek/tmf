@@ -43,6 +43,9 @@ afterEach(() => {
 
 //validate deserialized Foo contents
 describe('TJson', () => {
+  it('all packages registered automatically', () => {
+    expect(TJson.getPackages().length).toBe(4);
+  });  
   it('no warning on makeJson when initialized', () => {
     const arJs = TJson.makeJson(ar);
     expect(consoleWarnSpy).toHaveBeenCalledTimes(0);
