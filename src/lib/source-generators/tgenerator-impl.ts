@@ -1,6 +1,6 @@
-import { EClass } from '../metamodel/eclass';
+import { EClass } from '../metamodel/api/eclass';
 import { TGenUtils as DU } from './tgen-utils';
-import { EClassifier } from '../metamodel/eclassifier';
+import { EClassifier } from '../metamodel/api/eclassifier';
 
 /**
  * Source code generation for *impl.ts files for EClasses.

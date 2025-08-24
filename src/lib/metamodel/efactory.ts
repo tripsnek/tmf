@@ -1,4 +1,4 @@
-import { EClass } from './eclass';
+import { EClass } from './api/eclass';
 
 /**
  * This is an EMF ECore class that we have defined as a placeholder.  We do not

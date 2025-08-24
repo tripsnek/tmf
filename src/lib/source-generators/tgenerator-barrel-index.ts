@@ -1,6 +1,6 @@
-import { EClass } from '../metamodel/eclass';
+import { EClass } from '../metamodel/api/eclass';
 import { EClassImpl } from '../metamodel/eclass-impl';
-import { EPackage } from '../metamodel/epackage';
+import { EPackage } from '../metamodel/api/epackage';
 import { TGenUtils as DU } from './tgen-utils';
 import { Environment, safeDynamicImport } from '../utils/environment';
 

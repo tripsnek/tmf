@@ -1,17 +1,17 @@
-import { EClassifier } from './metamodel/eclassifier';
-import { EObject } from './metamodel/eobject';
-import { EEnum } from './metamodel/eenum';
+import { EClassifier } from './metamodel/api/eclassifier';
+import { EObject } from './metamodel/api/eobject';
+import { EEnum } from './metamodel/api/eenum';
 import { v4 as uuid } from 'uuid';
 import { EcorePackage } from './metamodel/ecorepackage';
-import { EAttribute } from './metamodel/eattribute';
-import { EStructuralFeature } from './metamodel/estructural-feature';
-import { EReference } from './metamodel/ereference';
+import { EAttribute } from './metamodel/api/eattribute';
+import { EStructuralFeature } from './metamodel/api/estructural-feature';
+import { EReference } from './metamodel/api/ereference';
 import { TJson } from './json/tjson';
 import { EEnumImpl } from './metamodel/eenum-impl';
 import { EDataTypeImpl } from './metamodel/edata-type-impl';
-import { EList } from './metamodel/elist';
-import { EClass } from './metamodel/eclass';
-import { EPackage } from './metamodel/epackage';
+import { EList } from './metamodel/api/elist';
+import { EClass } from './metamodel/api/eclass';
+import { EPackage } from './metamodel/api/epackage';
 import { EClassImpl } from './metamodel/eclass-impl';
 
 /**

@@ -1,9 +1,9 @@
 import { ENamedElement } from './enamed-element';
 import { EClass } from './eclass';
 import { EClassifier } from './eclassifier';
-import { EFactory } from './efactory';
+import { EFactory } from '../efactory';
 import { EList } from './elist';
-import { BasicEList } from './basicelist';
+import { BasicEList } from '../basicelist';
 import { EEnum } from './eenum';
 import { EAttribute } from './eattribute';
 import { EReference } from './ereference';
@@ -11,15 +11,15 @@ import { EStructuralFeature } from './estructural-feature';
 import { EDataType } from './edata-type';
 import { EEnumLiteral } from './eenum-literal';
 import { EOperation } from './eoperation';
-import { ENamedElementImpl } from './enamed-element-impl';
-import { EAttributeImpl } from './eattribute-impl';
-import { EClassImpl } from './eclass-impl';
-import { EOperationImpl } from './eoperation-impl';
-import { EReferenceImpl } from './ereference-impl';
-import { EEnumImpl } from './eenum-impl';
-import { EDataTypeImpl } from './edata-type-impl';
-import { EEnumLiteralImpl } from './eenum-literal-impl';
-import { EParameterImpl } from './eparameter-impl';
+import { ENamedElementImpl } from '../enamed-element-impl';
+import { EAttributeImpl } from '../eattribute-impl';
+import { EClassImpl } from '../eclass-impl';
+import { EOperationImpl } from '../eoperation-impl';
+import { EReferenceImpl } from '../ereference-impl';
+import { EEnumImpl } from '../eenum-impl';
+import { EDataTypeImpl } from '../edata-type-impl';
+import { EEnumLiteralImpl } from '../eenum-literal-impl';
+import { EParameterImpl } from '../eparameter-impl';
 
 export class EPackage extends ENamedElementImpl {
   public static EPACKAGE: EClass; // Initialized in EClass

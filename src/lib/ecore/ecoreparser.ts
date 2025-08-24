@@ -1,5 +1,5 @@
 // ecoreparser-safe.ts
-import { EPackage } from "../metamodel/epackage";
+import { EPackage } from "../metamodel/api/epackage";
 import { EcoreStringParser } from "./ecore-string-parser";
 import { Environment, ConditionalImports, safeDynamicImport } from '../utils/environment';
 import { parseString, parseStringSync } from "./xml-to-js-parser";

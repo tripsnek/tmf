@@ -1,4 +1,4 @@
-import { EPackage } from './epackage';
+import { EPackage } from './api/epackage';
 
 export class EPackageRegistry {
   pathToPkg = new Map<string, EPackage>();

@@ -1,9 +1,9 @@
-import { EOperation } from './eoperation';
+import { EOperation } from './api/eoperation';
 import { ETypedElementImpl } from './etyped-element-impl';
-import { EClass } from './eclass';
-import { EClassifier } from './eclassifier';
-import { EParameter } from './eparameter';
-import { EObject } from './eobject';
+import { EClass } from './api/eclass';
+import { EClassifier } from './api/eclassifier';
+import { EParameter } from './api/eparameter';
+import { EObject } from './api/eobject';
 
 export class EParameterImpl extends ETypedElementImpl implements EParameter {
   private eOperation!: EOperation;

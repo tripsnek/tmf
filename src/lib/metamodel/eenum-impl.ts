@@ -1,9 +1,9 @@
-import { EEnumLiteral } from './eenum-literal';
-import { EList } from './elist';
+import { EEnumLiteral } from './api/eenum-literal';
+import { EList } from './api/elist';
 import { BasicEList } from './basicelist';
-import { EDataType } from './edata-type';
+import { EDataType } from './api/edata-type';
 import { EDataTypeImpl } from './edata-type-impl';
-import { EEnum } from './eenum';
+import { EEnum } from './api/eenum';
 
 export class EEnumImpl extends EDataTypeImpl implements EEnum {
   private eLiterals: EList<EEnumLiteral> = new BasicEList();

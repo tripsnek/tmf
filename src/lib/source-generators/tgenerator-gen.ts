@@ -1,10 +1,10 @@
-import { EPackage } from '../metamodel/epackage';
-import { EClassifier } from '../metamodel/eclassifier';
-import { EClass } from '../metamodel/eclass';
-import { EReference } from '../metamodel/ereference';
+import { EPackage } from '../metamodel/api/epackage';
+import { EClassifier } from '../metamodel/api/eclassifier';
+import { EClass } from '../metamodel/api/eclass';
+import { EReference } from '../metamodel/api/ereference';
 import { TGenUtils as DU } from './tgen-utils';
 import { TUtils } from '../tutils';
-import { EStructuralFeature } from '../metamodel/estructural-feature';
+import { EStructuralFeature } from '../metamodel/api/estructural-feature';
 import { EReferenceImpl } from '../metamodel/ereference-impl';
 import { EClassImpl } from '../metamodel/eclass-impl';
 

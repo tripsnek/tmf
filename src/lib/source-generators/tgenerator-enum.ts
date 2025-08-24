@@ -1,4 +1,4 @@
-import { EEnum } from '../metamodel/eenum';
+import { EEnum } from '../metamodel/api/eenum';
 
 /**
  * Source code generation for .ts file that implements an EEnum.

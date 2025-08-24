@@ -1,7 +1,7 @@
-import { EPackage } from '../metamodel/epackage';
-import { EClassifier } from '../metamodel/eclassifier';
-import { EClass } from '../metamodel/eclass';
-import { EEnum } from '../metamodel/eenum';
+import { EPackage } from '../metamodel/api/epackage';
+import { EClassifier } from '../metamodel/api/eclassifier';
+import { EClass } from '../metamodel/api/eclass';
+import { EEnum } from '../metamodel/api/eenum';
 import { TGeneratorPackage } from './tgenerator-package';
 import { TGeneratorFactory } from './tgenerator-factory';
 import { TGeneratorUtils } from './tgenerator-utils';
@@ -17,9 +17,9 @@ import { EReferenceImpl } from '../metamodel/ereference-impl';
 import { EEnumImpl } from '../metamodel/eenum-impl';
 import { Environment, ConditionalImports } from '../utils/environment';
 import { TGeneratorPackageInitializer } from './tgenerator-package-initializer';
-import { EOperation } from '../metamodel/eoperation';
+import { EOperation } from '../metamodel/api/eoperation';
 import { BasicEList } from '../metamodel/basicelist';
-import { EList } from '../metamodel/elist';
+import { EList } from '../metamodel/api/elist';
 
 // Debug flag - set to true to enable detailed logging
 const DEBUG = false;

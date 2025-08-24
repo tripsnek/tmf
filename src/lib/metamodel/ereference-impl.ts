@@ -1,5 +1,5 @@
-import { EClass } from './eclass';
-import { EReference } from './ereference';
+import { EClass } from './api/eclass';
+import { EReference } from './api/ereference';
 import { EStructuralFeatureImpl } from './estructural-feature-impl';
 
 export class EReferenceImpl

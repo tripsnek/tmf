@@ -1,19 +1,19 @@
 import { EDataTypeImpl } from '../metamodel/edata-type-impl';
-import { EClass } from '../metamodel/eclass';
+import { EClass } from '../metamodel/api/eclass';
 import { EEnumLiteralImpl } from '../metamodel/eenum-literal-impl';
 import { EClassImpl } from '../metamodel/eclass-impl';
 import { EEnumImpl } from '../metamodel/eenum-impl';
-import { EClassifier } from '../metamodel/eclassifier';
-import { EEnum } from '../metamodel/eenum';
-import { EStructuralFeature } from '../metamodel/estructural-feature';
-import { EPackage } from '../metamodel/epackage';
+import { EClassifier } from '../metamodel/api/eclassifier';
+import { EEnum } from '../metamodel/api/eenum';
+import { EStructuralFeature } from '../metamodel/api/estructural-feature';
+import { EPackage } from '../metamodel/api/epackage';
 import { EAttributeImpl } from '../metamodel/eattribute-impl';
 import { EReferenceImpl } from '../metamodel/ereference-impl';
-import { EAttribute } from '../metamodel/eattribute';
-import { EOperation } from '../metamodel/eoperation';
+import { EAttribute } from '../metamodel/api/eattribute';
+import { EOperation } from '../metamodel/api/eoperation';
 import { EOperationImpl } from '../metamodel/eoperation-impl';
 import { EParameterImpl } from '../metamodel/eparameter-impl';
-import { EReference } from '../metamodel/ereference';
+import { EReference } from '../metamodel/api/ereference';
 import { TUtils } from '../tutils';
 import { EPackageImpl } from '../metamodel/epackageimpl';
 

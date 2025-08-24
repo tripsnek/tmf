@@ -1,8 +1,8 @@
-import { EPackage } from './epackage';
-import { EDataType } from './edata-type';
-import { EClass } from './eclass';
-import { EReference } from './ereference';
-import { EAttribute } from './eattribute';
+import { EPackage } from './api/epackage';
+import { EDataType } from './api/edata-type';
+import { EClass } from './api/eclass';
+import { EReference } from './api/ereference';
+import { EAttribute } from './api/eattribute';
 import { EFactory } from './efactory';
 
 export class EcorePackage extends EPackage {

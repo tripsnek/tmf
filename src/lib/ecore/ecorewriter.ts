@@ -1,5 +1,5 @@
 // ecorewriter-safe.ts
-import { EPackage } from '../metamodel/epackage';
+import { EPackage } from '../metamodel/api/epackage';
 import { EcoreStringWriter } from './ecore-string-writer';
 import { Environment, ConditionalImports, safeDynamicImport } from '../utils/environment';
 

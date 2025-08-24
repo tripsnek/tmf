@@ -1,5 +1,5 @@
 import { EOperation } from './eoperation';
-import { ETypedElementImpl } from './etyped-element-impl';
+import { ETypedElementImpl } from '../etyped-element-impl';
 
 /**
  * Represents a parameter of an operation. Parameters have a name, type,

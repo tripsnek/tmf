@@ -1,11 +1,11 @@
-import { EClassifier } from './eclassifier';
-import { EClass } from './eclass';
-import { EParameter } from './eparameter';
-import { EList } from './elist';
+import { EClassifier } from './api/eclassifier';
+import { EClass } from './api/eclass';
+import { EParameter } from './api/eparameter';
+import { EList } from './api/elist';
 import { BasicEList } from './basicelist';
 import { ETypedElementImpl } from './etyped-element-impl';
-import { EOperation } from './eoperation';
-import { EObject } from './eobject';
+import { EOperation } from './api/eoperation';
+import { EObject } from './api/eobject';
 
 export class EOperationImpl extends ETypedElementImpl implements EOperation {
   private eParameters: EList<EParameter> = new BasicEList();

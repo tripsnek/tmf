@@ -1,6 +1,6 @@
 import { EObjectImpl } from './eobjectimpl';
-import { EClass } from './eclass';
-import { EModelElement } from './emodel-element';
+import { EClass } from './api/eclass';
+import { EModelElement } from './api/emodel-element';
 
 export abstract class EModelElementImpl
   extends EObjectImpl
