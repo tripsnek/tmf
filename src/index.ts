@@ -29,7 +29,6 @@ export * from './lib/metamodel/eenum-literal-impl';
 export * from './lib/metamodel/eattribute-impl';
 export * from './lib/metamodel/eoperation-impl';
 export * from './lib/metamodel/eparameter-impl';
-export * from './lib/metamodel/e-package-registry';
 
 //Export Utils
 export * from './lib/utils/pair';
