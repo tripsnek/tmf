@@ -49,7 +49,7 @@ export class CoreFactory implements EFactory {
     return this._eINSTANCE;
   }
 
-  public override create(eClass: EClass): EObject {
+  public create(eClass: EClass): EObject {
     switch (eClass.getClassifierId()) {
       case CorePackage.USER:
         return this.createUser();

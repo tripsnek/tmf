@@ -36,7 +36,7 @@ export class CapitalizedPackageFactory implements EFactory {
     return this._eINSTANCE;
   }
 
-  public override create(eClass: EClass): EObject {
+  public create(eClass: EClass): EObject {
     switch (eClass.getClassifierId()) {
       case CapitalizedPackagePackage.EXAMPLE_INTERFACE:
         return this.createExampleInterface();
