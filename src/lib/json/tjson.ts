@@ -474,7 +474,6 @@ export class TJson {
       //otherwise, we generate a serialized pointer to the referenced object
       else {
         if (
-          obj.eClass().getEIDAttribute() &&
           referencedObj.eClass().getEIDAttribute()
         ) {
           referenceTJsonObj = new SerializedReference(

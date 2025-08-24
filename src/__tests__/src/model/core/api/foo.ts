@@ -15,6 +15,7 @@ import { BoundedNumber } from './bounded-number';
 import { Bar } from './bar';
 import { Bazzle } from './bazzle';
 import { ClassInCapitalizedPackage } from '../../core/CapitalizedPackage/api/class-in-capitalized-package';
+import { ThingWithoutID } from './thing-without-i-d';
 import { User } from './user';
 import { CorePackage } from '../core-package';
 
@@ -52,5 +53,6 @@ export interface Foo extends NamedEntity {
   getOwnedFoos(): EList<Foo>;
   getSubpackageReference(): ClassInCapitalizedPackage;
   setSubpackageReference(newSubpackageReference: ClassInCapitalizedPackage): void;
+  getContainedThingsWithNoID(): EList<ThingWithoutID>;
   copyFoo(): Foo;
 }

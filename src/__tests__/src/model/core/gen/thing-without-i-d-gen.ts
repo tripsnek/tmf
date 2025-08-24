@@ -7,22 +7,26 @@ import { EList } from '@tripsnek/tmf';
 import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
-import { NamedEntity } from '../api/named-entity';
+import { Foo } from '../api/foo';
 
 import { CorePackage } from '../core-package';
-import { User } from '../api/user';
-import { NamedEntityGen } from './named-entity-gen';
-import { NamedEntityImpl } from '../impl/named-entity-impl';
+import { ThingWithoutID } from '../api/thing-without-i-d';
+import { FooGen } from './foo-gen';
+import { FooImpl } from '../impl/foo-impl';
 
 /**
  * This file is source-code generated and should never be edited. It implements
- * the core TMF functionality for User.
+ * the core TMF functionality for ThingWithoutID.
  */
-export abstract class UserGen  extends NamedEntityImpl implements User {
+export abstract class ThingWithoutIDGen extends EObjectImpl implements ThingWithoutID {
   /** feature declarations */
-  protected pass!: string;
-  protected salt!: string;
-  protected email!: string;
+  protected singleNonContainment!: Foo;
+  protected manyNonContainment: EList<Foo> = new BasicEList<Foo>(
+    undefined,
+    this,
+    CorePackage.THING_WITHOUT_I_D__MANY_NON_CONTAINMENT,
+    undefined
+  );
 
 
 
@@ -30,28 +34,16 @@ export abstract class UserGen  extends NamedEntityImpl implements User {
   // Getters and Setters
 
 
-  public getPass(): string {
-    return this.pass;
+  public getSingleNonContainment(): Foo {
+    return this.singleNonContainment;
   }
 
-  public setPass(newPass: string): void {
-    this.basicSetPass(newPass);
+  public setSingleNonContainment(newSingleNonContainment: Foo): void {
+    this.basicSetSingleNonContainment(newSingleNonContainment);
   }
 
-  public getSalt(): string {
-    return this.salt;
-  }
-
-  public setSalt(newSalt: string): void {
-    this.basicSetSalt(newSalt);
-  }
-
-  public getEmail(): string {
-    return this.email;
-  }
-
-  public setEmail(newEmail: string): void {
-    this.basicSetEmail(newEmail);
+  public getManyNonContainment(): EList<Foo> {
+    return this.manyNonContainment;
   }
 
   //======================================================================
@@ -69,12 +61,10 @@ export abstract class UserGen  extends NamedEntityImpl implements User {
         ? feature
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
-      case CorePackage.USER__PASS:
-        return this.getPass();
-      case CorePackage.USER__SALT:
-        return this.getSalt();
-      case CorePackage.USER__EMAIL:
-        return this.getEmail();
+      case CorePackage.THING_WITHOUT_I_D__SINGLE_NON_CONTAINMENT:
+        return this.getSingleNonContainment();
+      case CorePackage.THING_WITHOUT_I_D__MANY_NON_CONTAINMENT:
+        return this.getManyNonContainment();
     }
     return super.eGet(featureID);
   }
@@ -89,14 +79,12 @@ export abstract class UserGen  extends NamedEntityImpl implements User {
         ? feature
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
-      case CorePackage.USER__PASS:
-        this.setPass(newValue);
+      case CorePackage.THING_WITHOUT_I_D__SINGLE_NON_CONTAINMENT:
+        this.setSingleNonContainment(newValue);
         return;
-      case CorePackage.USER__SALT:
-        this.setSalt(newValue);
-        return;
-      case CorePackage.USER__EMAIL:
-        this.setEmail(newValue);
+      case CorePackage.THING_WITHOUT_I_D__MANY_NON_CONTAINMENT:
+        this.getManyNonContainment().clear();
+        this.getManyNonContainment().addAll(newValue);
         return;
     }
     return super.eSet(featureID, newValue);
@@ -112,12 +100,10 @@ export abstract class UserGen  extends NamedEntityImpl implements User {
         ? feature
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
-      case CorePackage.USER__PASS:
-        return this.getPass() != null;
-      case CorePackage.USER__SALT:
-        return this.getSalt() != null;
-      case CorePackage.USER__EMAIL:
-        return this.getEmail() != null;
+      case CorePackage.THING_WITHOUT_I_D__SINGLE_NON_CONTAINMENT:
+        return this.getSingleNonContainment() != null;
+      case CorePackage.THING_WITHOUT_I_D__MANY_NON_CONTAINMENT:
+        return !this.getManyNonContainment().isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -132,14 +118,11 @@ export abstract class UserGen  extends NamedEntityImpl implements User {
         ? feature
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
-      case CorePackage.USER__PASS:
-        this.setPass(undefined!);
+      case CorePackage.THING_WITHOUT_I_D__SINGLE_NON_CONTAINMENT:
+        this.setSingleNonContainment(undefined!);
         return;
-      case CorePackage.USER__SALT:
-        this.setSalt(undefined!);
-        return;
-      case CorePackage.USER__EMAIL:
-        this.setEmail(undefined!);
+      case CorePackage.THING_WITHOUT_I_D__MANY_NON_CONTAINMENT:
+        this.getManyNonContainment().clear();
         return;
     }
     return super.eUnset(featureID);
@@ -149,16 +132,8 @@ export abstract class UserGen  extends NamedEntityImpl implements User {
   // Basic setters (allow EOpposite enforcement without triggering infinite cycles)
 
 
-  public basicSetPass(newPass: string): void {
-    this.pass = newPass;
-  }
-
-  public basicSetSalt(newSalt: string): void {
-    this.salt = newSalt;
-  }
-
-  public basicSetEmail(newEmail: string): void {
-    this.email = newEmail;
+  public basicSetSingleNonContainment(newSingleNonContainment: Foo): void {
+    this.singleNonContainment = newSingleNonContainment;
   }
 
   //======================================================================
@@ -172,6 +147,6 @@ export abstract class UserGen  extends NamedEntityImpl implements User {
   // eClass()
 
   public override eClass(): EClass {
-    return CorePackage.Literals.USER;
+    return CorePackage.Literals.THING_WITHOUT_I_D;
   }
 }

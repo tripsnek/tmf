@@ -13,6 +13,34 @@ const fact = CoreFactory.eINSTANCE;
 //validate deserialized Foo contents
 describe('TJson Proxy Functionality', () => {
   
+  it('should create proxy objects for external non-containment proxies, even if referring object has no ID', () => {
+
+    //create objects
+    const f1 = fact.createFoo();
+    const noId = fact.createThingWithoutID();
+    const referredTo = fact.createFoo();
+    f1.getContainedThingsWithNoID().add(noId);
+    TUtils.genIdIfNotExists(referredTo);
+
+    //set references from ID-less object
+    noId.setSingleNonContainment(referredTo);
+    noId.getManyNonContainment().add(referredTo);
+
+    const throughJson = TJson.makeEObject(TJson.makeJson(f1)) as Foo;
+    const deserializedNoId = throughJson.getContainedThingsWithNoID().get(0);
+
+    expect(deserializedNoId.getManyNonContainment().get(0)).toBeTruthy();
+    expect(deserializedNoId.getManyNonContainment().get(0).eIsProxy()).toBe(true)
+    expect(deserializedNoId.getManyNonContainment().get(0).getId()).toBe(referredTo.getId())
+
+    expect(deserializedNoId.getSingleNonContainment()).toBeTruthy();
+    expect(deserializedNoId.getSingleNonContainment().eIsProxy()).toBe(true);
+    expect(deserializedNoId.getSingleNonContainment().getId()).toBe(
+      referredTo.getId()
+    );
+
+  });
+
   // Update the existing test to expect proxy behavior instead of null
   it('should create proxy objects for external non-containment references', () => {
     const f1 = fact.createFoo();

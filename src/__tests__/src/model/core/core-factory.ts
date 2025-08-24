@@ -29,6 +29,8 @@ import { Bazzle } from './api/bazzle';
 import { BazzleImpl } from './impl/bazzle-impl';
 import { BoundedNumber } from './api/bounded-number';
 import { BoundedNumberImpl } from './impl/bounded-number-impl';
+import { ThingWithoutID } from './api/thing-without-i-d';
+import { ThingWithoutIDImpl } from './impl/thing-without-i-d-impl';
 import { ModelPackageInitializer } from '../model-package-initializer';
 
 export class CoreFactory extends EFactory {
@@ -65,6 +67,8 @@ export class CoreFactory extends EFactory {
         return this.createBazzle();
       case CorePackage.BOUNDED_NUMBER:
         return this.createBoundedNumber();
+      case CorePackage.THING_WITHOUT_I_D:
+        return this.createThingWithoutID();
       default:
         throw new Error(
           "The class '" + eClass.getName() + "' is not a valid classifier"
@@ -95,5 +99,8 @@ export class CoreFactory extends EFactory {
   }
   public createBoundedNumber(): BoundedNumber {
     return new BoundedNumberImpl();
+  }
+  public createThingWithoutID(): ThingWithoutID {
+    return new ThingWithoutIDImpl();
   }
 }

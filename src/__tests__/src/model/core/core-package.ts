@@ -19,13 +19,17 @@ import { EOperation } from '@tripsnek/tmf';
 import { EcorePackage } from '@tripsnek/tmf';
 import { FooClass } from './api/foo-class';
 export class CorePackage extends EPackageImpl {
-  public static BOUNDED_NUMBER = 0;
+  public static THING_WITHOUT_I_D = 0;
+  public static THING_WITHOUT_I_D_FEATURE_COUNT = 2;
+  public static THING_WITHOUT_I_D__SINGLE_NON_CONTAINMENT = 0;
+  public static THING_WITHOUT_I_D__MANY_NON_CONTAINMENT = 1;
+  public static BOUNDED_NUMBER = 1;
   public static BOUNDED_NUMBER_FEATURE_COUNT = 4;
   public static BOUNDED_NUMBER__UNITS = 0;
   public static BOUNDED_NUMBER__VALUE = 1;
   public static BOUNDED_NUMBER__MAX_VALUE = 2;
   public static BOUNDED_NUMBER__MIN_VALUE = 3;
-  public static IDED_ENTITY = 1;
+  public static IDED_ENTITY = 2;
   public static IDED_ENTITY_FEATURE_COUNT = 5;
   public static IDED_ENTITY__ID = 0;
   public static IDED_ENTITY__EDIT_DATE = 1;
@@ -33,26 +37,26 @@ export class CorePackage extends EPackageImpl {
   public static IDED_ENTITY__LOCKED = 3;
   public static IDED_ENTITY__ID2 = 4;
   public static IDED_ENTITY__GEN_ID = 0;
-  public static NAMED_ENTITY = 2;
+  public static NAMED_ENTITY = 3;
   public static NAMED_ENTITY_FEATURE_COUNT = 6;
   public static NAMED_ENTITY__NAME = 5;
-  public static BAZZLE = 3;
+  public static BAZZLE = 4;
   public static BAZZLE_FEATURE_COUNT = 8;
   public static BAZZLE__BACKUP_BAR = 6;
   public static BAZZLE__ONE_TO_ONE_FOO = 7;
-  public static BAR = 4;
+  public static BAR = 5;
   public static BAR_FEATURE_COUNT = 9;
   public static BAR__FOO = 6;
   public static BAR__BAZZLES = 7;
   public static BAR__BACKUP_FOR = 8;
   public static BAR__DO_SOMETHING_WITH_FOO_AND_BAZZLES = 0;
   public static BAR__DO_SOMETHING_WITH_CLASSES_AND_NUMBERS = 1;
-  public static BAR_SPECIALIZATION_WITH_COMPONENTS = 5;
+  public static BAR_SPECIALIZATION_WITH_COMPONENTS = 6;
   public static BAR_SPECIALIZATION_WITH_COMPONENTS_FEATURE_COUNT = 11;
   public static BAR_SPECIALIZATION_WITH_COMPONENTS__COMPONENT_BARS = 9;
   public static BAR_SPECIALIZATION_WITH_COMPONENTS__SPECIAL_NAME = 10;
-  public static FOO = 6;
-  public static FOO_FEATURE_COUNT = 25;
+  public static FOO = 7;
+  public static FOO_FEATURE_COUNT = 26;
   public static FOO__GROUP = 6;
   public static FOO__CREATION_DATE = 7;
   public static FOO__FOO_CLASS = 8;
@@ -72,21 +76,22 @@ export class CorePackage extends EPackageImpl {
   public static FOO__ONE_TO_ONE_CONTAINMENT = 22;
   public static FOO__OWNED_FOOS = 23;
   public static FOO__SUBPACKAGE_REFERENCE = 24;
+  public static FOO__CONTAINED_THINGS_WITH_NO_I_D = 25;
   public static FOO__COPY_FOO = 0;
-  public static FOO_SPECIALIZATION = 7;
-  public static FOO_SPECIALIZATION_FEATURE_COUNT = 25;
-  public static FOO_GROUP = 8;
+  public static FOO_SPECIALIZATION = 8;
+  public static FOO_SPECIALIZATION_FEATURE_COUNT = 26;
+  public static FOO_GROUP = 9;
   public static FOO_GROUP_FEATURE_COUNT = 7;
   public static FOO_GROUP__USER = 6;
   public static FOO_GROUP__COMPUTE_FOOS_OF_CLASS = 0;
   public static FOO_GROUP__GET_FOOS_WITH_BAZZLES = 1;
   public static FOO_GROUP__FREEZE = 2;
-  public static USER = 9;
+  public static USER = 10;
   public static USER_FEATURE_COUNT = 9;
   public static USER__PASS = 6;
   public static USER__SALT = 7;
   public static USER__EMAIL = 8;
-  public static FOO_CLASS = 10;
+  public static FOO_CLASS = 11;
 
   /** Singleton */
   public static _eINSTANCE: CorePackage = CorePackage.init();
@@ -101,6 +106,12 @@ export class CorePackage extends EPackageImpl {
 
   /** Provides static access to EClass and EStructuralFeature instances */
   public static Literals = class {
+    static THING_WITHOUT_I_D: EClass =
+      CorePackage._eINSTANCE.getThingWithoutID();
+    static THING_WITHOUT_I_D__SINGLE_NON_CONTAINMENT: EReference =
+      CorePackage._eINSTANCE.getThingWithoutID_SingleNonContainment();
+    static THING_WITHOUT_I_D__MANY_NON_CONTAINMENT: EReference =
+      CorePackage._eINSTANCE.getThingWithoutID_ManyNonContainment();
     static BOUNDED_NUMBER: EClass = CorePackage._eINSTANCE.getBoundedNumber();
     static BOUNDED_NUMBER__UNITS: EAttribute =
       CorePackage._eINSTANCE.getBoundedNumber_Units();
@@ -176,6 +187,8 @@ export class CorePackage extends EPackageImpl {
       CorePackage._eINSTANCE.getFoo_OwnedFoos();
     static FOO__SUBPACKAGE_REFERENCE: EReference =
       CorePackage._eINSTANCE.getFoo_SubpackageReference();
+    static FOO__CONTAINED_THINGS_WITH_NO_I_D: EReference =
+      CorePackage._eINSTANCE.getFoo_ContainedThingsWithNoID();
     static FOO_SPECIALIZATION: EClass =
       CorePackage._eINSTANCE.getFooSpecialization();
     static FOO_GROUP: EClass = CorePackage._eINSTANCE.getFooGroup();
@@ -192,6 +205,7 @@ export class CorePackage extends EPackageImpl {
   private isCreated = false;
   private isInitialized = false;
 
+  private thingWithoutIDEClass!: EClass;
   private boundedNumberEClass!: EClass;
   private idedEntityEClass!: EClass;
   private namedEntityEClass!: EClass;
@@ -256,6 +270,19 @@ export class CorePackage extends EPackageImpl {
     if (!this._eFactoryInstance) this._eFactoryInstance = factoryInst;
   }
 
+  public getThingWithoutID(): EClass {
+    return this.thingWithoutIDEClass;
+  }
+  public getThingWithoutID_SingleNonContainment(): EReference {
+    return <EReference>(
+      this.thingWithoutIDEClass.getEStructuralFeatures().get(0)
+    );
+  }
+  public getThingWithoutID_ManyNonContainment(): EReference {
+    return <EReference>(
+      this.thingWithoutIDEClass.getEStructuralFeatures().get(1)
+    );
+  }
   public getBoundedNumber(): EClass {
     return this.boundedNumberEClass;
   }
@@ -398,6 +425,9 @@ export class CorePackage extends EPackageImpl {
   public getFoo_SubpackageReference(): EReference {
     return <EReference>this.fooEClass.getEStructuralFeatures().get(18);
   }
+  public getFoo_ContainedThingsWithNoID(): EReference {
+    return <EReference>this.fooEClass.getEStructuralFeatures().get(19);
+  }
   public getFoo_CopyFoo(): EOperation {
     return this.fooEClass.getEOperations().get(0);
   }
@@ -438,6 +468,17 @@ export class CorePackage extends EPackageImpl {
   public createPackageContents(): void {
     if (this.isCreated) return;
     this.isCreated = true;
+    this.thingWithoutIDEClass = this.createEClass(
+      CorePackage.THING_WITHOUT_I_D
+    );
+    this.createEReference(
+      this.thingWithoutIDEClass,
+      CorePackage.THING_WITHOUT_I_D__SINGLE_NON_CONTAINMENT
+    );
+    this.createEReference(
+      this.thingWithoutIDEClass,
+      CorePackage.THING_WITHOUT_I_D__MANY_NON_CONTAINMENT
+    );
     this.boundedNumberEClass = this.createEClass(CorePackage.BOUNDED_NUMBER);
     this.createEAttribute(
       this.boundedNumberEClass,
@@ -546,6 +587,10 @@ export class CorePackage extends EPackageImpl {
       this.fooEClass,
       CorePackage.FOO__SUBPACKAGE_REFERENCE
     );
+    this.createEReference(
+      this.fooEClass,
+      CorePackage.FOO__CONTAINED_THINGS_WITH_NO_I_D
+    );
     this.createEOperation(this.fooEClass, CorePackage.FOO__COPY_FOO);
     this.fooSpecializationEClass = this.createEClass(
       CorePackage.FOO_SPECIALIZATION
@@ -574,6 +619,51 @@ export class CorePackage extends EPackageImpl {
 
     //reusable handle for eoperations, used for adding parameters
     let op: EOperation;
+    this.initEClass(
+      this.thingWithoutIDEClass,
+      'ThingWithoutID',
+      false,
+      false,
+      true
+    );
+    this.initEReference(
+      this.getThingWithoutID_SingleNonContainment(),
+      this.getFoo(),
+      undefined,
+      'singleNonContainment',
+      '',
+      0,
+      1,
+      '', //TODO: Container Class
+      false,
+      false,
+      true,
+      false,
+      false,
+      true, //TODO: isUnsettable
+      false,
+      false, //TODO: isDerived
+      false //TODO: isOrdered
+    );
+    this.initEReference(
+      this.getThingWithoutID_ManyNonContainment(),
+      this.getFoo(),
+      undefined,
+      'manyNonContainment',
+      '',
+      0,
+      -1,
+      '', //TODO: Container Class
+      false,
+      false,
+      true,
+      false,
+      false,
+      true, //TODO: isUnsettable
+      false,
+      false, //TODO: isDerived
+      false //TODO: isOrdered
+    );
     this.initEClass(
       this.boundedNumberEClass,
       'BoundedNumber',
@@ -1277,6 +1367,25 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       false,
+      false,
+      true, //TODO: isUnsettable
+      false,
+      false, //TODO: isDerived
+      false //TODO: isOrdered
+    );
+    this.initEReference(
+      this.getFoo_ContainedThingsWithNoID(),
+      this.getThingWithoutID(),
+      undefined,
+      'containedThingsWithNoID',
+      '',
+      0,
+      -1,
+      '', //TODO: Container Class
+      false,
+      false,
+      true,
+      true,
       false,
       true, //TODO: isUnsettable
       false,

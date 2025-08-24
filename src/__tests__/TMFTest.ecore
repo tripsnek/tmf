@@ -55,6 +55,7 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="oneToOneContainment" eType="#//core/Bazzle" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="ownedFoos" eType="#//core/Foo" upperBound="-1"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="subpackageReference" eType="#//core/CapitalizedPackage/ClassInCapitalizedPackage"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="containedThingsWithNoID" eType="#//core/ThingWithoutID" upperBound="-1" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="FooSpecialization" eSuperTypes="#//core/Foo"/>
     <eClassifiers xsi:type="ecore:EClass" name="BarSpecializationWithComponents" eSuperTypes="#//core/Bar">
@@ -89,6 +90,10 @@
       <eLiterals name="MEDIUM" value="1"/>
       <eLiterals name="INTERMEDIATE" value="2"/>
       <eLiterals name="LONG" value="3"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ThingWithoutID">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="singleNonContainment" eType="#//core/Foo"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="manyNonContainment" eType="#//core/Foo" upperBound="-1"/>
     </eClassifiers>
     <eSubpackages name="CapitalizedPackage" nsURI="http://www.example.org/package1" nsPrefix="package1">
       <eClassifiers xsi:type="ecore:EClass" name="ExampleInterface" interface="true">
