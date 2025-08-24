@@ -3,7 +3,7 @@ import { EDataType } from './api/edata-type';
 import { EClass } from './api/eclass';
 import { EReference } from './api/ereference';
 import { EAttribute } from './api/eattribute';
-import { EFactory } from './efactory';
+import { EFactory } from './api/efactory';
 
 export class EcorePackage extends EPackage {
   public static E_GENERIC_TYPE = 0;

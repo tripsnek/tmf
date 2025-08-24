@@ -114,7 +114,7 @@ import { ${eClass.getName()}Impl } from './impl/${DU.genClassImplName(
     let result = '';
     if (!(pkgClassName === 'EcorePackage')) {
       result += `
-  public override create(eClass: EClass): any {
+  public override create(eClass: EClass): EObject {
     switch (eClass.getClassifierId()) {`;
       for (const eClass of pkg.getEClassifiers()) {
         if (eClass instanceof EClassImpl && !eClass.isAbstract()) {

@@ -33,7 +33,7 @@ export class AnalysisFactory implements EFactory {
     return this._eINSTANCE;
   }
 
-  public override create(eClass: EClass): any {
+  public override create(eClass: EClass): EObject {
     switch (eClass.getClassifierId()) {
       case AnalysisPackage.ANALYSIS_RESULT:
         return this.createAnalysisResult();

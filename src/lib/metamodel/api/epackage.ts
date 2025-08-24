@@ -1,7 +1,7 @@
 import { ENamedElement } from './enamed-element';
 import { EClass } from './eclass';
 import { EClassifier } from './eclassifier';
-import { EFactory } from '../efactory';
+import { EFactory } from './efactory';
 import { EList } from './elist';
 import { BasicEList } from '../basicelist';
 import { EEnum } from './eenum';

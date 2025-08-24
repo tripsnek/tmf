@@ -12,7 +12,7 @@ export * from './lib/metamodel/ecorepackageimpl';
 export * from './lib/metamodel/api/edata-type';
 export * from './lib/metamodel/api/eenum-literal';
 export * from './lib/metamodel/api/eenum';
-export * from './lib/metamodel/efactory';
+export * from './lib/metamodel/api/efactory';
 export * from './lib/metamodel/basicelist';
 export * from './lib/metamodel/api/elist';
 export * from './lib/metamodel/api/emodel-element';

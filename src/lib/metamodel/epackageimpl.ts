@@ -1,6 +1,6 @@
 import { EPackage } from './api/epackage';
 import { EcorePackage } from './ecorepackage';
-import { EFactory } from './efactory';
+import { EFactory } from './api/efactory';
 import { EObject } from './api/eobject';
 
 export class EPackageImpl extends EPackage {
