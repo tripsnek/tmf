@@ -33,7 +33,7 @@ import { ThingWithoutID } from './api/thing-without-i-d';
 import { ThingWithoutIDImpl } from './impl/thing-without-i-d-impl';
 import { ModelPackageInitializer } from '../model-package-initializer';
 
-export class CoreFactory extends EFactory {
+export class CoreFactory implements EFactory {
   /* Singleton */
   public static _eINSTANCE: CoreFactory = CoreFactory.init();
   public static init(): CoreFactory {

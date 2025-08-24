@@ -1,11 +1,9 @@
 import { EClass } from './api/eclass';
+import { EModelElement } from './api/emodel-element';
 
 /**
- * This is an EMF ECore class that we have defined as a placeholder.  We do not
- * yet have plans to implement EFactory.
+ * This is an EMF ECore class that we have defined as a placeholder.
  */
-export class EFactory {
-  public create(eClass: EClass): any {
-    throw Error('Not implemented in base class');
-  }
+export interface EFactory {
+  create(eClass: EClass): any;
 }

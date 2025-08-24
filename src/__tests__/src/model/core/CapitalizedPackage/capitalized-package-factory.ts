@@ -19,7 +19,7 @@ import { ClassInCapitalizedPackage } from './api/class-in-capitalized-package';
 import { ClassInCapitalizedPackageImpl } from './impl/class-in-capitalized-package-impl';
 import { ModelPackageInitializer } from '../../model-package-initializer';
 
-export class CapitalizedPackageFactory extends EFactory {
+export class CapitalizedPackageFactory implements EFactory {
   /* Singleton */
   public static _eINSTANCE: CapitalizedPackageFactory =
     CapitalizedPackageFactory.init();

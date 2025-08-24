@@ -28,7 +28,7 @@ export class TGeneratorFactory {
 ${this.genSpecificImports(pkg)}
 import { ${TGeneratorPackageInitializer.generateClassName(this.rootPackage)}} from '${pathToRoot}${TGeneratorPackageInitializer.generateFileName(this.rootPackage)}';
 
-export class ${DU.genFactoryClassName(pkg)} extends EFactory {
+export class ${DU.genFactoryClassName(pkg)} implements EFactory {
 ${this.genSingleton(pkg)}
 ${this.genCreateSwitch(pkg)}
 ${this.genClassCreators(pkg)}

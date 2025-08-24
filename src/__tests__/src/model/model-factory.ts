@@ -19,7 +19,7 @@ import { ContainedRootType } from './api/contained-root-type';
 import { ContainedRootTypeImpl } from './impl/contained-root-type-impl';
 import { ModelPackageInitializer } from './model-package-initializer';
 
-export class ModelFactory extends EFactory {
+export class ModelFactory implements EFactory {
   /* Singleton */
   public static _eINSTANCE: ModelFactory = ModelFactory.init();
   public static init(): ModelFactory {

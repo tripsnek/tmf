@@ -17,7 +17,7 @@ import { AnalysisResult } from './api/analysis-result';
 import { AnalysisResultImpl } from './impl/analysis-result-impl';
 import { ModelPackageInitializer } from '../model-package-initializer';
 
-export class AnalysisFactory extends EFactory {
+export class AnalysisFactory implements EFactory {
   /* Singleton */
   public static _eINSTANCE: AnalysisFactory = AnalysisFactory.init();
   public static init(): AnalysisFactory {

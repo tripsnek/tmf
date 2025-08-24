@@ -7,7 +7,6 @@ export * from './lib/metamodel/epackageimpl';
 export * from './lib/metamodel/api/eattribute';
 export * from './lib/metamodel/api/eclass';
 export * from './lib/metamodel/api/eclassifier';
-export * from './lib/metamodel/ecorefactory';
 export * from './lib/metamodel/ecorepackage';
 export * from './lib/metamodel/ecorepackageimpl';
 export * from './lib/metamodel/api/edata-type';

@@ -35,12 +35,12 @@ import { ThingWithoutIDGen } from './thing-without-i-d-gen';
 import { ThingWithoutIDImpl } from '../impl/thing-without-i-d-impl';
 import { UserGen } from './user-gen';
 import { UserImpl } from '../impl/user-impl';
-import { CapitalizedPackagePackage} from '../../core/CapitalizedPackage/capitalized-package-package';
+import { CapitalizedPackagePackage } from '../../core/CapitalizedPackage/capitalized-package-package';
 /**
  * This file is source-code generated and should never be edited. It implements
  * the core TMF functionality for Foo.
  */
-export abstract class FooGen  extends NamedEntityImpl implements Foo {
+export abstract class FooGen extends NamedEntityImpl implements Foo {
   /** feature declarations */
   protected group!: FooGroup;
   protected creationDate!: Date;
@@ -77,12 +77,13 @@ export abstract class FooGen  extends NamedEntityImpl implements Foo {
     CorePackage.FOO__MANY_CROSS_AGGREGATE_NESTED,
     undefined
   );
-  protected manyValueObjects: EList<BoundedNumber> = new BasicEList<BoundedNumber>(
-    undefined,
-    this,
-    CorePackage.FOO__MANY_VALUE_OBJECTS,
-    undefined
-  );
+  protected manyValueObjects: EList<BoundedNumber> =
+    new BasicEList<BoundedNumber>(
+      undefined,
+      this,
+      CorePackage.FOO__MANY_VALUE_OBJECTS,
+      undefined
+    );
   protected oneToOneContainment!: Bazzle;
   protected ownedFoos: EList<Foo> = new BasicEList<Foo>(
     undefined,
@@ -91,18 +92,16 @@ export abstract class FooGen  extends NamedEntityImpl implements Foo {
     undefined
   );
   protected subpackageReference!: ClassInCapitalizedPackage;
-  protected containedThingsWithNoID: EList<ThingWithoutID> = new BasicEList<ThingWithoutID>(
-    undefined,
-    this,
-    CorePackage.FOO__CONTAINED_THINGS_WITH_NO_I_D,
-    undefined
-  );
-
-
+  protected containedThingsWithNoID: EList<ThingWithoutID> =
+    new BasicEList<ThingWithoutID>(
+      undefined,
+      this,
+      CorePackage.FOO__CONTAINED_THINGS_WITH_NO_I_D,
+      undefined
+    );
 
   //======================================================================
   // Getters and Setters
-
 
   public getGroup(): FooGroup {
     return this.group;
@@ -150,7 +149,10 @@ export abstract class FooGen  extends NamedEntityImpl implements Foo {
   public setOneToOneBazzle(newOneToOneBazzle: Bazzle): void {
     if (this.oneToOneBazzle !== newOneToOneBazzle) {
       if (this.oneToOneBazzle) {
-        this.oneToOneBazzle.eInverseRemove(this, CorePackage.BAZZLE__ONE_TO_ONE_FOO);
+        this.oneToOneBazzle.eInverseRemove(
+          this,
+          CorePackage.BAZZLE__ONE_TO_ONE_FOO
+        );
       }
       if (newOneToOneBazzle) {
         newOneToOneBazzle.eInverseAdd(this, CorePackage.BAZZLE__ONE_TO_ONE_FOO);
@@ -177,8 +179,13 @@ export abstract class FooGen  extends NamedEntityImpl implements Foo {
 
   private setUnchangeableReference(newUnchangeableReference: Bazzle): void {
     const oldUnchangeableReference = this.unchangeableReference;
-    if (oldUnchangeableReference) oldUnchangeableReference.setEContainer(undefined, undefined);
-    if (newUnchangeableReference) newUnchangeableReference.setEContainer(this, CorePackage.FOO__UNCHANGEABLE_REFERENCE);
+    if (oldUnchangeableReference)
+      oldUnchangeableReference.setEContainer(undefined, undefined);
+    if (newUnchangeableReference)
+      newUnchangeableReference.setEContainer(
+        this,
+        CorePackage.FOO__UNCHANGEABLE_REFERENCE
+      );
     this.basicSetUnchangeableReference(newUnchangeableReference);
   }
 
@@ -240,8 +247,13 @@ export abstract class FooGen  extends NamedEntityImpl implements Foo {
 
   public setOneToOneContainment(newOneToOneContainment: Bazzle): void {
     const oldOneToOneContainment = this.oneToOneContainment;
-    if (oldOneToOneContainment) oldOneToOneContainment.setEContainer(undefined, undefined);
-    if (newOneToOneContainment) newOneToOneContainment.setEContainer(this, CorePackage.FOO__ONE_TO_ONE_CONTAINMENT);
+    if (oldOneToOneContainment)
+      oldOneToOneContainment.setEContainer(undefined, undefined);
+    if (newOneToOneContainment)
+      newOneToOneContainment.setEContainer(
+        this,
+        CorePackage.FOO__ONE_TO_ONE_CONTAINMENT
+      );
     this.basicSetOneToOneContainment(newOneToOneContainment);
   }
 
@@ -253,7 +265,9 @@ export abstract class FooGen  extends NamedEntityImpl implements Foo {
     return this.subpackageReference;
   }
 
-  public setSubpackageReference(newSubpackageReference: ClassInCapitalizedPackage): void {
+  public setSubpackageReference(
+    newSubpackageReference: ClassInCapitalizedPackage
+  ): void {
     this.basicSetSubpackageReference(newSubpackageReference);
   }
 
@@ -263,7 +277,6 @@ export abstract class FooGen  extends NamedEntityImpl implements Foo {
 
   //======================================================================
   // API Operations
-
 
   public copyFoo(): Foo {
     throw new Error('Not implemented');
@@ -324,11 +337,13 @@ export abstract class FooGen  extends NamedEntityImpl implements Foo {
     return super.eGet(featureID);
   }
 
-
   /**
    * eSet() - provides ability to reflectively set all features.
    */
-  public override eSet(feature: number | EStructuralFeature, newValue: any): void {
+  public override eSet(
+    feature: number | EStructuralFeature,
+    newValue: any
+  ): void {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -405,7 +420,6 @@ export abstract class FooGen  extends NamedEntityImpl implements Foo {
     return super.eSet(featureID, newValue);
   }
 
-
   /**
    * eIsSet() - provides ability to reflectively check if any feature is set.
    */
@@ -458,7 +472,6 @@ export abstract class FooGen  extends NamedEntityImpl implements Foo {
     }
     return super.eIsSet(featureID);
   }
-
 
   /**
    * eUnset() - provides ability to reflectively unset any feature.
@@ -536,7 +549,6 @@ export abstract class FooGen  extends NamedEntityImpl implements Foo {
   //======================================================================
   // Basic setters (allow EOpposite enforcement without triggering infinite cycles)
 
-
   public basicSetGroup(newGroup: FooGroup): void {
     this.group = newGroup;
   }
@@ -557,11 +569,15 @@ export abstract class FooGen  extends NamedEntityImpl implements Foo {
     this.oneToOneBazzle = newOneToOneBazzle;
   }
 
-  private basicSetUnchangeableAttribute(newUnchangeableAttribute: string): void {
+  private basicSetUnchangeableAttribute(
+    newUnchangeableAttribute: string
+  ): void {
     this.unchangeableAttribute = newUnchangeableAttribute;
   }
 
-  private basicSetUnchangeableReference(newUnchangeableReference: Bazzle): void {
+  private basicSetUnchangeableReference(
+    newUnchangeableReference: Bazzle
+  ): void {
     this.unchangeableReference = newUnchangeableReference;
   }
 
@@ -577,7 +593,9 @@ export abstract class FooGen  extends NamedEntityImpl implements Foo {
     this.oneToOneContainment = newOneToOneContainment;
   }
 
-  public basicSetSubpackageReference(newSubpackageReference: ClassInCapitalizedPackage): void {
+  public basicSetSubpackageReference(
+    newSubpackageReference: ClassInCapitalizedPackage
+  ): void {
     this.subpackageReference = newSubpackageReference;
   }
 
@@ -597,7 +615,6 @@ export abstract class FooGen  extends NamedEntityImpl implements Foo {
     }
     return super.eInverseAdd(otherEnd, featureID);
   }
-
 
   //======================================================================
   // Inverse Removers (if needed)

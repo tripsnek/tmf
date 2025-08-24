@@ -5,12 +5,10 @@ import { EObject } from './api/eobject';
 
 export class EPackageImpl extends EPackage {
   ecorePackage: EcorePackage;
-  ecoreFactory!: EFactory;
 
   public constructor(name: string, nsURI: string, nsPrefix?: string) {
     super(name, nsURI,nsPrefix);
     this.ecorePackage = EcorePackage.eINSTANCE;
-    // this.ecoreFactory = EcoreFactory.eINSTANCE;
   }
 
   protected getEcorePackage(): EcorePackage {
