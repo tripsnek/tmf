@@ -268,6 +268,7 @@ export class EClassImpl extends EClassifierImpl implements EClass {
 
   private computeEAllOperations(): void {
     this.eAllOperations = new BasicEList<EOperation>();
+    this.eAllOperations.addAll(this.getEOperations());
     const allSuperTypes = this.getEAllSuperTypes();
     for (let i = 0; i < allSuperTypes.size(); i++) {
       const superType = allSuperTypes.get(i);

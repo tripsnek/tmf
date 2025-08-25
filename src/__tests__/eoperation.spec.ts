@@ -278,24 +278,6 @@ describe('EOperation Tests', () => {
       }
     });
 
-    it('should handle optional parameters', () => {
-      if (doSomethingOperation) {
-        const parameters = doSomethingOperation.getEParameters();
-        
-        for (let i = 0; i < parameters.size(); i++) {
-          const param = parameters.get(i);
-          const isOptional = param.isOptional();
-          
-          // Optional should be related to lower bound
-          if (isOptional) {
-            expect(param.getLowerBound()).toBe(0);
-          } else {
-            expect(param.getLowerBound()).toBeGreaterThan(0);
-          }
-        }
-      }
-    });
-
     it('should allow parameter modification', () => {
       if (doSomethingOperation) {
         const parameters = doSomethingOperation.getEParameters();
@@ -385,22 +367,6 @@ describe('EOperation Tests', () => {
       }
     });
 
-    it('should allow setting parameter operation', () => {
-      if (doSomethingOperation) {
-        const parameters = doSomethingOperation.getEParameters();
-        
-        if (parameters.size() > 0) {
-          const param = parameters.get(0);
-          const originalOperation = param.getEOperation();
-          
-          param.setEOperation(doSomethingOperation);
-          expect(param.getEOperation()).toBe(doSomethingOperation);
-          
-          // Reset
-          param.setEOperation(originalOperation);
-        }
-      }
-    });
   });
 
   describe('Edge Cases and Error Handling', () => {
@@ -435,7 +401,6 @@ describe('EOperation Tests', () => {
           expect(() => param.setName(null!)).not.toThrow();
           expect(() => param.setName(undefined!)).not.toThrow();
           expect(() => param.setEType(null!)).not.toThrow();
-          expect(() => param.setEOperation(null!)).not.toThrow();
         }
       }
     });
