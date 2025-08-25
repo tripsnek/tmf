@@ -1,21 +1,21 @@
-import { EDataTypeImpl } from '../metamodel/edata-type-impl';
+import { EDataTypeImpl } from '../metamodel/impl/edata-type-impl';
 import { EClass } from '../metamodel/api/eclass';
-import { EEnumLiteralImpl } from '../metamodel/eenum-literal-impl';
-import { EClassImpl } from '../metamodel/eclass-impl';
-import { EEnumImpl } from '../metamodel/eenum-impl';
+import { EEnumLiteralImpl } from '../metamodel/impl/eenum-literal-impl';
+import { EClassImpl } from '../metamodel/impl/eclass-impl';
+import { EEnumImpl } from '../metamodel/impl/eenum-impl';
 import { EClassifier } from '../metamodel/api/eclassifier';
 import { EEnum } from '../metamodel/api/eenum';
 import { EStructuralFeature } from '../metamodel/api/estructural-feature';
 import { EPackage } from '../metamodel/api/epackage';
-import { EAttributeImpl } from '../metamodel/eattribute-impl';
-import { EReferenceImpl } from '../metamodel/ereference-impl';
+import { EAttributeImpl } from '../metamodel/impl/eattribute-impl';
+import { EReferenceImpl } from '../metamodel/impl/ereference-impl';
 import { EAttribute } from '../metamodel/api/eattribute';
 import { EOperation } from '../metamodel/api/eoperation';
-import { EOperationImpl } from '../metamodel/eoperation-impl';
-import { EParameterImpl } from '../metamodel/eparameter-impl';
+import { EOperationImpl } from '../metamodel/impl/eoperation-impl';
+import { EParameterImpl } from '../metamodel/impl/eparameter-impl';
 import { EReference } from '../metamodel/api/ereference';
 import { TUtils } from '../tutils';
-import { EPackageImpl } from '../metamodel/epackageimpl';
+import { EPackageImpl } from '../metamodel/impl/epackageimpl';
 
 /**
  * Parses Ecore XML strings into TMF metamodel instances.

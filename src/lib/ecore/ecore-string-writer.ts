@@ -9,10 +9,10 @@ import { EReference } from '../metamodel/api/ereference';
 import { EOperation } from '../metamodel/api/eoperation';
 import { EParameter } from '../metamodel/api/eparameter';
 import { EEnumLiteral } from '../metamodel/api/eenum-literal';
-import { EEnumImpl } from '../metamodel/eenum-impl';
-import { EClassImpl } from '../metamodel/eclass-impl';
-import { EDataTypeImpl } from '../metamodel/edata-type-impl';
-import { EAttributeImpl } from '../metamodel/eattribute-impl';
+import { EEnumImpl } from '../metamodel/impl/eenum-impl';
+import { EClassImpl } from '../metamodel/impl/eclass-impl';
+import { EDataTypeImpl } from '../metamodel/impl/edata-type-impl';
+import { EAttributeImpl } from '../metamodel/impl/eattribute-impl';
 import { TUtils } from '../tutils';
 
 /**

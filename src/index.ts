@@ -1,14 +1,13 @@
 // Export all metamodel classes and impls
 export * from './lib/metamodel/api/eobject';
-export * from './lib/metamodel/eobjectimpl';
+export * from './lib/metamodel/impl/eobjectimpl';
 export * from './lib/metamodel/api/eoperation';
 export * from './lib/metamodel/api/epackage';
-export * from './lib/metamodel/epackageimpl';
+export * from './lib/metamodel/impl/epackageimpl';
 export * from './lib/metamodel/api/eattribute';
 export * from './lib/metamodel/api/eclass';
 export * from './lib/metamodel/api/eclassifier';
 export * from './lib/metamodel/ecorepackage';
-export * from './lib/metamodel/ecorepackageimpl';
 export * from './lib/metamodel/api/edata-type';
 export * from './lib/metamodel/api/eenum-literal';
 export * from './lib/metamodel/api/eenum';
@@ -21,14 +20,14 @@ export * from './lib/metamodel/api/eparameter';
 export * from './lib/metamodel/api/ereference';
 export * from './lib/metamodel/api/estructural-feature';
 export * from './lib/metamodel/api/etyped-element';
-export * from './lib/metamodel/ereference-impl';
-export * from './lib/metamodel/edata-type-impl';
-export * from './lib/metamodel/eclass-impl';
-export * from './lib/metamodel/eenum-impl';
-export * from './lib/metamodel/eenum-literal-impl';
-export * from './lib/metamodel/eattribute-impl';
-export * from './lib/metamodel/eoperation-impl';
-export * from './lib/metamodel/eparameter-impl';
+export * from './lib/metamodel/impl/ereference-impl';
+export * from './lib/metamodel/impl/edata-type-impl';
+export * from './lib/metamodel/impl/eclass-impl';
+export * from './lib/metamodel/impl/eenum-impl';
+export * from './lib/metamodel/impl/eenum-literal-impl';
+export * from './lib/metamodel/impl/eattribute-impl';
+export * from './lib/metamodel/impl/eoperation-impl';
+export * from './lib/metamodel/impl/eparameter-impl';
 
 //Export Utils
 export * from './lib/utils/pair';

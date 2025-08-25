@@ -1,8 +1,8 @@
-import { EClassifier } from './api/eclassifier';
-import { EClass } from './api/eclass';
+import { EClassifier } from '../api/eclassifier';
+import { EClass } from '../api/eclass';
 import { ETypedElementImpl } from './etyped-element-impl';
-import { EStructuralFeature } from './api/estructural-feature';
-import { EObject } from './api/eobject';
+import { EStructuralFeature } from '../api/estructural-feature';
+import { EObject } from '../api/eobject';
 
 export class EStructuralFeatureImpl
   extends ETypedElementImpl

@@ -8,11 +8,11 @@ import { EStructuralFeature } from '../metamodel/api/estructural-feature';
 import { EClassifier } from '../metamodel/api/eclassifier';
 import { BasicEList } from '../metamodel/basicelist';
 import { TGenUtils as DU } from './tgen-utils';
-import { EAttributeImpl } from '../metamodel/eattribute-impl';
-import { EClassImpl } from '../metamodel/eclass-impl';
-import { EReferenceImpl } from '../metamodel/ereference-impl';
-import { EEnumImpl } from '../metamodel/eenum-impl';
-import { EDataTypeImpl } from '../metamodel/edata-type-impl';
+import { EAttributeImpl } from '../metamodel/impl/eattribute-impl';
+import { EClassImpl } from '../metamodel/impl/eclass-impl';
+import { EReferenceImpl } from '../metamodel/impl/ereference-impl';
+import { EEnumImpl } from '../metamodel/impl/eenum-impl';
+import { EDataTypeImpl } from '../metamodel/impl/edata-type-impl';
 import { TGeneratorPackageInitializer } from './tgenerator-package-initializer';
 
 /**

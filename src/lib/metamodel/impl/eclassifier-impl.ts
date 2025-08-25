@@ -1,7 +1,7 @@
-import { EPackage } from './api/epackage';
-import { EClass } from './api/eclass';
+import { EPackage } from '../api/epackage';
+import { EClass } from '../api/eclass';
 import { ENamedElementImpl } from './enamed-element-impl';
-import { EClassifier } from './api/eclassifier';
+import { EClassifier } from '../api/eclassifier';
 
 export abstract class EClassifierImpl
   extends ENamedElementImpl

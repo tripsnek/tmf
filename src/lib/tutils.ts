@@ -7,12 +7,12 @@ import { EAttribute } from './metamodel/api/eattribute';
 import { EStructuralFeature } from './metamodel/api/estructural-feature';
 import { EReference } from './metamodel/api/ereference';
 import { TJson } from './json/tjson';
-import { EEnumImpl } from './metamodel/eenum-impl';
-import { EDataTypeImpl } from './metamodel/edata-type-impl';
+import { EEnumImpl } from './metamodel/impl/eenum-impl';
+import { EDataTypeImpl } from './metamodel/impl/edata-type-impl';
 import { EList } from './metamodel/api/elist';
 import { EClass } from './metamodel/api/eclass';
 import { EPackage } from './metamodel/api/epackage';
-import { EClassImpl } from './metamodel/eclass-impl';
+import { EClassImpl } from './metamodel/impl/eclass-impl';
 
 /**
  * Various utilities for interacting with TMF-modeled data objects, some

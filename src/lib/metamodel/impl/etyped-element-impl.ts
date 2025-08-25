@@ -1,6 +1,6 @@
-import { EClassifier } from './api/eclassifier';
-import { EClass } from './api/eclass';
-import { ETypedElement } from './api/etyped-element';
+import { EClassifier } from '../api/eclassifier';
+import { EClass } from '../api/eclass';
+import { ETypedElement } from '../api/etyped-element';
 import { ENamedElementImpl } from './enamed-element-impl';
 
 export class ETypedElementImpl

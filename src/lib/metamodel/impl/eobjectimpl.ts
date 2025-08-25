@@ -1,8 +1,8 @@
-import { EClass } from './api/eclass';
-import { EStructuralFeature } from './api/estructural-feature';
+import { EClass } from '../api/eclass';
+import { EStructuralFeature } from '../api/estructural-feature';
 
-import { EObject } from './api/eobject';
-import { EAttribute } from './api/eattribute';
+import { EObject } from '../api/eobject';
+import { EAttribute } from '../api/eattribute';
 // import { EcorePackage } from './ecorepackage';
 
 export abstract class EObjectImpl implements EObject {

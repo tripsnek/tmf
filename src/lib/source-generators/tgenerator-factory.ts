@@ -1,7 +1,7 @@
 import { EPackage } from '../metamodel/api/epackage';
 import { EClass } from '../metamodel/api/eclass';
 import { TGenUtils as DU } from './tgen-utils';
-import { EClassImpl } from '../metamodel/eclass-impl';
+import { EClassImpl } from '../metamodel/impl/eclass-impl';
 import { TGeneratorPackageInitializer } from './tgenerator-package-initializer';
 
 /**

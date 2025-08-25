@@ -11,15 +11,15 @@ import { EStructuralFeature } from './estructural-feature';
 import { EDataType } from './edata-type';
 import { EEnumLiteral } from './eenum-literal';
 import { EOperation } from './eoperation';
-import { ENamedElementImpl } from '../enamed-element-impl';
-import { EAttributeImpl } from '../eattribute-impl';
-import { EClassImpl } from '../eclass-impl';
-import { EOperationImpl } from '../eoperation-impl';
-import { EReferenceImpl } from '../ereference-impl';
-import { EEnumImpl } from '../eenum-impl';
-import { EDataTypeImpl } from '../edata-type-impl';
-import { EEnumLiteralImpl } from '../eenum-literal-impl';
-import { EParameterImpl } from '../eparameter-impl';
+import { ENamedElementImpl } from '../impl/enamed-element-impl';
+import { EAttributeImpl } from '../impl/eattribute-impl';
+import { EClassImpl } from '../impl/eclass-impl';
+import { EOperationImpl } from '../impl/eoperation-impl';
+import { EReferenceImpl } from '../impl/ereference-impl';
+import { EEnumImpl } from '../impl/eenum-impl';
+import { EDataTypeImpl } from '../impl/edata-type-impl';
+import { EEnumLiteralImpl } from '../impl/eenum-literal-impl';
+import { EParameterImpl } from '../impl/eparameter-impl';
 
 export class EPackage extends ENamedElementImpl {
   public static EPACKAGE: EClass; // Initialized in EClass
