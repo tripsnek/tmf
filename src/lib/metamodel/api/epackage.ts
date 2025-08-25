@@ -316,7 +316,7 @@ export class EPackage extends ENamedElementImpl {
     s.setVolatile(isVolatile);
     s.setChangeable(isChangeable);
     // s.setUnsettable(isUnsettable);
-    s.setUnique(isUnique);
+    // s.setUnique(isUnique);
     // s.setDerived(isDerived);
     // s.setOrdered(isOrdered);
     s.setLowerBound(lowerBound);
@@ -340,7 +340,7 @@ export class EPackage extends ENamedElementImpl {
     eOperation.setName(name);
     if (lowerBound) eOperation.setLowerBound(lowerBound);
     if (upperBound) eOperation.setUpperBound(upperBound);
-    eOperation.setUnique(isUnique ?? false);
+    // eOperation.setUnique(isUnique ?? false);
     // eOperation.setOrdered(isOrdered ?? false);
     return eOperation;
   }

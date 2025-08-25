@@ -241,7 +241,7 @@ export class TGeneratorPackage {
       ${feature.isChangeable() ?? true},
       true, //TODO: isUnsettable,
       ${feature.isId() ?? false},
-      ${feature.isUnique() ?? false},
+      false, //TODO: isUnique
       false, //TODO: isDerived
       false //TODO: isOrdered;` 
           } else if (feature instanceof EReferenceImpl) {
@@ -270,7 +270,7 @@ export class TGeneratorPackage {
       ${feature.isContainment() ?? false},
       false,
       true, //TODO: isUnsettable
-      ${feature.isUnique() ?? false},
+      false, //TODO: isUnique
       false, //TODO: isDerived
       false //TODO: isOrdered`;
           }

@@ -37,13 +37,13 @@ export class ETypedElementImpl
     this.upperBound = value;
   }
 
-  public isUnique(): boolean {
-    return this.unique;
-  }
+  // public isUnique(): boolean {
+  //   return this.unique;
+  // }
 
-  public setUnique(value: boolean): void {
-    this.unique = value;
-  }
+  // public setUnique(value: boolean): void {
+  //   this.unique = value;
+  // }
 
   public getEType(): EClassifier {
     return this.eType;

@@ -186,7 +186,7 @@ export class CapitalizedPackagePackage extends EPackageImpl {
       true,
       true, //TODO: isUnsettable,
       false,
-      false,
+      false, //TODO: isUnique
       false, //TODO: isDerived
       false //TODO: isOrdered;
     );

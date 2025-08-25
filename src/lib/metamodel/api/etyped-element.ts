@@ -19,11 +19,11 @@ export interface ETypedElement extends ENamedElement {
   /** Sets the maximum number of values for this element. */
   setUpperBound(value: number): void;
 
-  /** Returns true if duplicate values are not allowed in collections. */
-  isUnique(): boolean;
+  // /** Returns true if duplicate values are not allowed in collections. */
+  // isUnique(): boolean;
 
-  /** Sets whether duplicate values are allowed in collections. */
-  setUnique(value: boolean): void;
+  // /** Sets whether duplicate values are allowed in collections. */
+  // setUnique(value: boolean): void;
 
   /** Returns the type classifier for this element. */
   getEType(): EClassifier;

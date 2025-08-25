@@ -166,7 +166,7 @@ export class AnalysisPackage extends EPackageImpl {
       false,
       false,
       true, //TODO: isUnsettable
-      false,
+      false, //TODO: isUnique
       false, //TODO: isDerived
       false //TODO: isOrdered
     );
@@ -185,7 +185,7 @@ export class AnalysisPackage extends EPackageImpl {
       true,
       false,
       true, //TODO: isUnsettable
-      false,
+      false, //TODO: isUnique
       false, //TODO: isDerived
       false //TODO: isOrdered
     );

@@ -169,7 +169,7 @@ export class ModelPackage extends EPackageImpl {
       false,
       false,
       true, //TODO: isUnsettable
-      false,
+      false, //TODO: isUnique
       false, //TODO: isDerived
       false //TODO: isOrdered
     );
@@ -195,7 +195,7 @@ export class ModelPackage extends EPackageImpl {
       true,
       false,
       true, //TODO: isUnsettable
-      false,
+      false, //TODO: isUnique
       false, //TODO: isDerived
       false //TODO: isOrdered
     );
