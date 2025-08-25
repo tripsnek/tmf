@@ -365,6 +365,7 @@ export class EPackage extends ENamedElementImpl {
 
     //TODO: Would not have to do both if model was source generated
     owner.getEParameters().add(param);
+    param.setEOperation(owner);
   }
 
   protected createEAttribute(owner: EClass, id: number): void {
