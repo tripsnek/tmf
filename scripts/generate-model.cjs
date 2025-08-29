@@ -1,4 +1,4 @@
-const { generateFromEcore } = require('../dist/cjs/lib/source-generators/modelgenutils');
+const { generateFromEcore } = require('../dist/lib/source-generators/modelgenutils');
 
 const ecoreFile = process.argv[2] || './src/__tests__/TmfTest.ecore';
 console.log(`Generating model from: ${ecoreFile}`);
