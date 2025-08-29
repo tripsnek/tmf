@@ -8,8 +8,8 @@ import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
 
-import { ContainerRootType } from './container-root-type';
-import { ModelPackage } from '../model-package';
+import { ContainerRootType } from './container-root-type.js';
+import { ModelPackage } from '../model-package.js';
 
 /**
  * Source-gen API for ContainedRootType.

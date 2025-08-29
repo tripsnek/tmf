@@ -11,11 +11,11 @@ import { EObjectImpl } from '@tripsnek/tmf';
 import { EReference } from '@tripsnek/tmf';
 import { EAttribute } from '@tripsnek/tmf';
 import { EFactory } from '@tripsnek/tmf';
-import { AnalysisPackage } from './analysis-package';
+import { AnalysisPackage } from './analysis-package.js';
 
-import { AnalysisResult } from './api/analysis-result';
-import { AnalysisResultImpl } from './impl/analysis-result-impl';
-import { ModelPackageInitializer } from '../model-package-initializer';
+import { AnalysisResult } from './api/analysis-result.js';
+import { AnalysisResultImpl } from './impl/analysis-result-impl.js';
+import { ModelPackageInitializer } from '../model-package-initializer.js';
 
 export class AnalysisFactory implements EFactory {
   /* Singleton */

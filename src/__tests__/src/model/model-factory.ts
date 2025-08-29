@@ -11,13 +11,13 @@ import { EObjectImpl } from '@tripsnek/tmf';
 import { EReference } from '@tripsnek/tmf';
 import { EAttribute } from '@tripsnek/tmf';
 import { EFactory } from '@tripsnek/tmf';
-import { ModelPackage } from './model-package';
+import { ModelPackage } from './model-package.js';
 
-import { ContainerRootType } from './api/container-root-type';
-import { ContainerRootTypeImpl } from './impl/container-root-type-impl';
-import { ContainedRootType } from './api/contained-root-type';
-import { ContainedRootTypeImpl } from './impl/contained-root-type-impl';
-import { ModelPackageInitializer } from './model-package-initializer';
+import { ContainerRootType } from './api/container-root-type.js';
+import { ContainerRootTypeImpl } from './impl/container-root-type-impl.js';
+import { ContainedRootType } from './api/contained-root-type.js';
+import { ContainedRootTypeImpl } from './impl/contained-root-type-impl.js';
+import { ModelPackageInitializer } from './model-package-initializer.js';
 
 export class ModelFactory implements EFactory {
   /* Singleton */

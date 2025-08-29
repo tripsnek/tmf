@@ -7,17 +7,17 @@ import { EList } from '@tripsnek/tmf';
 import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
-import { ExampleInterface } from '../api/example-interface';
-import { Foo } from '../../../core/api/foo';
-import { FooGroup } from '../../../core/api/foo-group';
+import { ExampleInterface } from '../api/example-interface.js';
+import { Foo } from '../../../core/api/foo.js';
+import { FooGroup } from '../../../core/api/foo-group.js';
 
-import { CapitalizedPackagePackage } from '../capitalized-package-package';
-import { ClassInCapitalizedPackage } from '../api/class-in-capitalized-package';
-import { FooGen } from '../../../core//gen/foo-gen';
-import { FooImpl } from '../../../core//impl/foo-impl';
-import { FooGroupGen } from '../../../core//gen/foo-group-gen';
-import { FooGroupImpl } from '../../../core//impl/foo-group-impl';
-import { CorePackage } from '../../../core/core-package';
+import { CapitalizedPackagePackage } from '../capitalized-package-package.js';
+import { ClassInCapitalizedPackage } from '../api/class-in-capitalized-package.js';
+import { FooGen } from '../../../core//gen/foo-gen.js';
+import { FooImpl } from '../../../core//impl/foo-impl.js';
+import { FooGroupGen } from '../../../core//gen/foo-group-gen.js';
+import { FooGroupImpl } from '../../../core//impl/foo-group-impl.js';
+import { CorePackage } from '../../../core/core-package.js';
 /**
  * This file is source-code generated and should never be edited. It implements
  * the core TMF functionality for ClassInCapitalizedPackage.

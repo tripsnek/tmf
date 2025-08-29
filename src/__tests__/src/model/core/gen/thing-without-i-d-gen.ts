@@ -7,12 +7,12 @@ import { EList } from '@tripsnek/tmf';
 import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
-import { Foo } from '../api/foo';
+import { Foo } from '../api/foo.js';
 
-import { CorePackage } from '../core-package';
-import { ThingWithoutID } from '../api/thing-without-i-d';
-import { FooGen } from './foo-gen';
-import { FooImpl } from '../impl/foo-impl';
+import { CorePackage } from '../core-package.js';
+import { ThingWithoutID } from '../api/thing-without-i-d.js';
+import { FooGen } from './foo-gen.js';
+import { FooImpl } from '../impl/foo-impl.js';
 
 /**
  * This file is source-code generated and should never be edited. It implements

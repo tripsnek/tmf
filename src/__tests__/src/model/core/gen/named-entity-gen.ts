@@ -7,15 +7,15 @@ import { EList } from '@tripsnek/tmf';
 import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
-import { IdedEntity } from '../api/ided-entity';
-import { User } from '../api/user';
+import { IdedEntity } from '../api/ided-entity.js';
+import { User } from '../api/user.js';
 
-import { CorePackage } from '../core-package';
-import { NamedEntity } from '../api/named-entity';
-import { IdedEntityGen } from './ided-entity-gen';
-import { IdedEntityImpl } from '../impl/ided-entity-impl';
-import { UserGen } from './user-gen';
-import { UserImpl } from '../impl/user-impl';
+import { CorePackage } from '../core-package.js';
+import { NamedEntity } from '../api/named-entity.js';
+import { IdedEntityGen } from './ided-entity-gen.js';
+import { IdedEntityImpl } from '../impl/ided-entity-impl.js';
+import { UserGen } from './user-gen.js';
+import { UserImpl } from '../impl/user-impl.js';
 
 /**
  * This file is source-code generated and should never be edited. It implements

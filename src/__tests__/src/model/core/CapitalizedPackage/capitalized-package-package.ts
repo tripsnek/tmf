@@ -1,4 +1,4 @@
-import { CorePackage } from './../../core/core-package';
+import { CorePackage } from './../../core/core-package.js';
 import { EObject } from '@tripsnek/tmf';
 import { TUtils } from '@tripsnek/tmf';
 import { EStructuralFeature } from '@tripsnek/tmf';
@@ -9,7 +9,7 @@ import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
 
-import { ModelPackageInitializer } from '../../model-package-initializer';
+import { ModelPackageInitializer } from '../../model-package-initializer.js';
 import { EPackage } from '@tripsnek/tmf';
 import { EPackageImpl } from '@tripsnek/tmf';
 import { EAttribute } from '@tripsnek/tmf';

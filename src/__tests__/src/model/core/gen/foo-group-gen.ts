@@ -7,22 +7,22 @@ import { EList } from '@tripsnek/tmf';
 import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
-import { NamedEntity } from '../api/named-entity';
-import { User } from '../api/user';
-import { FooClass } from '../api/foo-class';
-import { Foo } from '../api/foo';
-import { Bazzle } from '../api/bazzle';
+import { NamedEntity } from '../api/named-entity.js';
+import { User } from '../api/user.js';
+import { FooClass } from '../api/foo-class.js';
+import { Foo } from '../api/foo.js';
+import { Bazzle } from '../api/bazzle.js';
 
-import { CorePackage } from '../core-package';
-import { FooGroup } from '../api/foo-group';
-import { NamedEntityGen } from './named-entity-gen';
-import { NamedEntityImpl } from '../impl/named-entity-impl';
-import { UserGen } from './user-gen';
-import { UserImpl } from '../impl/user-impl';
-import { FooGen } from './foo-gen';
-import { FooImpl } from '../impl/foo-impl';
-import { BazzleGen } from './bazzle-gen';
-import { BazzleImpl } from '../impl/bazzle-impl';
+import { CorePackage } from '../core-package.js';
+import { FooGroup } from '../api/foo-group.js';
+import { NamedEntityGen } from './named-entity-gen.js';
+import { NamedEntityImpl } from '../impl/named-entity-impl.js';
+import { UserGen } from './user-gen.js';
+import { UserImpl } from '../impl/user-impl.js';
+import { FooGen } from './foo-gen.js';
+import { FooImpl } from '../impl/foo-impl.js';
+import { BazzleGen } from './bazzle-gen.js';
+import { BazzleImpl } from '../impl/bazzle-impl.js';
 
 /**
  * This file is source-code generated and should never be edited. It implements

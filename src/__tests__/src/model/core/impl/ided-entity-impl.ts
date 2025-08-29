@@ -7,12 +7,16 @@ import { EList } from '@tripsnek/tmf';
 import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
-import { User } from '../api/user';
+import { User } from '../api/user.js';
 
-import { IdedEntityGen } from '../gen/ided-entity-gen';
-import { IdedEntity } from '../api/ided-entity';
+import { IdedEntityGen } from '../gen/ided-entity-gen.js';
+import { IdedEntity } from '../api/ided-entity.js';
 
 /**
  * Editable Impl class.
  */
-export class IdedEntityImpl extends IdedEntityGen {}
+export class IdedEntityImpl extends IdedEntityGen {
+  public override genId(): void {
+    throw new Error('Not implemented');
+  }
+}

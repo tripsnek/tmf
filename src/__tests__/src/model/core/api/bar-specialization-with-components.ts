@@ -8,11 +8,11 @@ import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
 
-import { Bar } from './bar';
-import { Foo } from './foo';
-import { Bazzle } from './bazzle';
-import { User } from './user';
-import { CorePackage } from '../core-package';
+import { Bar } from './bar.js';
+import { Foo } from './foo.js';
+import { Bazzle } from './bazzle.js';
+import { User } from './user.js';
+import { CorePackage } from '../core-package.js';
 
 /**
  * Source-gen API for BarSpecializationWithComponents.

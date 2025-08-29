@@ -8,7 +8,7 @@ import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
 
-import { CorePackage } from '../core-package';
+import { CorePackage } from '../core-package.js';
 
 /**
  * Source-gen API for BoundedNumber.

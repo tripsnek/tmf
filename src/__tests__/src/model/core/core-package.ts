@@ -1,4 +1,4 @@
-import { CapitalizedPackagePackage } from './../core/CapitalizedPackage/capitalized-package-package';
+import { CapitalizedPackagePackage } from './../core/CapitalizedPackage/capitalized-package-package.js';
 import { EObject } from '@tripsnek/tmf';
 import { TUtils } from '@tripsnek/tmf';
 import { EStructuralFeature } from '@tripsnek/tmf';
@@ -9,7 +9,7 @@ import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
 
-import { ModelPackageInitializer } from '../model-package-initializer';
+import { ModelPackageInitializer } from '../model-package-initializer.js';
 import { EPackage } from '@tripsnek/tmf';
 import { EPackageImpl } from '@tripsnek/tmf';
 import { EAttribute } from '@tripsnek/tmf';
@@ -17,7 +17,7 @@ import { EFactory } from '@tripsnek/tmf';
 import { EReference } from '@tripsnek/tmf';
 import { EOperation } from '@tripsnek/tmf';
 import { EcorePackage } from '@tripsnek/tmf';
-import { FooClass } from './api/foo-class';
+import { FooClass } from './api/foo-class.js';
 export class CorePackage extends EPackageImpl {
   public static THING_WITHOUT_I_D = 0;
   public static THING_WITHOUT_I_D_FEATURE_COUNT = 2;

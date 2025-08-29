@@ -8,8 +8,8 @@ import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
 
-import { User } from './user';
-import { CorePackage } from '../core-package';
+import { User } from './user.js';
+import { CorePackage } from '../core-package.js';
 
 /**
  * Source-gen API for IdedEntity.

@@ -8,11 +8,11 @@ import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
 
-import { NamedEntity } from './named-entity';
-import { Bar } from './bar';
-import { Foo } from './foo';
-import { User } from './user';
-import { CorePackage } from '../core-package';
+import { NamedEntity } from './named-entity.js';
+import { Bar } from './bar.js';
+import { Foo } from './foo.js';
+import { User } from './user.js';
+import { CorePackage } from '../core-package.js';
 
 /**
  * Source-gen API for Bazzle.

@@ -7,10 +7,10 @@ import { EList } from '@tripsnek/tmf';
 import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
-import { Foo } from '../api/foo';
+import { Foo } from '../api/foo.js';
 
-import { ThingWithoutIDGen } from '../gen/thing-without-i-d-gen';
-import { ThingWithoutID } from '../api/thing-without-i-d';
+import { ThingWithoutIDGen } from '../gen/thing-without-i-d-gen.js';
+import { ThingWithoutID } from '../api/thing-without-i-d.js';
 
 /**
  * Editable Impl class.

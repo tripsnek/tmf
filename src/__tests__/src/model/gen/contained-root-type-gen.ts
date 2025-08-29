@@ -7,12 +7,12 @@ import { EList } from '@tripsnek/tmf';
 import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
-import { ContainerRootType } from '../api/container-root-type';
+import { ContainerRootType } from '../api/container-root-type.js';
 
-import { ModelPackage } from '../model-package';
-import { ContainedRootType } from '../api/contained-root-type';
-import { ContainerRootTypeGen } from './container-root-type-gen';
-import { ContainerRootTypeImpl } from '../impl/container-root-type-impl';
+import { ModelPackage } from '../model-package.js';
+import { ContainedRootType } from '../api/contained-root-type.js';
+import { ContainerRootTypeGen } from './container-root-type-gen.js';
+import { ContainerRootTypeImpl } from '../impl/container-root-type-impl.js';
 
 /**
  * This file is source-code generated and should never be edited. It implements

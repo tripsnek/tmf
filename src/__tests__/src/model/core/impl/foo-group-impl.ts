@@ -7,14 +7,14 @@ import { EList } from '@tripsnek/tmf';
 import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
-import { NamedEntity } from '../api/named-entity';
-import { User } from '../api/user';
-import { FooClass } from '../api/foo-class';
-import { Foo } from '../api/foo';
-import { Bazzle } from '../api/bazzle';
+import { NamedEntity } from '../api/named-entity.js';
+import { User } from '../api/user.js';
+import { FooClass } from '../api/foo-class.js';
+import { Foo } from '../api/foo.js';
+import { Bazzle } from '../api/bazzle.js';
 
-import { FooGroupGen } from '../gen/foo-group-gen';
-import { FooGroup } from '../api/foo-group';
+import { FooGroupGen } from '../gen/foo-group-gen.js';
+import { FooGroup } from '../api/foo-group.js';
 
 /**
  * Editable Impl class.

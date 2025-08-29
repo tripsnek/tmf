@@ -8,8 +8,8 @@ import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
 
-import { NamedEntity } from './named-entity';
-import { CorePackage } from '../core-package';
+import { NamedEntity } from './named-entity.js';
+import { CorePackage } from '../core-package.js';
 
 /**
  * Source-gen API for User.

@@ -8,9 +8,9 @@ import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
 
-import { IdedEntity } from './ided-entity';
-import { User } from './user';
-import { CorePackage } from '../core-package';
+import { IdedEntity } from './ided-entity.js';
+import { User } from './user.js';
+import { CorePackage } from '../core-package.js';
 
 /**
  * Source-gen API for NamedEntity.

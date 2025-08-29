@@ -8,9 +8,9 @@ import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
 
-import { Foo } from '../../../core/api/foo';
-import { FooGroup } from '../../../core/api/foo-group';
-import { CapitalizedPackagePackage } from '../capitalized-package-package';
+import { Foo } from '../../../core/api/foo.js';
+import { FooGroup } from '../../../core/api/foo-group.js';
+import { CapitalizedPackagePackage } from '../capitalized-package-package.js';
 
 /**
  * Source-gen API for ExampleInterface.

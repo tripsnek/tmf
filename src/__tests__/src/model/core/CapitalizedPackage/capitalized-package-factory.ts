@@ -11,13 +11,13 @@ import { EObjectImpl } from '@tripsnek/tmf';
 import { EReference } from '@tripsnek/tmf';
 import { EAttribute } from '@tripsnek/tmf';
 import { EFactory } from '@tripsnek/tmf';
-import { CapitalizedPackagePackage } from './capitalized-package-package';
+import { CapitalizedPackagePackage } from './capitalized-package-package.js';
 
-import { ExampleInterface } from './api/example-interface';
-import { ExampleInterfaceImpl } from './impl/example-interface-impl';
-import { ClassInCapitalizedPackage } from './api/class-in-capitalized-package';
-import { ClassInCapitalizedPackageImpl } from './impl/class-in-capitalized-package-impl';
-import { ModelPackageInitializer } from '../../model-package-initializer';
+import { ExampleInterface } from './api/example-interface.js';
+import { ExampleInterfaceImpl } from './impl/example-interface-impl.js';
+import { ClassInCapitalizedPackage } from './api/class-in-capitalized-package.js';
+import { ClassInCapitalizedPackageImpl } from './impl/class-in-capitalized-package-impl.js';
+import { ModelPackageInitializer } from '../../model-package-initializer.js';
 
 export class CapitalizedPackageFactory implements EFactory {
   /* Singleton */

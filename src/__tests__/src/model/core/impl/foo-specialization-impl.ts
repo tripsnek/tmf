@@ -7,16 +7,18 @@ import { EList } from '@tripsnek/tmf';
 import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
-import { Foo } from '../api/foo';
-import { FooGroup } from '../api/foo-group';
-import { FooClass } from '../api/foo-class';
-import { BoundedNumber } from '../api/bounded-number';
-import { Bar } from '../api/bar';
-import { Bazzle } from '../api/bazzle';
-import { User } from '../api/user';
+import { Foo } from '../api/foo.js';
+import { FooGroup } from '../api/foo-group.js';
+import { FooClass } from '../api/foo-class.js';
+import { BoundedNumber } from '../api/bounded-number.js';
+import { Bar } from '../api/bar.js';
+import { Bazzle } from '../api/bazzle.js';
+import { ClassInCapitalizedPackage } from '../../core/CapitalizedPackage/api/class-in-capitalized-package.js';
+import { ThingWithoutID } from '../api/thing-without-i-d.js';
+import { User } from '../api/user.js';
 
-import { FooSpecializationGen } from '../gen/foo-specialization-gen';
-import { FooSpecialization } from '../api/foo-specialization';
+import { FooSpecializationGen } from '../gen/foo-specialization-gen.js';
+import { FooSpecialization } from '../api/foo-specialization.js';
 
 /**
  * Editable Impl class.

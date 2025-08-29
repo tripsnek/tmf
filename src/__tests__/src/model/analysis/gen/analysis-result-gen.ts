@@ -7,19 +7,19 @@ import { EList } from '@tripsnek/tmf';
 import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
-import { IdedEntity } from '../../core/api/ided-entity';
-import { User } from '../../core/api/user';
-import { NamedEntity } from '../../core/api/named-entity';
+import { IdedEntity } from '../../core/api/ided-entity.js';
+import { User } from '../../core/api/user.js';
+import { NamedEntity } from '../../core/api/named-entity.js';
 
-import { AnalysisPackage } from '../analysis-package';
-import { AnalysisResult } from '../api/analysis-result';
-import { IdedEntityGen } from '../../core//gen/ided-entity-gen';
-import { IdedEntityImpl } from '../../core//impl/ided-entity-impl';
-import { UserGen } from '../../core//gen/user-gen';
-import { UserImpl } from '../../core//impl/user-impl';
-import { NamedEntityGen } from '../../core//gen/named-entity-gen';
-import { NamedEntityImpl } from '../../core//impl/named-entity-impl';
-import { CorePackage } from '../../core/core-package';
+import { AnalysisPackage } from '../analysis-package.js';
+import { AnalysisResult } from '../api/analysis-result.js';
+import { IdedEntityGen } from '../../core//gen/ided-entity-gen.js';
+import { IdedEntityImpl } from '../../core//impl/ided-entity-impl.js';
+import { UserGen } from '../../core//gen/user-gen.js';
+import { UserImpl } from '../../core//impl/user-impl.js';
+import { NamedEntityGen } from '../../core//gen/named-entity-gen.js';
+import { NamedEntityImpl } from '../../core//impl/named-entity-impl.js';
+import { CorePackage } from '../../core/core-package.js';
 /**
  * This file is source-code generated and should never be edited. It implements
  * the core TMF functionality for AnalysisResult.

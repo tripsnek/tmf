@@ -8,10 +8,10 @@ import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
 
-import { IdedEntity } from '../../core/api/ided-entity';
-import { User } from '../../core/api/user';
-import { NamedEntity } from '../../core/api/named-entity';
-import { AnalysisPackage } from '../analysis-package';
+import { IdedEntity } from '../../core/api/ided-entity.js';
+import { User } from '../../core/api/user.js';
+import { NamedEntity } from '../../core/api/named-entity.js';
+import { AnalysisPackage } from '../analysis-package.js';
 
 /**
  * Source-gen API for AnalysisResult.

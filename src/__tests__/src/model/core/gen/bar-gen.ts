@@ -7,25 +7,25 @@ import { EList } from '@tripsnek/tmf';
 import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
-import { NamedEntity } from '../api/named-entity';
-import { Foo } from '../api/foo';
-import { Bazzle } from '../api/bazzle';
-import { User } from '../api/user';
-import { FooClass } from '../api/foo-class';
-import { BoundedNumber } from '../api/bounded-number';
+import { NamedEntity } from '../api/named-entity.js';
+import { Foo } from '../api/foo.js';
+import { Bazzle } from '../api/bazzle.js';
+import { User } from '../api/user.js';
+import { FooClass } from '../api/foo-class.js';
+import { BoundedNumber } from '../api/bounded-number.js';
 
-import { CorePackage } from '../core-package';
-import { Bar } from '../api/bar';
-import { NamedEntityGen } from './named-entity-gen';
-import { NamedEntityImpl } from '../impl/named-entity-impl';
-import { FooGen } from './foo-gen';
-import { FooImpl } from '../impl/foo-impl';
-import { BazzleGen } from './bazzle-gen';
-import { BazzleImpl } from '../impl/bazzle-impl';
-import { UserGen } from './user-gen';
-import { UserImpl } from '../impl/user-impl';
-import { BoundedNumberGen } from './bounded-number-gen';
-import { BoundedNumberImpl } from '../impl/bounded-number-impl';
+import { CorePackage } from '../core-package.js';
+import { Bar } from '../api/bar.js';
+import { NamedEntityGen } from './named-entity-gen.js';
+import { NamedEntityImpl } from '../impl/named-entity-impl.js';
+import { FooGen } from './foo-gen.js';
+import { FooImpl } from '../impl/foo-impl.js';
+import { BazzleGen } from './bazzle-gen.js';
+import { BazzleImpl } from '../impl/bazzle-impl.js';
+import { UserGen } from './user-gen.js';
+import { UserImpl } from '../impl/user-impl.js';
+import { BoundedNumberGen } from './bounded-number-gen.js';
+import { BoundedNumberImpl } from '../impl/bounded-number-impl.js';
 
 /**
  * This file is source-code generated and should never be edited. It implements

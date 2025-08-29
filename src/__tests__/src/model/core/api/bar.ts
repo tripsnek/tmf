@@ -8,13 +8,13 @@ import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
 
-import { NamedEntity } from './named-entity';
-import { Foo } from './foo';
-import { Bazzle } from './bazzle';
-import { User } from './user';
-import { FooClass } from './foo-class';
-import { BoundedNumber } from './bounded-number';
-import { CorePackage } from '../core-package';
+import { NamedEntity } from './named-entity.js';
+import { Foo } from './foo.js';
+import { Bazzle } from './bazzle.js';
+import { User } from './user.js';
+import { FooClass } from './foo-class.js';
+import { BoundedNumber } from './bounded-number.js';
+import { CorePackage } from '../core-package.js';
 
 /**
  * Source-gen API for Bar.

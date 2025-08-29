@@ -1,11 +1,11 @@
-import { ModelPackage } from './model-package';
-import { ModelFactory } from './model-factory';
-import { CorePackage } from './core/core-package';
-import { CoreFactory } from './core/core-factory';
-import { CapitalizedPackagePackage } from './core/CapitalizedPackage/capitalized-package-package';
-import { CapitalizedPackageFactory } from './core/CapitalizedPackage/capitalized-package-factory';
-import { AnalysisPackage } from './analysis/analysis-package';
-import { AnalysisFactory } from './analysis/analysis-factory';
+import { ModelPackage } from './model-package.js';
+import { ModelFactory } from './model-factory.js';
+import { CorePackage } from './core/core-package.js';
+import { CoreFactory } from './core/core-factory.js';
+import { CapitalizedPackagePackage } from './core/CapitalizedPackage/capitalized-package-package.js';
+import { CapitalizedPackageFactory } from './core/CapitalizedPackage/capitalized-package-factory.js';
+import { AnalysisPackage } from './analysis/analysis-package.js';
+import { AnalysisFactory } from './analysis/analysis-factory.js';
 import { TJson, EClassImpl } from '@tripsnek/tmf';
 
 /**

@@ -11,27 +11,27 @@ import { EObjectImpl } from '@tripsnek/tmf';
 import { EReference } from '@tripsnek/tmf';
 import { EAttribute } from '@tripsnek/tmf';
 import { EFactory } from '@tripsnek/tmf';
-import { CorePackage } from './core-package';
+import { CorePackage } from './core-package.js';
 
-import { User } from './api/user';
-import { UserImpl } from './impl/user-impl';
-import { FooGroup } from './api/foo-group';
-import { FooGroupImpl } from './impl/foo-group-impl';
-import { Foo } from './api/foo';
-import { FooImpl } from './impl/foo-impl';
-import { FooSpecialization } from './api/foo-specialization';
-import { FooSpecializationImpl } from './impl/foo-specialization-impl';
-import { BarSpecializationWithComponents } from './api/bar-specialization-with-components';
-import { BarSpecializationWithComponentsImpl } from './impl/bar-specialization-with-components-impl';
-import { Bar } from './api/bar';
-import { BarImpl } from './impl/bar-impl';
-import { Bazzle } from './api/bazzle';
-import { BazzleImpl } from './impl/bazzle-impl';
-import { BoundedNumber } from './api/bounded-number';
-import { BoundedNumberImpl } from './impl/bounded-number-impl';
-import { ThingWithoutID } from './api/thing-without-i-d';
-import { ThingWithoutIDImpl } from './impl/thing-without-i-d-impl';
-import { ModelPackageInitializer } from '../model-package-initializer';
+import { User } from './api/user.js';
+import { UserImpl } from './impl/user-impl.js';
+import { FooGroup } from './api/foo-group.js';
+import { FooGroupImpl } from './impl/foo-group-impl.js';
+import { Foo } from './api/foo.js';
+import { FooImpl } from './impl/foo-impl.js';
+import { FooSpecialization } from './api/foo-specialization.js';
+import { FooSpecializationImpl } from './impl/foo-specialization-impl.js';
+import { BarSpecializationWithComponents } from './api/bar-specialization-with-components.js';
+import { BarSpecializationWithComponentsImpl } from './impl/bar-specialization-with-components-impl.js';
+import { Bar } from './api/bar.js';
+import { BarImpl } from './impl/bar-impl.js';
+import { Bazzle } from './api/bazzle.js';
+import { BazzleImpl } from './impl/bazzle-impl.js';
+import { BoundedNumber } from './api/bounded-number.js';
+import { BoundedNumberImpl } from './impl/bounded-number-impl.js';
+import { ThingWithoutID } from './api/thing-without-i-d.js';
+import { ThingWithoutIDImpl } from './impl/thing-without-i-d-impl.js';
+import { ModelPackageInitializer } from '../model-package-initializer.js';
 
 export class CoreFactory implements EFactory {
   /* Singleton */

@@ -7,12 +7,12 @@ import { EList } from '@tripsnek/tmf';
 import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
-import { NamedEntity } from '../api/named-entity';
+import { NamedEntity } from '../api/named-entity.js';
 
-import { CorePackage } from '../core-package';
-import { User } from '../api/user';
-import { NamedEntityGen } from './named-entity-gen';
-import { NamedEntityImpl } from '../impl/named-entity-impl';
+import { CorePackage } from '../core-package.js';
+import { User } from '../api/user.js';
+import { NamedEntityGen } from './named-entity-gen.js';
+import { NamedEntityImpl } from '../impl/named-entity-impl.js';
 
 /**
  * This file is source-code generated and should never be edited. It implements

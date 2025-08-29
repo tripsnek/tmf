@@ -8,8 +8,8 @@ import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
 
-import { Foo } from './foo';
-import { CorePackage } from '../core-package';
+import { Foo } from './foo.js';
+import { CorePackage } from '../core-package.js';
 
 /**
  * Source-gen API for ThingWithoutID.
