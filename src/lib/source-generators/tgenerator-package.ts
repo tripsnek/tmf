@@ -1,12 +1,12 @@
-import { EPackage } from '../metamodel/api/epackage';
-import { EEnum } from '../metamodel/api/eenum';
-import { EClass } from '../metamodel/api/eclass';
-import { EReference } from '../metamodel/api/ereference';
-import { EAttribute } from '../metamodel/api/eattribute';
-import { EDataType } from '../metamodel/api/edata-type';
-import { EStructuralFeature } from '../metamodel/api/estructural-feature';
-import { EClassifier } from '../metamodel/api/eclassifier';
-import { BasicEList } from '../metamodel/basicelist';
+import { EPackage } from '../metamodel/api/epackage.js';
+import { EEnum } from '../metamodel/api/eenum.js';
+import { EClass } from '../metamodel/api/eclass.js';
+import { EReference } from '../metamodel/api/ereference.js';
+import { EAttribute } from '../metamodel/api/eattribute.js';
+import { EDataType } from '../metamodel/api/edata-type.js';
+import { EStructuralFeature } from '../metamodel/api/estructural-feature.js';
+import { EClassifier } from '../metamodel/api/eclassifier.js';
+import { BasicEList } from '../metamodel/basicelist.js';
 import { TGenUtils as DU } from './tgen-utils.js';
 import { EAttributeImpl } from '../metamodel/impl/eattribute-impl.js';
 import { EClassImpl } from '../metamodel/impl/eclass-impl.js';
@@ -481,12 +481,12 @@ import { EOperation } from '@tripsnek/tmf';`;
     //we use relative imports for the EcorePackage, since it is in the same lib as the metamodel
     if (pkg.getName().toLowerCase() === 'ecore') {
       imports = `${DU.generateImportStatementsForExternalPackages(pkgToImport, pkg, '')}
-import { EPackage } from './epackage';
-import { EDataType } from './edata-type';
-import { EClass } from './eclass';
-import { EReference } from './ereference';
-import { EAttribute } from './eattribute';
-import { EFactory } from './efactory';`;
+import { EPackage } from './epackage.js';
+import { EDataType } from './edata-type.js';
+import { EClass } from './eclass.js';
+import { EReference } from './ereference.js';
+import { EAttribute } from './eattribute.js';
+import { EFactory } from './efactory.js';`;
     } else {
       imports += `
 import { EcorePackage } from '@tripsnek/tmf';`;

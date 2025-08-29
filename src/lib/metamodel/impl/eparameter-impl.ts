@@ -1,9 +1,9 @@
-import { EOperation } from '../api/eoperation';
+import { EOperation } from '../api/eoperation.js';
 import { ETypedElementImpl } from './etyped-element-impl.js';
-import { EClass } from '../api/eclass';
-import { EClassifier } from '../api/eclassifier';
-import { EParameter } from '../api/eparameter';
-import { EObject } from '../api/eobject';
+import { EClass } from '../api/eclass.js';
+import { EClassifier } from '../api/eclassifier.js';
+import { EParameter } from '../api/eparameter.js';
+import { EObject } from '../api/eobject.js';
 
 export class EParameterImpl extends ETypedElementImpl implements EParameter {
   private eOperation!: EOperation;

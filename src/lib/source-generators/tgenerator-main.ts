@@ -1,7 +1,7 @@
-import { EPackage } from '../metamodel/api/epackage';
-import { EClassifier } from '../metamodel/api/eclassifier';
-import { EClass } from '../metamodel/api/eclass';
-import { EEnum } from '../metamodel/api/eenum';
+import { EPackage } from '../metamodel/api/epackage.js';
+import { EClassifier } from '../metamodel/api/eclassifier.js';
+import { EClass } from '../metamodel/api/eclass.js';
+import { EEnum } from '../metamodel/api/eenum.js';
 import { TGeneratorPackage } from './tgenerator-package.js';
 import { TGeneratorFactory } from './tgenerator-factory.js';
 import { TGeneratorUtils } from './tgenerator-utils.js';
@@ -10,16 +10,16 @@ import { TGeneratorApi } from './tgenerator-api.js';
 import { TGeneratorImpl } from './tgenerator-impl.js';
 import { TGeneratorEnum } from './tgenerator-enum.js';
 import { TGenUtils as DU } from './tgen-utils.js';
-import { EcorePackage } from '../metamodel/ecorepackage';
+import { EcorePackage } from '../metamodel/ecorepackage.js';
 import { TGeneratorBarrelIndexTs } from './tgenerator-barrel-index.js';
 import { EClassImpl } from '../metamodel/impl/eclass-impl.js';
 import { EReferenceImpl } from '../metamodel/impl/ereference-impl.js';
 import { EEnumImpl } from '../metamodel/impl/eenum-impl.js';
-import { Environment, ConditionalImports } from '../utils/environment';
+import { Environment, ConditionalImports } from '../utils/environment.js';
 import { TGeneratorPackageInitializer } from './tgenerator-package-initializer.js';
-import { EOperation } from '../metamodel/api/eoperation';
-import { BasicEList } from '../metamodel/basicelist';
-import { EList } from '../metamodel/api/elist';
+import { EOperation } from '../metamodel/api/eoperation.js';
+import { BasicEList } from '../metamodel/basicelist.js';
+import { EList } from '../metamodel/api/elist.js';
 
 // Debug flag - set to true to enable detailed logging
 const DEBUG = false;

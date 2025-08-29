@@ -1,7 +1,7 @@
 // ecorewriter-safe.ts
-import { EPackage } from '../metamodel/api/epackage';
+import { EPackage } from '../metamodel/api/epackage.js';
 import { EcoreStringWriter } from './ecore-string-writer.js';
-import { Environment, ConditionalImports, safeDynamicImport } from '../utils/environment';
+import { Environment, ConditionalImports, safeDynamicImport } from '../utils/environment.js';
 
 /**
  * Writes an EPackage metamodel to an XML Ecore file.

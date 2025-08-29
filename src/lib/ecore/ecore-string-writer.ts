@@ -1,19 +1,19 @@
-import { EPackage } from '../metamodel/api/epackage';
-import { EClass } from '../metamodel/api/eclass';
-import { EClassifier } from '../metamodel/api/eclassifier';
-import { EDataType } from '../metamodel/api/edata-type';
-import { EEnum } from '../metamodel/api/eenum';
-import { EStructuralFeature } from '../metamodel/api/estructural-feature';
-import { EAttribute } from '../metamodel/api/eattribute';
-import { EReference } from '../metamodel/api/ereference';
-import { EOperation } from '../metamodel/api/eoperation';
-import { EParameter } from '../metamodel/api/eparameter';
-import { EEnumLiteral } from '../metamodel/api/eenum-literal';
+import { EPackage } from '../metamodel/api/epackage.js';
+import { EClass } from '../metamodel/api/eclass.js';
+import { EClassifier } from '../metamodel/api/eclassifier.js';
+import { EDataType } from '../metamodel/api/edata-type.js';
+import { EEnum } from '../metamodel/api/eenum.js';
+import { EStructuralFeature } from '../metamodel/api/estructural-feature.js';
+import { EAttribute } from '../metamodel/api/eattribute.js';
+import { EReference } from '../metamodel/api/ereference.js';
+import { EOperation } from '../metamodel/api/eoperation.js';
+import { EParameter } from '../metamodel/api/eparameter.js';
+import { EEnumLiteral } from '../metamodel/api/eenum-literal.js';
 import { EEnumImpl } from '../metamodel/impl/eenum-impl.js';
 import { EClassImpl } from '../metamodel/impl/eclass-impl.js';
 import { EDataTypeImpl } from '../metamodel/impl/edata-type-impl.js';
 import { EAttributeImpl } from '../metamodel/impl/eattribute-impl.js';
-import { TUtils } from '../tutils';
+import { TUtils } from '../tutils.js';
 
 /**
  * Writes EPackage metamodels to Ecore XML string format.

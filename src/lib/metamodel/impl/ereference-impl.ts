@@ -1,5 +1,5 @@
-import { EClass } from '../api/eclass';
-import { EReference } from '../api/ereference';
+import { EClass } from '../api/eclass.js';
+import { EReference } from '../api/ereference.js';
 import { EStructuralFeatureImpl } from './estructural-feature-impl.js';
 
 export class EReferenceImpl

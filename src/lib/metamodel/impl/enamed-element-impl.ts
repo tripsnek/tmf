@@ -1,6 +1,6 @@
-import { EClass } from '../api/eclass';
+import { EClass } from '../api/eclass.js';
 import { EModelElementImpl } from './emodel-element-impl.js';
-import { ENamedElement } from '../api/enamed-element';
+import { ENamedElement } from '../api/enamed-element.js';
 
 export abstract class ENamedElementImpl
   extends EModelElementImpl

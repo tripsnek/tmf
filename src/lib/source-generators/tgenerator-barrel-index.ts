@@ -1,8 +1,8 @@
-import { EClass } from '../metamodel/api/eclass';
+import { EClass } from '../metamodel/api/eclass.js';
 import { EClassImpl } from '../metamodel/impl/eclass-impl.js';
-import { EPackage } from '../metamodel/api/epackage';
+import { EPackage } from '../metamodel/api/epackage.js';
 import { TGenUtils as DU } from './tgen-utils.js';
-import { Environment, safeDynamicImport } from '../utils/environment';
+import { Environment, safeDynamicImport } from '../utils/environment.js';
 
 /**
  * Source code generation for .ts file that exports external facing

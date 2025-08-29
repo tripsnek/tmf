@@ -1,21 +1,21 @@
 import { EDataTypeImpl } from '../metamodel/impl/edata-type-impl.js';
-import { EClass } from '../metamodel/api/eclass';
+import { EClass } from '../metamodel/api/eclass.js';
 import { EEnumLiteralImpl } from '../metamodel/impl/eenum-literal-impl.js';
 import { EClassImpl } from '../metamodel/impl/eclass-impl.js';
 import { EEnumImpl } from '../metamodel/impl/eenum-impl.js';
-import { EClassifier } from '../metamodel/api/eclassifier';
-import { EEnum } from '../metamodel/api/eenum';
-import { EStructuralFeature } from '../metamodel/api/estructural-feature';
-import { EPackage } from '../metamodel/api/epackage';
+import { EClassifier } from '../metamodel/api/eclassifier.js';
+import { EEnum } from '../metamodel/api/eenum.js';
+import { EStructuralFeature } from '../metamodel/api/estructural-feature.js';
+import { EPackage } from '../metamodel/api/epackage.js';
 import { EAttributeImpl } from '../metamodel/impl/eattribute-impl.js';
 import { EReferenceImpl } from '../metamodel/impl/ereference-impl.js';
-import { EAttribute } from '../metamodel/api/eattribute';
-import { EOperation } from '../metamodel/api/eoperation';
+import { EAttribute } from '../metamodel/api/eattribute.js';
+import { EOperation } from '../metamodel/api/eoperation.js';
 import { EOperationImpl } from '../metamodel/impl/eoperation-impl.js';
 import { EParameterImpl } from '../metamodel/impl/eparameter-impl.js';
-import { EReference } from '../metamodel/api/ereference';
-import { TUtils } from '../tutils';
-import { EPackageImpl } from '../metamodel/impl/epackageimpl';
+import { EReference } from '../metamodel/api/ereference.js';
+import { TUtils } from '../tutils.js';
+import { EPackageImpl } from '../metamodel/impl/epackageimpl.js';
 
 /**
  * Parses Ecore XML strings into TMF metamodel instances.

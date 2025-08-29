@@ -1,4 +1,4 @@
-import { EObject } from '../metamodel/api/eobject';
+import { EObject } from '../metamodel/api/eobject.js';
 
 export class SerializedReference {
   fromId: string;

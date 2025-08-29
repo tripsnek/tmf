@@ -1,10 +1,10 @@
-import { EPackage } from '../metamodel/api/epackage';
-import { EClassifier } from '../metamodel/api/eclassifier';
-import { EClass } from '../metamodel/api/eclass';
-import { EReference } from '../metamodel/api/ereference';
+import { EPackage } from '../metamodel/api/epackage.js';
+import { EClassifier } from '../metamodel/api/eclassifier.js';
+import { EClass } from '../metamodel/api/eclass.js';
+import { EReference } from '../metamodel/api/ereference.js';
 import { TGenUtils as DU } from './tgen-utils.js';
-import { TUtils } from '../tutils';
-import { EStructuralFeature } from '../metamodel/api/estructural-feature';
+import { TUtils } from '../tutils.js';
+import { EStructuralFeature } from '../metamodel/api/estructural-feature.js';
 import { EReferenceImpl } from '../metamodel/impl/ereference-impl.js';
 import { EClassImpl } from '../metamodel/impl/eclass-impl.js';
 

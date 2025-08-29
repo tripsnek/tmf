@@ -1,7 +1,7 @@
-import { EEnum } from '../api/eenum';
-import { EEnumLiteral } from '../api/eenum-literal';
+import { EEnum } from '../api/eenum.js';
+import { EEnumLiteral } from '../api/eenum-literal.js';
 import { ENamedElementImpl } from './enamed-element-impl.js';
-import { EObject } from '../api/eobject';
+import { EObject } from '../api/eobject.js';
 
 export class EEnumLiteralImpl
   extends ENamedElementImpl

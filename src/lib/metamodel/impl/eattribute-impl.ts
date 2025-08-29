@@ -1,6 +1,6 @@
-import { EDataType } from '../api/edata-type';
-import { EClass } from '../api/eclass';
-import { EAttribute } from '../api/eattribute';
+import { EDataType } from '../api/edata-type.js';
+import { EClass } from '../api/eclass.js';
+import { EAttribute } from '../api/eattribute.js';
 import { EStructuralFeatureImpl } from './estructural-feature-impl.js';
 
 export class EAttributeImpl

@@ -1,4 +1,4 @@
-import { EPackage } from '../metamodel/api/epackage';
+import { EPackage } from '../metamodel/api/epackage.js';
 import { TGenUtils as DU } from './tgen-utils.js';
 
 /**

@@ -1,14 +1,14 @@
-import { EPackage } from '../api/epackage';
-import { EOperation } from '../api/eoperation';
-import { EAttribute } from '../api/eattribute';
-import { EReference } from '../api/ereference';
-import { EStructuralFeature } from '../api/estructural-feature';
+import { EPackage } from '../api/epackage.js';
+import { EOperation } from '../api/eoperation.js';
+import { EAttribute } from '../api/eattribute.js';
+import { EReference } from '../api/ereference.js';
+import { EStructuralFeature } from '../api/estructural-feature.js';
 import { BasicEList } from '../basicelist.js';
-import { EList } from '../api/elist';
-import { EObject } from '../api/eobject';
+import { EList } from '../api/elist.js';
+import { EObject } from '../api/eobject.js';
 import { EAttributeImpl } from './eattribute-impl.js';
 import { EClassifierImpl } from './eclassifier-impl.js';
-import { EClass } from '../api/eclass';
+import { EClass } from '../api/eclass.js';
 import { EReferenceImpl } from './ereference-impl.js';
 
 export class EClassImpl extends EClassifierImpl implements EClass {

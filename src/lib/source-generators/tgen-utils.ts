@@ -1,11 +1,11 @@
-import { EPackage } from '../metamodel/api/epackage';
-import { EClass } from '../metamodel/api/eclass';
-import { EClassifier } from '../metamodel/api/eclassifier';
-import { EStructuralFeature } from '../metamodel/api/estructural-feature';
-import { EOperation } from '../metamodel/api/eoperation';
-import { TUtils } from '../tutils';
-import { EcorePackage } from '../metamodel/ecorepackage';
-import { EDataType } from '../metamodel/api/edata-type';
+import { EPackage } from '../metamodel/api/epackage.js';
+import { EClass } from '../metamodel/api/eclass.js';
+import { EClassifier } from '../metamodel/api/eclassifier.js';
+import { EStructuralFeature } from '../metamodel/api/estructural-feature.js';
+import { EOperation } from '../metamodel/api/eoperation.js';
+import { TUtils } from '../tutils.js';
+import { EcorePackage } from '../metamodel/ecorepackage.js';
+import { EDataType } from '../metamodel/api/edata-type.js';
 import { EAttributeImpl } from '../metamodel/impl/eattribute-impl.js';
 import { EEnumImpl } from '../metamodel/impl/eenum-impl.js';
 

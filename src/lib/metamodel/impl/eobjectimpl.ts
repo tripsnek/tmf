@@ -1,9 +1,9 @@
-import { EClass } from '../api/eclass';
-import { EStructuralFeature } from '../api/estructural-feature';
+import { EClass } from '../api/eclass.js';
+import { EStructuralFeature } from '../api/estructural-feature.js';
 
-import { EObject } from '../api/eobject';
-import { EAttribute } from '../api/eattribute';
-// import { EcorePackage } from './ecorepackage';
+import { EObject } from '../api/eobject.js';
+import { EAttribute } from '../api/eattribute.js';
+// import { EcorePackage } from './ecorepackage.js';
 
 export abstract class EObjectImpl implements EObject {
   // private _eClass: EClass;

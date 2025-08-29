@@ -1,7 +1,7 @@
-import { EcoreParser } from '../ecore/ecoreparser';
-import { EPackage } from '../metamodel/api/epackage';
+import { EcoreParser } from '../ecore/ecoreparser.js';
+import { EPackage } from '../metamodel/api/epackage.js';
 import { TGeneratorMain } from './tgenerator-main.js';
-import { Environment, ConditionalImports, safeDynamicImport } from '../utils/environment';
+import { Environment, ConditionalImports, safeDynamicImport } from '../utils/environment.js';
 
 /**
  * (1) Parses an ECore file.
