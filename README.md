@@ -93,7 +93,7 @@ You can also generate codeCreate a `generate.mjs` file in your project:
 
 ```javascript
 import { generateFromEcore } from '@tripsnek/tmf';
-await generateFromEcore('./models/my-model.ecore');
+await generateFromEcore('./path/to/your/my-model.ecore');
 ```
 
 Run with: ```node generate.mjs```

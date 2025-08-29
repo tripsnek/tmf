@@ -23,7 +23,8 @@
     "prepublishOnly": "npm run build",
     "test": "jest",
     "lint": "eslint src/**/*.ts",
-    "format": "prettier --write src/**/*.ts"
+    "format": "prettier --write src/**/*.ts",
+    "gen-model": "node generate.mjs"
   },
   "keywords": [
     "emf",
