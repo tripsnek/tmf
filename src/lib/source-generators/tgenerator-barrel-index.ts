@@ -1,5 +1,5 @@
 import { EClass } from '../metamodel/api/eclass';
-import { EClassImpl } from '../metamodel/impl/eclass-impl';
+import { EClassImpl } from '../metamodel/impl/eclass-impl.js';
 import { EPackage } from '../metamodel/api/epackage';
 import { TGenUtils as DU } from './tgen-utils.js';
 import { Environment, safeDynamicImport } from '../utils/environment';

@@ -1,6 +1,6 @@
 import { EEnumLiteral } from '../api/eenum-literal';
 import { EList } from '../api/elist';
-import { BasicEList } from '../basicelist';
+import { BasicEList } from '../basicelist.js';
 import { EDataType } from '../api/edata-type';
 import { EDataTypeImpl } from './edata-type-impl.js';
 import { EEnum } from '../api/eenum';

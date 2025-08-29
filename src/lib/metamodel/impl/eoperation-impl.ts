@@ -2,7 +2,7 @@ import { EClassifier } from '../api/eclassifier';
 import { EClass } from '../api/eclass';
 import { EParameter } from '../api/eparameter';
 import { EList } from '../api/elist';
-import { BasicEList } from '../basicelist';
+import { BasicEList } from '../basicelist.js';
 import { ETypedElementImpl } from './etyped-element-impl.js';
 import { EOperation } from '../api/eoperation';
 import { EObject } from '../api/eobject';

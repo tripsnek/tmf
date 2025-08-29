@@ -8,8 +8,8 @@ import { EList } from '../metamodel/api/elist';
 import { EAttribute } from '../metamodel/api/eattribute';
 import { TUtils } from '../tutils';
 import { SerializedReference } from './serialized-reference.js';
-import { EClassImpl } from '../metamodel/impl/eclass-impl';
-import { EReferenceImpl } from '../metamodel/impl/ereference-impl';
+import { EClassImpl } from '../metamodel/impl/eclass-impl.js';
+import { EReferenceImpl } from '../metamodel/impl/ereference-impl.js';
 
 /**
  * Utilities for converting between EObjects and JSON. Usage:

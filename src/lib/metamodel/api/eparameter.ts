@@ -1,5 +1,5 @@
 import { EOperation } from './eoperation.js';
-import { ETypedElementImpl } from '../impl/etyped-element-impl';
+import { ETypedElementImpl } from '../impl/etyped-element-impl.js';
 
 /**
  * Represents a parameter of an operation. Parameters have a name, type,

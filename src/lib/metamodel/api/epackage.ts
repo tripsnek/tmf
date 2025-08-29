@@ -3,7 +3,7 @@ import { EClass } from './eclass.js';
 import { EClassifier } from './eclassifier.js';
 import { EFactory } from './efactory.js';
 import { EList } from './elist.js';
-import { BasicEList } from '../basicelist';
+import { BasicEList } from '../basicelist.js';
 import { EEnum } from './eenum.js';
 import { EAttribute } from './eattribute.js';
 import { EReference } from './ereference.js';
@@ -11,15 +11,15 @@ import { EStructuralFeature } from './estructural-feature.js';
 import { EDataType } from './edata-type.js';
 import { EEnumLiteral } from './eenum-literal.js';
 import { EOperation } from './eoperation.js';
-import { ENamedElementImpl } from '../impl/enamed-element-impl';
-import { EAttributeImpl } from '../impl/eattribute-impl';
-import { EClassImpl } from '../impl/eclass-impl';
-import { EOperationImpl } from '../impl/eoperation-impl';
-import { EReferenceImpl } from '../impl/ereference-impl';
-import { EEnumImpl } from '../impl/eenum-impl';
-import { EDataTypeImpl } from '../impl/edata-type-impl';
-import { EEnumLiteralImpl } from '../impl/eenum-literal-impl';
-import { EParameterImpl } from '../impl/eparameter-impl';
+import { ENamedElementImpl } from '../impl/enamed-element-impl.js';
+import { EAttributeImpl } from '../impl/eattribute-impl.js';
+import { EClassImpl } from '../impl/eclass-impl.js';
+import { EOperationImpl } from '../impl/eoperation-impl.js';
+import { EReferenceImpl } from '../impl/ereference-impl.js';
+import { EEnumImpl } from '../impl/eenum-impl.js';
+import { EDataTypeImpl } from '../impl/edata-type-impl.js';
+import { EEnumLiteralImpl } from '../impl/eenum-literal-impl.js';
+import { EParameterImpl } from '../impl/eparameter-impl.js';
 
 export class EPackage extends ENamedElementImpl {
   public static EPACKAGE: EClass; // Initialized in EClass

@@ -3,7 +3,7 @@ import { EOperation } from '../api/eoperation';
 import { EAttribute } from '../api/eattribute';
 import { EReference } from '../api/ereference';
 import { EStructuralFeature } from '../api/estructural-feature';
-import { BasicEList } from '../basicelist';
+import { BasicEList } from '../basicelist.js';
 import { EList } from '../api/elist';
 import { EObject } from '../api/eobject';
 import { EAttributeImpl } from './eattribute-impl.js';

@@ -6,8 +6,8 @@ import { EOperation } from '../metamodel/api/eoperation';
 import { TUtils } from '../tutils';
 import { EcorePackage } from '../metamodel/ecorepackage';
 import { EDataType } from '../metamodel/api/edata-type';
-import { EAttributeImpl } from '../metamodel/impl/eattribute-impl';
-import { EEnumImpl } from '../metamodel/impl/eenum-impl';
+import { EAttributeImpl } from '../metamodel/impl/eattribute-impl.js';
+import { EEnumImpl } from '../metamodel/impl/eenum-impl.js';
 
 /**
  * Utility methods used for TMF source code generation, including

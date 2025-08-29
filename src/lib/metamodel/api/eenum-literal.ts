@@ -1,5 +1,5 @@
 import { EEnum } from './eenum.js';
-import { ENamedElementImpl } from '../impl/enamed-element-impl';
+import { ENamedElementImpl } from '../impl/enamed-element-impl.js';
 
 /**
  * Represents a single constant value within an enumeration.
