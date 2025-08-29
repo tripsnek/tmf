@@ -1,21 +1,14 @@
 {
   "name": "@tripsnek/tmf",
-  "version": "1.1.31",
+  "version": "1.1.32",
   "description": "TypeScript Modeling Framework - A TypeScript port of the Eclipse Modeling Framework (EMF)",
   "type": "module",
-  "main": "./dist/cjs/index.js",
-  "module": "./dist/esm/index.js",
-  "types": "./dist/types/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/types/index.d.ts",
-        "default": "./dist/esm/index.js"
-      },
-      "require": {
-        "types": "./dist/types/index.d.ts",
-        "default": "./dist/cjs/index.js"
-      }
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
     }
   },
   "files": [
@@ -24,17 +17,13 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "npm run clean && npm run build:types && npm run build:esm && npm run build:cjs",
-    "build:types": "tsc -p tsconfig.types.json",
-    "build:esm": "tsc -p tsconfig.esm.json",
-    "build:cjs": "tsc -p tsconfig.cjs.json && node -e \"require('fs').writeFileSync('dist/cjs/package.json', JSON.stringify({type: 'commonjs'}, null, 2))\"",
-    "build:watch": "tsc -p tsconfig.esm.json --watch",
+    "build": "npm run clean && tsc -p tsconfig.build.json",
+    "build:watch": "tsc -p tsconfig.build.json --watch",
     "clean": "rimraf dist",
     "prepublishOnly": "npm run build",
     "test": "jest",
     "lint": "eslint src/**/*.ts",
-    "format": "prettier --write src/**/*.ts",
-    "gen-model": "npm run build:cjs && node scripts/generate-model.cjs"
+    "format": "prettier --write src/**/*.ts"
   },
   "keywords": [
     "emf",
