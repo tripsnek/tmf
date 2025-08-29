@@ -339,7 +339,7 @@ export class TGeneratorMain {
     );
 
     if (this.barrelFileDir) {
-      this.barrelFileOutDir = this.path.resolve(__dirname, this.barrelFileDir);
+      this.barrelFileOutDir = this.path.resolve(process.cwd(), this.barrelFileDir);
       debug.log('Barrel file output directory set to:', this.barrelFileOutDir);
     }
 
@@ -484,7 +484,7 @@ export class TGeneratorMain {
   ): Promise<string> {
     await this.ensureNodeModulesLoaded();
 
-    const resolvedOutDir = this.path.resolve(__dirname, outDir);
+    const resolvedOutDir = this.path.resolve(process.cwd(), outDir);
     debug.log(`Processing directory: ${outDir} -> ${resolvedOutDir}`);
     debug.log(`Delete all files in directory: ${deleteAllInDir}`);
 
@@ -652,7 +652,7 @@ export class TGeneratorMain {
   ): Promise<void> {
     await this.ensureNodeModulesLoaded();
 
-    const filePath = this.path.resolve(__dirname, outDir + '/' + filename);
+    const filePath = this.path.resolve(process.cwd(), outDir + '/' + filename);
     debug.log(`Writing file: ${filePath}`);
     debug.log(
       `Overwrite: ${overwrite}, Content length: ${content.length} characters`
@@ -704,14 +704,14 @@ export class TGeneratorMain {
       }
 
       // Format main output directory
-      const mainPath = this.path.resolve(__dirname, this.outDir);
+      const mainPath = this.path.resolve(process.cwd(), this.outDir);
       debug.log(`Formatting main directory with CLI: ${mainPath}`);
       this.childProcess.execSync(`prettier --write "${mainPath}"`);
       debug.log('Main directory formatted successfully');
 
       // Format barrel file directory if it exists
       if (this.barrelFileDir) {
-        const barrelPath = this.path.resolve(__dirname, this.barrelFileOutDir);
+        const barrelPath = this.path.resolve(process.cwd(), this.barrelFileOutDir);
         debug.log(`Formatting barrel directory with CLI: ${barrelPath}`);
         this.childProcess.execSync(`prettier --write "${barrelPath}"`);
         debug.log('Barrel directory formatted successfully');
