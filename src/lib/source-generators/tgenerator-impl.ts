@@ -18,10 +18,10 @@ export class TGeneratorImpl {
       ${DU.genApiImports(eClass, toImport, '..' + DU.API_PATH)}
       import {${genClassName}} from '..${DU.GEN_PATH}/${DU.genClassGenName(
       eClass
-    )}'
+    )}.js'
       import { ${apiClassName} } from '..${DU.API_PATH}/${DU.genClassApiName(
       eClass
-    )}';
+    )}.js';
 
        /**
         * Editable Impl class.

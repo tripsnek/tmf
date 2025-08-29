@@ -100,11 +100,11 @@ ${this.genEInverseRemove(eClass)}
 ${DU.genApiImports(eClass, toImport, `..${DU.API_PATH}`)}
 import { ${this._packageName} } from '../${DU.genPackageFileName(
       this._pkg
-    )}';
+    )}.js';
 import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
       eClass,
       async
-    )}';
+    )}.js';
 `;
 
     //gen and impl classes that need to be imported
@@ -120,10 +120,10 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
               pathToImport = `${DU.getPathToTypeInOtherPkg(eClass, ec)}/`;
               result += `import { ${ec.getName()}Gen } from '${
                 pathToImport + 'gen/' + DU.genClassGenName(<EClass>ec)
-              }';\n`;
+              }.js';\n`;
               result += `import { ${ec.getName()}Impl } from '${
                 pathToImport + 'impl/' + DU.genClassImplName(<EClass>ec)
-              }';\n`;
+              }.js';\n`;
             }
             //otherwise, use non-relative paths
             else {
@@ -132,10 +132,10 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
           } else {
             result += `import { ${ec.getName()}Gen } from './${DU.genClassGenName(
               ec as EClass
-            )}';\n`;
+            )}.js';\n`;
             result += `import { ${ec.getName()}Impl } from '../impl/${DU.genClassImplName(
               ec as EClass
-            )}';\n`;
+            )}.js';\n`;
           }
         }
       }

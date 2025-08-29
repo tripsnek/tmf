@@ -26,7 +26,7 @@ export class TGeneratorFactory {
 
     return `${this.genGenericImports(pkg)}
 ${this.genSpecificImports(pkg)}
-import { ${TGeneratorPackageInitializer.generateClassName(this.rootPackage)}} from '${pathToRoot}${TGeneratorPackageInitializer.generateFileName(this.rootPackage)}';
+import { ${TGeneratorPackageInitializer.generateClassName(this.rootPackage)}} from '${pathToRoot}${TGeneratorPackageInitializer.generateFileName(this.rootPackage)}.js';
 
 export class ${DU.genFactoryClassName(pkg)} implements EFactory {
 ${this.genSingleton(pkg)}
@@ -52,7 +52,7 @@ ${this.genClassCreators(pkg)}
 import { EReference } from '@tripsnek/tmf';
 import { EAttribute } from '@tripsnek/tmf';
 import { EFactory } from '@tripsnek/tmf';
-import { ${pkgClassName} } from './${DU.genPackageFileName(pkg)}';`;
+import { ${pkgClassName} } from './${DU.genPackageFileName(pkg)}.js';`;
   }
 
   /**
@@ -69,10 +69,10 @@ import { ${pkgClassName} } from './${DU.genPackageFileName(pkg)}';`;
           result += `
 import { ${eClass.getName()} } from './api/${DU.genClassApiName(
             eClass
-          )}';
+          )}.js';
 import { ${eClass.getName()}Impl } from './impl/${DU.genClassImplName(
             eClass
-          )}';`;
+          )}.js';`;
         }
       }
     }

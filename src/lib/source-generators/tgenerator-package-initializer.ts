@@ -85,8 +85,8 @@ ${classBody}`;
       // Calculate relative path from root to this package
       const relativePath = this.getRelativePathToPackage(pkg);
       
-      imports += `import { ${packageClassName} } from '${relativePath}${packageFileName}';\n`;
-      imports += `import { ${factoryClassName} } from '${relativePath}${factoryFileName}';\n`;
+      imports += `import { ${packageClassName} } from '${relativePath}${packageFileName}.js';\n`;
+      imports += `import { ${factoryClassName} } from '${relativePath}${factoryFileName}.js';\n`;
     }
     imports += `import { TJson, EClassImpl } from '@tripsnek/tmf';\n`;
     

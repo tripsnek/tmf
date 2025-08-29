@@ -30,10 +30,10 @@ import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';`;
 
-  static ECORE_DEFAULT_IMPORTS = `import { EObjectImpl } from '../impl/e-object';
-      import { EStructuralFeature } from '../api/e-structural-feature';
-      import { BasicEList } from '../common/basic-e-list';
-      import { EList } from '../common/e-list';
+  static ECORE_DEFAULT_IMPORTS = `import { EObjectImpl } from '../impl/e-object.js';
+      import { EStructuralFeature } from '../api/e-structural-feature.js';
+      import { BasicEList } from '../common/basic-e-list.js';
+      import { EList } from '../common/e-list.js';
       `;
 
   /**
@@ -63,7 +63,7 @@ import { EObjectImpl } from '@tripsnek/tmf';`;
 
           // if packages share a root, use relative imports
           if (host.getRootPackage() === pkgDependency.getRootPackage()) {
-            pkgImports += `import { ${pkgName }} from '${prefix}${pkgPath}${this.kebabLowerCase(pkgDependency.getName())}-package';`;
+            pkgImports += `import { ${pkgName }} from '${prefix}${pkgPath}${this.kebabLowerCase(pkgDependency.getName())}-package.js';`;
           } else {
             console.log('WARNING: CROSS-PACKAGE IMPORTS NOT SUPPORTED');
           }
@@ -107,7 +107,7 @@ import { EObjectImpl } from '@tripsnek/tmf';`;
           // );
         }
 
-        imports += `import { ${ec.getName()} } from '${genPathToImport}';\n`;
+        imports += `import { ${ec.getName()} } from '${genPathToImport}.js';\n`;
       }
     }
 

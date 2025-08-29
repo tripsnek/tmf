@@ -19,7 +19,7 @@ export class TGeneratorApi {
 
     return `${isEcore ? DU.ECORE_DEFAULT_IMPORTS : DU.DEFAULT_IMPORTS}
 
-${DU.genApiImports(eClass, toImport, `.`)}import { ${pkgClassName} } from '../${pkgFileName}';
+${DU.genApiImports(eClass, toImport, `.`)}import { ${pkgClassName} } from '../${pkgFileName}.js';
 
 /**
  * Source-gen API for ${className}.

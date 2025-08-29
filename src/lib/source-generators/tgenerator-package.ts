@@ -470,7 +470,7 @@ ${initContent}
     let imports = `${DU.generateImportStatementsForExternalPackages(pkgToImport, pkg, './')}
 ${DU.DEFAULT_IMPORTS}
 
-import { ${TGeneratorPackageInitializer.generateClassName(this.rootPackage)}} from '${pathToRoot}${TGeneratorPackageInitializer.generateFileName(this.rootPackage)}';
+import { ${TGeneratorPackageInitializer.generateClassName(this.rootPackage)}} from '${pathToRoot}${TGeneratorPackageInitializer.generateFileName(this.rootPackage)}.js';
 import { EPackage } from '@tripsnek/tmf';
 import { EPackageImpl } from '@tripsnek/tmf';
 import { EAttribute } from '@tripsnek/tmf';
@@ -496,7 +496,7 @@ import { EcorePackage } from '@tripsnek/tmf';`;
     for (const ec of pkg.getEClassifiers()) {
       if (ec instanceof EEnumImpl) {
         imports += `
-import { ${ec.getName()} } from './api/${DU.genClassApiName(ec)}';`;
+import { ${ec.getName()} } from './api/${DU.genClassApiName(ec)}.js';`;
       }
     }
     return imports;
