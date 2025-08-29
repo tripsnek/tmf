@@ -24,7 +24,7 @@
     "test": "jest",
     "lint": "eslint src/**/*.ts",
     "format": "prettier --write src/**/*.ts",
-    "gen-model": "node generate.mjs"
+    "gen-model": "node src/__tests__/scripts/generate.mjs"
   },
   "keywords": [
     "emf",
