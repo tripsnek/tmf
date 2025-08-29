@@ -1,5 +1,5 @@
 import { EClass } from '../api/eclass';
-import { EModelElementImpl } from './emodel-element-impl';
+import { EModelElementImpl } from './emodel-element-impl.js';
 import { ENamedElement } from '../api/enamed-element';
 
 export abstract class ENamedElementImpl

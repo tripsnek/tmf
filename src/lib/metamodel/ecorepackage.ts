@@ -1,9 +1,9 @@
-import { EPackage } from './api/epackage';
-import { EDataType } from './api/edata-type';
-import { EClass } from './api/eclass';
-import { EReference } from './api/ereference';
-import { EAttribute } from './api/eattribute';
-import { EFactory } from './api/efactory';
+import { EPackage } from './api/epackage.js';
+import { EDataType } from './api/edata-type.js';
+import { EClass } from './api/eclass.js';
+import { EReference } from './api/ereference.js';
+import { EAttribute } from './api/eattribute.js';
+import { EFactory } from './api/efactory.js';
 
 export class EcorePackage extends EPackage {
   public static E_GENERIC_TYPE = 0;

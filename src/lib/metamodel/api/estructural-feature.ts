@@ -1,5 +1,5 @@
-import { ETypedElement } from './etyped-element';
-import { EClass } from './eclass';
+import { ETypedElement } from './etyped-element.js';
+import { EClass } from './eclass.js';
 
 /**
  * Base interface for structural features of a class (attributes and references).

@@ -195,10 +195,9 @@ describe('TJson', () => {
     ).toBe(true);
   });
   it('should be informative when packages are not initialized', () => {
-    // const 
+    // const
     const foos = [foo, foo2];
     const serialized = TJson.makeJsonArray(foos);
     expect(serialized.length).toBe(2);
   });
-
 });

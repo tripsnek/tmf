@@ -1,5 +1,5 @@
-import { EStructuralFeature } from './estructural-feature';
-import { EDataType } from './edata-type';
+import { EStructuralFeature } from './estructural-feature.js';
+import { EDataType } from './edata-type.js';
 
 /**
  * Represents a data attribute of a class. Attributes hold primitive or

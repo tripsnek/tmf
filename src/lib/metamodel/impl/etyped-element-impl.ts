@@ -1,7 +1,7 @@
 import { EClassifier } from '../api/eclassifier';
 import { EClass } from '../api/eclass';
 import { ETypedElement } from '../api/etyped-element';
-import { ENamedElementImpl } from './enamed-element-impl';
+import { ENamedElementImpl } from './enamed-element-impl.js';
 
 export class ETypedElementImpl
   extends ENamedElementImpl

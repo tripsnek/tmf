@@ -1,18 +1,18 @@
-import { EClassifier } from './metamodel/api/eclassifier';
-import { EObject } from './metamodel/api/eobject';
-import { EEnum } from './metamodel/api/eenum';
+import { EClassifier } from './metamodel/api/eclassifier.js';
+import { EObject } from './metamodel/api/eobject.js';
+import { EEnum } from './metamodel/api/eenum.js';
 import { v4 as uuid } from 'uuid';
-import { EcorePackage } from './metamodel/ecorepackage';
-import { EAttribute } from './metamodel/api/eattribute';
-import { EStructuralFeature } from './metamodel/api/estructural-feature';
-import { EReference } from './metamodel/api/ereference';
-import { TJson } from './json/tjson';
-import { EEnumImpl } from './metamodel/impl/eenum-impl';
-import { EDataTypeImpl } from './metamodel/impl/edata-type-impl';
-import { EList } from './metamodel/api/elist';
-import { EClass } from './metamodel/api/eclass';
-import { EPackage } from './metamodel/api/epackage';
-import { EClassImpl } from './metamodel/impl/eclass-impl';
+import { EcorePackage } from './metamodel/ecorepackage.js';
+import { EAttribute } from './metamodel/api/eattribute.js';
+import { EStructuralFeature } from './metamodel/api/estructural-feature.js';
+import { EReference } from './metamodel/api/ereference.js';
+import { TJson } from './json/tjson.js';
+import { EEnumImpl } from './metamodel/impl/eenum-impl.js';
+import { EDataTypeImpl } from './metamodel/impl/edata-type-impl.js';
+import { EList } from './metamodel/api/elist.js';
+import { EClass } from './metamodel/api/eclass.js';
+import { EPackage } from './metamodel/api/epackage.js';
+import { EClassImpl } from './metamodel/impl/eclass-impl.js';
 
 /**
  * Various utilities for interacting with TMF-modeled data objects, some
@@ -129,7 +129,6 @@ export class TUtils {
       }
     }
   }
-
 
   static lookupNamedField(
     object: EObject,
@@ -444,15 +443,18 @@ export class TUtils {
 
   /**
    * Returns the package and transitive closure of all contained subpackages.
-   * 
+   *
    * @param pkg
-   * @returns 
+   * @returns
    */
-  public static allPackagesRecursive(pkg: EPackage, addTo?: EPackage[]) : EPackage[] {
+  public static allPackagesRecursive(
+    pkg: EPackage,
+    addTo?: EPackage[]
+  ): EPackage[] {
     let pkgs = addTo ? addTo : [];
     pkgs.push(pkg);
-    for(const sp of pkg.getESubPackages()){
-      this.allPackagesRecursive(sp,pkgs);
+    for (const sp of pkg.getESubPackages()) {
+      this.allPackagesRecursive(sp, pkgs);
     }
     return pkgs;
   }
@@ -463,7 +465,6 @@ export class TUtils {
     const allPkgs: EPackage[] = this.allPackagesRecursive(root);
     const allClasses: EClass[] = [];
     const containedClasses = new Set<EClass>();
-
 
     // First, collect all non-abstract, non-interface classes
     for (const ePackage of allPkgs) {

@@ -1,5 +1,5 @@
 import { EClass } from '../metamodel/api/eclass';
-import { TGenUtils as DU } from './tgen-utils';
+import { TGenUtils as DU } from './tgen-utils.js';
 import { EClassifier } from '../metamodel/api/eclassifier';
 
 /**

@@ -1,4 +1,4 @@
-import { EOperation } from './eoperation';
+import { EOperation } from './eoperation.js';
 import { ETypedElementImpl } from '../impl/etyped-element-impl';
 
 /**

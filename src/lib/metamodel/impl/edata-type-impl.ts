@@ -1,6 +1,6 @@
 import { EPackage } from '../api/epackage';
 import { EClass } from '../api/eclass';
-import { EClassifierImpl } from './eclassifier-impl';
+import { EClassifierImpl } from './eclassifier-impl.js';
 import { EDataType } from '../api/edata-type';
 
 export class EDataTypeImpl extends EClassifierImpl implements EDataType {

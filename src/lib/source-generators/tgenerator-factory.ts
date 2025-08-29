@@ -1,8 +1,8 @@
 import { EPackage } from '../metamodel/api/epackage';
 import { EClass } from '../metamodel/api/eclass';
-import { TGenUtils as DU } from './tgen-utils';
+import { TGenUtils as DU } from './tgen-utils.js';
 import { EClassImpl } from '../metamodel/impl/eclass-impl';
-import { TGeneratorPackageInitializer } from './tgenerator-package-initializer';
+import { TGeneratorPackageInitializer } from './tgenerator-package-initializer.js';
 
 /**
  * Generates *-factory.ts files, which provide static access to

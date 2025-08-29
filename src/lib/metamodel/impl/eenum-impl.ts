@@ -2,7 +2,7 @@ import { EEnumLiteral } from '../api/eenum-literal';
 import { EList } from '../api/elist';
 import { BasicEList } from '../basicelist';
 import { EDataType } from '../api/edata-type';
-import { EDataTypeImpl } from './edata-type-impl';
+import { EDataTypeImpl } from './edata-type-impl.js';
 import { EEnum } from '../api/eenum';
 
 export class EEnumImpl extends EDataTypeImpl implements EEnum {

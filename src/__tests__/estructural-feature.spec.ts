@@ -27,12 +27,12 @@ beforeEach(() => {
   testFoo = CoreFactory.eINSTANCE.createFoo();
   testBar = CoreFactory.eINSTANCE.createBar();
   testUser = CoreFactory.eINSTANCE.createUser();
-  
+
   // Get EClasses
   fooClass = testFoo.eClass();
   barClass = testBar.eClass();
   userClass = testUser.eClass();
-  
+
   // Get structural features for testing
   nameFeature = fooClass.getEStructuralFeature('name')!;
   idFeature = fooClass.getEStructuralFeature('id')!;
@@ -43,7 +43,6 @@ beforeEach(() => {
 });
 
 describe('EStructuralFeature Tests', () => {
-
   describe('Basic Structural Feature Properties', () => {
     it('should return correct feature names', () => {
       expect(nameFeature.getName()).toBe('name');
@@ -66,11 +65,11 @@ describe('EStructuralFeature Tests', () => {
       const nameId = nameFeature.getFeatureID();
       const barsId = barsFeature.getFeatureID();
       const rangeId = rangeFeature.getFeatureID();
-      
+
       expect(nameId).toBeGreaterThanOrEqual(0);
       expect(barsId).toBeGreaterThanOrEqual(0);
       expect(rangeId).toBeGreaterThanOrEqual(0);
-      
+
       // Feature IDs should be unique within a class
       expect(barsId).not.toBe(rangeId);
     });
@@ -79,10 +78,10 @@ describe('EStructuralFeature Tests', () => {
       const testFeature = nameFeature;
       const originalId = testFeature.getFeatureID();
       const testId = 9999;
-      
+
       testFeature.setFeatureID(testId);
       expect(testFeature.getFeatureID()).toBe(testId);
-      
+
       // Reset to original
       testFeature.setFeatureID(originalId);
       expect(testFeature.getFeatureID()).toBe(originalId);
@@ -91,10 +90,10 @@ describe('EStructuralFeature Tests', () => {
     it('should allow setting containing class', () => {
       const testFeature = barsFeature;
       const originalClass = testFeature.getEContainingClass();
-      
+
       testFeature.setEContainingClass(fooClass);
       expect(testFeature.getEContainingClass()).toBe(fooClass);
-      
+
       // Reset
       testFeature.setEContainingClass(originalClass);
     });
@@ -105,7 +104,7 @@ describe('EStructuralFeature Tests', () => {
       const nameType = nameFeature.getEType();
       const idType = idFeature.getEType();
       const emailType = emailFeature.getEType();
-      
+
       expect(nameType.getName()).toBe('EString');
       expect(idType.getName()).toBe('EString');
       expect(emailType.getName()).toBe('EString');
@@ -114,7 +113,7 @@ describe('EStructuralFeature Tests', () => {
     it('should return correct types for references', () => {
       const barsType = barsFeature.getEType();
       const rangeType = rangeFeature.getEType();
-      
+
       expect(barsType.getName()).toBe('Bar');
       expect(rangeType.getName()).toBe('BoundedNumber');
     });
@@ -125,7 +124,6 @@ describe('EStructuralFeature Tests', () => {
         expect(dateType.getName()).toBe('EDate');
       }
     });
-
   });
 
   describe('Multiplicity Properties', () => {
@@ -134,7 +132,7 @@ describe('EStructuralFeature Tests', () => {
       expect(idFeature.isMany()).toBe(false);
       expect(rangeFeature.isMany()).toBe(false);
       expect(emailFeature.isMany()).toBe(false);
-      
+
       expect(nameFeature.getUpperBound()).toBe(1);
       expect(idFeature.getUpperBound()).toBe(1);
       expect(rangeFeature.getUpperBound()).toBe(1);
@@ -149,7 +147,7 @@ describe('EStructuralFeature Tests', () => {
     it('should handle required vs optional features', () => {
       const nameRequired = nameFeature.isRequired();
       const barsRequired = barsFeature.isRequired();
-      
+
       expect(nameRequired).toBe(nameFeature.getLowerBound() >= 1);
       expect(barsRequired).toBe(barsFeature.getLowerBound() >= 1);
     });
@@ -158,13 +156,13 @@ describe('EStructuralFeature Tests', () => {
       const testFeature = nameFeature;
       const originalLower = testFeature.getLowerBound();
       const originalUpper = testFeature.getUpperBound();
-      
+
       testFeature.setLowerBound(0);
       testFeature.setUpperBound(5);
       expect(testFeature.getLowerBound()).toBe(0);
       expect(testFeature.getUpperBound()).toBe(5);
       expect(testFeature.isRequired()).toBe(false);
-      
+
       // Reset
       testFeature.setLowerBound(originalLower);
       testFeature.setUpperBound(originalUpper);
@@ -176,14 +174,14 @@ describe('EStructuralFeature Tests', () => {
       expect(nameFeature.isChangeable()).toBe(true);
       expect(barsFeature.isChangeable()).toBe(true);
       expect(rangeFeature.isChangeable()).toBe(true);
-      
+
       // Test setter
       const testFeature = nameFeature;
       const originalChangeable = testFeature.isChangeable();
-      
+
       testFeature.setChangeable(!originalChangeable);
       expect(testFeature.isChangeable()).toBe(!originalChangeable);
-      
+
       // Reset
       testFeature.setChangeable(originalChangeable);
     });
@@ -193,14 +191,14 @@ describe('EStructuralFeature Tests', () => {
       expect(nameFeature.isTransient()).toBe(false);
       expect(barsFeature.isTransient()).toBe(false);
       expect(rangeFeature.isTransient()).toBe(false);
-      
+
       // Test setter
       const testFeature = nameFeature;
       const originalTransient = testFeature.isTransient();
-      
+
       testFeature.setTransient(!originalTransient);
       expect(testFeature.isTransient()).toBe(!originalTransient);
-      
+
       // Reset
       testFeature.setTransient(originalTransient);
     });
@@ -210,18 +208,17 @@ describe('EStructuralFeature Tests', () => {
       expect(nameFeature.isVolatile()).toBe(false);
       expect(barsFeature.isVolatile()).toBe(false);
       expect(rangeFeature.isVolatile()).toBe(false);
-      
+
       // Test setter
       const testFeature = nameFeature;
       const originalVolatile = testFeature.isVolatile();
-      
+
       testFeature.setVolatile(!originalVolatile);
       expect(testFeature.isVolatile()).toBe(!originalVolatile);
-      
+
       // Reset
       testFeature.setVolatile(originalVolatile);
     });
-
   });
 
   describe('Containment Properties', () => {
@@ -229,7 +226,7 @@ describe('EStructuralFeature Tests', () => {
       // References should have containment information
       expect(barsFeature.isContainment()).toBe(true);
       expect(rangeFeature.isContainment()).toBe(true);
-      
+
       // Attributes should not be containment
       expect(nameFeature.isContainment()).toBe(false);
       expect(idFeature.isContainment()).toBe(false);
@@ -241,7 +238,7 @@ describe('EStructuralFeature Tests', () => {
       expect((nameFeature as EAttribute).isId).toBeDefined();
       expect((nameFeature as any).isContainment).toBeDefined(); // From EStructuralFeature
       expect((nameFeature as any).setContainment).toBeUndefined(); // EAttribute doesn't have this
-      
+
       // barsFeature should be an EReference
       expect((barsFeature as EReference).setContainment).toBeDefined();
       expect((barsFeature as any).isId).toBeUndefined(); // EReference doesn't have this
@@ -253,11 +250,11 @@ describe('EStructuralFeature Tests', () => {
       // Test getting default values (might be null/undefined)
       const nameDefault = nameFeature.getDefaultValue();
       const nameDefaultLiteral = nameFeature.getDefaultValueLiteral();
-      
+
       // Should not throw errors
       expect(() => nameFeature.getDefaultValue()).not.toThrow();
       expect(() => nameFeature.getDefaultValueLiteral()).not.toThrow();
-      
+
       // If there's a default value, literal should also exist
       if (nameDefault !== null && nameDefault !== undefined) {
         expect(nameDefaultLiteral).toBeDefined();
@@ -268,13 +265,13 @@ describe('EStructuralFeature Tests', () => {
       const testFeature = nameFeature;
       const originalDefault = testFeature.getDefaultValue();
       const originalLiteral = testFeature.getDefaultValueLiteral();
-      
+
       testFeature.setDefaultValue('testDefault');
       testFeature.setDefaultValueLiteral('testDefault');
-      
+
       expect(testFeature.getDefaultValue()).toBe('testDefault');
       expect(testFeature.getDefaultValueLiteral()).toBe('testDefault');
-      
+
       // Reset
       testFeature.setDefaultValue(originalDefault);
       testFeature.setDefaultValueLiteral(originalLiteral);
@@ -282,7 +279,7 @@ describe('EStructuralFeature Tests', () => {
 
     it('should handle null default values', () => {
       const testFeature = nameFeature;
-      
+
       expect(() => testFeature.setDefaultValue(null)).not.toThrow();
       expect(() => testFeature.setDefaultValueLiteral(null!)).not.toThrow();
     });
@@ -290,11 +287,15 @@ describe('EStructuralFeature Tests', () => {
     it('should handle different types of default values', () => {
       // String features
       expect(() => nameFeature.setDefaultValue('string value')).not.toThrow();
-      expect(() => emailFeature.setDefaultValue('default@email.com')).not.toThrow();
-      
+      expect(() =>
+        emailFeature.setDefaultValue('default@email.com')
+      ).not.toThrow();
+
       // Date features
       if (creationDateFeature) {
-        expect(() => creationDateFeature.setDefaultValue(new Date())).not.toThrow();
+        expect(() =>
+          creationDateFeature.setDefaultValue(new Date())
+        ).not.toThrow();
       }
     });
   });
@@ -305,7 +306,7 @@ describe('EStructuralFeature Tests', () => {
       testFoo.setName('TestName');
       const retrievedName = testFoo.eGet(nameFeature);
       expect(retrievedName).toBe('TestName');
-      
+
       // Test setting feature value through reflection
       testFoo.eSet(nameFeature, 'NewTestName');
       expect(testFoo.getName()).toBe('NewTestName');
@@ -315,7 +316,7 @@ describe('EStructuralFeature Tests', () => {
       // Initially might not be set
       testFoo.setName(undefined!);
       expect(testFoo.eIsSet(nameFeature)).toBe(false);
-      
+
       // After setting should be marked as set
       testFoo.eSet(nameFeature, 'TestName');
       expect(testFoo.eIsSet(nameFeature)).toBe(true);
@@ -325,7 +326,7 @@ describe('EStructuralFeature Tests', () => {
       // Set a value
       testFoo.eSet(nameFeature, 'TestName');
       expect(testFoo.eIsSet(nameFeature)).toBe(true);
-      
+
       // Unset it
       testFoo.eUnset(nameFeature);
       expect(testFoo.eIsSet(nameFeature)).toBe(false);
@@ -337,7 +338,7 @@ describe('EStructuralFeature Tests', () => {
       expect(bars).toBeDefined();
       expect(bars.size).toBeDefined(); // Should be an EList
       expect(bars.add).toBeDefined();
-      
+
       // Add a bar and verify
       const testBar = CoreFactory.eINSTANCE.createBar();
       bars.add(testBar);
@@ -349,7 +350,7 @@ describe('EStructuralFeature Tests', () => {
     it('should be found in class structural feature collections', () => {
       const fooFeatures = fooClass.getEAllStructuralFeatures();
       const userFeatures = userClass.getEAllStructuralFeatures();
-      
+
       expect(fooFeatures.contains(nameFeature)).toBe(true);
       expect(fooFeatures.contains(barsFeature)).toBe(true);
       expect(fooFeatures.contains(rangeFeature)).toBe(true);
@@ -358,21 +359,25 @@ describe('EStructuralFeature Tests', () => {
 
     it('should be lookupable by name and ID', () => {
       const foundByName = fooClass.getEStructuralFeature('bars');
-      const foundById = fooClass.getEStructuralFeature(barsFeature.getFeatureID());
-      
+      const foundById = fooClass.getEStructuralFeature(
+        barsFeature.getFeatureID()
+      );
+
       expect(foundByName).toBe(barsFeature);
       expect(foundById).toBe(barsFeature);
     });
 
     it('should maintain consistent feature IDs', () => {
       const features = fooClass.getEAllStructuralFeatures();
-      
+
       for (let i = 0; i < features.size(); i++) {
         const feature = features.get(i);
         const featureId = feature.getFeatureID();
         expect(featureId).toBeGreaterThanOrEqual(0);
-        
-        const lookupFeature = feature.getEContainingClass().getEStructuralFeature(featureId);
+
+        const lookupFeature = feature
+          .getEContainingClass()
+          .getEStructuralFeature(featureId);
         expect(lookupFeature).toBe(feature);
       }
     });
@@ -382,14 +387,14 @@ describe('EStructuralFeature Tests', () => {
     it('should correctly identify inherited vs owned features', () => {
       const fooOwnFeatures = fooClass.getEStructuralFeatures();
       const fooAllFeatures = fooClass.getEAllStructuralFeatures();
-      
+
       // Should have more inherited features than owned
       expect(fooAllFeatures.size()).toBeGreaterThan(fooOwnFeatures.size());
-      
+
       // bars and range should be owned by Foo
       expect(fooOwnFeatures.contains(barsFeature)).toBe(true);
       expect(fooOwnFeatures.contains(rangeFeature)).toBe(true);
-      
+
       // name should be inherited, not owned
       expect(fooOwnFeatures.contains(nameFeature)).toBe(false);
       expect(fooAllFeatures.contains(nameFeature)).toBe(true);
@@ -399,7 +404,7 @@ describe('EStructuralFeature Tests', () => {
       // Foo should be able to find inherited features
       const inheritedName = fooClass.getEStructuralFeature('name');
       const inheritedId = fooClass.getEStructuralFeature('id');
-      
+
       expect(inheritedName).toBeDefined();
       expect(inheritedId).toBeDefined();
       expect(inheritedName).toBe(nameFeature);
@@ -410,11 +415,13 @@ describe('EStructuralFeature Tests', () => {
   describe('Edge Cases and Error Handling', () => {
     it('should handle null and undefined values appropriately', () => {
       const testFeature = nameFeature;
-      
+
       expect(() => testFeature.setDefaultValue(null)).not.toThrow();
       expect(() => testFeature.setDefaultValue(undefined)).not.toThrow();
       expect(() => testFeature.setDefaultValueLiteral(null!)).not.toThrow();
-      expect(() => testFeature.setDefaultValueLiteral(undefined!)).not.toThrow();
+      expect(() =>
+        testFeature.setDefaultValueLiteral(undefined!)
+      ).not.toThrow();
       expect(() => testFeature.setEContainingClass(null!)).not.toThrow();
     });
 
@@ -423,7 +430,7 @@ describe('EStructuralFeature Tests', () => {
       if (barsFeature.isMany()) {
         expect(barsFeature.getUpperBound()).toBe(-1);
       }
-      
+
       // Required features should have lowerBound >= 1
       if (nameFeature.isRequired()) {
         expect(nameFeature.getLowerBound()).toBeGreaterThanOrEqual(1);
@@ -432,8 +439,14 @@ describe('EStructuralFeature Tests', () => {
 
     it('should handle complex type relationships', () => {
       // Ensure all features have valid types
-      const allFeatures = [nameFeature, idFeature, barsFeature, rangeFeature, emailFeature];
-      
+      const allFeatures = [
+        nameFeature,
+        idFeature,
+        barsFeature,
+        rangeFeature,
+        emailFeature,
+      ];
+
       for (const feature of allFeatures) {
         const featureType = feature.getEType();
         expect(featureType).toBeDefined();
@@ -443,18 +456,18 @@ describe('EStructuralFeature Tests', () => {
 
     it('should handle boundary cases for multiplicity', () => {
       const testFeature = barsFeature;
-      
+
       // Test extreme values
       testFeature.setLowerBound(0);
       testFeature.setUpperBound(-1); // unbounded
       expect(testFeature.getLowerBound()).toBe(0);
       expect(testFeature.getUpperBound()).toBe(-1);
       expect(testFeature.isMany()).toBe(true);
-      
+
       // Test single value
       testFeature.setUpperBound(1);
       expect(testFeature.isMany()).toBe(false);
-      
+
       // Reset to original (should be many-valued)
       testFeature.setUpperBound(-1);
     });

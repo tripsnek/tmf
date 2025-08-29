@@ -14,13 +14,12 @@ let writtenXml!: string;
 let foo!: EClass;
 
 beforeAll(async () => {
-  const xmlString = fs.readFileSync(path.resolve('src/__tests__/TMFTest.ecore'), "utf8");
-
-  const jsonString = JSON.stringify(
-    parser.xmlToJs(
-      xmlString
-    )
+  const xmlString = fs.readFileSync(
+    path.resolve('src/__tests__/TMFTest.ecore'),
+    'utf8'
   );
+
+  const jsonString = JSON.stringify(parser.xmlToJs(xmlString));
 
   rootPkg = new EcoreStringParser().parseFromJsString(jsonString);
 

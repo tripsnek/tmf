@@ -1,8 +1,8 @@
 // ecoreparser-safe.ts
 import { EPackage } from "../metamodel/api/epackage";
-import { EcoreStringParser } from "./ecore-string-parser";
+import { EcoreStringParser } from "./ecore-string-parser.js";
 import { Environment, ConditionalImports, safeDynamicImport } from '../utils/environment';
-import { parseString, parseStringSync } from "./xml-to-js-parser";
+import { parseString, parseStringSync } from "./xml-to-js-parser.js";
 
 /**
  * Parses an XML Ecore file into a TMF metamodel.

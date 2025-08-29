@@ -1,4 +1,4 @@
-import { EEnum } from './eenum';
+import { EEnum } from './eenum.js';
 import { ENamedElementImpl } from '../impl/enamed-element-impl';
 
 /**

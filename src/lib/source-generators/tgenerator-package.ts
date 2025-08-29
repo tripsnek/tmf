@@ -7,13 +7,13 @@ import { EDataType } from '../metamodel/api/edata-type';
 import { EStructuralFeature } from '../metamodel/api/estructural-feature';
 import { EClassifier } from '../metamodel/api/eclassifier';
 import { BasicEList } from '../metamodel/basicelist';
-import { TGenUtils as DU } from './tgen-utils';
+import { TGenUtils as DU } from './tgen-utils.js';
 import { EAttributeImpl } from '../metamodel/impl/eattribute-impl';
 import { EClassImpl } from '../metamodel/impl/eclass-impl';
 import { EReferenceImpl } from '../metamodel/impl/ereference-impl';
 import { EEnumImpl } from '../metamodel/impl/eenum-impl';
 import { EDataTypeImpl } from '../metamodel/impl/edata-type-impl';
-import { TGeneratorPackageInitializer } from './tgenerator-package-initializer';
+import { TGeneratorPackageInitializer } from './tgenerator-package-initializer.js';
 
 /**
  * Responsible for generating the interface and implementation of an

@@ -1,5 +1,5 @@
 import { EPackage } from '../metamodel/api/epackage';
-import { TGenUtils as DU } from './tgen-utils';
+import { TGenUtils as DU } from './tgen-utils.js';
 
 /**
  * Responsible for generating a default (empty) utils file for an EPackage.

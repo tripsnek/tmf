@@ -1,4 +1,4 @@
-import { EClassifier } from './eclassifier';
+import { EClassifier } from './eclassifier.js';
 
 /**
  * Represents a primitive or serializable data type in the metamodel.

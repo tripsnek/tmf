@@ -1,6 +1,6 @@
 import { EEnum } from '../api/eenum';
 import { EEnumLiteral } from '../api/eenum-literal';
-import { ENamedElementImpl } from './enamed-element-impl';
+import { ENamedElementImpl } from './enamed-element-impl.js';
 import { EObject } from '../api/eobject';
 
 export class EEnumLiteralImpl

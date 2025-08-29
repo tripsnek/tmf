@@ -34,11 +34,13 @@ describe('TMF Containment ', () => {
     expect(bar1.eContainer()).toBe(foo);
     expect(baz1.eContainer()).toBe(bar1);
   });
-  it('should expose eContainingFeature', () => {    
-    const barFeature = foo.eClass().getEStructuralFeature(core.getFoo_Bars().getFeatureID());
+  it('should expose eContainingFeature', () => {
+    const barFeature = foo
+      .eClass()
+      .getEStructuralFeature(core.getFoo_Bars().getFeatureID());
     expect(barFeature?.getName()).toBe('bars');
     expect(bar1.eContainingFeature()).toBe(core.getFoo_Bars());
-  });  
+  });
   it('should set eContainer to null when setting named field to null', () => {
     bar1.setFoo(null!);
     expect(bar1.eContainer()).toBe(null);

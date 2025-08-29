@@ -17,11 +17,11 @@ let longLiteral: EEnumLiteral;
 beforeEach(() => {
   // Create fresh test objects for each test
   testFoo = CoreFactory.eINSTANCE.createFoo();
-  
+
   // Get the package and enum
   corePackage = testFoo.eClass().getEPackage();
   fooClassEnum = corePackage.getEClassifier('FooClass') as EEnum;
-  
+
   // Get enum literals
   shortLiteral = fooClassEnum.getEEnumLiteral('SHORT')!;
   mediumLiteral = fooClassEnum.getEEnumLiteral('MEDIUM')!;
@@ -30,7 +30,6 @@ beforeEach(() => {
 });
 
 describe('EEnum Tests', () => {
-
   describe('Basic Enum Properties', () => {
     it('should return correct enum name', () => {
       expect(fooClassEnum.getName()).toBe('FooClass');
@@ -57,8 +56,8 @@ describe('EEnum Tests', () => {
     it('should return all enum literals', () => {
       const literals = fooClassEnum.getELiterals();
       expect(literals.size()).toBe(4);
-      
-      const literalNames = literals.map(lit => lit.getName());
+
+      const literalNames = literals.map((lit) => lit.getName());
       expect(literalNames.contains('SHORT')).toBe(true);
       expect(literalNames.contains('MEDIUM')).toBe(true);
       expect(literalNames.contains('INTERMEDIATE')).toBe(true);
@@ -67,7 +66,7 @@ describe('EEnum Tests', () => {
 
     it('should return literals in correct order', () => {
       const literals = fooClassEnum.getELiterals();
-      
+
       // Literals should be ordered by their values (0, 1, 2, 3)
       expect(literals.get(0).getValue()).toBe(0);
       expect(literals.get(1).getValue()).toBe(1);
@@ -77,14 +76,16 @@ describe('EEnum Tests', () => {
 
     it('should allow adding new literals', () => {
       const originalSize = fooClassEnum.getELiterals().size();
-      
+
       // Create a test literal (note: this might not persist in production)
       const testLiteral = shortLiteral; // Use existing literal for test
-      
+
       expect(() => fooClassEnum.addLiteral(testLiteral)).not.toThrow();
-      
+
       // The collection should still be accessible
-      expect(fooClassEnum.getELiterals().size()).toBeGreaterThanOrEqual(originalSize);
+      expect(fooClassEnum.getELiterals().size()).toBeGreaterThanOrEqual(
+        originalSize
+      );
     });
   });
 
@@ -94,7 +95,7 @@ describe('EEnum Tests', () => {
       const foundMedium = fooClassEnum.getEEnumLiteral('MEDIUM');
       const foundIntermediate = fooClassEnum.getEEnumLiteral('INTERMEDIATE');
       const foundLong = fooClassEnum.getEEnumLiteral('LONG');
-      
+
       expect(foundShort).toBe(shortLiteral);
       expect(foundMedium).toBe(mediumLiteral);
       expect(foundIntermediate).toBe(intermediateLiteral);
@@ -104,7 +105,7 @@ describe('EEnum Tests', () => {
     it('should return undefined for non-existent literal names', () => {
       const nonExistent = fooClassEnum.getEEnumLiteral('NONEXISTENT');
       expect(nonExistent).toBeUndefined();
-      
+
       const empty = fooClassEnum.getEEnumLiteral('');
       expect(empty).toBeUndefined();
     });
@@ -113,7 +114,7 @@ describe('EEnum Tests', () => {
       // Should be case-sensitive
       const lowercase = fooClassEnum.getEEnumLiteral('short');
       expect(lowercase).toBeUndefined();
-      
+
       const mixedcase = fooClassEnum.getEEnumLiteral('Short');
       expect(mixedcase).toBeUndefined();
     });
@@ -125,7 +126,7 @@ describe('EEnum Tests', () => {
       const foundMedium = fooClassEnum.getEEnumLiteral(1);
       const foundIntermediate = fooClassEnum.getEEnumLiteral(2);
       const foundLong = fooClassEnum.getEEnumLiteral(3);
-      
+
       expect(foundShort).toBe(shortLiteral);
       expect(foundMedium).toBe(mediumLiteral);
       expect(foundIntermediate).toBe(intermediateLiteral);
@@ -135,7 +136,7 @@ describe('EEnum Tests', () => {
     it('should return undefined for non-existent numeric values', () => {
       const nonExistent = fooClassEnum.getEEnumLiteral(-1);
       expect(nonExistent).toBeUndefined();
-      
+
       const tooHigh = fooClassEnum.getEEnumLiteral(999);
       expect(tooHigh).toBeUndefined();
     });
@@ -144,7 +145,7 @@ describe('EEnum Tests', () => {
       // Test the overloaded method that accepts string | number
       const byString = fooClassEnum.getEEnumLiteral('SHORT' as string | number);
       const byNumber = fooClassEnum.getEEnumLiteral(0 as string | number);
-      
+
       expect(byString).toBe(shortLiteral);
       expect(byNumber).toBe(shortLiteral);
     });
@@ -155,7 +156,7 @@ describe('EEnum Tests', () => {
       // Literal values might be different from names
       const shortByLiteral = fooClassEnum.getEEnumLiteralByLiteral('SHORT');
       expect(shortByLiteral).toBeDefined();
-      
+
       const mediumByLiteral = fooClassEnum.getEEnumLiteralByLiteral('MEDIUM');
       expect(mediumByLiteral).toBeDefined();
     });
@@ -169,7 +170,7 @@ describe('EEnum Tests', () => {
       // For most enums, name and literal are the same, but they can differ
       const byName = fooClassEnum.getEEnumLiteral('SHORT');
       const byLiteral = fooClassEnum.getEEnumLiteralByLiteral('SHORT');
-      
+
       expect(byName).toBe(byLiteral);
       expect(byName).toBe(shortLiteral);
     });
@@ -180,26 +181,28 @@ describe('EEnum Tests', () => {
       // Test using enum values
       testFoo.setFooClass(FooClass.SHORT);
       expect(testFoo.getFooClass()).toBe(FooClass.SHORT);
-      
+
       testFoo.setFooClass(FooClass.MEDIUM);
       expect(testFoo.getFooClass()).toBe(FooClass.MEDIUM);
-      
+
       testFoo.setFooClass(FooClass.INTERMEDIATE);
       expect(testFoo.getFooClass()).toBe(FooClass.INTERMEDIATE);
-      
+
       testFoo.setFooClass(FooClass.LONG);
       expect(testFoo.getFooClass()).toBe(FooClass.LONG);
     });
 
     it('should work with eGet and eSet operations', () => {
-      const fooClassFeature = testFoo.eClass().getEStructuralFeature('fooClass');
+      const fooClassFeature = testFoo
+        .eClass()
+        .getEStructuralFeature('fooClass');
       expect(fooClassFeature).toBeDefined();
-      
+
       // Test getting enum value through reflection
       testFoo.setFooClass(FooClass.INTERMEDIATE);
       const retrievedValue = testFoo.eGet(fooClassFeature!);
       expect(retrievedValue).toBe(FooClass.INTERMEDIATE);
-      
+
       // Test setting enum value through reflection
       testFoo.eSet(fooClassFeature!, FooClass.LONG);
       expect(testFoo.getFooClass()).toBe(FooClass.LONG);
@@ -248,10 +251,12 @@ describe('EEnum Tests', () => {
       expect(mediumLiteral.getInstance()).toBeDefined();
       expect(intermediateLiteral.getInstance()).toBeDefined();
       expect(longLiteral.getInstance()).toBeDefined();
-      
+
       // Instances should be unique
       expect(shortLiteral.getInstance()).not.toBe(mediumLiteral.getInstance());
-      expect(mediumLiteral.getInstance()).not.toBe(intermediateLiteral.getInstance());
+      expect(mediumLiteral.getInstance()).not.toBe(
+        intermediateLiteral.getInstance()
+      );
     });
   });
 
@@ -262,13 +267,13 @@ describe('EEnum Tests', () => {
       const originalValue = testLiteral.getValue();
       const originalLiteralString = testLiteral.getLiteral();
       const originalInstance = testLiteral.getInstance();
-      
+
       // Test setters
       expect(() => testLiteral.setName('TEST_SHORT')).not.toThrow();
       expect(() => testLiteral.setValue(99)).not.toThrow();
       expect(() => testLiteral.setLiteral('TEST_SHORT')).not.toThrow();
       expect(() => testLiteral.setInstance('TEST_INSTANCE')).not.toThrow();
-      
+
       // Reset to original values (to avoid affecting other tests)
       testLiteral.setName(originalName);
       testLiteral.setValue(originalValue);
@@ -279,10 +284,10 @@ describe('EEnum Tests', () => {
     it('should allow setting enum reference', () => {
       const testLiteral = shortLiteral;
       const originalEnum = testLiteral.getEEnum();
-      
+
       expect(() => testLiteral.setEEnum(fooClassEnum)).not.toThrow();
       expect(testLiteral.getEEnum()).toBe(fooClassEnum);
-      
+
       // Reset
       testLiteral.setEEnum(originalEnum);
     });
@@ -292,19 +297,19 @@ describe('EEnum Tests', () => {
     it('should be found in package classifiers', () => {
       const classifiers = corePackage.getEClassifiers();
       expect(classifiers.contains(fooClassEnum)).toBe(true);
-      
-      const classifierNames = classifiers.map(c => c.getName());
+
+      const classifierNames = classifiers.map((c) => c.getName());
       expect(classifierNames.contains('FooClass')).toBe(true);
     });
 
     it('should be distinguishable from EClass classifiers', () => {
       const fooClass = corePackage.getEClassifier('Foo');
-      
+
       // fooClassEnum should be an EEnum
       expect((fooClassEnum as any).getELiterals).toBeDefined();
       expect((fooClassEnum as any).getEStructuralFeatures).toBeUndefined();
-      
-      // fooClass should be an EClass  
+
+      // fooClass should be an EClass
       expect((fooClass as any).getEStructuralFeatures).toBeDefined();
       expect((fooClass as any).getELiterals).toBeUndefined();
     });
@@ -313,7 +318,7 @@ describe('EEnum Tests', () => {
       const enumId = fooClassEnum.getClassifierId();
       const fooClass = corePackage.getEClassifier('Foo');
       const fooClassId = fooClass!.getClassifierId();
-      
+
       expect(enumId).not.toBe(fooClassId);
     });
   });
@@ -323,21 +328,27 @@ describe('EEnum Tests', () => {
       expect(fooClassEnum.getEEnumLiteral('')).toBeUndefined();
       expect(fooClassEnum.getEEnumLiteral(null as any)).toBeUndefined();
       expect(fooClassEnum.getEEnumLiteral(undefined as any)).toBeUndefined();
-      
+
       expect(fooClassEnum.getEEnumLiteralByLiteral('')).toBeUndefined();
-      expect(fooClassEnum.getEEnumLiteralByLiteral(null as any)).toBeUndefined();
-      expect(fooClassEnum.getEEnumLiteralByLiteral(undefined as any)).toBeUndefined();
+      expect(
+        fooClassEnum.getEEnumLiteralByLiteral(null as any)
+      ).toBeUndefined();
+      expect(
+        fooClassEnum.getEEnumLiteralByLiteral(undefined as any)
+      ).toBeUndefined();
     });
 
     it('should maintain consistency between values and literals', () => {
       const literals = fooClassEnum.getELiterals();
-      
+
       for (let i = 0; i < literals.size(); i++) {
         const literal = literals.get(i);
         const foundByValue = fooClassEnum.getEEnumLiteral(literal.getValue());
         const foundByName = fooClassEnum.getEEnumLiteral(literal.getName());
-        const foundByLiteral = fooClassEnum.getEEnumLiteralByLiteral(literal.getLiteral());
-        
+        const foundByLiteral = fooClassEnum.getEEnumLiteralByLiteral(
+          literal.getLiteral()
+        );
+
         expect(foundByValue).toBe(literal);
         expect(foundByName).toBe(literal);
         expect(foundByLiteral).toBe(literal);
@@ -347,7 +358,7 @@ describe('EEnum Tests', () => {
     it('should handle large enum collections', () => {
       // Test performance/behavior with the existing enum
       const literals = fooClassEnum.getELiterals();
-      
+
       // Should handle iteration efficiently
       let count = 0;
       for (let i = 0; i < literals.size(); i++) {
@@ -356,7 +367,7 @@ describe('EEnum Tests', () => {
         expect(literal.getName()).toBeDefined();
         count++;
       }
-      
+
       expect(count).toBe(literals.size());
     });
   });

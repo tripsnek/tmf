@@ -55,12 +55,14 @@ describe('TMF', () => {
 
   it('should return EClass', () => {
     expect(foo.eClass()).toBe(corePkg.getFoo());
-  });    
+  });
 
   it('should get features by Id', () => {
-    const barFeature = foo.eClass().getEStructuralFeature(corePkg.getFoo_Bars().getFeatureID());
+    const barFeature = foo
+      .eClass()
+      .getEStructuralFeature(corePkg.getFoo_Bars().getFeatureID());
     expect(barFeature?.getName()).toBe('bars');
-  });    
+  });
 
   it('should allow retrieval of EPackages by URI', () => {
     // tslint:disable-next-line: no-unused-expression

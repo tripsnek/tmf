@@ -1,4 +1,4 @@
-import { EModelElement } from './emodel-element';
+import { EModelElement } from './emodel-element.js';
 
 /**
  * Base interface for metamodel elements that have a name.

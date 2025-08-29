@@ -1,5 +1,5 @@
-import { EList } from './api/elist';
-import { EObject } from './api/eobject';
+import { EList } from './api/elist.js';
+import { EObject } from './api/eobject.js';
 
 /**
  * Default implementation for all TMF Lists, and hence all

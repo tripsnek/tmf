@@ -1,5 +1,5 @@
-import { ENamedElement } from './enamed-element';
-import { EClassifier } from './eclassifier';
+import { ENamedElement } from './enamed-element.js';
+import { EClassifier } from './eclassifier.js';
 
 /**
  * Base interface for metamodel elements that have a type and multiplicity.

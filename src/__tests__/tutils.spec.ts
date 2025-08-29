@@ -11,7 +11,7 @@ import { FooClass } from './src/model/core/api/foo-class';
 import { CoreFactory } from './src/model/core/core-factory';
 import { CorePackage } from './src/model/core/core-package';
 import { BoundedNumberImpl } from './src/model/core/impl/bounded-number-impl';
-import {ModelPackage} from './src/model/model-package';
+import { ModelPackage } from './src/model/model-package';
 import { CapitalizedPackagePackage } from './src/model/core/CapitalizedPackage/capitalized-package-package';
 
 //configure TJson with test packages
@@ -95,12 +95,13 @@ describe('TUtils', () => {
     expect(allPkgs.indexOf(CorePackage.eINSTANCE)).toBeGreaterThan(-1);
     expect(allPkgs.indexOf(AnalysisPackage.eINSTANCE)).toBeGreaterThan(-1);
     expect(allPkgs.indexOf(ModelPackage.eINSTANCE)).toBeGreaterThan(-1);
-    expect(allPkgs.indexOf(CapitalizedPackagePackage.eINSTANCE)).toBeGreaterThan(-1);
+    expect(
+      allPkgs.indexOf(CapitalizedPackagePackage.eINSTANCE)
+    ).toBeGreaterThan(-1);
   });
 
   it('should get roots', () => {
     const allRoots = TUtils.getRootEClasses(ModelPackage.eINSTANCE);
     expect(allRoots.length).toBe(3);
   });
-
 });

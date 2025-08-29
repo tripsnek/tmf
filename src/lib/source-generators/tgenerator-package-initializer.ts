@@ -1,5 +1,5 @@
 import { EPackage } from '../metamodel/api/epackage';
-import { TGenUtils as DU } from './tgen-utils';
+import { TGenUtils as DU } from './tgen-utils.js';
 
 /**
  * Generates a package initializer file for the root package that handles

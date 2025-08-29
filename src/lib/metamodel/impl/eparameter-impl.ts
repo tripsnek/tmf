@@ -1,5 +1,5 @@
 import { EOperation } from '../api/eoperation';
-import { ETypedElementImpl } from './etyped-element-impl';
+import { ETypedElementImpl } from './etyped-element-impl.js';
 import { EClass } from '../api/eclass';
 import { EClassifier } from '../api/eclassifier';
 import { EParameter } from '../api/eparameter';

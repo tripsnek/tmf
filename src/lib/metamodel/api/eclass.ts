@@ -1,11 +1,11 @@
-import { EClassifier } from './eclassifier';
+import { EClassifier } from './eclassifier.js';
 
-import { EOperation } from './eoperation';
-import { EAttribute } from './eattribute';
-import { EReference } from './ereference';
-import { EStructuralFeature } from './estructural-feature';
-import { EList } from './elist';
-import { EObject } from './eobject';
+import { EOperation } from './eoperation.js';
+import { EAttribute } from './eattribute.js';
+import { EReference } from './ereference.js';
+import { EStructuralFeature } from './estructural-feature.js';
+import { EList } from './elist.js';
+import { EObject } from './eobject.js';
 
 /**
  * Represents a class in the metamodel. Defines the structure and behavior

@@ -1,6 +1,6 @@
-import { EEnumLiteral } from './eenum-literal';
-import { EList } from './elist';
-import { EDataType } from './edata-type';
+import { EEnumLiteral } from './eenum-literal.js';
+import { EList } from './elist.js';
+import { EDataType } from './edata-type.js';
 
 /**
  * Represents an enumeration type with a fixed set of named constants.

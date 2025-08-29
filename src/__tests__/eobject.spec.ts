@@ -55,7 +55,6 @@ beforeEach(() => {
 });
 
 describe('EObject Tests', () => {
-
   describe('Basic EObject Properties', () => {
     it('should return correct EClass', () => {
       expect(testFoo.eClass()).toBe(fooClass);
@@ -78,7 +77,7 @@ describe('EObject Tests', () => {
 
     it('should establish container relationship when adding to containment reference', () => {
       testFoo.getBars().add(testBar1);
-      
+
       expect(testBar1.eContainer()).toBe(testFoo);
       expect(testFoo.eContainer()).toBeUndefined(); // foo is not contained
     });
@@ -86,7 +85,7 @@ describe('EObject Tests', () => {
     it('should establish nested container relationships', () => {
       testFoo.getBars().add(testBar1);
       testBar1.getBazzles().add(testBazzle1);
-      
+
       expect(testBar1.eContainer()).toBe(testFoo);
       expect(testBazzle1.eContainer()).toBe(testBar1);
     });
@@ -94,11 +93,11 @@ describe('EObject Tests', () => {
     it('should update container when moving objects between containers', () => {
       testFoo.getBars().add(testBar1);
       testBar1.getBazzles().add(testBazzle1);
-      
+
       // Move bazzle to bar2
       testFoo.getBars().add(testBar2);
       testBar2.getBazzles().add(testBazzle1);
-      
+
       expect(testBazzle1.eContainer()).toBe(testBar2);
       expect(testBar1.getBazzles().contains(testBazzle1)).toBe(false);
     });
@@ -106,7 +105,7 @@ describe('EObject Tests', () => {
     it('should clear container when removing from containment', () => {
       testFoo.getBars().add(testBar1);
       expect(testBar1.eContainer()).toBe(testFoo);
-      
+
       testFoo.getBars().remove(testBar1);
       expect(testBar1.eContainer()).toBeUndefined();
     });
@@ -119,7 +118,7 @@ describe('EObject Tests', () => {
 
     it('should return correct containing feature for contained objects', () => {
       testFoo.getBars().add(testBar1);
-      
+
       const containingFeature = testBar1.eContainingFeature();
       expect(containingFeature).toBeDefined();
       expect(containingFeature!.getName()).toBe('bars');
@@ -128,7 +127,7 @@ describe('EObject Tests', () => {
     it('should return correct containing feature for nested objects', () => {
       testFoo.getBars().add(testBar1);
       testBar1.getBazzles().add(testBazzle1);
-      
+
       const bazzleContainingFeature = testBazzle1.eContainingFeature();
       expect(bazzleContainingFeature).toBeDefined();
       expect(bazzleContainingFeature!.getName()).toBe('bazzles');
@@ -139,7 +138,7 @@ describe('EObject Tests', () => {
     it('should return immediate contents', () => {
       testFoo.getBars().add(testBar1);
       testFoo.getBars().add(testBar2);
-      
+
       const contents = testFoo.eContents();
       expect(contents.length).toBe(2);
       expect(contents).toContain(testBar1);
@@ -150,7 +149,7 @@ describe('EObject Tests', () => {
       testFoo.getBars().add(testBar1);
       testBar1.getBazzles().add(testBazzle1);
       testBar1.getBazzles().add(testBazzle2);
-      
+
       const allContents = testFoo.eAllContents();
       expect(allContents.length).toBe(4); // bar1, bazzle1, bazzle2
       expect(allContents).toContain(testFoo);
@@ -162,7 +161,7 @@ describe('EObject Tests', () => {
     it('should handle empty contents', () => {
       const contents = testFoo.eContents();
       const allContents = testFoo.eAllContents();
-      
+
       expect(contents.length).toBe(0);
       expect(allContents.length).toBe(1);
     });
@@ -171,11 +170,11 @@ describe('EObject Tests', () => {
       // Create a range for foo
       const range = CoreFactory.eINSTANCE.createBoundedNumber();
       testFoo.setRange(range);
-      
+
       // Add bars with bazzles
       testFoo.getBars().add(testBar1);
       testBar1.getBazzles().add(testBazzle1);
-      
+
       const allContents = testFoo.eAllContents();
       expect(allContents).toContain(range);
       expect(allContents).toContain(testBar1);
@@ -187,7 +186,7 @@ describe('EObject Tests', () => {
     it('should generate full ID for objects with ID attributes', () => {
       testFoo.setId('foo123');
       const fullId = testFoo.fullId();
-      
+
       expect(fullId).toBeDefined();
       expect(fullId.length).toBeGreaterThan(0);
       expect(fullId).toContain('foo123');
@@ -196,10 +195,10 @@ describe('EObject Tests', () => {
     it('should generate different full IDs for different objects', () => {
       testFoo.setId('foo123');
       testBar1.setId('bar456');
-      
+
       const fooId = testFoo.fullId();
       const barId = testBar1.fullId();
-      
+
       expect(fooId).not.toBe(barId);
     });
 
@@ -212,7 +211,7 @@ describe('EObject Tests', () => {
     it('should include type information in full ID', () => {
       testFoo.setId('test123');
       const fullId = testFoo.fullId();
-      
+
       // Should contain type information
       expect(fullId).toContain('Foo');
     });
@@ -221,20 +220,20 @@ describe('EObject Tests', () => {
   describe('Generic Getting and Setting', () => {
     it('should get attribute values by feature', () => {
       testFoo.setName('TestFooName');
-      
+
       const nameFeature = fooClass.getEStructuralFeature('name');
       expect(nameFeature).toBeDefined();
-      
+
       const retrievedName = testFoo.eGet(nameFeature!);
       expect(retrievedName).toBe('TestFooName');
     });
 
     it('should get attribute values by feature ID', () => {
       testFoo.setName('TestFooName');
-      
+
       const nameFeature = fooClass.getEStructuralFeature('name');
       const featureId = fooClass.getFeatureID(nameFeature!);
-      
+
       const retrievedName = testFoo.eGet(featureId);
       expect(retrievedName).toBe('TestFooName');
     });
@@ -242,7 +241,7 @@ describe('EObject Tests', () => {
     it('should set attribute values by feature', () => {
       const nameFeature = fooClass.getEStructuralFeature('name');
       expect(nameFeature).toBeDefined();
-      
+
       testFoo.eSet(nameFeature!, 'NewFooName');
       expect(testFoo.getName()).toBe('NewFooName');
     });
@@ -250,7 +249,7 @@ describe('EObject Tests', () => {
     it('should set attribute values by feature ID', () => {
       const nameFeature = fooClass.getEStructuralFeature('name');
       const featureId = fooClass.getFeatureID(nameFeature!);
-      
+
       testFoo.eSet(featureId, 'NewFooName');
       expect(testFoo.getName()).toBe('NewFooName');
     });
@@ -258,7 +257,7 @@ describe('EObject Tests', () => {
     it('should handle enum values correctly', () => {
       const fooClassFeature = fooClass.getEStructuralFeature('fooClass');
       expect(fooClassFeature).toBeDefined();
-      
+
       testFoo.eSet(fooClassFeature!, FooClass.LONG);
       expect(testFoo.eGet(fooClassFeature!)).toBe(FooClass.LONG);
       expect(testFoo.getFooClass()).toBe(FooClass.LONG);
@@ -267,7 +266,7 @@ describe('EObject Tests', () => {
     it('should handle reference values correctly', () => {
       const barsFeature = fooClass.getEStructuralFeature('bars');
       expect(barsFeature).toBeDefined();
-      
+
       const bars = testFoo.eGet(barsFeature!);
       expect(bars).toBeDefined();
       expect(bars.size).toBeDefined(); // Should be an EList
@@ -275,9 +274,10 @@ describe('EObject Tests', () => {
 
     it('should handle date values correctly', () => {
       const now = new Date();
-      const creationDateFeature = fooClass.getEStructuralFeature('creationDate');
+      const creationDateFeature =
+        fooClass.getEStructuralFeature('creationDate');
       expect(creationDateFeature).toBeDefined();
-      
+
       testFoo.eSet(creationDateFeature!, now);
       expect(testFoo.eGet(creationDateFeature!)).toBe(now);
     });
@@ -287,7 +287,7 @@ describe('EObject Tests', () => {
     it('should detect when features are set', () => {
       const nameFeature = fooClass.getEStructuralFeature('name');
       expect(nameFeature).toBeDefined();
-      
+
       //set undefined
       testFoo.setName(undefined!);
       expect(testFoo.eIsSet(nameFeature!)).toBe(false);
@@ -295,7 +295,7 @@ describe('EObject Tests', () => {
       //set null
       testFoo.setName(null!);
       expect(testFoo.eIsSet(nameFeature!)).toBe(false);
-      
+
       // Set the feature
       testFoo.eSet(nameFeature!, 'TestName');
       expect(testFoo.eIsSet(nameFeature!)).toBe(true);
@@ -304,11 +304,11 @@ describe('EObject Tests', () => {
     it('should handle unset operation', () => {
       const nameFeature = fooClass.getEStructuralFeature('name');
       expect(nameFeature).toBeDefined();
-      
+
       // Set then unset
       testFoo.eSet(nameFeature!, 'TestName');
       expect(testFoo.eIsSet(nameFeature!)).toBe(true);
-      
+
       testFoo.eUnset(nameFeature!);
       expect(testFoo.eIsSet(nameFeature!)).toBe(false);
     });
@@ -316,12 +316,12 @@ describe('EObject Tests', () => {
     it('should handle unset on many-valued features', () => {
       const barsFeature = fooClass.getEStructuralFeature('bars');
       expect(barsFeature).toBeDefined();
-      
+
       // Add some bars
       testFoo.getBars().add(testBar1);
       testFoo.getBars().add(testBar2);
       expect(testFoo.eIsSet(barsFeature!)).toBe(true);
-      
+
       // Unset should clear the collection
       testFoo.eUnset(barsFeature!);
       expect(testFoo.getBars().size()).toBe(0);
@@ -333,16 +333,16 @@ describe('EObject Tests', () => {
       const idFeature = fooClass.getEStructuralFeature('id');
       const fooClassFeature = fooClass.getEStructuralFeature('fooClass');
       const rangeFeature = fooClass.getEStructuralFeature('range');
-      
+
       expect(idFeature).toBeDefined();
       expect(fooClassFeature).toBeDefined();
       expect(rangeFeature).toBeDefined();
-      
+
       // Set different types of features
       testFoo.eSet(idFeature!, 'test123');
       testFoo.eSet(fooClassFeature!, FooClass.MEDIUM);
       testFoo.eSet(rangeFeature!, testBoundedNumber);
-      
+
       expect(testFoo.eIsSet(idFeature!)).toBe(true);
       expect(testFoo.eIsSet(fooClassFeature!)).toBe(true);
       expect(testFoo.eIsSet(rangeFeature!)).toBe(true);
@@ -353,7 +353,7 @@ describe('EObject Tests', () => {
     it('should handle inverse add correctly', () => {
       // When we add a bar to foo, the inverse should be set
       testFoo.getBars().add(testBar1);
-      
+
       expect(testBar1.getFoo()).toBe(testFoo);
       expect(testBar1.eContainer()).toBe(testFoo);
     });
@@ -362,7 +362,7 @@ describe('EObject Tests', () => {
       // Set up relationship
       testFoo.getBars().add(testBar1);
       expect(testBar1.getFoo()).toBe(testFoo);
-      
+
       // Remove and check inverse is cleared
       testFoo.getBars().remove(testBar1);
       expect(testBar1.getFoo()).toBeUndefined();
@@ -372,9 +372,9 @@ describe('EObject Tests', () => {
     it('should handle one-to-one relationships', () => {
       // Test oneToOneBazzle relationship
       testFoo.setOneToOneBazzle(testBazzle1);
-      
+
       expect(testBazzle1.getOneToOneFoo()).toBe(testFoo);
-      
+
       // Clear the relationship
       testFoo.setOneToOneBazzle(undefined!);
       expect(testBazzle1.getOneToOneFoo()).toBeUndefined();
@@ -383,9 +383,9 @@ describe('EObject Tests', () => {
     it('should handle complex inverse relationships', () => {
       // Set up backupFor relationship
       testBar1.getBackupFor().add(testBazzle1);
-      
+
       expect(testBazzle1.getBackupBar()).toBe(testBar1);
-      
+
       // Remove from backup
       testBar1.getBackupFor().remove(testBazzle1);
       expect(testBazzle1.getBackupBar()).toBeUndefined();
@@ -396,7 +396,7 @@ describe('EObject Tests', () => {
     it('should allow manual container setting', () => {
       const barsFeature = fooClass.getEStructuralFeature('bars');
       const featureId = fooClass.getFeatureID(barsFeature!);
-      
+
       testBar1.setEContainer(testFoo, featureId);
       expect(testBar1.eContainer()).toBe(testFoo);
       expect(testBar1.eContainingFeature()).toBe(barsFeature);
@@ -405,7 +405,7 @@ describe('EObject Tests', () => {
     it('should clear container correctly', () => {
       testFoo.getBars().add(testBar1);
       expect(testBar1.eContainer()).toBe(testFoo);
-      
+
       testBar1.setEContainer(undefined);
       expect(testBar1.eContainer()).toBeUndefined();
       expect(testBar1.eContainingFeature()).toBeUndefined();
@@ -421,10 +421,10 @@ describe('EObject Tests', () => {
 
     it('should handle null/undefined values appropriately', () => {
       const nameFeature = fooClass.getEStructuralFeature('name');
-      
+
       testFoo.eSet(nameFeature!, undefined);
       expect(testFoo.eGet(nameFeature!)).toBeUndefined();
-      
+
       testFoo.eSet(nameFeature!, null);
       expect(testFoo.eGet(nameFeature!)).toBeNull();
     });
@@ -434,12 +434,12 @@ describe('EObject Tests', () => {
       testFoo.getBars().add(testBar1);
       testBar1.getBazzles().add(testBazzle1);
       testBar1.getBazzles().add(testBazzle2);
-      
+
       // Verify all relationships
       expect(testBar1.eContainer()).toBe(testFoo);
       expect(testBazzle1.eContainer()).toBe(testBar1);
       expect(testBazzle2.eContainer()).toBe(testBar1);
-      
+
       // Clear and verify cleanup
       testFoo.getBars().clear();
       expect(testBar1.eContainer()).toBeUndefined();
@@ -451,12 +451,12 @@ describe('EObject Tests', () => {
       // This test depends on implementation details
       // but we should be able to set up legal circular references
       testFoo.getBars().add(testBar1);
-      
+
       // Add foo to its own manyCrossAggregate (non-containment reference)
       const foo2 = CoreFactory.eINSTANCE.createFoo();
       testFoo.getManyCrossAggregate().add(foo2);
       foo2.getManyCrossAggregate().add(testFoo);
-      
+
       // This should not cause infinite loops in eAllContents
       const allContents = testFoo.eAllContents();
       expect(allContents.length).toBeGreaterThan(0);

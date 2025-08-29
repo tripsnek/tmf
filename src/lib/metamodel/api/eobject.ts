@@ -1,5 +1,5 @@
-import { EStructuralFeature } from './estructural-feature';
-import { EClass } from './eclass';
+import { EStructuralFeature } from './estructural-feature.js';
+import { EClass } from './eclass.js';
 
 /**
  * The base interface for all model objects in TMF. Provides reflection capabilities,

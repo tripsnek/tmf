@@ -1,4 +1,4 @@
-import { EObject } from './eobject';
+import { EObject } from './eobject.js';
 
 /**
  * Base interface for all elements that can appear in an Ecore metamodel.

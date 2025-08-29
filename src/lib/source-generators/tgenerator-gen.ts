@@ -2,7 +2,7 @@ import { EPackage } from '../metamodel/api/epackage';
 import { EClassifier } from '../metamodel/api/eclassifier';
 import { EClass } from '../metamodel/api/eclass';
 import { EReference } from '../metamodel/api/ereference';
-import { TGenUtils as DU } from './tgen-utils';
+import { TGenUtils as DU } from './tgen-utils.js';
 import { TUtils } from '../tutils';
 import { EStructuralFeature } from '../metamodel/api/estructural-feature';
 import { EReferenceImpl } from '../metamodel/impl/ereference-impl';

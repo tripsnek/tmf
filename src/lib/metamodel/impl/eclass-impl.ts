@@ -6,10 +6,10 @@ import { EStructuralFeature } from '../api/estructural-feature';
 import { BasicEList } from '../basicelist';
 import { EList } from '../api/elist';
 import { EObject } from '../api/eobject';
-import { EAttributeImpl } from './eattribute-impl';
-import { EClassifierImpl } from './eclassifier-impl';
+import { EAttributeImpl } from './eattribute-impl.js';
+import { EClassifierImpl } from './eclassifier-impl.js';
 import { EClass } from '../api/eclass';
-import { EReferenceImpl } from './ereference-impl';
+import { EReferenceImpl } from './ereference-impl.js';
 
 export class EClassImpl extends EClassifierImpl implements EClass {
   private classIsAbstract = false;

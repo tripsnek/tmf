@@ -1,6 +1,6 @@
 import { EClassifier } from '../api/eclassifier';
 import { EClass } from '../api/eclass';
-import { ETypedElementImpl } from './etyped-element-impl';
+import { ETypedElementImpl } from './etyped-element-impl.js';
 import { EStructuralFeature } from '../api/estructural-feature';
 import { EObject } from '../api/eobject';
 

@@ -10,7 +10,8 @@ export default {
     '^.+\\.ts$': 'ts-jest',
   },
   moduleNameMapper: {
-    '^@tripsnek/tmf(/.*)?$': '<rootDir>/src$1'
+    '^@tripsnek/tmf(/.*)?$': '<rootDir>/src$1',
+    '^(.*)\\.js$': '$1'
   },
   collectCoverageFrom: [
     'src/**/*.ts',

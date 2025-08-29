@@ -1,5 +1,5 @@
-import { EPackage } from './epackage';
-import { ENamedElement } from './enamed-element';
+import { EPackage } from './epackage.js';
+import { ENamedElement } from './enamed-element.js';
 
 /**
  * Base interface for all type classifiers in the metamodel. 

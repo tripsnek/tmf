@@ -1,6 +1,6 @@
 import { EcoreParser } from '../ecore/ecoreparser';
 import { EPackage } from '../metamodel/api/epackage';
-import { TGeneratorMain } from './tgenerator-main';
+import { TGeneratorMain } from './tgenerator-main.js';
 import { Environment, ConditionalImports, safeDynamicImport } from '../utils/environment';
 
 /**

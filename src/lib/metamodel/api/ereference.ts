@@ -1,5 +1,5 @@
-import { EClass } from './eclass';
-import { EStructuralFeature } from './estructural-feature';
+import { EClass } from './eclass.js';
+import { EStructuralFeature } from './estructural-feature.js';
 
 /**
  * Represents a reference to another model object. References can be 

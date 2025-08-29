@@ -1,7 +1,7 @@
-import { EClass } from './eclass';
-import { EParameter } from './eparameter';
-import { EList } from './elist';
-import { ETypedElement } from './etyped-element';
+import { EClass } from './eclass.js';
+import { EParameter } from './eparameter.js';
+import { EList } from './elist.js';
+import { ETypedElement } from './etyped-element.js';
 
 /**
  * Represents an operation (method) that can be defined on a class.
