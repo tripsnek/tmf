@@ -26,15 +26,15 @@ export class TGeneratorBarrelIndexTs {
     pkgFolderPath: string,
     ePackage: EPackage
   ): string {
-    const path = pkgFolderPath + DU.kebabLowerCase(ePackage.getName());
+    const path = pkgFolderPath + ePackage.getName();
     let toReturn = ``;
     for (const sub of ePackage.getESubPackages()) {
       toReturn += this.generatePackageContents(path + '/', sub);
     }
     toReturn += 
-    `export * from './${path}/${DU.genUtilsFileName(ePackage)}';
-export * from './${path}/${DU.genPackageFileName(ePackage)}';
-export * from './${path}/${DU.genFactoryFileName(ePackage)}';
+    `export * from './${path}/${DU.genUtilsFileName(ePackage)}.js';
+export * from './${path}/${DU.genPackageFileName(ePackage)}.js';
+export * from './${path}/${DU.genFactoryFileName(ePackage)}.js';
 ${this.generateEClassifierExports(ePackage, path)}`;
     return toReturn;
   }
@@ -44,14 +44,14 @@ ${this.generateEClassifierExports(ePackage, path)}`;
     for (const eclassifier of ePackage.getEClassifiers()) {
       exports += `export * from './${pkgFolderPath}/api/${DU.genClassApiName(
         eclassifier
-      )}';\n`;
+      )}.js';\n`;
       if (eclassifier instanceof EClassImpl) {
         exports += `export * from './${pkgFolderPath}/impl/${DU.genClassImplName(
           eclassifier
-        )}';\n`;
+        )}.js';\n`;
         exports += `export * from './${pkgFolderPath}/gen/${DU.genClassGenName(
           eclassifier
-        )}';\n`;
+        )}.js';\n`;
       }
     }
     return exports;
@@ -107,8 +107,8 @@ export interface CustomModelExtension {
 
 These will automatically be exported as:
 \`\`\`typescript
-export * from './custom/utilities';
-export * from './custom/types/custom-types';
+export * from './custom/utilities.js';
+export * from './custom/types/custom-types.js';
 \`\`\`
 `;
         
@@ -142,7 +142,7 @@ export * from './custom/types/custom-types';
       for (const file of customFiles) {
         const relativePath = path.relative(this.outDir, file);
         const exportPath = relativePath.replace(/\.ts$/, '').replace(/\\/g, '/');
-        exports += `export * from './${exportPath}';\n`;
+        exports += `export * from './${exportPath}.js';\n`;
       }
       
       return exports;
