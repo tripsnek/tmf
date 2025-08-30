@@ -27,13 +27,16 @@ import { UserImpl } from '../impl/user-impl.js';
  * This file is source-code generated and should never be edited. It implements
  * the core TMF functionality for Bazzle.
  */
-export abstract class BazzleGen extends NamedEntityImpl implements Bazzle {
+export abstract class BazzleGen  extends NamedEntityImpl implements Bazzle {
   /** feature declarations */
   protected backupBar!: Bar;
   protected oneToOneFoo!: Foo;
 
+
+
   //======================================================================
   // Getters and Setters
+
 
   public getBackupBar(): Bar {
     return this.backupBar;
@@ -58,10 +61,7 @@ export abstract class BazzleGen extends NamedEntityImpl implements Bazzle {
   public setOneToOneFoo(newOneToOneFoo: Foo): void {
     if (this.oneToOneFoo !== newOneToOneFoo) {
       if (this.oneToOneFoo) {
-        this.oneToOneFoo.eInverseRemove(
-          this,
-          CorePackage.FOO__ONE_TO_ONE_BAZZLE
-        );
+        this.oneToOneFoo.eInverseRemove(this, CorePackage.FOO__ONE_TO_ONE_BAZZLE);
       }
       if (newOneToOneFoo) {
         newOneToOneFoo.eInverseAdd(this, CorePackage.FOO__ONE_TO_ONE_BAZZLE);
@@ -93,13 +93,11 @@ export abstract class BazzleGen extends NamedEntityImpl implements Bazzle {
     return super.eGet(featureID);
   }
 
+
   /**
    * eSet() - provides ability to reflectively set all features.
    */
-  public override eSet(
-    feature: number | EStructuralFeature,
-    newValue: any
-  ): void {
+  public override eSet(feature: number | EStructuralFeature, newValue: any): void {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -114,6 +112,7 @@ export abstract class BazzleGen extends NamedEntityImpl implements Bazzle {
     }
     return super.eSet(featureID, newValue);
   }
+
 
   /**
    * eIsSet() - provides ability to reflectively check if any feature is set.
@@ -131,6 +130,7 @@ export abstract class BazzleGen extends NamedEntityImpl implements Bazzle {
     }
     return super.eIsSet(featureID);
   }
+
 
   /**
    * eUnset() - provides ability to reflectively unset any feature.
@@ -154,6 +154,7 @@ export abstract class BazzleGen extends NamedEntityImpl implements Bazzle {
   //======================================================================
   // Basic setters (allow EOpposite enforcement without triggering infinite cycles)
 
+
   public basicSetBackupBar(newBackupBar: Bar): void {
     this.backupBar = newBackupBar;
   }
@@ -168,7 +169,10 @@ export abstract class BazzleGen extends NamedEntityImpl implements Bazzle {
     switch (featureID) {
       case CorePackage.BAZZLE__BACKUP_BAR:
         if (this.backupBar)
-          this.backupBar.eInverseRemove(this, CorePackage.BAR__BACKUP_FOR);
+          this.backupBar.eInverseRemove(
+            this,
+            CorePackage.BAR__BACKUP_FOR
+          );
         return this.basicSetBackupBar(<Bar>otherEnd);
       case CorePackage.BAZZLE__ONE_TO_ONE_FOO:
         if (this.oneToOneFoo)
@@ -180,6 +184,7 @@ export abstract class BazzleGen extends NamedEntityImpl implements Bazzle {
     }
     return super.eInverseAdd(otherEnd, featureID);
   }
+
 
   //======================================================================
   // Inverse Removers (if needed)

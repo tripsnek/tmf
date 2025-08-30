@@ -25,8 +25,5 @@ export interface Bar extends NamedEntity {
   getBazzles(): EList<Bazzle>;
   getBackupFor(): EList<Bazzle>;
   doSomethingWithFooAndBazzles(foo: Foo, bazzles: EList<Bazzle>): void;
-  doSomethingWithClassesAndNumbers(
-    classes: EList<FooClass>,
-    numbers: EList<BoundedNumber>
-  ): void;
+  doSomethingWithClassesAndNumbers(classes: EList<FooClass>, numbers: EList<BoundedNumber>): void;
 }

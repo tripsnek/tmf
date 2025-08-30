@@ -31,7 +31,7 @@ import { BoundedNumberImpl } from '../impl/bounded-number-impl.js';
  * This file is source-code generated and should never be edited. It implements
  * the core TMF functionality for Bar.
  */
-export abstract class BarGen extends NamedEntityImpl implements Bar {
+export abstract class BarGen  extends NamedEntityImpl implements Bar {
   /** feature declarations */
   protected foo!: Foo;
   protected bazzles: EList<Bazzle> = new BasicEList<Bazzle>(
@@ -47,8 +47,11 @@ export abstract class BarGen extends NamedEntityImpl implements Bar {
     CorePackage.BAZZLE__BACKUP_BAR
   );
 
+
+
   //======================================================================
   // Getters and Setters
+
 
   public getFoo(): Foo {
     return this.foo;
@@ -77,14 +80,12 @@ export abstract class BarGen extends NamedEntityImpl implements Bar {
   //======================================================================
   // API Operations
 
+
   public doSomethingWithFooAndBazzles(foo: Foo, bazzles: EList<Bazzle>): void {
     throw new Error('Not implemented');
   }
 
-  public doSomethingWithClassesAndNumbers(
-    classes: EList<FooClass>,
-    numbers: EList<BoundedNumber>
-  ): void {
+  public doSomethingWithClassesAndNumbers(classes: EList<FooClass>, numbers: EList<BoundedNumber>): void {
     throw new Error('Not implemented');
   }
   //======================================================================
@@ -109,13 +110,11 @@ export abstract class BarGen extends NamedEntityImpl implements Bar {
     return super.eGet(featureID);
   }
 
+
   /**
    * eSet() - provides ability to reflectively set all features.
    */
-  public override eSet(
-    feature: number | EStructuralFeature,
-    newValue: any
-  ): void {
+  public override eSet(feature: number | EStructuralFeature, newValue: any): void {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -136,6 +135,7 @@ export abstract class BarGen extends NamedEntityImpl implements Bar {
     return super.eSet(featureID, newValue);
   }
 
+
   /**
    * eIsSet() - provides ability to reflectively check if any feature is set.
    */
@@ -154,6 +154,7 @@ export abstract class BarGen extends NamedEntityImpl implements Bar {
     }
     return super.eIsSet(featureID);
   }
+
 
   /**
    * eUnset() - provides ability to reflectively unset any feature.
@@ -180,6 +181,7 @@ export abstract class BarGen extends NamedEntityImpl implements Bar {
   //======================================================================
   // Basic setters (allow EOpposite enforcement without triggering infinite cycles)
 
+
   public basicSetFoo(newFoo: Foo): void {
     this.eBasicSetContainer(newFoo, CorePackage.FOO__BARS);
     this.foo = newFoo;
@@ -190,13 +192,18 @@ export abstract class BarGen extends NamedEntityImpl implements Bar {
   public override eInverseAdd(otherEnd: EObject, featureID: number): void {
     switch (featureID) {
       case CorePackage.BAR__FOO:
-        if (this.foo) this.foo.eInverseRemove(this, CorePackage.FOO__BARS);
+        if (this.foo)
+          this.foo.eInverseRemove(
+            this,
+            CorePackage.FOO__BARS
+          );
         return this.basicSetFoo(<Foo>otherEnd);
       case CorePackage.BAR__BACKUP_FOR:
         return (<EList<EObject>>this.getBackupFor()).basicAdd(otherEnd);
     }
     return super.eInverseAdd(otherEnd, featureID);
   }
+
 
   //======================================================================
   // Inverse Removers (if needed)

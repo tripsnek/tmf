@@ -52,9 +52,7 @@ export interface Foo extends NamedEntity {
   setOneToOneContainment(newOneToOneContainment: Bazzle): void;
   getOwnedFoos(): EList<Foo>;
   getSubpackageReference(): ClassInCapitalizedPackage;
-  setSubpackageReference(
-    newSubpackageReference: ClassInCapitalizedPackage
-  ): void;
+  setSubpackageReference(newSubpackageReference: ClassInCapitalizedPackage): void;
   getContainedThingsWithNoID(): EList<ThingWithoutID>;
   copyFoo(): Foo;
 }

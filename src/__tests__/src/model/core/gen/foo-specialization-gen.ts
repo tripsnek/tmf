@@ -35,19 +35,19 @@ import { ThingWithoutIDGen } from './thing-without-i-d-gen.js';
 import { ThingWithoutIDImpl } from '../impl/thing-without-i-d-impl.js';
 import { UserGen } from './user-gen.js';
 import { UserImpl } from '../impl/user-impl.js';
-import { CapitalizedPackagePackage } from '../../core/CapitalizedPackage/capitalized-package-package.js';
+import { CapitalizedPackagePackage} from '../../core/CapitalizedPackage/capitalized-package-package.js';
 /**
  * This file is source-code generated and should never be edited. It implements
  * the core TMF functionality for FooSpecialization.
  */
-export abstract class FooSpecializationGen
-  extends FooImpl
-  implements FooSpecialization
-{
+export abstract class FooSpecializationGen  extends FooImpl implements FooSpecialization {
   /** feature declarations */
+
+
 
   //======================================================================
   // Getters and Setters
+
 
   //======================================================================
   // API Operations
@@ -68,13 +68,11 @@ export abstract class FooSpecializationGen
     return super.eGet(featureID);
   }
 
+
   /**
    * eSet() - provides ability to reflectively set all features.
    */
-  public override eSet(
-    feature: number | EStructuralFeature,
-    newValue: any
-  ): void {
+  public override eSet(feature: number | EStructuralFeature, newValue: any): void {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -83,6 +81,7 @@ export abstract class FooSpecializationGen
     }
     return super.eSet(featureID, newValue);
   }
+
 
   /**
    * eIsSet() - provides ability to reflectively check if any feature is set.
@@ -96,6 +95,7 @@ export abstract class FooSpecializationGen
     }
     return super.eIsSet(featureID);
   }
+
 
   /**
    * eUnset() - provides ability to reflectively unset any feature.
@@ -113,8 +113,10 @@ export abstract class FooSpecializationGen
   //======================================================================
   // Basic setters (allow EOpposite enforcement without triggering infinite cycles)
 
+
   //======================================================================
   // Inverse Adders (if needed)
+
 
   //======================================================================
   // Inverse Removers (if needed)
