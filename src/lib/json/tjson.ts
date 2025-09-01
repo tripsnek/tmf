@@ -429,9 +429,8 @@ export class TJson {
     jsonObj: any
   ) {
     const jsonFieldName = this.getJsonFieldName(ref);
-    const referencedColl = <BasicEList<any>>obj.eGet(ref);
     const jsonArray = [];
-    for (const referencedObj of referencedColl) {
+    for (const referencedObj of <EList<EObject>>obj.eGet(ref)) {
       if (referencedObj != null) {
         if (ref.isContainment()) {
           const referenceTJsonObj = this.eObjectToJsonAux(
