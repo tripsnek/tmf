@@ -1,6 +1,6 @@
 {
   "name": "@tripsnek/tmf",
-  "version": "1.1.33",
+  "version": "1.2",
   "description": "TypeScript Modeling Framework - A TypeScript port of the Eclipse Modeling Framework (EMF)",
   "type": "module",
   "main": "./dist/index.js",
