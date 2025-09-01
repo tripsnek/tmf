@@ -7,7 +7,7 @@ TMF is a lightweight TypeScript port of the Eclipse Modeling Framework (EMF) tha
 
 ## A Quick Demo video
 
-https://github.com/user-attachments/assets/ee35ca1a-24d5-4a43-8926-96dffecd8d0e
+[https://github.com/user-attachments/assets/ee35ca1a-24d5-4a43-8926-96dffecd8d0e](https://github.com/user-attachments/assets/208731e7-e674-45d6-af5b-6426763feed9)
 
 Quick demonstration of adding types/features to an ecore model and generating code in a full stack reflective application, which can be downloaded from the [tmf-examples](https://github.com/tripsnek/tmf-examples) repository (specifically the [NX Angular/Node example](https://github.com/tripsnek/tmf-examples/tree/main/angular-node-nx)).
 
