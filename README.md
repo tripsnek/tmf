@@ -34,7 +34,7 @@ For many applications, the above capabilities may be all you need, but even more
 - In-place merge logic that can automatically diff to versions of the same instance and apply the changes from one to another (useful when an instance is already bound in your UI)
 - Your own customized serialization strategies for your own data formats, or to satisfy integration or legacy data requirements
 
-This README describes the general nature of such applications, and many are demonstrated in the [tmf-examples](https://github.com/tripsnek/tmf-examples) repository, which contains multiple fully reflective full-stack architectures using Node, Angular and React (demonstrated in the video in this README)
+This README describes the basics of how reflection works, and many are demonstrated in the [tmf-examples](https://github.com/tripsnek/tmf-examples) repository, which contains multiple fully reflective full-stack architectures using Node, Angular and React (demonstrated in the above video).
 
 ## Installation
 
@@ -55,8 +55,10 @@ Create a new file `<your-model-name>.ecore` in VSCode. The TMF Ecore Editor will
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="blog" nsURI="http://example.org/blog" nsPrefix="blog">
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" 
+    name="blog" nsURI="http://example.org/blog" nsPrefix="blog">
 </ecore:EPackage>
 ```
 
@@ -104,7 +106,7 @@ Run with: ```node generate.mjs```
 
 This will create three folders in a src/ directory:
 
- - `api/` contains interfaces for each of your types
+ - `api/` contains interfaces for each of your types, as well as `*-package.ts`and `*-factory.ts` that define the metamodel at runtime and allow for reflective instantiation.
  - `gen/` contains abstract base classes that implemente basic get/set behavior and special TMF behaviors (reflection and containment/inverse reference maintencance). **DO NOT EDIT THESE**
  - `impl/` contains (initially empty) concrete classes you can extend as you like. **THESE ARE SAFE TO EDIT**
 
@@ -183,7 +185,7 @@ When defining attributes and operation parameters, you can use these built-in Ec
 
 **Primitive Types**
 - `EString` - Text values (TypeScript: `string`)
-- `EInt|Double|EFloat` - Numeric values with no distinction in TS (TypeScript: `number`)
+- `EInt|EDouble|EFloat` - Numeric values with no distinction in TS (TypeScript: `number`)
 - `EBoolean` - True/false values (TypeScript: `boolean`)
 - `EDate` - Date/time values (TypeScript: `Date`)
 
@@ -250,9 +252,9 @@ const array = posts.elements();
 
 TMF's real power comes from its reflection capabilities. While TMF itself provides the metamodel infrastructure, you can build powerful generic solutions on top of it.
 
-### Example: Building a Generic REST API
+### Example: Building a Generic REST CRUD server
 
-This example shows how reflection enables you to create REST endpoints that work with any TMF model:
+This example shows how reflection enables you to create a trivial backend that works with any TMF model, with automatically generated REST endpoints over an in-memory datastore.
 
 ```typescript
 import express from 'express';
@@ -268,7 +270,7 @@ const pkg = BlogPackage.eINSTANCE;
 // Storage for instances (in production, this would be a database)
 const storage = new Map<string, Map<string, EObject>>();
 
-// Get all root classes from your model
+// Get all "root" classes (those which are not contained by anything else) from your model
 const rootClasses = TUtils.getRootEClasses(pkg);
 
 // Initialize storage for each class
@@ -335,7 +337,6 @@ function processTree(root: EObject) {
     }
   }
 }
-
 
 //...or you could just iterate the tree as a flattened
 //array via eAllContents()
