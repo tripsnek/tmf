@@ -19,7 +19,7 @@ TMF can help eliminate this repetition through powerful runtime reflection and c
 
  - Runtime enforcement of **containment relationships**.
  - Runtime enforcement of **bi-directional relationships**.
- - Runtime **reflection/introspection** capabilities: Each instance provides convenient facilties for navigating and manipulating its structure and relationships without any reference to the actual types or features.
+ - Runtime **reflection/introspection** capabilities: Each instance provides convenient facilties for navigating and manipulating its structure and relationships without needing to code against the specific types and features.
  - **Code generated** source files for each data type that - beyond basic get/set functionality - provides all of the aforementioned capability.
  - **Serialization** (with TJson) that exploits containment relationships to turn complex object graphs into coherent trees. Its like if JSON.stringify() actually did something useful, and it is made possible by reflection.
  - **Editable implementation files** for each data type that let you extend the API for each type as you wish, enabling you to serialize directly to and from the same data objects that you use across your stack.
