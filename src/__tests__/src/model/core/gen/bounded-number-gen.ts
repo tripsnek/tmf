@@ -15,18 +15,18 @@ import { BoundedNumber } from '../api/bounded-number.js';
  * This file is source-code generated and should never be edited. It implements
  * the core TMF functionality for BoundedNumber.
  */
-export abstract class BoundedNumberGen extends EObjectImpl implements BoundedNumber {
+export abstract class BoundedNumberGen
+  extends EObjectImpl
+  implements BoundedNumber
+{
   /** feature declarations */
   protected units!: string;
   protected value!: number;
   protected maxValue!: number;
   protected minValue!: number;
 
-
-
   //======================================================================
   // Getters and Setters
-
 
   public getUnits(): string {
     return this.units;
@@ -87,11 +87,13 @@ export abstract class BoundedNumberGen extends EObjectImpl implements BoundedNum
     return super.eGet(featureID);
   }
 
-
   /**
    * eSet() - provides ability to reflectively set all features.
    */
-  public override eSet(feature: number | EStructuralFeature, newValue: any): void {
+  public override eSet(
+    feature: number | EStructuralFeature,
+    newValue: any
+  ): void {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -113,7 +115,6 @@ export abstract class BoundedNumberGen extends EObjectImpl implements BoundedNum
     return super.eSet(featureID, newValue);
   }
 
-
   /**
    * eIsSet() - provides ability to reflectively check if any feature is set.
    */
@@ -134,7 +135,6 @@ export abstract class BoundedNumberGen extends EObjectImpl implements BoundedNum
     }
     return super.eIsSet(featureID);
   }
-
 
   /**
    * eUnset() - provides ability to reflectively unset any feature.
@@ -164,7 +164,6 @@ export abstract class BoundedNumberGen extends EObjectImpl implements BoundedNum
   //======================================================================
   // Basic setters (allow EOpposite enforcement without triggering infinite cycles)
 
-
   public basicSetUnits(newUnits: string): void {
     this.units = newUnits;
   }
@@ -183,7 +182,6 @@ export abstract class BoundedNumberGen extends EObjectImpl implements BoundedNum
 
   //======================================================================
   // Inverse Adders (if needed)
-
 
   //======================================================================
   // Inverse Removers (if needed)

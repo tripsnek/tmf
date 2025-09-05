@@ -3,6 +3,12 @@ import { EPackage } from '../metamodel/api/epackage.js';
 import { TGeneratorMain } from './tgenerator-main.js';
 import { Environment, ConditionalImports, safeDynamicImport } from '../utils/environment.js';
 
+export interface GenOptions {
+  overwriteImpl?: boolean;              //whether to overwrite *.impl files
+  destinationPath?: string;             //where to generate the src/ directory
+  attemptFormatWithPrettier?: boolean;  //whether to attempt to invoke prettier formatting
+}
+
 /**
  * (1) Parses an ECore file.
  * (2) Generates source code into destinationPath/src/lib
@@ -72,4 +78,19 @@ export async function generateFromEPackage(
   } catch (error: any) {
     throw new Error(`Path resolution failed: ${error.message}. This operation requires Node.js environment.`);
   }
+}
+
+/**
+ * Generates TypeScript code from an Ecore file with configurable options.
+ * 
+ * @param ecorePath Path to the .ecore file
+ * @param options Optional generation options
+ */
+export async function genmodel(ecorePath: string, options?: GenOptions): Promise<string> {
+  return generateFromEcore(
+    ecorePath,
+    options?.overwriteImpl,
+    options?.destinationPath,
+    options?.attemptFormatWithPrettier
+  );
 }

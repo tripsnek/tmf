@@ -22,5 +22,4 @@ import { CorePackage } from '../core-package.js';
 /**
  * Source-gen API for FooSpecialization.
  */
-export interface FooSpecialization extends Foo {
-}
+export interface FooSpecialization extends Foo {}

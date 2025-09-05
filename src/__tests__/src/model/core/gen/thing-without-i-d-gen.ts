@@ -18,7 +18,10 @@ import { FooImpl } from '../impl/foo-impl.js';
  * This file is source-code generated and should never be edited. It implements
  * the core TMF functionality for ThingWithoutID.
  */
-export abstract class ThingWithoutIDGen extends EObjectImpl implements ThingWithoutID {
+export abstract class ThingWithoutIDGen
+  extends EObjectImpl
+  implements ThingWithoutID
+{
   /** feature declarations */
   protected singleNonContainment!: Foo;
   protected manyNonContainment: EList<Foo> = new BasicEList<Foo>(
@@ -28,11 +31,8 @@ export abstract class ThingWithoutIDGen extends EObjectImpl implements ThingWith
     undefined
   );
 
-
-
   //======================================================================
   // Getters and Setters
-
 
   public getSingleNonContainment(): Foo {
     return this.singleNonContainment;
@@ -69,11 +69,13 @@ export abstract class ThingWithoutIDGen extends EObjectImpl implements ThingWith
     return super.eGet(featureID);
   }
 
-
   /**
    * eSet() - provides ability to reflectively set all features.
    */
-  public override eSet(feature: number | EStructuralFeature, newValue: any): void {
+  public override eSet(
+    feature: number | EStructuralFeature,
+    newValue: any
+  ): void {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -89,7 +91,6 @@ export abstract class ThingWithoutIDGen extends EObjectImpl implements ThingWith
     }
     return super.eSet(featureID, newValue);
   }
-
 
   /**
    * eIsSet() - provides ability to reflectively check if any feature is set.
@@ -107,7 +108,6 @@ export abstract class ThingWithoutIDGen extends EObjectImpl implements ThingWith
     }
     return super.eIsSet(featureID);
   }
-
 
   /**
    * eUnset() - provides ability to reflectively unset any feature.
@@ -131,14 +131,12 @@ export abstract class ThingWithoutIDGen extends EObjectImpl implements ThingWith
   //======================================================================
   // Basic setters (allow EOpposite enforcement without triggering infinite cycles)
 
-
   public basicSetSingleNonContainment(newSingleNonContainment: Foo): void {
     this.singleNonContainment = newSingleNonContainment;
   }
 
   //======================================================================
   // Inverse Adders (if needed)
-
 
   //======================================================================
   // Inverse Removers (if needed)
