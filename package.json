@@ -12,11 +12,10 @@
     }
   },
   "bin": {
-    "tmf-gen": "./bin/tmf-gen.js"
+    "tmf-gen": "./dist/bin/tmf-gen.js"
   },
   "files": [
     "dist/**/*",
-    "bin/**/*",
     "README.md",
     "LICENSE"
   ],
