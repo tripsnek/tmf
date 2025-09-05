@@ -7,7 +7,7 @@ TMF is a lightweight TypeScript port of the Eclipse Modeling Framework (EMF) tha
 
 ## A Quick Demo video
 
-https://github.com/user-attachments/assets/ee35ca1a-24d5-4a43-8926-96dffecd8d0e
+[https://github.com/user-attachments/assets/ee35ca1a-24d5-4a43-8926-96dffecd8d0e](https://github.com/user-attachments/assets/208731e7-e674-45d6-af5b-6426763feed9)
 
 Quick demonstration of adding types/features to an ecore model and generating code in a full stack reflective application, which can be downloaded from the [tmf-examples](https://github.com/tripsnek/tmf-examples) repository (specifically the [NX Angular/Node example](https://github.com/tripsnek/tmf-examples/tree/main/angular-node-nx)).
 
@@ -19,7 +19,7 @@ TMF can help eliminate this repetition through powerful runtime reflection and c
 
  - Runtime enforcement of **containment relationships**.
  - Runtime enforcement of **bi-directional relationships**.
- - Runtime **reflection/introspection** capabilities: Each instance provides convenient facilties for navigating and manipulating its structure and relationships without any reference to the actual types or features.
+ - Runtime **reflection/introspection** capabilities: Each instance provides convenient facilties for navigating and manipulating its structure and relationships without needing to code against the specific types and features.
  - **Code generated** source files for each data type that - beyond basic get/set functionality - provides all of the aforementioned capability.
  - **Serialization** (with TJson) that exploits containment relationships to turn complex object graphs into coherent trees. Its like if JSON.stringify() actually did something useful, and it is made possible by reflection.
  - **Editable implementation files** for each data type that let you extend the API for each type as you wish, enabling you to serialize directly to and from the same data objects that you use across your stack.
