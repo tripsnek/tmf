@@ -95,20 +95,15 @@ Use the visual editor to add classes, attributes, and references. You could also
 
 Click "Generate Code" in the VSCode editor, or run TMF's code generator. This creates type-safe TypeScript classes with full metamodel support.
 
-You can also generate code with a simple script. Create a `generate.mjs` file in your project:
+You can also invoke TMF directly using 'npx' as follows: ```npx @tripsnek/tmf ./path/to/your/<myecorefile>.ecore```
 
-```javascript
-import { generateFromEcore } from '@tripsnek/tmf';
-await generateFromEcore('./path/to/your/<your-model-name>.ecore');
-```
-
-Run with: ```node generate.mjs```
-
-This will create three folders in a src/ directory:
+This will create three folders in a src/ directory adjacent to the .ecore file:
 
  - `api/` contains interfaces for each of your types, as well as `*-package.ts`and `*-factory.ts` that define the metamodel at runtime and allow for reflective instantiation.
  - `gen/` contains abstract base classes that implemente basic get/set behavior and special TMF behaviors (reflection and containment/inverse reference maintencance). **DO NOT EDIT THESE**
  - `impl/` contains (initially empty) concrete classes you can extend as you like. **THESE ARE SAFE TO EDIT**
+
+The generator can be configured in various useful ways, see ```npx @tripsnek/tmf --help``` for more information.
 
 ```typescript
 export class BlogImpl extends BlogImplGen implements Blog {
