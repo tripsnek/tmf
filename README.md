@@ -243,9 +243,63 @@ for (const post of posts.elements()) {
 const array = posts.elements();
 ```
 
+## TJson Serialization
+
+TMF's `TJson` provides robust JSON serialization that preserves object relationships, containment hierarchies, and type information - enabling seamless data exchange between frontend and backend systems.
+
+### Package Registration
+
+TJson automatically registers packages when you "touch" them by importing and accessing their `eINSTANCE`:
+
+```typescript
+import { BlogPackage } from '@myorg/blog';
+const pkg = BlogPackage.eINSTANCE; // Auto-registers BlogPackage and subpackages
+
+// Now TJson can serialize/deserialize Blog objects
+const json = TJson.makeJson(blog);
+const copy = TJson.makeEObject(json);
+```
+
+### ID Attributes and Cross-References
+
+Objects need ID attributes to be referenced across containment boundaries. TMF automatically generates UUIDs during serialization for objects without IDs:
+
+```typescript
+const blog = factory.createBlog(); 
+blog.setId("blog_1"); // Set your own ID, or...
+
+// TJson assigns UUIDs during serialization if no ID exists
+const json = TJson.makeJson(blog); // UUID auto-generated here if needed
+
+// Containment: child objects are serialized inline
+blog.getPosts().add(post); // Post serialized with Blog
+
+// Cross-references: only IDs are serialized
+blog.setAuthor(externalUser); // Only author ID serialized
+```
+
+### Proxy Objects
+
+When deserializing, TJson creates proxy objects for external references (objects not in the containment tree):
+
+```typescript
+// External user referenced by blog
+const deserializedBlog = TJson.makeEObject(json);
+const author = deserializedBlog.getAuthor();
+
+if (author.eIsProxy()) {
+  // Proxy contains ID and type, load actual object as needed
+  const authorId = author.getId();
+  const realAuthor = await loadUserFromDatabase(authorId);
+  deserializedBlog.setAuthor(realAuthor);
+}
+```
+
+**Note** *TMF proxies are simpler than EMF's full resource-based proxy system - they contain just the object type and ID information needed for JSON serialization scenarios, without EMF's broader resource loading and URI resolution capabilities.*
+
 ## Leveraging Reflection
 
-TMF's real power comes from its reflection capabilities. While TMF itself provides the metamodel infrastructure, you can build powerful generic solutions on top of it.
+TMF's real power comes from its reflection capabilities. While TMF itself provides the metamodel infrastructure, you can build powerful generic solutions on top of it (this is how `TJson` is implemented!).
 
 ### Example: Building a Generic REST CRUD server
 
