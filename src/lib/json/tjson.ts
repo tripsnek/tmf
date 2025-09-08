@@ -61,7 +61,8 @@ export class TJson {
    */
   public static makeJson(obj: EObject): any {
     this.warnIfNotInitialized();
-    return this.eObjectToJsonAux(obj, new Map<EObject, any>(), false);
+    const context = new SerializationContext(obj);
+    return this.eObjectToJsonAux(obj, new Map<EObject, any>(), false, context);
   }
 
   /**
@@ -80,23 +81,20 @@ export class TJson {
     const eobj = this.jsonToEObject(jsonObj, serializedReferences);
     if(!eobj) return undefined;
 
-    //build index of all contained objects
-    const idsToObjs = new Map<string, EObject>();
-    eobj.eAllContents().forEach((elem) => {
-      idsToObjs.set(elem.fullId(), elem);
-    });
+    // Create deserialization context
+    const context = new DeserializationContext(eobj);
 
     //deserialize references, collecting unresolved ones
     const unresolvedRefs = new Array<SerializedReference>();
     serializedReferences.forEach((ref) => {
-      if (!ref.deserialize(idsToObjs)) {
+      if (!ref.deserialize(context)) {
         unresolvedRefs.push(ref);
       }
     });
 
     // Create proxies for unresolved references
     unresolvedRefs.forEach((ref) => {
-      this.createAndSetProxy(ref, idsToObjs);
+      this.createAndSetProxy(ref, context);
     });
 
     return eobj;
@@ -106,24 +104,37 @@ export class TJson {
    * Creates a proxy object for an unresolved reference and sets it on the source object.
    * 
    * @param ref The unresolved serialized reference
-   * @param idsToObjs Map of all resolved objects
+   * @param context The deserialization context
    */
-  private static createAndSetProxy(ref: SerializedReference, idsToObjs: Map<string, EObject>): void {
-    if(!ref.fromId || !ref.toId) return;
+  private static createAndSetProxy(ref: SerializedReference, context: DeserializationContext): void {
+    // Handle SerializedReferenceWithObject specially
+    let fromObj: EObject | undefined;
+    
+    if (ref instanceof SerializedReferenceWithObject) {
+      fromObj = (ref as SerializedReferenceWithObject).fromObj;
+      if (!fromObj || !ref.toId) return;
+    } else {
+      if (!ref.fromId || !ref.toId) return;
+      fromObj = context.resolveId(ref.fromId);
+      if (!fromObj) return;
+    }
 
-    const fromObj = idsToObjs.get(ref.fromId);
-    if (!fromObj) return;
+    // Path-based IDs that couldn't be resolved are internal inconsistencies
+    if (ref.toId.startsWith('@path:')) {
+      console.warn(`Cannot create proxy for unresolved path-based reference: ${ref.toId}`);
+      return;
+    }
 
     const feature = fromObj.eClass().getEStructuralFeature(ref.refName);
     if (!feature || !(feature instanceof EReferenceImpl)) return;
 
     // Check if proxy already exists for this target
-    let proxy = idsToObjs.get(ref.toId);
+    let proxy = context.resolveId(ref.toId);
     if (!proxy) {
       proxy = this.createProxy(ref.toId, feature as EReference);
       if (proxy) {
         // Add proxy to the index so future references to it can be resolved
-        idsToObjs.set(ref.toId, proxy);
+        context.getIndex().set(ref.toId, proxy);
       }
     }
 
@@ -145,6 +156,12 @@ export class TJson {
    * @returns A proxy EObject or undefined if creation failed
    */
   private static createProxy(fullId: string, reference: EReference): EObject | undefined {
+    // Path-based IDs cannot be proxied (they're internal references that should have been resolved)
+    if (fullId.startsWith('@path:')) {
+      console.warn(`Cannot create proxy for path-based ID: ${fullId}`);
+      return undefined;
+    }
+    
     // Parse the fullId to extract class name and actual ID
     const underscoreIndex = fullId.indexOf('_');
     if (underscoreIndex === -1) {
@@ -322,10 +339,7 @@ export class TJson {
       if (ref.isContainment()) {
         const containeTJsonObj = referencedObj;
         if (!containeTJsonObj[this.JSON_FIELD_TYPESCRIPT_TYPE]) {
-          containeTJsonObj.put(
-            this.JSON_FIELD_TYPESCRIPT_TYPE,
-            ref.getEType()!.getName()
-          );
+          containeTJsonObj[this.JSON_FIELD_TYPESCRIPT_TYPE] = ref.getEType()!.getName();
         }
         const referencedEmfObj = this.jsonToEObject(
           containeTJsonObj,
@@ -333,9 +347,10 @@ export class TJson {
         );
         tObj.eSet(ref, referencedEmfObj);
       } else {
+        // Store the object itself, not its ID - we'll resolve IDs later
         serializedRefs.push(
-          SerializedReference.create(
-            tObj.fullId(),
+          new SerializedReferenceWithObject(
+            tObj,
             referencedObj,
             ref.getName()
           )
@@ -366,9 +381,10 @@ export class TJson {
           );
           tObj.eGet(ref).add(containedDObj);
         } else {
+          // Store the object itself, not its ID - we'll resolve IDs later
           serializedRefs.push(
-            SerializedReference.create(
-              tObj.fullId(),
+            new SerializedReferenceWithObject(
+              tObj,
               containedTJsonObj,
               ref.getName()
             )
@@ -381,7 +397,8 @@ export class TJson {
   protected static eObjectToJsonAux(
     obj: EObject,
     serializedSoFar: Map<EObject, any>,
-    attributesOnly: boolean
+    attributesOnly: boolean,
+    context: SerializationContext
   ): any {
     //make sure there is really an object to convert
     if (obj == null) {
@@ -399,7 +416,7 @@ export class TJson {
     this.attributesToJson(obj, jsonObj);
     //handle all references
     if (!attributesOnly) {
-      this.referencesToJson(obj, serializedSoFar, jsonObj);
+      this.referencesToJson(obj, serializedSoFar, jsonObj, context);
     }
     return jsonObj;
   }
@@ -407,17 +424,18 @@ export class TJson {
   private static referencesToJson(
     obj: EObject,
     serializedSoFar: Map<EObject, any>,
-    jsonObj: {}
+    jsonObj: {},
+    context: SerializationContext
   ) {
     for (const ref of obj.eClass().getEAllReferences()) {
       if (!ref.isVolatile() && !ref.isTransient()) {
         //multi-valued references
         if (ref.isMany()) {
-          this.manyValuedReferenceToJson(obj, ref, serializedSoFar, jsonObj);
+          this.manyValuedReferenceToJson(obj, ref, serializedSoFar, jsonObj, context);
         }
         //single-valued references
         else {
-          this.singleValuedRefToJson(obj, ref, serializedSoFar, jsonObj);
+          this.singleValuedRefToJson(obj, ref, serializedSoFar, jsonObj, context);
         }
       }
     }
@@ -427,7 +445,8 @@ export class TJson {
     obj: EObject,
     ref: EReference,
     serializedSoFar: Map<EObject, any>,
-    jsonObj: any
+    jsonObj: any,
+    context: SerializationContext
   ) {
     const jsonFieldName = this.getJsonFieldName(ref);
     const jsonArray = [];
@@ -437,13 +456,16 @@ export class TJson {
           const referenceTJsonObj = this.eObjectToJsonAux(
             <EObject>referencedObj,
             serializedSoFar,
-            !ref.isContainment()
+            !ref.isContainment(),
+            context
           );
           if (referenceTJsonObj != null) jsonArray.push(referenceTJsonObj);
         } else {
+          const fromId = context.getStableId(obj);
+          const toId = context.getStableId(referencedObj);
           const serializedRef = new SerializedReference(
-            TUtils.getOrCreateIdForObject(obj).toString(),
-            TUtils.getOrCreateIdForObject(referencedObj).toString(),
+            fromId,
+            toId,
             jsonFieldName
           ).serialize();
           jsonArray.push(serializedRef);
@@ -457,7 +479,8 @@ export class TJson {
     obj: EObject,
     ref: EReference,
     serializedSoFar: Map<EObject, any>,
-    jsonObj: any
+    jsonObj: any,
+    context: SerializationContext
   ) {
     const jsonFieldName = this.getJsonFieldName(ref);
     const referencedObj = <EObject>obj.eGet(ref);
@@ -468,20 +491,19 @@ export class TJson {
         referenceTJsonObj = this.eObjectToJsonAux(
           referencedObj,
           serializedSoFar,
-          !ref.isContainment()
+          !ref.isContainment(),
+          context
         );
       }
       //otherwise, we generate a serialized pointer to the referenced object
       else {
-        if (
-          referencedObj.eClass().getEIDAttribute()
-        ) {
-          referenceTJsonObj = new SerializedReference(
-            TUtils.getOrCreateIdForObject(obj).toString(),
-            TUtils.getOrCreateIdForObject(referencedObj).toString(),
-            jsonFieldName
-          ).serialize();
-        }
+        const fromId = context.getStableId(obj);
+        const toId = context.getStableId(referencedObj);
+        referenceTJsonObj = new SerializedReference(
+          fromId,
+          toId,
+          jsonFieldName
+        ).serialize();
       }
       if (referenceTJsonObj != null) jsonObj[jsonFieldName] = referenceTJsonObj;
     }
@@ -609,13 +631,13 @@ export class SerializedReference {
   /**
    * Restores the swizzled reference.
    *
-   * @param allObjs
+   * @param context The deserialization context
    * @returns true if the reference was successfully resolved, false if target object not found
    */
-  public deserialize(allObjs: Map<String, EObject>): boolean {
-    //gather the objects and feature
-    const fromObj = allObjs.get(this.fromId);
-    const toObj = allObjs.get(this.toId);
+  public deserialize(context: DeserializationContext): boolean {
+    const fromObj = context.resolveId(this.fromId);
+    const toObj = context.resolveId(this.toId);
+    
     if (fromObj && toObj) {
       const feature = fromObj.eClass().getEStructuralFeature(this.refName);
 
@@ -623,6 +645,280 @@ export class SerializedReference {
       if (fromObj && toObj && feature) {
         if (feature.isMany()) fromObj.eGet(feature).add(toObj);
         else fromObj.eSet(feature, toObj);
+        return true;
+      }
+    }
+    return false;
+  }
+}
+
+/**
+ * Context object for managing state during serialization
+ */
+class SerializationContext {
+  private tempIdCounter = 0;
+  private objectToTempId = new Map<EObject, string>();
+  private readonly root: EObject;
+
+  constructor(root: EObject) {
+    this.root = root;
+  }
+
+  /**
+   * Gets or creates a stable identifier for an object.
+   * Uses the object's ID if available, otherwise creates a path-based identifier.
+   */
+  getStableId(obj: EObject): string {
+    // First try to get the actual ID
+    const actualId = TUtils.getOrCreateIdForObject(obj);
+    if (actualId) {
+      return actualId;
+    }
+
+    // Check if we already created a temp ID for this object
+    const existingTempId = this.objectToTempId.get(obj);
+    if (existingTempId) {
+      return existingTempId;
+    }
+
+    // Create and cache a path-based identifier
+    const pathId = this.createPathBasedId(obj);
+    this.objectToTempId.set(obj, pathId);
+    return pathId;
+  }
+
+  /**
+   * Creates a path-based identifier for an object based on its containment path.
+   * Format: "@path:ClassName:/feature1[index]/feature2[index]/..."
+   */
+  private createPathBasedId(obj: EObject): string {
+    if (obj === this.root) {
+      return `@path:${obj.eClass().getName()}:@root`;
+    }
+
+    const path: string[] = [];
+    let current = obj;
+    
+    while (current && current !== this.root) {
+      const container = current.eContainer();
+      if (!container) break;
+      
+      // Find which containment feature holds this object
+      for (const ref of container.eClass().getEAllReferences()) {
+        if (ref.isContainment()) {
+          const value = container.eGet(ref);
+          if (ref.isMany()) {
+            const list = value as EList<EObject>;
+            const index = list.indexOf(current);
+            if (index >= 0) {
+              path.unshift(`${ref.getName()}[${index}]`);
+              break;
+            }
+          } else if (value === current) {
+            path.unshift(ref.getName());
+            break;
+          }
+        }
+      }
+      current = container;
+    }
+    
+    return `@path:${obj.eClass().getName()}:/${path.join('/')}`;
+  }
+}
+
+/**
+ * Context object for managing state during deserialization
+ */
+class DeserializationContext {
+  private pathToObject = new Map<string, EObject>();
+  private readonly root: EObject;
+  private idsToObjs = new Map<string, EObject>();
+
+  constructor(root: EObject) {
+    this.root = root;
+    this.buildIndex();
+  }
+
+  /**
+   * Builds an index of all contained objects using both real IDs and path-based IDs
+   */
+  private buildIndex(): void {
+    // Add root
+    const rootId = this.getStableId(this.root);
+    this.idsToObjs.set(rootId, this.root);
+    
+    // Add all contained objects
+    this.root.eAllContents().forEach((elem) => {
+      const id = this.getStableId(elem);
+      this.idsToObjs.set(id, elem);
+    });
+  }
+
+  /**
+   * Gets the stable ID for an object (for indexing purposes during deserialization)
+   */
+  getStableId(obj: EObject): string {
+    const actualId = TUtils.getOrCreateIdForObject(obj);
+    if (actualId) {
+      return actualId;
+    }
+    return this.createPathBasedId(obj);
+  }
+
+  /**
+   * Creates a path-based identifier (same logic as SerializationContext)
+   */
+  private createPathBasedId(obj: EObject): string {
+    if (obj === this.root) {
+      return `@path:${obj.eClass().getName()}:@root`;
+    }
+
+    const path: string[] = [];
+    let current = obj;
+    
+    while (current && current !== this.root) {
+      const container = current.eContainer();
+      if (!container) break;
+      
+      for (const ref of container.eClass().getEAllReferences()) {
+        if (ref.isContainment()) {
+          const value = container.eGet(ref);
+          if (ref.isMany()) {
+            const list = value as EList<EObject>;
+            const index = list.indexOf(current);
+            if (index >= 0) {
+              path.unshift(`${ref.getName()}[${index}]`);
+              break;
+            }
+          } else if (value === current) {
+            path.unshift(ref.getName());
+            break;
+          }
+        }
+      }
+      current = container;
+    }
+    
+    return `@path:${obj.eClass().getName()}:/${path.join('/')}`;
+  }
+
+  /**
+   * Resolves a path-based identifier to an object within the containment hierarchy.
+   */
+  resolvePathBasedId(pathId: string): EObject | undefined {
+    // Check cache first
+    const cached = this.pathToObject.get(pathId);
+    if (cached) return cached;
+
+    if (!pathId.startsWith('@path:')) {
+      return undefined;
+    }
+    
+    const parts = pathId.substring(6).split(':');
+    if (parts.length !== 2) return undefined;
+    
+    const [className, pathStr] = parts;
+    
+    if (pathStr === '@root') {
+      const result = this.root.eClass().getName() === className ? this.root : undefined;
+      if (result) this.pathToObject.set(pathId, result);
+      return result;
+    }
+    
+    // Parse the path
+    const pathSegments = pathStr?.substring(1).split('/').filter(s => s.length > 0) || [];
+    let current = this.root;
+    
+    for (const segment of pathSegments) {
+      const match = segment.match(/^(.+?)(?:\[(\d+)\])?$/);
+      if (!match) return undefined;
+      
+      const featureName = match[1];
+      const index = match[2] ? parseInt(match[2]) : undefined;
+      
+      if(!featureName) return undefined;
+      const feature = current.eClass().getEStructuralFeature(featureName);
+      if (!feature || !(feature instanceof EReferenceImpl) || !feature.isContainment()) {
+        return undefined;
+      }
+      
+      const value = current.eGet(feature);
+      if (feature.isMany()) {
+        if (index === undefined) return undefined;
+        const list = value as EList<EObject>;
+        if (index >= list.size()) return undefined;
+        current = list.get(index);
+      } else {
+        if (!value) return undefined;
+        current = value as EObject;
+      }
+    }
+    
+    // Verify the class name matches
+    const result = current.eClass().getName() === className ? current : undefined;
+    if (result) this.pathToObject.set(pathId, result);
+    return result;
+  }
+
+  /**
+   * Gets the index map for looking up objects by ID
+   */
+  getIndex(): Map<string, EObject> {
+    return this.idsToObjs;
+  }
+
+  /**
+   * Resolves an ID to an object, handling both regular and path-based IDs
+   */
+  resolveId(id: string): EObject | undefined {
+    // Try direct lookup first
+    let obj = this.idsToObjs.get(id);
+    
+    // If not found and it's a path-based ID, try resolving it
+    if (!obj && id.startsWith('@path:')) {
+      obj = this.resolvePathBasedId(id);
+      if (obj) {
+        // Cache it for future lookups
+        this.idsToObjs.set(id, obj);
+      }
+    }
+    
+    return obj;
+  }
+}
+
+
+/**
+ * Specialized SerializedReference for deserialization that holds the actual objects
+ * instead of IDs, since we don't know the IDs yet during construction.
+ */
+class SerializedReferenceWithObject extends SerializedReference {
+  fromObj: EObject;
+  toIdOrPath: string;
+
+  constructor(fromObj: EObject, toIdOrPath: string, refName: string) {
+    super('', toIdOrPath, refName);
+    this.fromObj = fromObj;
+    this.toIdOrPath = toIdOrPath;
+  }
+
+  public override deserialize(context: DeserializationContext): boolean {
+    // Get the stable ID for the from object now that the hierarchy is complete
+    const fromId = context.getStableId(this.fromObj);
+    
+    // The toIdOrPath is the serialized ID from the JSON
+    const toObj = context.resolveId(this.toIdOrPath);
+    
+    if (this.fromObj && toObj) {
+      const feature = this.fromObj.eClass().getEStructuralFeature(this.refName);
+      
+      if (feature) {
+        if (feature.isMany()) {
+          this.fromObj.eGet(feature).add(toObj);
+        } else {
+          this.fromObj.eSet(feature, toObj);
+        }
         return true;
       }
     }
