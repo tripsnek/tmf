@@ -20,11 +20,12 @@ import { EcorePackage } from '@tripsnek/tmf';
 import { FooClass } from './api/foo-class.js';
 export class CorePackage extends EPackageImpl {
   public static THING_WITHOUT_I_D = 0;
-  public static THING_WITHOUT_I_D_FEATURE_COUNT = 4;
+  public static THING_WITHOUT_I_D_FEATURE_COUNT = 5;
   public static THING_WITHOUT_I_D__SINGLE_NON_CONTAINMENT = 0;
   public static THING_WITHOUT_I_D__MANY_NON_CONTAINMENT = 1;
   public static THING_WITHOUT_I_D__REF_TO_OTHER_IDLESS_THING = 2;
   public static THING_WITHOUT_I_D__MANY_REF_TO_OTHER_IDLESS_THINGS = 3;
+  public static THING_WITHOUT_I_D__NAME = 4;
   public static BOUNDED_NUMBER = 1;
   public static BOUNDED_NUMBER_FEATURE_COUNT = 4;
   public static BOUNDED_NUMBER__UNITS = 0;
@@ -118,6 +119,8 @@ export class CorePackage extends EPackageImpl {
       CorePackage._eINSTANCE.getThingWithoutID_RefToOtherIdlessThing();
     static THING_WITHOUT_I_D__MANY_REF_TO_OTHER_IDLESS_THINGS: EReference =
       CorePackage._eINSTANCE.getThingWithoutID_ManyRefToOtherIdlessThings();
+    static THING_WITHOUT_I_D__NAME: EAttribute =
+      CorePackage._eINSTANCE.getThingWithoutID_Name();
     static BOUNDED_NUMBER: EClass = CorePackage._eINSTANCE.getBoundedNumber();
     static BOUNDED_NUMBER__UNITS: EAttribute =
       CorePackage._eINSTANCE.getBoundedNumber_Units();
@@ -297,6 +300,11 @@ export class CorePackage extends EPackageImpl {
   public getThingWithoutID_ManyRefToOtherIdlessThings(): EReference {
     return <EReference>(
       this.thingWithoutIDEClass.getEStructuralFeatures().get(3)
+    );
+  }
+  public getThingWithoutID_Name(): EAttribute {
+    return <EAttribute>(
+      this.thingWithoutIDEClass.getEStructuralFeatures().get(4)
     );
   }
   public getBoundedNumber(): EClass {
@@ -502,6 +510,10 @@ export class CorePackage extends EPackageImpl {
     this.createEReference(
       this.thingWithoutIDEClass,
       CorePackage.THING_WITHOUT_I_D__MANY_REF_TO_OTHER_IDLESS_THINGS
+    );
+    this.createEAttribute(
+      this.thingWithoutIDEClass,
+      CorePackage.THING_WITHOUT_I_D__NAME
     );
     this.boundedNumberEClass = this.createEClass(CorePackage.BOUNDED_NUMBER);
     this.createEAttribute(
@@ -728,6 +740,23 @@ export class CorePackage extends EPackageImpl {
       false, //TODO: isUnique
       false, //TODO: isDerived
       false //TODO: isOrdered
+    );
+    this.initEAttribute(
+      this.getThingWithoutID_Name(),
+      this.getEcorePackage().getEString(),
+      'name',
+      '',
+      0,
+      1,
+      '',
+      false,
+      false,
+      true,
+      true, //TODO: isUnsettable,
+      false,
+      false, //TODO: isUnique
+      false, //TODO: isDerived
+      false //TODO: isOrdered;
     );
     this.initEClass(
       this.boundedNumberEClass,

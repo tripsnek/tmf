@@ -96,6 +96,7 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="manyNonContainment" eType="#//core/Foo" upperBound="-1"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="refToOtherIdlessThing" eType="#//core/ThingWithoutID"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="manyRefToOtherIdlessThings" eType="#//core/ThingWithoutID" upperBound="-1"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eClassifiers>
     <eSubpackages name="CapitalizedPackage" nsURI="http://www.example.org/package1" nsPrefix="package1">
       <eClassifiers xsi:type="ecore:EClass" name="ExampleInterface" abstract="true" interface="true">

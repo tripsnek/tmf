@@ -21,4 +21,6 @@ export interface ThingWithoutID extends EObject {
   getRefToOtherIdlessThing(): ThingWithoutID;
   setRefToOtherIdlessThing(newRefToOtherIdlessThing: ThingWithoutID): void;
   getManyRefToOtherIdlessThings(): EList<ThingWithoutID>;
+  getName(): string;
+  setName(newName: string): void;
 }

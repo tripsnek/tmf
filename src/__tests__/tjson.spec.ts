@@ -65,6 +65,20 @@ const foo2Bar = fact.createBar();
 foo2Bar.setName('Foo2Bar');
 foo2.getBars().add(foo2Bar);
 
+
+//id-less thing references
+const idless1 = CoreFactory.eINSTANCE.createThingWithoutID();
+idless1.setName('idLess1');
+const idless2 = CoreFactory.eINSTANCE.createThingWithoutID();
+idless2.setName('idLess2');
+const idless3 = CoreFactory.eINSTANCE.createThingWithoutID();
+idless3.setName('idLess3');
+foo.getContainedThingsWithNoID().add(idless1);
+foo.getContainedThingsWithNoID().add(idless2);
+foo.getContainedThingsWithNoID2().add(idless3);
+idless1.setRefToOtherIdlessThing(idless2);
+idless1.getManyRefToOtherIdlessThings().add(idless2);
+idless1.getManyRefToOtherIdlessThings().add(idless3);
 // console.log(m.eClass().getEAllStructuralFeatures().length + ' attrs on Foo');
 
 //validate Foo contents
@@ -200,4 +214,24 @@ describe('TJson', () => {
     const serialized = TJson.makeJsonArray(foos);
     expect(serialized.length).toBe(2);
   });
+  it('should deserialize simple id-less lists ', () => {
+    expect(deserializedFoo.getContainedThingsWithNoID().size()).toBe(2);
+    expect(deserializedFoo.getContainedThingsWithNoID2().size()).toBe(1);
+    expect(deserializedFoo.getContainedThingsWithNoID().get(0).getName()).toBe('idLess1');
+    expect(deserializedFoo.getContainedThingsWithNoID().get(1).getName()).toBe('idLess2');
+    expect(deserializedFoo.getContainedThingsWithNoID2().get(0).getName()).toBe('idLess3');
+  })
+  it('should deserialize references between id-less things single valued', () => {
+      const idless1 = deserializedFoo.getContainedThingsWithNoID().get(0);
+      const idless2 = deserializedFoo.getContainedThingsWithNoID().get(1);
+      expect(idless1.getRefToOtherIdlessThing()).toBe(idless2);
+  });
+  it('should deserialize references between id-less things many valued ', () => {
+      const idless1 = deserializedFoo.getContainedThingsWithNoID().get(0);
+      const idless2 = deserializedFoo.getContainedThingsWithNoID().get(1);
+      const idless3 = deserializedFoo.getContainedThingsWithNoID2().get(0);
+      expect(idless1.getManyRefToOtherIdlessThings().get(0)).toBe(idless2);
+      expect(idless1.getManyRefToOtherIdlessThings().get(1)).toBe(idless3);
+  });  
+
 });

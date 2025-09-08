@@ -18,10 +18,7 @@ import { FooImpl } from '../impl/foo-impl.js';
  * This file is source-code generated and should never be edited. It implements
  * the core TMF functionality for ThingWithoutID.
  */
-export abstract class ThingWithoutIDGen
-  extends EObjectImpl
-  implements ThingWithoutID
-{
+export abstract class ThingWithoutIDGen extends EObjectImpl implements ThingWithoutID {
   /** feature declarations */
   protected singleNonContainment!: Foo;
   protected manyNonContainment: EList<Foo> = new BasicEList<Foo>(
@@ -31,16 +28,19 @@ export abstract class ThingWithoutIDGen
     undefined
   );
   protected refToOtherIdlessThing!: ThingWithoutID;
-  protected manyRefToOtherIdlessThings: EList<ThingWithoutID> =
-    new BasicEList<ThingWithoutID>(
-      undefined,
-      this,
-      CorePackage.THING_WITHOUT_I_D__MANY_REF_TO_OTHER_IDLESS_THINGS,
-      undefined
-    );
+  protected manyRefToOtherIdlessThings: EList<ThingWithoutID> = new BasicEList<ThingWithoutID>(
+    undefined,
+    this,
+    CorePackage.THING_WITHOUT_I_D__MANY_REF_TO_OTHER_IDLESS_THINGS,
+    undefined
+  );
+  protected name!: string;
+
+
 
   //======================================================================
   // Getters and Setters
+
 
   public getSingleNonContainment(): Foo {
     return this.singleNonContainment;
@@ -58,14 +58,20 @@ export abstract class ThingWithoutIDGen
     return this.refToOtherIdlessThing;
   }
 
-  public setRefToOtherIdlessThing(
-    newRefToOtherIdlessThing: ThingWithoutID
-  ): void {
+  public setRefToOtherIdlessThing(newRefToOtherIdlessThing: ThingWithoutID): void {
     this.basicSetRefToOtherIdlessThing(newRefToOtherIdlessThing);
   }
 
   public getManyRefToOtherIdlessThings(): EList<ThingWithoutID> {
     return this.manyRefToOtherIdlessThings;
+  }
+
+  public getName(): string {
+    return this.name;
+  }
+
+  public setName(newName: string): void {
+    this.basicSetName(newName);
   }
 
   //======================================================================
@@ -91,17 +97,17 @@ export abstract class ThingWithoutIDGen
         return this.getRefToOtherIdlessThing();
       case CorePackage.THING_WITHOUT_I_D__MANY_REF_TO_OTHER_IDLESS_THINGS:
         return this.getManyRefToOtherIdlessThings();
+      case CorePackage.THING_WITHOUT_I_D__NAME:
+        return this.getName();
     }
     return super.eGet(featureID);
   }
 
+
   /**
    * eSet() - provides ability to reflectively set all features.
    */
-  public override eSet(
-    feature: number | EStructuralFeature,
-    newValue: any
-  ): void {
+  public override eSet(feature: number | EStructuralFeature, newValue: any): void {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -121,9 +127,13 @@ export abstract class ThingWithoutIDGen
         this.getManyRefToOtherIdlessThings().clear();
         this.getManyRefToOtherIdlessThings().addAll(newValue);
         return;
+      case CorePackage.THING_WITHOUT_I_D__NAME:
+        this.setName(newValue);
+        return;
     }
     return super.eSet(featureID, newValue);
   }
+
 
   /**
    * eIsSet() - provides ability to reflectively check if any feature is set.
@@ -142,9 +152,12 @@ export abstract class ThingWithoutIDGen
         return this.getRefToOtherIdlessThing() != null;
       case CorePackage.THING_WITHOUT_I_D__MANY_REF_TO_OTHER_IDLESS_THINGS:
         return !this.getManyRefToOtherIdlessThings().isEmpty();
+      case CorePackage.THING_WITHOUT_I_D__NAME:
+        return this.getName() != null;
     }
     return super.eIsSet(featureID);
   }
+
 
   /**
    * eUnset() - provides ability to reflectively unset any feature.
@@ -167,6 +180,9 @@ export abstract class ThingWithoutIDGen
       case CorePackage.THING_WITHOUT_I_D__MANY_REF_TO_OTHER_IDLESS_THINGS:
         this.getManyRefToOtherIdlessThings().clear();
         return;
+      case CorePackage.THING_WITHOUT_I_D__NAME:
+        this.setName(undefined!);
+        return;
     }
     return super.eUnset(featureID);
   }
@@ -174,18 +190,22 @@ export abstract class ThingWithoutIDGen
   //======================================================================
   // Basic setters (allow EOpposite enforcement without triggering infinite cycles)
 
+
   public basicSetSingleNonContainment(newSingleNonContainment: Foo): void {
     this.singleNonContainment = newSingleNonContainment;
   }
 
-  public basicSetRefToOtherIdlessThing(
-    newRefToOtherIdlessThing: ThingWithoutID
-  ): void {
+  public basicSetRefToOtherIdlessThing(newRefToOtherIdlessThing: ThingWithoutID): void {
     this.refToOtherIdlessThing = newRefToOtherIdlessThing;
+  }
+
+  public basicSetName(newName: string): void {
+    this.name = newName;
   }
 
   //======================================================================
   // Inverse Adders (if needed)
+
 
   //======================================================================
   // Inverse Removers (if needed)
