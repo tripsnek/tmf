@@ -13,8 +13,6 @@ import { EAttribute } from '@tripsnek/tmf';
 import { EFactory } from '@tripsnek/tmf';
 import { CapitalizedPackagePackage } from './capitalized-package-package.js';
 
-import { ExampleInterface } from './api/example-interface.js';
-import { ExampleInterfaceImpl } from './impl/example-interface-impl.js';
 import { ClassInCapitalizedPackage } from './api/class-in-capitalized-package.js';
 import { ClassInCapitalizedPackageImpl } from './impl/class-in-capitalized-package-impl.js';
 import { ModelPackageInitializer } from '../../model-package-initializer.js';
@@ -38,8 +36,6 @@ export class CapitalizedPackageFactory implements EFactory {
 
   public create(eClass: EClass): EObject {
     switch (eClass.getClassifierId()) {
-      case CapitalizedPackagePackage.EXAMPLE_INTERFACE:
-        return this.createExampleInterface();
       case CapitalizedPackagePackage.CLASS_IN_CAPITALIZED_PACKAGE:
         return this.createClassInCapitalizedPackage();
       default:
@@ -49,9 +45,6 @@ export class CapitalizedPackageFactory implements EFactory {
     }
   }
 
-  public createExampleInterface(): ExampleInterface {
-    return new ExampleInterfaceImpl();
-  }
   public createClassInCapitalizedPackage(): ClassInCapitalizedPackage {
     return new ClassInCapitalizedPackageImpl();
   }

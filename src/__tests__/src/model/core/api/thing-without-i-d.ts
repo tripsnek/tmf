@@ -18,4 +18,7 @@ export interface ThingWithoutID extends EObject {
   getSingleNonContainment(): Foo;
   setSingleNonContainment(newSingleNonContainment: Foo): void;
   getManyNonContainment(): EList<Foo>;
+  getRefToOtherIdlessThing(): ThingWithoutID;
+  setRefToOtherIdlessThing(newRefToOtherIdlessThing: ThingWithoutID): void;
+  getManyRefToOtherIdlessThings(): EList<ThingWithoutID>;
 }

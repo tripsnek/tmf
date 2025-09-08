@@ -13,7 +13,7 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" iD="true"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="editDate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="editUser" eType="#//core/User"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="locked" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>    
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="locked" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="NamedEntity" eSuperTypes="#//core/IdedEntity" abstract="true">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -55,6 +55,7 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="ownedFoos" eType="#//core/Foo" upperBound="-1"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="subpackageReference" eType="#//core/CapitalizedPackage/ClassInCapitalizedPackage"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="containedThingsWithNoID" eType="#//core/ThingWithoutID" upperBound="-1" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="containedThingsWithNoID2" eType="#//core/ThingWithoutID" upperBound="-1" containment="true"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="FooSpecialization" eSuperTypes="#//core/Foo"/>
     <eClassifiers xsi:type="ecore:EClass" name="BarSpecializationWithComponents" eSuperTypes="#//core/Bar">
@@ -93,9 +94,11 @@
     <eClassifiers xsi:type="ecore:EClass" name="ThingWithoutID">
       <eStructuralFeatures xsi:type="ecore:EReference" name="singleNonContainment" eType="#//core/Foo"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="manyNonContainment" eType="#//core/Foo" upperBound="-1"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="refToOtherIdlessThing" eType="#//core/ThingWithoutID"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="manyRefToOtherIdlessThings" eType="#//core/ThingWithoutID" upperBound="-1"/>
     </eClassifiers>
     <eSubpackages name="CapitalizedPackage" nsURI="http://www.example.org/package1" nsPrefix="package1">
-      <eClassifiers xsi:type="ecore:EClass" name="ExampleInterface" interface="true" abstract="true">
+      <eClassifiers xsi:type="ecore:EClass" name="ExampleInterface" abstract="true" interface="true">
         <eOperations name="interfaceOperation" eType="#//core/Foo">
           <eParameters name="fooGroup" upperBound="-1" eType="#//core/FooGroup"/>
         </eOperations>

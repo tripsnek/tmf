@@ -99,6 +99,13 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
       CorePackage.FOO__CONTAINED_THINGS_WITH_NO_I_D,
       undefined
     );
+  protected containedThingsWithNoID2: EList<ThingWithoutID> =
+    new BasicEList<ThingWithoutID>(
+      undefined,
+      this,
+      CorePackage.FOO__CONTAINED_THINGS_WITH_NO_I_D2,
+      undefined
+    );
 
   //======================================================================
   // Getters and Setters
@@ -275,6 +282,10 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
     return this.containedThingsWithNoID;
   }
 
+  public getContainedThingsWithNoID2(): EList<ThingWithoutID> {
+    return this.containedThingsWithNoID2;
+  }
+
   //======================================================================
   // API Operations
 
@@ -333,6 +344,8 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
         return this.getSubpackageReference();
       case CorePackage.FOO__CONTAINED_THINGS_WITH_NO_I_D:
         return this.getContainedThingsWithNoID();
+      case CorePackage.FOO__CONTAINED_THINGS_WITH_NO_I_D2:
+        return this.getContainedThingsWithNoID2();
     }
     return super.eGet(featureID);
   }
@@ -416,6 +429,10 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
         this.getContainedThingsWithNoID().clear();
         this.getContainedThingsWithNoID().addAll(newValue);
         return;
+      case CorePackage.FOO__CONTAINED_THINGS_WITH_NO_I_D2:
+        this.getContainedThingsWithNoID2().clear();
+        this.getContainedThingsWithNoID2().addAll(newValue);
+        return;
     }
     return super.eSet(featureID, newValue);
   }
@@ -469,6 +486,8 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
         return this.getSubpackageReference() != null;
       case CorePackage.FOO__CONTAINED_THINGS_WITH_NO_I_D:
         return !this.getContainedThingsWithNoID().isEmpty();
+      case CorePackage.FOO__CONTAINED_THINGS_WITH_NO_I_D2:
+        return !this.getContainedThingsWithNoID2().isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -541,6 +560,9 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
         return;
       case CorePackage.FOO__CONTAINED_THINGS_WITH_NO_I_D:
         this.getContainedThingsWithNoID().clear();
+        return;
+      case CorePackage.FOO__CONTAINED_THINGS_WITH_NO_I_D2:
+        this.getContainedThingsWithNoID2().clear();
         return;
     }
     return super.eUnset(featureID);

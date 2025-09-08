@@ -144,7 +144,7 @@ export class CapitalizedPackagePackage extends EPackageImpl {
     this.initEClass(
       this.exampleInterfaceEClass,
       'ExampleInterface',
-      false,
+      true,
       true,
       true
     );

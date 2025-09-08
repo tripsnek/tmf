@@ -56,5 +56,6 @@ export interface Foo extends NamedEntity {
     newSubpackageReference: ClassInCapitalizedPackage
   ): void;
   getContainedThingsWithNoID(): EList<ThingWithoutID>;
+  getContainedThingsWithNoID2(): EList<ThingWithoutID>;
   copyFoo(): Foo;
 }

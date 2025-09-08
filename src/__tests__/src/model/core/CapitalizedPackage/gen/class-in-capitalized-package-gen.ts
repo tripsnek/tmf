@@ -17,20 +17,20 @@ import { FooGen } from '../../../core//gen/foo-gen.js';
 import { FooImpl } from '../../../core//impl/foo-impl.js';
 import { FooGroupGen } from '../../../core//gen/foo-group-gen.js';
 import { FooGroupImpl } from '../../../core//impl/foo-group-impl.js';
-import { CorePackage } from '../../../core/core-package.js';
+import { CorePackage} from '../../../core/core-package.js';
 /**
  * This file is source-code generated and should never be edited. It implements
  * the core TMF functionality for ClassInCapitalizedPackage.
  */
-export abstract class ClassInCapitalizedPackageGen
-  extends EObjectImpl
-  implements ClassInCapitalizedPackage
-{
+export abstract class ClassInCapitalizedPackageGen extends EObjectImpl implements ClassInCapitalizedPackage {
   /** feature declarations */
   protected stringAttr!: string;
 
+
+
   //======================================================================
   // Getters and Setters
+
 
   public getStringAttr(): string {
     return this.stringAttr;
@@ -42,6 +42,7 @@ export abstract class ClassInCapitalizedPackageGen
 
   //======================================================================
   // API Operations
+
 
   public interfaceOperation(fooGroup: EList<FooGroup>): Foo {
     throw new Error('Not implemented');
@@ -64,13 +65,11 @@ export abstract class ClassInCapitalizedPackageGen
     return super.eGet(featureID);
   }
 
+
   /**
    * eSet() - provides ability to reflectively set all features.
    */
-  public override eSet(
-    feature: number | EStructuralFeature,
-    newValue: any
-  ): void {
+  public override eSet(feature: number | EStructuralFeature, newValue: any): void {
     const featureID: number =
       typeof feature === 'number'
         ? feature
@@ -82,6 +81,7 @@ export abstract class ClassInCapitalizedPackageGen
     }
     return super.eSet(featureID, newValue);
   }
+
 
   /**
    * eIsSet() - provides ability to reflectively check if any feature is set.
@@ -97,6 +97,7 @@ export abstract class ClassInCapitalizedPackageGen
     }
     return super.eIsSet(featureID);
   }
+
 
   /**
    * eUnset() - provides ability to reflectively unset any feature.
@@ -117,12 +118,14 @@ export abstract class ClassInCapitalizedPackageGen
   //======================================================================
   // Basic setters (allow EOpposite enforcement without triggering infinite cycles)
 
+
   public basicSetStringAttr(newStringAttr: string): void {
     this.stringAttr = newStringAttr;
   }
 
   //======================================================================
   // Inverse Adders (if needed)
+
 
   //======================================================================
   // Inverse Removers (if needed)

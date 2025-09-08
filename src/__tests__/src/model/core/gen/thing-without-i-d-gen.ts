@@ -30,6 +30,14 @@ export abstract class ThingWithoutIDGen
     CorePackage.THING_WITHOUT_I_D__MANY_NON_CONTAINMENT,
     undefined
   );
+  protected refToOtherIdlessThing!: ThingWithoutID;
+  protected manyRefToOtherIdlessThings: EList<ThingWithoutID> =
+    new BasicEList<ThingWithoutID>(
+      undefined,
+      this,
+      CorePackage.THING_WITHOUT_I_D__MANY_REF_TO_OTHER_IDLESS_THINGS,
+      undefined
+    );
 
   //======================================================================
   // Getters and Setters
@@ -44,6 +52,20 @@ export abstract class ThingWithoutIDGen
 
   public getManyNonContainment(): EList<Foo> {
     return this.manyNonContainment;
+  }
+
+  public getRefToOtherIdlessThing(): ThingWithoutID {
+    return this.refToOtherIdlessThing;
+  }
+
+  public setRefToOtherIdlessThing(
+    newRefToOtherIdlessThing: ThingWithoutID
+  ): void {
+    this.basicSetRefToOtherIdlessThing(newRefToOtherIdlessThing);
+  }
+
+  public getManyRefToOtherIdlessThings(): EList<ThingWithoutID> {
+    return this.manyRefToOtherIdlessThings;
   }
 
   //======================================================================
@@ -65,6 +87,10 @@ export abstract class ThingWithoutIDGen
         return this.getSingleNonContainment();
       case CorePackage.THING_WITHOUT_I_D__MANY_NON_CONTAINMENT:
         return this.getManyNonContainment();
+      case CorePackage.THING_WITHOUT_I_D__REF_TO_OTHER_IDLESS_THING:
+        return this.getRefToOtherIdlessThing();
+      case CorePackage.THING_WITHOUT_I_D__MANY_REF_TO_OTHER_IDLESS_THINGS:
+        return this.getManyRefToOtherIdlessThings();
     }
     return super.eGet(featureID);
   }
@@ -88,6 +114,13 @@ export abstract class ThingWithoutIDGen
         this.getManyNonContainment().clear();
         this.getManyNonContainment().addAll(newValue);
         return;
+      case CorePackage.THING_WITHOUT_I_D__REF_TO_OTHER_IDLESS_THING:
+        this.setRefToOtherIdlessThing(newValue);
+        return;
+      case CorePackage.THING_WITHOUT_I_D__MANY_REF_TO_OTHER_IDLESS_THINGS:
+        this.getManyRefToOtherIdlessThings().clear();
+        this.getManyRefToOtherIdlessThings().addAll(newValue);
+        return;
     }
     return super.eSet(featureID, newValue);
   }
@@ -105,6 +138,10 @@ export abstract class ThingWithoutIDGen
         return this.getSingleNonContainment() != null;
       case CorePackage.THING_WITHOUT_I_D__MANY_NON_CONTAINMENT:
         return !this.getManyNonContainment().isEmpty();
+      case CorePackage.THING_WITHOUT_I_D__REF_TO_OTHER_IDLESS_THING:
+        return this.getRefToOtherIdlessThing() != null;
+      case CorePackage.THING_WITHOUT_I_D__MANY_REF_TO_OTHER_IDLESS_THINGS:
+        return !this.getManyRefToOtherIdlessThings().isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -124,6 +161,12 @@ export abstract class ThingWithoutIDGen
       case CorePackage.THING_WITHOUT_I_D__MANY_NON_CONTAINMENT:
         this.getManyNonContainment().clear();
         return;
+      case CorePackage.THING_WITHOUT_I_D__REF_TO_OTHER_IDLESS_THING:
+        this.setRefToOtherIdlessThing(undefined!);
+        return;
+      case CorePackage.THING_WITHOUT_I_D__MANY_REF_TO_OTHER_IDLESS_THINGS:
+        this.getManyRefToOtherIdlessThings().clear();
+        return;
     }
     return super.eUnset(featureID);
   }
@@ -133,6 +176,12 @@ export abstract class ThingWithoutIDGen
 
   public basicSetSingleNonContainment(newSingleNonContainment: Foo): void {
     this.singleNonContainment = newSingleNonContainment;
+  }
+
+  public basicSetRefToOtherIdlessThing(
+    newRefToOtherIdlessThing: ThingWithoutID
+  ): void {
+    this.refToOtherIdlessThing = newRefToOtherIdlessThing;
   }
 
   //======================================================================

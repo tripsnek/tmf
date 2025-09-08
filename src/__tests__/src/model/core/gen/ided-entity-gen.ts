@@ -24,7 +24,6 @@ export abstract class IdedEntityGen extends EObjectImpl implements IdedEntity {
   protected editDate!: Date;
   protected editUser!: User;
   protected locked!: boolean;
-  protected id2!: string;
 
   //======================================================================
   // Getters and Setters
@@ -61,14 +60,6 @@ export abstract class IdedEntityGen extends EObjectImpl implements IdedEntity {
     this.basicSetLocked(newLocked);
   }
 
-  public getId2(): string {
-    return this.id2;
-  }
-
-  public setId2(newId2: string): void {
-    this.basicSetId2(newId2);
-  }
-
   //======================================================================
   // API Operations
 
@@ -95,8 +86,6 @@ export abstract class IdedEntityGen extends EObjectImpl implements IdedEntity {
         return this.getEditUser();
       case CorePackage.IDED_ENTITY__LOCKED:
         return this.isLocked();
-      case CorePackage.IDED_ENTITY__ID2:
-        return this.getId2();
     }
     return super.eGet(featureID);
   }
@@ -125,9 +114,6 @@ export abstract class IdedEntityGen extends EObjectImpl implements IdedEntity {
       case CorePackage.IDED_ENTITY__LOCKED:
         this.setLocked(newValue);
         return;
-      case CorePackage.IDED_ENTITY__ID2:
-        this.setId2(newValue);
-        return;
     }
     return super.eSet(featureID, newValue);
   }
@@ -149,8 +135,6 @@ export abstract class IdedEntityGen extends EObjectImpl implements IdedEntity {
         return this.getEditUser() != null;
       case CorePackage.IDED_ENTITY__LOCKED:
         return this.isLocked() != null;
-      case CorePackage.IDED_ENTITY__ID2:
-        return this.getId2() != null;
     }
     return super.eIsSet(featureID);
   }
@@ -176,9 +160,6 @@ export abstract class IdedEntityGen extends EObjectImpl implements IdedEntity {
       case CorePackage.IDED_ENTITY__LOCKED:
         this.setLocked(undefined!);
         return;
-      case CorePackage.IDED_ENTITY__ID2:
-        this.setId2(undefined!);
-        return;
     }
     return super.eUnset(featureID);
   }
@@ -200,10 +181,6 @@ export abstract class IdedEntityGen extends EObjectImpl implements IdedEntity {
 
   public basicSetLocked(newLocked: boolean): void {
     this.locked = newLocked;
-  }
-
-  public basicSetId2(newId2: string): void {
-    this.id2 = newId2;
   }
 
   //======================================================================

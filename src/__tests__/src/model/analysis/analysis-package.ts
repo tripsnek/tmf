@@ -19,9 +19,9 @@ import { EOperation } from '@tripsnek/tmf';
 import { EcorePackage } from '@tripsnek/tmf';
 export class AnalysisPackage extends EPackageImpl {
   public static ANALYSIS_RESULT = 0;
-  public static ANALYSIS_RESULT_FEATURE_COUNT = 7;
-  public static ANALYSIS_RESULT__USER = 5;
-  public static ANALYSIS_RESULT__OBJECT = 6;
+  public static ANALYSIS_RESULT_FEATURE_COUNT = 6;
+  public static ANALYSIS_RESULT__USER = 4;
+  public static ANALYSIS_RESULT__OBJECT = 5;
   public static ANALYSIS_RESULT__CLONE_OBJECT = 0;
 
   /** Singleton */
@@ -30,9 +30,10 @@ export class AnalysisPackage extends EPackageImpl {
   //if the singleton is initialized
   private static isInited = false;
 
-  static eNS_URI = 'undefined';
+  static eNS_URI =
+    'http://www.tripsnek.com/emf.com.tripsnek.tmftest.model.analysis';
   static eNAME = 'analysis';
-  static eNS_PREFIX = 'undefined';
+  static eNS_PREFIX = 'analysis';
 
   /** Provides static access to EClass and EStructuralFeature instances */
   public static Literals = class {
@@ -53,7 +54,11 @@ export class AnalysisPackage extends EPackageImpl {
   //causes EPackage.Registry registration event
   //hard-coded URI, since referring to the static eNS_URI field in constructor can cause issues
   constructor() {
-    super('analysis', 'undefined', 'undefined');
+    super(
+      'analysis',
+      'http://www.tripsnek.com/emf.com.tripsnek.tmftest.model.analysis',
+      'analysis'
+    );
   }
 
   /**

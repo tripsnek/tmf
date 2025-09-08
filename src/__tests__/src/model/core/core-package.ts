@@ -20,9 +20,11 @@ import { EcorePackage } from '@tripsnek/tmf';
 import { FooClass } from './api/foo-class.js';
 export class CorePackage extends EPackageImpl {
   public static THING_WITHOUT_I_D = 0;
-  public static THING_WITHOUT_I_D_FEATURE_COUNT = 2;
+  public static THING_WITHOUT_I_D_FEATURE_COUNT = 4;
   public static THING_WITHOUT_I_D__SINGLE_NON_CONTAINMENT = 0;
   public static THING_WITHOUT_I_D__MANY_NON_CONTAINMENT = 1;
+  public static THING_WITHOUT_I_D__REF_TO_OTHER_IDLESS_THING = 2;
+  public static THING_WITHOUT_I_D__MANY_REF_TO_OTHER_IDLESS_THINGS = 3;
   public static BOUNDED_NUMBER = 1;
   public static BOUNDED_NUMBER_FEATURE_COUNT = 4;
   public static BOUNDED_NUMBER__UNITS = 0;
@@ -30,67 +32,67 @@ export class CorePackage extends EPackageImpl {
   public static BOUNDED_NUMBER__MAX_VALUE = 2;
   public static BOUNDED_NUMBER__MIN_VALUE = 3;
   public static IDED_ENTITY = 2;
-  public static IDED_ENTITY_FEATURE_COUNT = 5;
+  public static IDED_ENTITY_FEATURE_COUNT = 4;
   public static IDED_ENTITY__ID = 0;
   public static IDED_ENTITY__EDIT_DATE = 1;
   public static IDED_ENTITY__EDIT_USER = 2;
   public static IDED_ENTITY__LOCKED = 3;
-  public static IDED_ENTITY__ID2 = 4;
   public static IDED_ENTITY__GEN_ID = 0;
   public static NAMED_ENTITY = 3;
-  public static NAMED_ENTITY_FEATURE_COUNT = 6;
-  public static NAMED_ENTITY__NAME = 5;
+  public static NAMED_ENTITY_FEATURE_COUNT = 5;
+  public static NAMED_ENTITY__NAME = 4;
   public static BAZZLE = 4;
-  public static BAZZLE_FEATURE_COUNT = 8;
-  public static BAZZLE__BACKUP_BAR = 6;
-  public static BAZZLE__ONE_TO_ONE_FOO = 7;
+  public static BAZZLE_FEATURE_COUNT = 7;
+  public static BAZZLE__BACKUP_BAR = 5;
+  public static BAZZLE__ONE_TO_ONE_FOO = 6;
   public static BAR = 5;
-  public static BAR_FEATURE_COUNT = 9;
-  public static BAR__FOO = 6;
-  public static BAR__BAZZLES = 7;
-  public static BAR__BACKUP_FOR = 8;
+  public static BAR_FEATURE_COUNT = 8;
+  public static BAR__FOO = 5;
+  public static BAR__BAZZLES = 6;
+  public static BAR__BACKUP_FOR = 7;
   public static BAR__DO_SOMETHING_WITH_FOO_AND_BAZZLES = 0;
   public static BAR__DO_SOMETHING_WITH_CLASSES_AND_NUMBERS = 1;
   public static BAR_SPECIALIZATION_WITH_COMPONENTS = 6;
-  public static BAR_SPECIALIZATION_WITH_COMPONENTS_FEATURE_COUNT = 11;
-  public static BAR_SPECIALIZATION_WITH_COMPONENTS__COMPONENT_BARS = 9;
-  public static BAR_SPECIALIZATION_WITH_COMPONENTS__SPECIAL_NAME = 10;
+  public static BAR_SPECIALIZATION_WITH_COMPONENTS_FEATURE_COUNT = 10;
+  public static BAR_SPECIALIZATION_WITH_COMPONENTS__COMPONENT_BARS = 8;
+  public static BAR_SPECIALIZATION_WITH_COMPONENTS__SPECIAL_NAME = 9;
   public static FOO = 7;
   public static FOO_FEATURE_COUNT = 26;
-  public static FOO__GROUP = 6;
-  public static FOO__CREATION_DATE = 7;
-  public static FOO__FOO_CLASS = 8;
-  public static FOO__RANGE = 9;
-  public static FOO__BARS = 10;
-  public static FOO__ONE_TO_ONE_BAZZLE = 11;
-  public static FOO__MANY_ATTRIBUTE = 12;
-  public static FOO__UNCHANGEABLE_ATTRIBUTE = 13;
-  public static FOO__UNCHANGEABLE_REFERENCE = 14;
-  public static FOO__TRANSIENT_ATTRIBUTE = 15;
-  public static FOO__TRANSIENT_REFERENCE = 16;
-  public static FOO__VOLATILE_ATTRIBUTE = 17;
-  public static FOO__VOLATILE_REFERENCE = 18;
-  public static FOO__MANY_CROSS_AGGREGATE = 19;
-  public static FOO__MANY_CROSS_AGGREGATE_NESTED = 20;
-  public static FOO__MANY_VALUE_OBJECTS = 21;
-  public static FOO__ONE_TO_ONE_CONTAINMENT = 22;
-  public static FOO__OWNED_FOOS = 23;
-  public static FOO__SUBPACKAGE_REFERENCE = 24;
-  public static FOO__CONTAINED_THINGS_WITH_NO_I_D = 25;
+  public static FOO__GROUP = 5;
+  public static FOO__CREATION_DATE = 6;
+  public static FOO__FOO_CLASS = 7;
+  public static FOO__RANGE = 8;
+  public static FOO__BARS = 9;
+  public static FOO__ONE_TO_ONE_BAZZLE = 10;
+  public static FOO__MANY_ATTRIBUTE = 11;
+  public static FOO__UNCHANGEABLE_ATTRIBUTE = 12;
+  public static FOO__UNCHANGEABLE_REFERENCE = 13;
+  public static FOO__TRANSIENT_ATTRIBUTE = 14;
+  public static FOO__TRANSIENT_REFERENCE = 15;
+  public static FOO__VOLATILE_ATTRIBUTE = 16;
+  public static FOO__VOLATILE_REFERENCE = 17;
+  public static FOO__MANY_CROSS_AGGREGATE = 18;
+  public static FOO__MANY_CROSS_AGGREGATE_NESTED = 19;
+  public static FOO__MANY_VALUE_OBJECTS = 20;
+  public static FOO__ONE_TO_ONE_CONTAINMENT = 21;
+  public static FOO__OWNED_FOOS = 22;
+  public static FOO__SUBPACKAGE_REFERENCE = 23;
+  public static FOO__CONTAINED_THINGS_WITH_NO_I_D = 24;
+  public static FOO__CONTAINED_THINGS_WITH_NO_I_D2 = 25;
   public static FOO__COPY_FOO = 0;
   public static FOO_SPECIALIZATION = 8;
   public static FOO_SPECIALIZATION_FEATURE_COUNT = 26;
   public static FOO_GROUP = 9;
-  public static FOO_GROUP_FEATURE_COUNT = 7;
-  public static FOO_GROUP__USER = 6;
+  public static FOO_GROUP_FEATURE_COUNT = 6;
+  public static FOO_GROUP__USER = 5;
   public static FOO_GROUP__COMPUTE_FOOS_OF_CLASS = 0;
   public static FOO_GROUP__GET_FOOS_WITH_BAZZLES = 1;
   public static FOO_GROUP__FREEZE = 2;
   public static USER = 10;
-  public static USER_FEATURE_COUNT = 9;
-  public static USER__PASS = 6;
-  public static USER__SALT = 7;
-  public static USER__EMAIL = 8;
+  public static USER_FEATURE_COUNT = 8;
+  public static USER__PASS = 5;
+  public static USER__SALT = 6;
+  public static USER__EMAIL = 7;
   public static FOO_CLASS = 11;
 
   /** Singleton */
@@ -112,6 +114,10 @@ export class CorePackage extends EPackageImpl {
       CorePackage._eINSTANCE.getThingWithoutID_SingleNonContainment();
     static THING_WITHOUT_I_D__MANY_NON_CONTAINMENT: EReference =
       CorePackage._eINSTANCE.getThingWithoutID_ManyNonContainment();
+    static THING_WITHOUT_I_D__REF_TO_OTHER_IDLESS_THING: EReference =
+      CorePackage._eINSTANCE.getThingWithoutID_RefToOtherIdlessThing();
+    static THING_WITHOUT_I_D__MANY_REF_TO_OTHER_IDLESS_THINGS: EReference =
+      CorePackage._eINSTANCE.getThingWithoutID_ManyRefToOtherIdlessThings();
     static BOUNDED_NUMBER: EClass = CorePackage._eINSTANCE.getBoundedNumber();
     static BOUNDED_NUMBER__UNITS: EAttribute =
       CorePackage._eINSTANCE.getBoundedNumber_Units();
@@ -130,8 +136,6 @@ export class CorePackage extends EPackageImpl {
       CorePackage._eINSTANCE.getIdedEntity_EditUser();
     static IDED_ENTITY__LOCKED: EAttribute =
       CorePackage._eINSTANCE.getIdedEntity_Locked();
-    static IDED_ENTITY__ID2: EAttribute =
-      CorePackage._eINSTANCE.getIdedEntity_Id2();
     static NAMED_ENTITY: EClass = CorePackage._eINSTANCE.getNamedEntity();
     static NAMED_ENTITY__NAME: EAttribute =
       CorePackage._eINSTANCE.getNamedEntity_Name();
@@ -189,6 +193,8 @@ export class CorePackage extends EPackageImpl {
       CorePackage._eINSTANCE.getFoo_SubpackageReference();
     static FOO__CONTAINED_THINGS_WITH_NO_I_D: EReference =
       CorePackage._eINSTANCE.getFoo_ContainedThingsWithNoID();
+    static FOO__CONTAINED_THINGS_WITH_NO_I_D2: EReference =
+      CorePackage._eINSTANCE.getFoo_ContainedThingsWithNoID2();
     static FOO_SPECIALIZATION: EClass =
       CorePackage._eINSTANCE.getFooSpecialization();
     static FOO_GROUP: EClass = CorePackage._eINSTANCE.getFooGroup();
@@ -283,6 +289,16 @@ export class CorePackage extends EPackageImpl {
       this.thingWithoutIDEClass.getEStructuralFeatures().get(1)
     );
   }
+  public getThingWithoutID_RefToOtherIdlessThing(): EReference {
+    return <EReference>(
+      this.thingWithoutIDEClass.getEStructuralFeatures().get(2)
+    );
+  }
+  public getThingWithoutID_ManyRefToOtherIdlessThings(): EReference {
+    return <EReference>(
+      this.thingWithoutIDEClass.getEStructuralFeatures().get(3)
+    );
+  }
   public getBoundedNumber(): EClass {
     return this.boundedNumberEClass;
   }
@@ -312,9 +328,6 @@ export class CorePackage extends EPackageImpl {
   }
   public getIdedEntity_Locked(): EAttribute {
     return <EAttribute>this.idedEntityEClass.getEStructuralFeatures().get(3);
-  }
-  public getIdedEntity_Id2(): EAttribute {
-    return <EAttribute>this.idedEntityEClass.getEStructuralFeatures().get(4);
   }
   public getIdedEntity_GenId(): EOperation {
     return this.idedEntityEClass.getEOperations().get(0);
@@ -428,6 +441,9 @@ export class CorePackage extends EPackageImpl {
   public getFoo_ContainedThingsWithNoID(): EReference {
     return <EReference>this.fooEClass.getEStructuralFeatures().get(19);
   }
+  public getFoo_ContainedThingsWithNoID2(): EReference {
+    return <EReference>this.fooEClass.getEStructuralFeatures().get(20);
+  }
   public getFoo_CopyFoo(): EOperation {
     return this.fooEClass.getEOperations().get(0);
   }
@@ -479,6 +495,14 @@ export class CorePackage extends EPackageImpl {
       this.thingWithoutIDEClass,
       CorePackage.THING_WITHOUT_I_D__MANY_NON_CONTAINMENT
     );
+    this.createEReference(
+      this.thingWithoutIDEClass,
+      CorePackage.THING_WITHOUT_I_D__REF_TO_OTHER_IDLESS_THING
+    );
+    this.createEReference(
+      this.thingWithoutIDEClass,
+      CorePackage.THING_WITHOUT_I_D__MANY_REF_TO_OTHER_IDLESS_THINGS
+    );
     this.boundedNumberEClass = this.createEClass(CorePackage.BOUNDED_NUMBER);
     this.createEAttribute(
       this.boundedNumberEClass,
@@ -510,7 +534,6 @@ export class CorePackage extends EPackageImpl {
       this.idedEntityEClass,
       CorePackage.IDED_ENTITY__LOCKED
     );
-    this.createEAttribute(this.idedEntityEClass, CorePackage.IDED_ENTITY__ID2);
     this.createEOperation(
       this.idedEntityEClass,
       CorePackage.IDED_ENTITY__GEN_ID
@@ -591,6 +614,10 @@ export class CorePackage extends EPackageImpl {
       this.fooEClass,
       CorePackage.FOO__CONTAINED_THINGS_WITH_NO_I_D
     );
+    this.createEReference(
+      this.fooEClass,
+      CorePackage.FOO__CONTAINED_THINGS_WITH_NO_I_D2
+    );
     this.createEOperation(this.fooEClass, CorePackage.FOO__COPY_FOO);
     this.fooSpecializationEClass = this.createEClass(
       CorePackage.FOO_SPECIALIZATION
@@ -650,6 +677,44 @@ export class CorePackage extends EPackageImpl {
       this.getFoo(),
       undefined,
       'manyNonContainment',
+      '',
+      0,
+      -1,
+      '', //TODO: Container Class
+      false,
+      false,
+      true,
+      false,
+      false,
+      true, //TODO: isUnsettable
+      false, //TODO: isUnique
+      false, //TODO: isDerived
+      false //TODO: isOrdered
+    );
+    this.initEReference(
+      this.getThingWithoutID_RefToOtherIdlessThing(),
+      this.getThingWithoutID(),
+      undefined,
+      'refToOtherIdlessThing',
+      '',
+      0,
+      1,
+      '', //TODO: Container Class
+      false,
+      false,
+      true,
+      false,
+      false,
+      true, //TODO: isUnsettable
+      false, //TODO: isUnique
+      false, //TODO: isDerived
+      false //TODO: isOrdered
+    );
+    this.initEReference(
+      this.getThingWithoutID_ManyRefToOtherIdlessThings(),
+      this.getThingWithoutID(),
+      undefined,
+      'manyRefToOtherIdlessThings',
       '',
       0,
       -1,
@@ -806,23 +871,6 @@ export class CorePackage extends EPackageImpl {
       true,
       true, //TODO: isUnsettable,
       false,
-      false, //TODO: isUnique
-      false, //TODO: isDerived
-      false //TODO: isOrdered;
-    );
-    this.initEAttribute(
-      this.getIdedEntity_Id2(),
-      this.getEcorePackage().getEString(),
-      'id2',
-      '',
-      0,
-      1,
-      '',
-      false,
-      false,
-      true,
-      true, //TODO: isUnsettable,
-      true,
       false, //TODO: isUnique
       false, //TODO: isDerived
       false //TODO: isOrdered;
@@ -1378,6 +1426,25 @@ export class CorePackage extends EPackageImpl {
       this.getThingWithoutID(),
       undefined,
       'containedThingsWithNoID',
+      '',
+      0,
+      -1,
+      '', //TODO: Container Class
+      false,
+      false,
+      true,
+      true,
+      false,
+      true, //TODO: isUnsettable
+      false, //TODO: isUnique
+      false, //TODO: isDerived
+      false //TODO: isOrdered
+    );
+    this.initEReference(
+      this.getFoo_ContainedThingsWithNoID2(),
+      this.getThingWithoutID(),
+      undefined,
+      'containedThingsWithNoID2',
       '',
       0,
       -1,

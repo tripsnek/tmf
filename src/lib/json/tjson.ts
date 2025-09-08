@@ -109,6 +109,8 @@ export class TJson {
    * @param idsToObjs Map of all resolved objects
    */
   private static createAndSetProxy(ref: SerializedReference, idsToObjs: Map<string, EObject>): void {
+    if(!ref.fromId || !ref.toId) return;
+
     const fromObj = idsToObjs.get(ref.fromId);
     if (!fromObj) return;
 
