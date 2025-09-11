@@ -3,7 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/@tripsnek/tmf.svg)](https://www.npmjs.com/package/@tripsnek/tmf)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-TMF is a lightweight TypeScript port of the Eclipse Modeling Framework (EMF) that brings model-driven development to the TypeScript ecosystem. Build type-safe, reflective data models that work seamlessly across your entire stack - from Node.js servers to React/Angular frontends.
+TMF is a lightweight TypeScript port of the Eclipse Modeling Framework (EMF) that brings model-driven development to the TypeScript ecosystem. Build type-safe, reflective data models that work seamlessly across your entire stack - from Node.js (or Java!) servers to React/Angular frontends.
 
 ## A Quick Demo video
 
@@ -34,7 +34,7 @@ For many applications, the above capabilities may be all you need, but even more
 - In-place merge logic that can automatically diff to versions of the same instance and apply the changes from one to another (useful when an instance is already bound in your UI)
 - Your own customized serialization strategies for your own data formats, or to satisfy integration or legacy data requirements
 
-This README describes the basics of how reflection works, and many are demonstrated in the [tmf-examples](https://github.com/tripsnek/tmf-examples) repository, which contains multiple fully reflective full-stack architectures using Node, Angular and React (demonstrated in the above video).
+This README describes the basics of how reflection works, and many are demonstrated in the [tmf-examples](https://github.com/tripsnek/tmf-examples) repository, which contains multiple fully reflective full-stack architectures  (demonstrated in the above video) using Node or Java Spring Boot backends, and Angular or React frontends.
 
 ## Installation
 
@@ -427,7 +427,7 @@ function findReferences(obj: EObject) {
 
 - **[TMF Ecore Editor](https://github.com/tripsnek/tmf-ecore-editor)** - VSCode extension for visual model editing
 - **[TMF npm package](https://www.npmjs.com/package/@tripsnek/tmf)** - The installable TMF npm library 
-- **[tmf-examples](https://github.com/tripsnek/tmf-examples)** - Complete applications demonstrating TMF patterns with Node, Angular, React, and Nx
+- **[tmf-examples](https://github.com/tripsnek/tmf-examples)** - Complete applications demonstrating TMF patterns with Node, Java Spring Boot, Angular, React, and Nx
 - **[Eclipse EMF](https://eclipse.dev/emf/docs.html)** - Original EMF documentation
 - **[TripSnek](https://www.tripsnek.com)** - Production application built with TMF
 
