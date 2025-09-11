@@ -18,7 +18,7 @@ Traditional TypeScript development requires writing a lot of similar boilerplate
 TMF can help eliminate this repetition through powerful runtime reflection and code generation. By default this includes:
 
  - Runtime enforcement of **containment relationships**. Convert an object to JSON, all of its nested objects go with it, and unpack neatly on the other side.
- - Runtime enforcement of **bi-directional relationships**. For example, a tree structure of objects with "parent" and "children" relationships. You can add Y to X.children or point Y.parent to X, and the inverse is automatically maintained.
+ - Runtime enforcement of **bi-directional relationships**. For example, imagine a tree structure of objects with "parent" and "children" relationships. You can add Y to X.children or set Y.parent to X, and the inverse is automatically maintained.
  - Runtime **reflection/introspection** capabilities: Each instance provides convenient facilties for navigating and manipulating its structure and relationships without needing to code against the specific types and features.
  - **Code generated** source files for each data type that - beyond basic get/set functionality - provides all of the aforementioned capability.
  - **Serialization** (with TJson) that exploits containment relationships to turn complex object graphs into coherent trees. Its like if JSON.stringify() actually did something useful, and it is made possible by reflection.
