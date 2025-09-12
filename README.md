@@ -36,6 +36,18 @@ For many applications, the above capabilities may be all you need, but even more
 
 This README describes the basics of how reflection works, and many are demonstrated in the [tmf-examples](https://github.com/tripsnek/tmf-examples) repository, which contains multiple fully reflective full-stack architectures  (demonstrated in the above video) using Node or Java Spring Boot backends, and Angular or React frontends.
 
+ ## When is TMF useful?
+
+There is no one-size-fits-all software design strategy. TMF is useful when:
+
+ 1. Your domain model has lots of different types of entities with **nested structure** (that is, objects that are "part" of other objects).
+ 
+ 2. Your entities are associated with interesting behavior, which can then simply become API methods on the entities themselves.
+ 
+ 3. You need to make use of (1) and (2) on both your frontend and backend.
+ 
+If all of the data in your app can be represented by a reasonably small set of simple, flat objects, and almost all of the complexity of your app is confined to only your server or client, _TMF will be of little use for that application_, and in fact it will likely only get in your way.
+
 ## Installation
 
 ```bash
