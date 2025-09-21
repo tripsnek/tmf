@@ -3,7 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/@tripsnek/tmf.svg)](https://www.npmjs.com/package/@tripsnek/tmf)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-TMF is a lightweight TypeScript port of the Eclipse Modeling Framework (EMF) that brings model-driven development to the TypeScript ecosystem. Build type-safe, reflective data models that work seamlessly across your entire stack - from Node.js servers to React/Angular frontends.
+TMF is a lightweight TypeScript port of the Eclipse Modeling Framework (EMF) that brings model-driven development to the TypeScript ecosystem. Build type-safe, reflective data models that work seamlessly across your entire stack - from Node.js (or Java!) servers to React/Angular frontends.
 
 ## A Quick Demo video
 
@@ -17,8 +17,8 @@ Traditional TypeScript development requires writing a lot of similar boilerplate
 
 TMF can help eliminate this repetition through powerful runtime reflection and code generation. By default this includes:
 
- - Runtime enforcement of **containment relationships**.
- - Runtime enforcement of **bi-directional relationships**.
+ - Runtime enforcement of **containment relationships**. Convert an object to JSON, all of its nested objects go with it, and unpack neatly on the other side.
+ - Runtime enforcement of **bi-directional relationships**. For example, imagine a tree structure of objects with "parent" and "children" relationships. You can add Y to X.children or set Y.parent to X, and the inverse is automatically maintained.
  - Runtime **reflection/introspection** capabilities: Each instance provides convenient facilties for navigating and manipulating its structure and relationships without needing to code against the specific types and features.
  - **Code generated** source files for each data type that - beyond basic get/set functionality - provides all of the aforementioned capability.
  - **Serialization** (with TJson) that exploits containment relationships to turn complex object graphs into coherent trees. Its like if JSON.stringify() actually did something useful, and it is made possible by reflection.
@@ -34,7 +34,19 @@ For many applications, the above capabilities may be all you need, but even more
 - In-place merge logic that can automatically diff to versions of the same instance and apply the changes from one to another (useful when an instance is already bound in your UI)
 - Your own customized serialization strategies for your own data formats, or to satisfy integration or legacy data requirements
 
-This README describes the basics of how reflection works, and many are demonstrated in the [tmf-examples](https://github.com/tripsnek/tmf-examples) repository, which contains multiple fully reflective full-stack architectures using Node, Angular and React (demonstrated in the above video).
+This README describes the basics of how reflection works, and many are demonstrated in the [tmf-examples](https://github.com/tripsnek/tmf-examples) repository, which contains multiple fully reflective full-stack architectures  (demonstrated in the above video) using Node or Java Spring Boot backends, and Angular or React frontends.
+
+ ## When is TMF useful?
+
+There is no one-size-fits-all software design strategy. TMF is useful when:
+
+ 1. Your domain model has lots of different types of entities with **nested structure** (that is, objects that are "part" of other objects).
+ 
+ 2. Your entities are associated with interesting behavior, which can then simply become API methods on the entities themselves.
+ 
+ 3. You need to make use of (1) and/or (2) on both your frontend and backend.
+ 
+If all of the data in your app can be represented by a reasonably small set of simple, flat objects, and almost all of the complexity of your app is confined to only the backend **or** the frontend, _TMF will be of little use for that application_, and in fact it will likely only get in your way.
 
 ## Installation
 
@@ -427,7 +439,7 @@ function findReferences(obj: EObject) {
 
 - **[TMF Ecore Editor](https://github.com/tripsnek/tmf-ecore-editor)** - VSCode extension for visual model editing
 - **[TMF npm package](https://www.npmjs.com/package/@tripsnek/tmf)** - The installable TMF npm library 
-- **[tmf-examples](https://github.com/tripsnek/tmf-examples)** - Complete applications demonstrating TMF patterns with Node, Angular, React, and Nx
+- **[tmf-examples](https://github.com/tripsnek/tmf-examples)** - Complete applications demonstrating TMF patterns with Node, Java Spring Boot, Angular, React, and Nx
 - **[Eclipse EMF](https://eclipse.dev/emf/docs.html)** - Original EMF documentation
 - **[TripSnek](https://www.tripsnek.com)** - Production application built with TMF
 
