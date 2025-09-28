@@ -24,36 +24,30 @@ export class TGeneratorFactory {
     this.rootPackage = pkg;
     while(this.rootPackage.getESuperPackage()) this.rootPackage = this.rootPackage.getESuperPackage();
 
-    return `${this.genGenericImports(pkg)}
-${this.genSpecificImports(pkg)}
-import { ${TGeneratorPackageInitializer.generateClassName(this.rootPackage)}} from '${pathToRoot}${TGeneratorPackageInitializer.generateFileName(this.rootPackage)}.js';
+    const pkgClassName = DU.genPackageClassName(pkg);
+    const factClassName = DU.genFactoryClassName(pkg);
 
-export class ${DU.genFactoryClassName(pkg)} implements EFactory {
+    return `import { EObject } from '@tripsnek/tmf';
+import { EClass } from '@tripsnek/tmf';
+import { EFactory } from '@tripsnek/tmf';
+import { ${pkgClassName} } from './${DU.genPackageFileName(pkg)}.js';
+${this.genSpecificImports(pkg)}
+import { PackageRegistry } from '${pathToRoot}package-registry.js';
+
+export class ${factClassName} implements EFactory {
 ${this.genSingleton(pkg)}
 ${this.genCreateSwitch(pkg)}
 ${this.genClassCreators(pkg)}
 }
+
+
+// Register this factory class with the package registry
+PackageRegistry.registerFactoryClass('${pkg.getName()}', () => ${factClassName});
 `;
   }
 
   //======================================================================
   // Private helper methods
-
-  /**
-   * Generate a basic set of imports for eCore classes that we expect every
-   * Factory is going to need
-   * @param pkg
-   */
-  private genGenericImports(pkg: EPackage): string {
-    const pkgClassName = DU.genPackageClassName(pkg);
-
-    return `${DU.DEFAULT_IMPORTS}
-
-import { EReference } from '@tripsnek/tmf';
-import { EAttribute } from '@tripsnek/tmf';
-import { EFactory } from '@tripsnek/tmf';
-import { ${pkgClassName} } from './${DU.genPackageFileName(pkg)}.js';`;
-  }
 
   /**
    * Generate a specific set of imports for the interfaces and Impl classes in
@@ -97,7 +91,8 @@ import { ${eClass.getName()}Impl } from './impl/${DU.genClassImplName(
   }
   
   static get eINSTANCE(): ${className} {
-    ${TGeneratorPackageInitializer.generateClassName(this.rootPackage)}.registerAll();
+    ${pkgClassName}.eINSTANCE; // Ensure package is initialized
+    ${pkgClassName}.registerFactory(this._eINSTANCE); // Register this factory with the package
     return this._eINSTANCE;
   }
   `;

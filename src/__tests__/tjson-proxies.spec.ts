@@ -5,9 +5,12 @@ import { AnalysisFactory } from './src/model/analysis/analysis-factory';
 import { AnalysisResult } from './src/model/analysis/api/analysis-result';
 import { Foo } from './src/model/core/api/foo';
 import { CoreFactory } from './src/model/core/core-factory';
+import { AnalysisPackage } from './src/model/analysis/analysis-package';
+import { ModelPackageInitializer } from './src/model/model-package-initializer';
 
 //configure TJson with test packages
 const fact = CoreFactory.eINSTANCE;
+ModelPackageInitializer.registerAll();
 
 //validate deserialized Foo contents
 describe('TJson Proxy Functionality', () => {

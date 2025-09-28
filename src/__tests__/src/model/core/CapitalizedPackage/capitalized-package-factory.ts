@@ -1,21 +1,11 @@
 import { EObject } from '@tripsnek/tmf';
-import { TUtils } from '@tripsnek/tmf';
-import { EStructuralFeature } from '@tripsnek/tmf';
-import { BasicEList } from '@tripsnek/tmf';
 import { EClass } from '@tripsnek/tmf';
-import { EList } from '@tripsnek/tmf';
-import { EEnum } from '@tripsnek/tmf';
-import { EDataType } from '@tripsnek/tmf';
-import { EObjectImpl } from '@tripsnek/tmf';
-
-import { EReference } from '@tripsnek/tmf';
-import { EAttribute } from '@tripsnek/tmf';
 import { EFactory } from '@tripsnek/tmf';
 import { CapitalizedPackagePackage } from './capitalized-package-package.js';
 
 import { ClassInCapitalizedPackage } from './api/class-in-capitalized-package.js';
 import { ClassInCapitalizedPackageImpl } from './impl/class-in-capitalized-package-impl.js';
-import { ModelPackageInitializer } from '../../model-package-initializer.js';
+import { PackageRegistry } from '../../package-registry.js';
 
 export class CapitalizedPackageFactory implements EFactory {
   /* Singleton */
@@ -30,7 +20,8 @@ export class CapitalizedPackageFactory implements EFactory {
   }
 
   static get eINSTANCE(): CapitalizedPackageFactory {
-    ModelPackageInitializer.registerAll();
+    CapitalizedPackagePackage.eINSTANCE; // Ensure package is initialized
+    CapitalizedPackagePackage.registerFactory(this._eINSTANCE); // Register this factory with the package
     return this._eINSTANCE;
   }
 
@@ -49,3 +40,9 @@ export class CapitalizedPackageFactory implements EFactory {
     return new ClassInCapitalizedPackageImpl();
   }
 }
+
+// Register this factory class with the package registry
+PackageRegistry.registerFactoryClass(
+  'CapitalizedPackage',
+  () => CapitalizedPackageFactory
+);

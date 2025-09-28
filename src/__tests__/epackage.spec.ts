@@ -9,6 +9,9 @@ import { EPackage } from '@tripsnek/tmf';
 import { EClass } from '@tripsnek/tmf';
 import { EEnum } from '@tripsnek/tmf';
 import { ModelPackage } from './src/model/model-package';
+import { ModelPackageInitializer } from './src/model/model-package-initializer';
+
+ModelPackageInitializer.registerAll();
 
 // Test data
 let rootPackage: EPackage = ModelPackage.eINSTANCE;

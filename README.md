@@ -139,9 +139,8 @@ export class BlogImpl extends BlogImplGen implements Blog {
 import { BlogFactory, BlogPackage, Blog, Post } from '@myorg/blog';
 import { TJson } from '@tripsnek/tmf';
 
-// Initialize the package by 'touching' it (required for TJson serialization)
-const pkg = BlogPackage.eINSTANCE;
-const factory = BlogFactory.eINSTANCE;
+// Initialize packages (required for TJson serialization)
+BlogPackageInitializer.registerAll();
 
 // Create instances
 const blog = factory.createBlog();
@@ -265,7 +264,7 @@ TJson automatically registers packages when you "touch" them by importing and ac
 
 ```typescript
 import { BlogPackage } from '@myorg/blog';
-const pkg = BlogPackage.eINSTANCE; // Auto-registers BlogPackage and subpackages
+BlogPackageInitializer.registerAll(); //registers BlogPackage and subpackages
 
 // Now TJson can serialize/deserialize Blog objects
 const json = TJson.makeJson(blog);
@@ -325,8 +324,8 @@ import { BlogPackage } from '@myorg/blog';
 const app = express();
 app.use(express.json());
 
-// Initialize your package
-const pkg = BlogPackage.eINSTANCE;
+// Initialize your packages
+BlogPackageInitializer.registerAll(); //registers BlogPackage and subpackages
 
 // Storage for instances (in production, this would be a database)
 const storage = new Map<string, Map<string, EObject>>();

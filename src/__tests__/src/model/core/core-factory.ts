@@ -1,15 +1,5 @@
 import { EObject } from '@tripsnek/tmf';
-import { TUtils } from '@tripsnek/tmf';
-import { EStructuralFeature } from '@tripsnek/tmf';
-import { BasicEList } from '@tripsnek/tmf';
 import { EClass } from '@tripsnek/tmf';
-import { EList } from '@tripsnek/tmf';
-import { EEnum } from '@tripsnek/tmf';
-import { EDataType } from '@tripsnek/tmf';
-import { EObjectImpl } from '@tripsnek/tmf';
-
-import { EReference } from '@tripsnek/tmf';
-import { EAttribute } from '@tripsnek/tmf';
 import { EFactory } from '@tripsnek/tmf';
 import { CorePackage } from './core-package.js';
 
@@ -31,7 +21,7 @@ import { BoundedNumber } from './api/bounded-number.js';
 import { BoundedNumberImpl } from './impl/bounded-number-impl.js';
 import { ThingWithoutID } from './api/thing-without-i-d.js';
 import { ThingWithoutIDImpl } from './impl/thing-without-i-d-impl.js';
-import { ModelPackageInitializer } from '../model-package-initializer.js';
+import { PackageRegistry } from '../package-registry.js';
 
 export class CoreFactory implements EFactory {
   /* Singleton */
@@ -45,7 +35,8 @@ export class CoreFactory implements EFactory {
   }
 
   static get eINSTANCE(): CoreFactory {
-    ModelPackageInitializer.registerAll();
+    CorePackage.eINSTANCE; // Ensure package is initialized
+    CorePackage.registerFactory(this._eINSTANCE); // Register this factory with the package
     return this._eINSTANCE;
   }
 
@@ -104,3 +95,6 @@ export class CoreFactory implements EFactory {
     return new ThingWithoutIDImpl();
   }
 }
+
+// Register this factory class with the package registry
+PackageRegistry.registerFactoryClass('core', () => CoreFactory);

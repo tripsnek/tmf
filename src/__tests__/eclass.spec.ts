@@ -4,6 +4,7 @@ import { Foo } from './src/model/core/api/foo';
 import { Bazzle } from './src/model/core/api/bazzle';
 import { User } from './src/model/core/api/user';
 import { EClass } from '@tripsnek/tmf';
+import { ModelPackageInitializer } from './src/model/model-package-initializer';
 
 // Create test data
 let fooClass: EClass;
@@ -21,6 +22,8 @@ let testFoo: Foo;
 let testBar: Bar;
 let testBazzle: Bazzle;
 let testUser: User;
+
+ModelPackageInitializer.registerAll();
 
 beforeEach(() => {
   // Get EClasses from the metamodel

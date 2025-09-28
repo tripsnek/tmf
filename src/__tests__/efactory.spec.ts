@@ -10,6 +10,9 @@ import { AnalysisResult } from './src/model/analysis/api/analysis-result';
 import { EFactory } from '@tripsnek/tmf';
 import { EClass } from '@tripsnek/tmf';
 import { EPackage } from '@tripsnek/tmf';
+import { ModelPackageInitializer } from './src/model/model-package-initializer';
+
+ModelPackageInitializer.registerAll();
 
 // Test data
 let coreFactory: EFactory;

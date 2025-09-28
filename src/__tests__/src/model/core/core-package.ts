@@ -1,23 +1,12 @@
 import { CapitalizedPackagePackage } from './../core/CapitalizedPackage/capitalized-package-package.js';
-import { EObject } from '@tripsnek/tmf';
-import { TUtils } from '@tripsnek/tmf';
-import { EStructuralFeature } from '@tripsnek/tmf';
-import { BasicEList } from '@tripsnek/tmf';
 import { EClass } from '@tripsnek/tmf';
-import { EList } from '@tripsnek/tmf';
 import { EEnum } from '@tripsnek/tmf';
-import { EDataType } from '@tripsnek/tmf';
-import { EObjectImpl } from '@tripsnek/tmf';
-
-import { ModelPackageInitializer } from '../model-package-initializer.js';
-import { EPackage } from '@tripsnek/tmf';
+import { PackageRegistry } from '../package-registry.js';
 import { EPackageImpl } from '@tripsnek/tmf';
 import { EAttribute } from '@tripsnek/tmf';
 import { EFactory } from '@tripsnek/tmf';
 import { EReference } from '@tripsnek/tmf';
 import { EOperation } from '@tripsnek/tmf';
-import { EcorePackage } from '@tripsnek/tmf';
-import { FooClass } from './api/foo-class.js';
 export class CorePackage extends EPackageImpl {
   public static THING_WITHOUT_I_D = 0;
   public static THING_WITHOUT_I_D_FEATURE_COUNT = 5;
@@ -260,14 +249,62 @@ export class CorePackage extends EPackageImpl {
   }
 
   static get eINSTANCE(): CorePackage {
-    ModelPackageInitializer.registerAll();
+    this.ensureInitialized();
     return this._eINSTANCE;
+  }
+
+  /**
+   * Ensures this package and it's depdendencies are fully initialized and registered with TJson
+   */
+  private static ensureInitialized(): void {
+    const packageName = 'core';
+
+    if (PackageRegistry.isInitialized(packageName)) {
+      return;
+    }
+
+    // Initialize this package's contents
+    const pkg = this._eINSTANCE;
+    pkg.initializePackageContents();
+
+    // Mark as initialized first to prevent cycles
+    PackageRegistry.markInitialized(packageName);
+
+    // Register with TJson
+    PackageRegistry.registerWithTJson(packageName, pkg);
+
+    // Initialize factory after package is registered
+    this.ensureFactoryInitialized();
+  }
+
+  /**
+   * Ensures the factory is initialized and registered with this package
+   */
+  private static ensureFactoryInitialized(): void {
+    // Import the factory module to trigger its registration
+    import('./core-factory.js').catch(() => {
+      // Factory module not available
+    });
+  }
+
+  /**
+   * Called by the factory to register itself with this package
+   */
+  static registerFactory(factory: EFactory): void {
+    this._eINSTANCE.setEFactoryInstance(factory);
   }
 
   //this used to be direct lazy retrieval of the
   //factory instance from the corresponding .ts factory file, but
   //that was eliminated to avoid circular imports
   public override getEFactoryInstance(): EFactory {
+    if (!this._eFactoryInstance) {
+      // Try to get factory from registry
+      const factory = PackageRegistry.getFactory('core');
+      if (factory) {
+        this.setEFactoryInstance(factory);
+      }
+    }
     return this._eFactoryInstance;
   }
 

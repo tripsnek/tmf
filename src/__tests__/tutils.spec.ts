@@ -13,6 +13,9 @@ import { CorePackage } from './src/model/core/core-package';
 import { BoundedNumberImpl } from './src/model/core/impl/bounded-number-impl';
 import { ModelPackage } from './src/model/model-package';
 import { CapitalizedPackagePackage } from './src/model/core/CapitalizedPackage/capitalized-package-package';
+import { ModelPackageInitializer } from './src/model/model-package-initializer';
+
+ModelPackageInitializer.registerAll();
 
 //configure TJson with test packages
 const fact = CoreFactory.eINSTANCE;

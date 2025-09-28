@@ -48,8 +48,8 @@ export class TJson {
   private static warnIfNotInitialized(): void {
     if (this.packages.length === 0) {
       console.warn(
-        'TJson: No packages registered. Call TJson.setPackages([...]) or ' +
-        'import and touch your package (e.g., MyPackage.eINSTANCE) before using TJson.'
+        'TJson: No packages registered. Call the package initializer using ' + 
+        '<MyRootPackage>PackageInitializer.registerAll() before using TJson'
       );
     }
   }

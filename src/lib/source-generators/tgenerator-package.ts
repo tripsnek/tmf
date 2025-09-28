@@ -1,19 +1,13 @@
 import { EPackage } from '../metamodel/api/epackage.js';
 import { EEnum } from '../metamodel/api/eenum.js';
 import { EClass } from '../metamodel/api/eclass.js';
-import { EReference } from '../metamodel/api/ereference.js';
-import { EAttribute } from '../metamodel/api/eattribute.js';
-import { EDataType } from '../metamodel/api/edata-type.js';
-import { EStructuralFeature } from '../metamodel/api/estructural-feature.js';
 import { EClassifier } from '../metamodel/api/eclassifier.js';
-import { BasicEList } from '../metamodel/basicelist.js';
 import { TGenUtils as DU } from './tgen-utils.js';
 import { EAttributeImpl } from '../metamodel/impl/eattribute-impl.js';
 import { EClassImpl } from '../metamodel/impl/eclass-impl.js';
 import { EReferenceImpl } from '../metamodel/impl/ereference-impl.js';
 import { EEnumImpl } from '../metamodel/impl/eenum-impl.js';
 import { EDataTypeImpl } from '../metamodel/impl/edata-type-impl.js';
-import { TGeneratorPackageInitializer } from './tgenerator-package-initializer.js';
 
 /**
  * Responsible for generating the interface and implementation of an
@@ -393,14 +387,62 @@ ${subPkgSetters}
   }
 
   static get eINSTANCE(): ${className}{
-    ${TGeneratorPackageInitializer.generateClassName(this.rootPackage)}.registerAll();
+    this.ensureInitialized();
     return this._eINSTANCE;
+  }  
+
+  /**
+   * Ensures this package and it's depdendencies are fully initialized and registered with TJson
+   */
+  private static ensureInitialized(): void {
+    const packageName = '${pkg.getName()}';
+
+    if (PackageRegistry.isInitialized(packageName)) {
+      return;
+    }
+
+    // Initialize this package's contents
+    const pkg = this._eINSTANCE;
+    pkg.initializePackageContents();
+
+    // Mark as initialized first to prevent cycles
+    PackageRegistry.markInitialized(packageName);
+
+    // Register with TJson
+    PackageRegistry.registerWithTJson(packageName, pkg);
+
+    // Initialize factory after package is registered
+    this.ensureFactoryInitialized();
+  }
+
+  /**
+   * Ensures the factory is initialized and registered with this package
+   */
+  private static ensureFactoryInitialized(): void {
+    // Import the factory module to trigger its registration
+    import('./${DU.genFactoryFileName(pkg)}.js').catch(() => {
+      // Factory module not available
+    });
+  }
+
+  /**
+   * Called by the factory to register itself with this package
+   */
+  static registerFactory(factory: EFactory): void {
+    this._eINSTANCE.setEFactoryInstance(factory);
   }  
 
   //this used to be direct lazy retrieval of the
   //factory instance from the corresponding .ts factory file, but
   //that was eliminated to avoid circular imports
   public override getEFactoryInstance(): EFactory {
+    if (!this._eFactoryInstance) {
+      // Try to get factory from registry
+      const factory = PackageRegistry.getFactory('${pkg.getName()}');
+      if (factory) {
+        this.setEFactoryInstance(factory);
+      }
+    }  
     return this._eFactoryInstance;
   }
 
@@ -468,10 +510,9 @@ ${initContent}
     const pathToRoot = DU.getPathToRoot(pkg);
 
     let imports = `${DU.generateImportStatementsForExternalPackages(pkgToImport, pkg, './')}
-${DU.DEFAULT_IMPORTS}
-
-import { ${TGeneratorPackageInitializer.generateClassName(this.rootPackage)}} from '${pathToRoot}${TGeneratorPackageInitializer.generateFileName(this.rootPackage)}.js';
-import { EPackage } from '@tripsnek/tmf';
+import { EClass } from '@tripsnek/tmf';
+import { EEnum } from '@tripsnek/tmf';
+import { PackageRegistry } from '${pathToRoot}package-registry.js';
 import { EPackageImpl } from '@tripsnek/tmf';
 import { EAttribute } from '@tripsnek/tmf';
 import { EFactory } from '@tripsnek/tmf';
@@ -487,17 +528,6 @@ import { EClass } from './eclass.js';
 import { EReference } from './ereference.js';
 import { EAttribute } from './eattribute.js';
 import { EFactory } from './efactory.js';`;
-    } else {
-      imports += `
-import { EcorePackage } from '@tripsnek/tmf';`;
-    }
-
-    //imports of Enum classes
-    for (const ec of pkg.getEClassifiers()) {
-      if (ec instanceof EEnumImpl) {
-        imports += `
-import { ${ec.getName()} } from './api/${DU.genClassApiName(ec)}.js';`;
-      }
     }
     return imports;
   }

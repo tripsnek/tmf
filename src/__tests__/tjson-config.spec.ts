@@ -3,13 +3,13 @@ import { TJson } from '@tripsnek/tmf';
 import { AnalysisPackage } from './src/model/analysis/analysis-package';
 import { AnalysisResult } from './src/model/analysis/api/analysis-result';
 import { AnalysisResultImpl } from './src/model/analysis/impl/analysis-result-impl';
+import { ModelPackageInitializer } from './src/model/model-package-initializer';
 
 const toDeserialize =
   '{"@type":"AnalysisResult","id":"ar1","editDate":"2025-08-22T20:12:31.325Z"}';
 const toDeserializeArray = `[${toDeserialize}]`;
 
-AnalysisPackage.eINSTANCE;
-// AnalysisFactory.eINSTANCE; //this works too!
+ModelPackageInitializer.registerAll();
 
 const ar = new AnalysisResultImpl();
 ar.setId('ar1');
@@ -66,8 +66,7 @@ describe('TJson', () => {
     const arJs = TJson.makeJson(ar);
     expect(consoleWarnSpy).toHaveBeenCalledTimes(1);
     expect(consoleWarnSpy).toHaveBeenCalledWith(
-      'TJson: No packages registered. Call TJson.setPackages([...]) or ' +
-        'import and touch your package (e.g., MyPackage.eINSTANCE) before using TJson.'
+      'TJson: No packages registered. Call the package initializer using <MyRootPackage>PackageInitializer.registerAll() before using TJson'
     );
   });
   it('warning on makeEObject when not initialized', () => {
@@ -77,8 +76,7 @@ describe('TJson', () => {
     );
     expect(consoleWarnSpy).toHaveBeenCalledTimes(1);
     expect(consoleWarnSpy).toHaveBeenCalledWith(
-      'TJson: No packages registered. Call TJson.setPackages([...]) or ' +
-        'import and touch your package (e.g., MyPackage.eINSTANCE) before using TJson.'
+      'TJson: No packages registered. Call the package initializer using <MyRootPackage>PackageInitializer.registerAll() before using TJson'
     );
   });
   it('warning on makeJsonArray when not initialized', () => {
@@ -86,8 +84,7 @@ describe('TJson', () => {
     const arJs = TJson.makeJsonArray(arArray);
     expect(consoleWarnSpy).toHaveBeenCalledTimes(2);
     expect(consoleWarnSpy).toHaveBeenCalledWith(
-      'TJson: No packages registered. Call TJson.setPackages([...]) or ' +
-        'import and touch your package (e.g., MyPackage.eINSTANCE) before using TJson.'
+      'TJson: No packages registered. Call the package initializer using <MyRootPackage>PackageInitializer.registerAll() before using TJson'
     );
   });
   it('warning on makeEObjectArray when not initialized', () => {
@@ -97,8 +94,7 @@ describe('TJson', () => {
     );
     expect(consoleWarnSpy).toHaveBeenCalledTimes(2);
     expect(consoleWarnSpy).toHaveBeenCalledWith(
-      'TJson: No packages registered. Call TJson.setPackages([...]) or ' +
-        'import and touch your package (e.g., MyPackage.eINSTANCE) before using TJson.'
+      'TJson: No packages registered. Call the package initializer using <MyRootPackage>PackageInitializer.registerAll() before using TJson'
     );
   });
 });

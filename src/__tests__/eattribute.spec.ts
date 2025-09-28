@@ -4,6 +4,9 @@ import { User } from './src/model/core/api/user';
 import { EAttribute } from '@tripsnek/tmf';
 import { EClass } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
+import { ModelPackageInitializer } from './src/model/model-package-initializer';
+
+ModelPackageInitializer.registerAll();
 
 // Test data
 let testFoo: Foo;

@@ -1,15 +1,5 @@
 import { EObject } from '@tripsnek/tmf';
-import { TUtils } from '@tripsnek/tmf';
-import { EStructuralFeature } from '@tripsnek/tmf';
-import { BasicEList } from '@tripsnek/tmf';
 import { EClass } from '@tripsnek/tmf';
-import { EList } from '@tripsnek/tmf';
-import { EEnum } from '@tripsnek/tmf';
-import { EDataType } from '@tripsnek/tmf';
-import { EObjectImpl } from '@tripsnek/tmf';
-
-import { EReference } from '@tripsnek/tmf';
-import { EAttribute } from '@tripsnek/tmf';
 import { EFactory } from '@tripsnek/tmf';
 import { ModelPackage } from './model-package.js';
 
@@ -17,7 +7,7 @@ import { ContainerRootType } from './api/container-root-type.js';
 import { ContainerRootTypeImpl } from './impl/container-root-type-impl.js';
 import { ContainedRootType } from './api/contained-root-type.js';
 import { ContainedRootTypeImpl } from './impl/contained-root-type-impl.js';
-import { ModelPackageInitializer } from './model-package-initializer.js';
+import { PackageRegistry } from './package-registry.js';
 
 export class ModelFactory implements EFactory {
   /* Singleton */
@@ -31,7 +21,8 @@ export class ModelFactory implements EFactory {
   }
 
   static get eINSTANCE(): ModelFactory {
-    ModelPackageInitializer.registerAll();
+    ModelPackage.eINSTANCE; // Ensure package is initialized
+    ModelPackage.registerFactory(this._eINSTANCE); // Register this factory with the package
     return this._eINSTANCE;
   }
 
@@ -55,3 +46,6 @@ export class ModelFactory implements EFactory {
     return new ContainedRootTypeImpl();
   }
 }
+
+// Register this factory class with the package registry
+PackageRegistry.registerFactoryClass('model', () => ModelFactory);
