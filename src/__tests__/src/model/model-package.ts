@@ -99,19 +99,6 @@ export class ModelPackage extends EPackageImpl {
 
     // Register with TJson
     PackageRegistry.registerWithTJson(packageName, pkg);
-
-    // Initialize factory after package is registered
-    this.ensureFactoryInitialized();
-  }
-
-  /**
-   * Ensures the factory is initialized and registered with this package
-   */
-  private static ensureFactoryInitialized(): void {
-    // Import the factory module to trigger its registration
-    import('./model-factory.js').catch(() => {
-      // Factory module not available
-    });
   }
 
   /**
@@ -200,16 +187,16 @@ export class ModelPackage extends EPackageImpl {
       '',
       0,
       1,
-      '', //TODO: Container Class
+      '',
       false,
       false,
       true,
       false,
       false,
-      true, //TODO: isUnsettable
-      false, //TODO: isUnique
-      false, //TODO: isDerived
-      false //TODO: isOrdered
+      true,
+      false,
+      false,
+      false
     );
     this.initEClass(
       this.containerRootTypeEClass,
@@ -226,16 +213,16 @@ export class ModelPackage extends EPackageImpl {
       '',
       0,
       -1,
-      '', //TODO: Container Class
+      '',
       false,
       false,
       true,
       true,
       false,
-      true, //TODO: isUnsettable
-      false, //TODO: isUnique
-      false, //TODO: isDerived
-      false //TODO: isOrdered
+      true,
+      false,
+      false,
+      false
     );
   }
 }

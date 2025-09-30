@@ -95,19 +95,6 @@ export class CapitalizedPackagePackage extends EPackageImpl {
 
     // Register with TJson
     PackageRegistry.registerWithTJson(packageName, pkg);
-
-    // Initialize factory after package is registered
-    this.ensureFactoryInitialized();
-  }
-
-  /**
-   * Ensures the factory is initialized and registered with this package
-   */
-  private static ensureFactoryInitialized(): void {
-    // Import the factory module to trigger its registration
-    import('./capitalized-package-factory.js').catch(() => {
-      // Factory module not available
-    });
   }
 
   /**
@@ -222,11 +209,11 @@ export class CapitalizedPackagePackage extends EPackageImpl {
       false,
       false,
       true,
-      true, //TODO: isUnsettable,
+      true,
       false,
-      false, //TODO: isUnique
-      false, //TODO: isDerived
-      false //TODO: isOrdered;
+      false,
+      false,
+      false
     );
   }
 }

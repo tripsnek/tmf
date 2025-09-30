@@ -97,19 +97,6 @@ export class AnalysisPackage extends EPackageImpl {
 
     // Register with TJson
     PackageRegistry.registerWithTJson(packageName, pkg);
-
-    // Initialize factory after package is registered
-    this.ensureFactoryInitialized();
-  }
-
-  /**
-   * Ensures the factory is initialized and registered with this package
-   */
-  private static ensureFactoryInitialized(): void {
-    // Import the factory module to trigger its registration
-    import('./analysis-factory.js').catch(() => {
-      // Factory module not available
-    });
   }
 
   /**
@@ -202,16 +189,16 @@ export class AnalysisPackage extends EPackageImpl {
       '',
       0,
       1,
-      '', //TODO: Container Class
+      '',
       false,
       false,
       true,
       false,
       false,
-      true, //TODO: isUnsettable
-      false, //TODO: isUnique
-      false, //TODO: isDerived
-      false //TODO: isOrdered
+      true,
+      false,
+      false,
+      false
     );
     this.initEReference(
       this.getAnalysisResult_Object(),
@@ -221,16 +208,16 @@ export class AnalysisPackage extends EPackageImpl {
       '',
       0,
       1,
-      '', //TODO: Container Class
+      '',
       false,
       false,
       true,
       true,
       false,
-      true, //TODO: isUnsettable
-      false, //TODO: isUnique
-      false, //TODO: isDerived
-      false //TODO: isOrdered
+      true,
+      false,
+      false,
+      false
     );
     op = this.initEOperation(
       this.getAnalysisResult_CloneObject(),

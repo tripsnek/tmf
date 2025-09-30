@@ -233,11 +233,11 @@ export class TGeneratorPackage {
       ${feature.isTransient() ?? false},
       ${feature.isVolatile() ?? false},
       ${feature.isChangeable() ?? true},
-      true, //TODO: isUnsettable,
+      true,
       ${feature.isId() ?? false},
-      false, //TODO: isUnique
-      false, //TODO: isDerived
-      false //TODO: isOrdered;` 
+      false,
+      false,
+      false` 
           } else if (feature instanceof EReferenceImpl) {
             const pkgRef = DU.getReferenceToPackageInstance(
               feature.getEType()!,
@@ -257,16 +257,16 @@ export class TGeneratorPackage {
       '',
       ${feature.getLowerBound()},
       ${feature.getUpperBound()},
-      '', //TODO: Container Class
+      '',
       ${feature.isTransient() ?? false},
       ${feature.isVolatile() ?? false},
       ${feature.isChangeable() ?? false},
       ${feature.isContainment() ?? false},
       false,
-      true, //TODO: isUnsettable
-      false, //TODO: isUnique
-      false, //TODO: isDerived
-      false //TODO: isOrdered`;
+      true,
+      false,
+      false,
+      false`;
           }
           initContent += `
     );`;
@@ -410,19 +410,6 @@ ${subPkgSetters}
 
     // Register with TJson
     PackageRegistry.registerWithTJson(packageName, pkg);
-
-    // Initialize factory after package is registered
-    this.ensureFactoryInitialized();
-  }
-
-  /**
-   * Ensures the factory is initialized and registered with this package
-   */
-  private static ensureFactoryInitialized(): void {
-    // Import the factory module to trigger its registration
-    import('./${DU.genFactoryFileName(pkg)}.js').catch(() => {
-      // Factory module not available
-    });
   }
 
   /**
