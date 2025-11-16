@@ -43,6 +43,10 @@ export class TGeneratorGen {
       genToImport,
       pkgToImport
     )}
+
+//make sure package is initialized
+${this._packageName}.eINSTANCE;
+
 /**
  * This file is source-code generated and should never be edited. It implements
  * the core TMF functionality for ${eClass.getName()}.

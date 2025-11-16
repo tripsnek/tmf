@@ -14,6 +14,9 @@ import { ThingWithoutID } from '../api/thing-without-i-d.js';
 import { FooGen } from './foo-gen.js';
 import { FooImpl } from '../impl/foo-impl.js';
 
+//make sure package is initialized
+CorePackage.eINSTANCE;
+
 /**
  * This file is source-code generated and should never be edited. It implements
  * the core TMF functionality for ThingWithoutID.

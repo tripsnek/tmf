@@ -24,6 +24,9 @@ import { FooImpl } from '../impl/foo-impl.js';
 import { BazzleGen } from './bazzle-gen.js';
 import { BazzleImpl } from '../impl/bazzle-impl.js';
 
+//make sure package is initialized
+CorePackage.eINSTANCE;
+
 /**
  * This file is source-code generated and should never be edited. It implements
  * the core TMF functionality for FooGroup.

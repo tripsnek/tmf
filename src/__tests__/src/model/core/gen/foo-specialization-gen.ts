@@ -36,6 +36,10 @@ import { ThingWithoutIDImpl } from '../impl/thing-without-i-d-impl.js';
 import { UserGen } from './user-gen.js';
 import { UserImpl } from '../impl/user-impl.js';
 import { CapitalizedPackagePackage } from '../../core/CapitalizedPackage/capitalized-package-package.js';
+
+//make sure package is initialized
+CorePackage.eINSTANCE;
+
 /**
  * This file is source-code generated and should never be edited. It implements
  * the core TMF functionality for FooSpecialization.

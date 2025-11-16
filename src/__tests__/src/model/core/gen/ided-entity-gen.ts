@@ -14,6 +14,9 @@ import { IdedEntity } from '../api/ided-entity.js';
 import { UserGen } from './user-gen.js';
 import { UserImpl } from '../impl/user-impl.js';
 
+//make sure package is initialized
+CorePackage.eINSTANCE;
+
 /**
  * This file is source-code generated and should never be edited. It implements
  * the core TMF functionality for IdedEntity.

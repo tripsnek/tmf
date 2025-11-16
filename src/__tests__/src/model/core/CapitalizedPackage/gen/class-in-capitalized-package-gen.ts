@@ -18,6 +18,10 @@ import { FooImpl } from '../../../core//impl/foo-impl.js';
 import { FooGroupGen } from '../../../core//gen/foo-group-gen.js';
 import { FooGroupImpl } from '../../../core//impl/foo-group-impl.js';
 import { CorePackage } from '../../../core/core-package.js';
+
+//make sure package is initialized
+CapitalizedPackagePackage.eINSTANCE;
+
 /**
  * This file is source-code generated and should never be edited. It implements
  * the core TMF functionality for ClassInCapitalizedPackage.

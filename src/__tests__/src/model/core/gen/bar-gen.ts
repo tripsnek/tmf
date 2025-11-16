@@ -27,6 +27,9 @@ import { UserImpl } from '../impl/user-impl.js';
 import { BoundedNumberGen } from './bounded-number-gen.js';
 import { BoundedNumberImpl } from '../impl/bounded-number-impl.js';
 
+//make sure package is initialized
+CorePackage.eINSTANCE;
+
 /**
  * This file is source-code generated and should never be edited. It implements
  * the core TMF functionality for Bar.

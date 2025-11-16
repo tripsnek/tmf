@@ -11,6 +11,9 @@ import { EObjectImpl } from '@tripsnek/tmf';
 import { CorePackage } from '../core-package.js';
 import { BoundedNumber } from '../api/bounded-number.js';
 
+//make sure package is initialized
+CorePackage.eINSTANCE;
+
 /**
  * This file is source-code generated and should never be edited. It implements
  * the core TMF functionality for BoundedNumber.

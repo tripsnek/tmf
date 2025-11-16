@@ -14,6 +14,9 @@ import { ContainedRootType } from '../api/contained-root-type.js';
 import { ContainerRootTypeGen } from './container-root-type-gen.js';
 import { ContainerRootTypeImpl } from '../impl/container-root-type-impl.js';
 
+//make sure package is initialized
+ModelPackage.eINSTANCE;
+
 /**
  * This file is source-code generated and should never be edited. It implements
  * the core TMF functionality for ContainedRootType.

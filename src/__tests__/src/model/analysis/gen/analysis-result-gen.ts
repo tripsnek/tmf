@@ -20,6 +20,10 @@ import { UserImpl } from '../../core//impl/user-impl.js';
 import { NamedEntityGen } from '../../core//gen/named-entity-gen.js';
 import { NamedEntityImpl } from '../../core//impl/named-entity-impl.js';
 import { CorePackage } from '../../core/core-package.js';
+
+//make sure package is initialized
+AnalysisPackage.eINSTANCE;
+
 /**
  * This file is source-code generated and should never be edited. It implements
  * the core TMF functionality for AnalysisResult.

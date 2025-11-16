@@ -14,6 +14,9 @@ import { User } from '../api/user.js';
 import { NamedEntityGen } from './named-entity-gen.js';
 import { NamedEntityImpl } from '../impl/named-entity-impl.js';
 
+//make sure package is initialized
+CorePackage.eINSTANCE;
+
 /**
  * This file is source-code generated and should never be edited. It implements
  * the core TMF functionality for User.
