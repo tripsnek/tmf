@@ -56,6 +56,7 @@
       <eStructuralFeatures xsi:type="ecore:EReference" name="subpackageReference" eType="#//core/CapitalizedPackage/ClassInCapitalizedPackage"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="containedThingsWithNoID" eType="#//core/ThingWithoutID" upperBound="-1" containment="true"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="containedThingsWithNoID2" eType="#//core/ThingWithoutID" upperBound="-1" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="manyCrossPackage" eType="#//analysis/ResultDetail" upperBound="-1" eOpposite="#//analysis/ResultDetail/crossPackageInverse"/>
     </eClassifiers>
     <eClassifiers xsi:type="ecore:EClass" name="FooSpecialization" eSuperTypes="#//core/Foo"/>
     <eClassifiers xsi:type="ecore:EClass" name="BarSpecializationWithComponents" eSuperTypes="#//core/Bar">
@@ -117,6 +118,10 @@
       </eOperations>
       <eStructuralFeatures xsi:type="ecore:EReference" name="user" eType="#//core/User"/>
       <eStructuralFeatures xsi:type="ecore:EReference" name="object" eType="#//core/NamedEntity" containment="true"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="details" eType="#//analysis/ResultDetail" upperBound="-1" containment="true"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ResultDetail">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="crossPackageInverse" eType="#//core/Foo" eOpposite="#//core/Foo/manyCrossPackage"/>
     </eClassifiers>
   </eSubpackages>
 </ecore:EPackage>

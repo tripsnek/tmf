@@ -10,6 +10,7 @@ import { EObjectImpl } from '@tripsnek/tmf';
 import { IdedEntity } from '../../core/api/ided-entity.js';
 import { User } from '../../core/api/user.js';
 import { NamedEntity } from '../../core/api/named-entity.js';
+import { ResultDetail } from '../api/result-detail.js';
 
 import { AnalysisPackage } from '../analysis-package.js';
 import { AnalysisResult } from '../api/analysis-result.js';
@@ -19,6 +20,8 @@ import { UserGen } from '../../core//gen/user-gen.js';
 import { UserImpl } from '../../core//impl/user-impl.js';
 import { NamedEntityGen } from '../../core//gen/named-entity-gen.js';
 import { NamedEntityImpl } from '../../core//impl/named-entity-impl.js';
+import { ResultDetailGen } from './result-detail-gen.js';
+import { ResultDetailImpl } from '../impl/result-detail-impl.js';
 import { CorePackage } from '../../core/core-package.js';
 
 //make sure package is initialized
@@ -35,6 +38,12 @@ export abstract class AnalysisResultGen
   /** feature declarations */
   protected user!: User;
   protected object!: NamedEntity;
+  protected details: EList<ResultDetail> = new BasicEList<ResultDetail>(
+    undefined,
+    this,
+    AnalysisPackage.ANALYSIS_RESULT__DETAILS,
+    undefined
+  );
 
   //======================================================================
   // Getters and Setters
@@ -59,6 +68,10 @@ export abstract class AnalysisResultGen
     this.basicSetObject(newObject);
   }
 
+  public getDetails(): EList<ResultDetail> {
+    return this.details;
+  }
+
   //======================================================================
   // API Operations
 
@@ -81,6 +94,8 @@ export abstract class AnalysisResultGen
         return this.getUser();
       case AnalysisPackage.ANALYSIS_RESULT__OBJECT:
         return this.getObject();
+      case AnalysisPackage.ANALYSIS_RESULT__DETAILS:
+        return this.getDetails();
     }
     return super.eGet(featureID);
   }
@@ -103,6 +118,10 @@ export abstract class AnalysisResultGen
       case AnalysisPackage.ANALYSIS_RESULT__OBJECT:
         this.setObject(newValue);
         return;
+      case AnalysisPackage.ANALYSIS_RESULT__DETAILS:
+        this.getDetails().clear();
+        this.getDetails().addAll(newValue);
+        return;
     }
     return super.eSet(featureID, newValue);
   }
@@ -120,6 +139,8 @@ export abstract class AnalysisResultGen
         return this.getUser() != null;
       case AnalysisPackage.ANALYSIS_RESULT__OBJECT:
         return this.getObject() != null;
+      case AnalysisPackage.ANALYSIS_RESULT__DETAILS:
+        return !this.getDetails().isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -138,6 +159,9 @@ export abstract class AnalysisResultGen
         return;
       case AnalysisPackage.ANALYSIS_RESULT__OBJECT:
         this.setObject(undefined!);
+        return;
+      case AnalysisPackage.ANALYSIS_RESULT__DETAILS:
+        this.getDetails().clear();
         return;
     }
     return super.eUnset(featureID);

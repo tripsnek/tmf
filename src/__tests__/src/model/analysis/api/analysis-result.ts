@@ -11,6 +11,7 @@ import { EObjectImpl } from '@tripsnek/tmf';
 import { IdedEntity } from '../../core/api/ided-entity.js';
 import { User } from '../../core/api/user.js';
 import { NamedEntity } from '../../core/api/named-entity.js';
+import { ResultDetail } from './result-detail.js';
 import { AnalysisPackage } from '../analysis-package.js';
 
 /**
@@ -21,5 +22,6 @@ export interface AnalysisResult extends IdedEntity {
   setUser(newUser: User): void;
   getObject(): NamedEntity;
   setObject(newObject: NamedEntity): void;
+  getDetails(): EList<ResultDetail>;
   cloneObject(deepCopy: boolean, newUser: User): NamedEntity;
 }

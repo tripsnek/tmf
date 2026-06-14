@@ -15,6 +15,7 @@ import { Bar } from '../api/bar.js';
 import { Bazzle } from '../api/bazzle.js';
 import { ClassInCapitalizedPackage } from '../../core/CapitalizedPackage/api/class-in-capitalized-package.js';
 import { ThingWithoutID } from '../api/thing-without-i-d.js';
+import { ResultDetail } from '../../analysis/api/result-detail.js';
 import { User } from '../api/user.js';
 
 import { CorePackage } from '../core-package.js';
@@ -33,9 +34,12 @@ import { ClassInCapitalizedPackageGen } from '../../core/CapitalizedPackage//gen
 import { ClassInCapitalizedPackageImpl } from '../../core/CapitalizedPackage//impl/class-in-capitalized-package-impl.js';
 import { ThingWithoutIDGen } from './thing-without-i-d-gen.js';
 import { ThingWithoutIDImpl } from '../impl/thing-without-i-d-impl.js';
+import { ResultDetailGen } from '../../analysis//gen/result-detail-gen.js';
+import { ResultDetailImpl } from '../../analysis//impl/result-detail-impl.js';
 import { UserGen } from './user-gen.js';
 import { UserImpl } from '../impl/user-impl.js';
 import { CapitalizedPackagePackage } from '../../core/CapitalizedPackage/capitalized-package-package.js';
+import { AnalysisPackage } from '../../analysis/analysis-package.js';
 
 //make sure package is initialized
 CorePackage.eINSTANCE;
@@ -109,6 +113,13 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
       this,
       CorePackage.FOO__CONTAINED_THINGS_WITH_NO_I_D2,
       undefined
+    );
+  protected manyCrossPackage: EList<ResultDetail> =
+    new BasicEList<ResultDetail>(
+      undefined,
+      this,
+      CorePackage.FOO__MANY_CROSS_PACKAGE,
+      AnalysisPackage.RESULT_DETAIL__CROSS_PACKAGE_INVERSE
     );
 
   //======================================================================
@@ -290,6 +301,10 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
     return this.containedThingsWithNoID2;
   }
 
+  public getManyCrossPackage(): EList<ResultDetail> {
+    return this.manyCrossPackage;
+  }
+
   //======================================================================
   // API Operations
 
@@ -350,6 +365,8 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
         return this.getContainedThingsWithNoID();
       case CorePackage.FOO__CONTAINED_THINGS_WITH_NO_I_D2:
         return this.getContainedThingsWithNoID2();
+      case CorePackage.FOO__MANY_CROSS_PACKAGE:
+        return this.getManyCrossPackage();
     }
     return super.eGet(featureID);
   }
@@ -437,6 +454,10 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
         this.getContainedThingsWithNoID2().clear();
         this.getContainedThingsWithNoID2().addAll(newValue);
         return;
+      case CorePackage.FOO__MANY_CROSS_PACKAGE:
+        this.getManyCrossPackage().clear();
+        this.getManyCrossPackage().addAll(newValue);
+        return;
     }
     return super.eSet(featureID, newValue);
   }
@@ -492,6 +513,8 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
         return !this.getContainedThingsWithNoID().isEmpty();
       case CorePackage.FOO__CONTAINED_THINGS_WITH_NO_I_D2:
         return !this.getContainedThingsWithNoID2().isEmpty();
+      case CorePackage.FOO__MANY_CROSS_PACKAGE:
+        return !this.getManyCrossPackage().isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -568,6 +591,9 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
       case CorePackage.FOO__CONTAINED_THINGS_WITH_NO_I_D2:
         this.getContainedThingsWithNoID2().clear();
         return;
+      case CorePackage.FOO__MANY_CROSS_PACKAGE:
+        this.getManyCrossPackage().clear();
+        return;
     }
     return super.eUnset(featureID);
   }
@@ -638,6 +664,8 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
             CorePackage.BAZZLE__ONE_TO_ONE_FOO
           );
         return this.basicSetOneToOneBazzle(<Bazzle>otherEnd);
+      case CorePackage.FOO__MANY_CROSS_PACKAGE:
+        return (<EList<EObject>>this.getManyCrossPackage()).basicAdd(otherEnd);
     }
     return super.eInverseAdd(otherEnd, featureID);
   }
@@ -650,6 +678,10 @@ export abstract class FooGen extends NamedEntityImpl implements Foo {
         return (<EList<EObject>>this.getBars()).basicRemove(otherEnd);
       case CorePackage.FOO__ONE_TO_ONE_BAZZLE:
         return this.basicSetOneToOneBazzle(undefined!);
+      case CorePackage.FOO__MANY_CROSS_PACKAGE:
+        return (<EList<EObject>>this.getManyCrossPackage()).basicRemove(
+          otherEnd
+        );
     }
     return super.eInverseRemove(otherEnd, featureID);
   }

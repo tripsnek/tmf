@@ -8,10 +8,14 @@ import { EFactory } from '@tripsnek/tmf';
 import { EReference } from '@tripsnek/tmf';
 import { EOperation } from '@tripsnek/tmf';
 export class AnalysisPackage extends EPackageImpl {
-  public static ANALYSIS_RESULT = 0;
-  public static ANALYSIS_RESULT_FEATURE_COUNT = 6;
+  public static RESULT_DETAIL = 0;
+  public static RESULT_DETAIL_FEATURE_COUNT = 1;
+  public static RESULT_DETAIL__CROSS_PACKAGE_INVERSE = 0;
+  public static ANALYSIS_RESULT = 1;
+  public static ANALYSIS_RESULT_FEATURE_COUNT = 7;
   public static ANALYSIS_RESULT__USER = 4;
   public static ANALYSIS_RESULT__OBJECT = 5;
+  public static ANALYSIS_RESULT__DETAILS = 6;
   public static ANALYSIS_RESULT__CLONE_OBJECT = 0;
 
   /** Singleton */
@@ -27,18 +31,24 @@ export class AnalysisPackage extends EPackageImpl {
 
   /** Provides static access to EClass and EStructuralFeature instances */
   public static Literals = class {
+    static RESULT_DETAIL: EClass = AnalysisPackage._eINSTANCE.getResultDetail();
+    static RESULT_DETAIL__CROSS_PACKAGE_INVERSE: EReference =
+      AnalysisPackage._eINSTANCE.getResultDetail_CrossPackageInverse();
     static ANALYSIS_RESULT: EClass =
       AnalysisPackage._eINSTANCE.getAnalysisResult();
     static ANALYSIS_RESULT__USER: EReference =
       AnalysisPackage._eINSTANCE.getAnalysisResult_User();
     static ANALYSIS_RESULT__OBJECT: EReference =
       AnalysisPackage._eINSTANCE.getAnalysisResult_Object();
+    static ANALYSIS_RESULT__DETAILS: EReference =
+      AnalysisPackage._eINSTANCE.getAnalysisResult_Details();
   };
 
   //flags that keep track of whether package is initialized
   private isCreated = false;
   private isInitialized = false;
 
+  private resultDetailEClass!: EClass;
   private analysisResultEClass!: EClass;
 
   //causes EPackage.Registry registration event
@@ -128,6 +138,12 @@ export class AnalysisPackage extends EPackageImpl {
     if (!this._eFactoryInstance) this._eFactoryInstance = factoryInst;
   }
 
+  public getResultDetail(): EClass {
+    return this.resultDetailEClass;
+  }
+  public getResultDetail_CrossPackageInverse(): EReference {
+    return <EReference>this.resultDetailEClass.getEStructuralFeatures().get(0);
+  }
   public getAnalysisResult(): EClass {
     return this.analysisResultEClass;
   }
@@ -141,6 +157,11 @@ export class AnalysisPackage extends EPackageImpl {
       this.analysisResultEClass.getEStructuralFeatures().get(1)
     );
   }
+  public getAnalysisResult_Details(): EReference {
+    return <EReference>(
+      this.analysisResultEClass.getEStructuralFeatures().get(2)
+    );
+  }
   public getAnalysisResult_CloneObject(): EOperation {
     return this.analysisResultEClass.getEOperations().get(0);
   }
@@ -148,6 +169,11 @@ export class AnalysisPackage extends EPackageImpl {
   public createPackageContents(): void {
     if (this.isCreated) return;
     this.isCreated = true;
+    this.resultDetailEClass = this.createEClass(AnalysisPackage.RESULT_DETAIL);
+    this.createEReference(
+      this.resultDetailEClass,
+      AnalysisPackage.RESULT_DETAIL__CROSS_PACKAGE_INVERSE
+    );
     this.analysisResultEClass = this.createEClass(
       AnalysisPackage.ANALYSIS_RESULT
     );
@@ -158,6 +184,10 @@ export class AnalysisPackage extends EPackageImpl {
     this.createEReference(
       this.analysisResultEClass,
       AnalysisPackage.ANALYSIS_RESULT__OBJECT
+    );
+    this.createEReference(
+      this.analysisResultEClass,
+      AnalysisPackage.ANALYSIS_RESULT__DETAILS
     );
     this.createEOperation(
       this.analysisResultEClass,
@@ -171,6 +201,32 @@ export class AnalysisPackage extends EPackageImpl {
 
     //reusable handle for eoperations, used for adding parameters
     let op: EOperation;
+    this.initEClass(
+      this.resultDetailEClass,
+      'ResultDetail',
+      false,
+      false,
+      true
+    );
+    this.initEReference(
+      this.getResultDetail_CrossPackageInverse(),
+      CorePackage.eINSTANCE.getFoo(),
+      CorePackage.eINSTANCE.getFoo_ManyCrossPackage(),
+      'crossPackageInverse',
+      '',
+      0,
+      1,
+      '',
+      false,
+      false,
+      true,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false
+    );
     this.analysisResultEClass
       .getESuperTypes()
       .add(CorePackage.eINSTANCE.getIdedEntity());
@@ -208,6 +264,25 @@ export class AnalysisPackage extends EPackageImpl {
       '',
       0,
       1,
+      '',
+      false,
+      false,
+      true,
+      true,
+      false,
+      true,
+      false,
+      false,
+      false
+    );
+    this.initEReference(
+      this.getAnalysisResult_Details(),
+      this.getResultDetail(),
+      undefined,
+      'details',
+      '',
+      0,
+      -1,
       '',
       false,
       false,

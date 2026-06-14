@@ -7,55 +7,52 @@ import { EList } from '@tripsnek/tmf';
 import { EEnum } from '@tripsnek/tmf';
 import { EDataType } from '@tripsnek/tmf';
 import { EObjectImpl } from '@tripsnek/tmf';
-import { Foo } from '../api/foo.js';
-import { FooGroup } from '../api/foo-group.js';
-import { FooClass } from '../api/foo-class.js';
-import { BoundedNumber } from '../api/bounded-number.js';
-import { Bar } from '../api/bar.js';
-import { Bazzle } from '../api/bazzle.js';
-import { ClassInCapitalizedPackage } from '../../core/CapitalizedPackage/api/class-in-capitalized-package.js';
-import { ThingWithoutID } from '../api/thing-without-i-d.js';
-import { ResultDetail } from '../../analysis/api/result-detail.js';
-import { User } from '../api/user.js';
+import { Foo } from '../../core/api/foo.js';
 
-import { CorePackage } from '../core-package.js';
-import { FooSpecialization } from '../api/foo-specialization.js';
-import { FooGen } from './foo-gen.js';
-import { FooImpl } from '../impl/foo-impl.js';
-import { FooGroupGen } from './foo-group-gen.js';
-import { FooGroupImpl } from '../impl/foo-group-impl.js';
-import { BoundedNumberGen } from './bounded-number-gen.js';
-import { BoundedNumberImpl } from '../impl/bounded-number-impl.js';
-import { BarGen } from './bar-gen.js';
-import { BarImpl } from '../impl/bar-impl.js';
-import { BazzleGen } from './bazzle-gen.js';
-import { BazzleImpl } from '../impl/bazzle-impl.js';
-import { ClassInCapitalizedPackageGen } from '../../core/CapitalizedPackage//gen/class-in-capitalized-package-gen.js';
-import { ClassInCapitalizedPackageImpl } from '../../core/CapitalizedPackage//impl/class-in-capitalized-package-impl.js';
-import { ThingWithoutIDGen } from './thing-without-i-d-gen.js';
-import { ThingWithoutIDImpl } from '../impl/thing-without-i-d-impl.js';
-import { ResultDetailGen } from '../../analysis//gen/result-detail-gen.js';
-import { ResultDetailImpl } from '../../analysis//impl/result-detail-impl.js';
-import { UserGen } from './user-gen.js';
-import { UserImpl } from '../impl/user-impl.js';
-import { CapitalizedPackagePackage } from '../../core/CapitalizedPackage/capitalized-package-package.js';
-import { AnalysisPackage } from '../../analysis/analysis-package.js';
+import { AnalysisPackage } from '../analysis-package.js';
+import { ResultDetail } from '../api/result-detail.js';
+import { FooGen } from '../../core//gen/foo-gen.js';
+import { FooImpl } from '../../core//impl/foo-impl.js';
+import { CorePackage } from '../../core/core-package.js';
 
 //make sure package is initialized
-CorePackage.eINSTANCE;
+AnalysisPackage.eINSTANCE;
 
 /**
  * This file is source-code generated and should never be edited. It implements
- * the core TMF functionality for FooSpecialization.
+ * the core TMF functionality for ResultDetail.
  */
-export abstract class FooSpecializationGen
-  extends FooImpl
-  implements FooSpecialization
+export abstract class ResultDetailGen
+  extends EObjectImpl
+  implements ResultDetail
 {
   /** feature declarations */
+  protected crossPackageInverse!: Foo;
 
   //======================================================================
   // Getters and Setters
+
+  public getCrossPackageInverse(): Foo {
+    return this.crossPackageInverse;
+  }
+
+  public setCrossPackageInverse(newCrossPackageInverse: Foo): void {
+    if (this.crossPackageInverse !== newCrossPackageInverse) {
+      if (this.crossPackageInverse) {
+        this.crossPackageInverse.eInverseRemove(
+          this,
+          AnalysisPackage.FOO__MANY_CROSS_PACKAGE
+        );
+      }
+      if (newCrossPackageInverse) {
+        newCrossPackageInverse.eInverseAdd(
+          this,
+          AnalysisPackage.FOO__MANY_CROSS_PACKAGE
+        );
+      }
+    }
+    this.basicSetCrossPackageInverse(newCrossPackageInverse);
+  }
 
   //======================================================================
   // API Operations
@@ -72,6 +69,8 @@ export abstract class FooSpecializationGen
         ? feature
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
+      case AnalysisPackage.RESULT_DETAIL__CROSS_PACKAGE_INVERSE:
+        return this.getCrossPackageInverse();
     }
     return super.eGet(featureID);
   }
@@ -88,6 +87,9 @@ export abstract class FooSpecializationGen
         ? feature
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
+      case AnalysisPackage.RESULT_DETAIL__CROSS_PACKAGE_INVERSE:
+        this.setCrossPackageInverse(newValue);
+        return;
     }
     return super.eSet(featureID, newValue);
   }
@@ -101,6 +103,8 @@ export abstract class FooSpecializationGen
         ? feature
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
+      case AnalysisPackage.RESULT_DETAIL__CROSS_PACKAGE_INVERSE:
+        return this.getCrossPackageInverse() != null;
     }
     return super.eIsSet(featureID);
   }
@@ -114,6 +118,9 @@ export abstract class FooSpecializationGen
         ? feature
         : (<EStructuralFeature>feature).getFeatureID();
     switch (featureID) {
+      case AnalysisPackage.RESULT_DETAIL__CROSS_PACKAGE_INVERSE:
+        this.setCrossPackageInverse(undefined!);
+        return;
     }
     return super.eUnset(featureID);
   }
@@ -121,16 +128,39 @@ export abstract class FooSpecializationGen
   //======================================================================
   // Basic setters (allow EOpposite enforcement without triggering infinite cycles)
 
+  public basicSetCrossPackageInverse(newCrossPackageInverse: Foo): void {
+    this.crossPackageInverse = newCrossPackageInverse;
+  }
+
   //======================================================================
   // Inverse Adders (if needed)
+  public override eInverseAdd(otherEnd: EObject, featureID: number): void {
+    switch (featureID) {
+      case AnalysisPackage.RESULT_DETAIL__CROSS_PACKAGE_INVERSE:
+        if (this.crossPackageInverse)
+          this.crossPackageInverse.eInverseRemove(
+            this,
+            AnalysisPackage.FOO__MANY_CROSS_PACKAGE
+          );
+        return this.basicSetCrossPackageInverse(<Foo>otherEnd);
+    }
+    return super.eInverseAdd(otherEnd, featureID);
+  }
 
   //======================================================================
   // Inverse Removers (if needed)
+  public override eInverseRemove(otherEnd: EObject, featureID: number): void {
+    switch (featureID) {
+      case AnalysisPackage.RESULT_DETAIL__CROSS_PACKAGE_INVERSE:
+        return this.basicSetCrossPackageInverse(undefined!);
+    }
+    return super.eInverseRemove(otherEnd, featureID);
+  }
 
   //======================================================================
   // eClass()
 
   public override eClass(): EClass {
-    return CorePackage.Literals.FOO_SPECIALIZATION;
+    return AnalysisPackage.Literals.RESULT_DETAIL;
   }
 }

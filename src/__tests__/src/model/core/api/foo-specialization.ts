@@ -16,6 +16,7 @@ import { Bar } from './bar.js';
 import { Bazzle } from './bazzle.js';
 import { ClassInCapitalizedPackage } from '../../core/CapitalizedPackage/api/class-in-capitalized-package.js';
 import { ThingWithoutID } from './thing-without-i-d.js';
+import { ResultDetail } from '../../analysis/api/result-detail.js';
 import { User } from './user.js';
 import { CorePackage } from '../core-package.js';
 

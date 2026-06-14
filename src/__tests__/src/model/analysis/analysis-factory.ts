@@ -5,6 +5,8 @@ import { AnalysisPackage } from './analysis-package.js';
 
 import { AnalysisResult } from './api/analysis-result.js';
 import { AnalysisResultImpl } from './impl/analysis-result-impl.js';
+import { ResultDetail } from './api/result-detail.js';
+import { ResultDetailImpl } from './impl/result-detail-impl.js';
 import { PackageRegistry } from '../package-registry.js';
 
 export class AnalysisFactory implements EFactory {
@@ -28,6 +30,8 @@ export class AnalysisFactory implements EFactory {
     switch (eClass.getClassifierId()) {
       case AnalysisPackage.ANALYSIS_RESULT:
         return this.createAnalysisResult();
+      case AnalysisPackage.RESULT_DETAIL:
+        return this.createResultDetail();
       default:
         throw new Error(
           "The class '" + eClass.getName() + "' is not a valid classifier"
@@ -37,6 +41,9 @@ export class AnalysisFactory implements EFactory {
 
   public createAnalysisResult(): AnalysisResult {
     return new AnalysisResultImpl();
+  }
+  public createResultDetail(): ResultDetail {
+    return new ResultDetailImpl();
   }
 }
 

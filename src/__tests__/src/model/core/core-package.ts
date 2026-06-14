@@ -1,4 +1,5 @@
 import { CapitalizedPackagePackage } from './../core/CapitalizedPackage/capitalized-package-package.js';
+import { AnalysisPackage } from './../analysis/analysis-package.js';
 import { EClass } from '@tripsnek/tmf';
 import { EEnum } from '@tripsnek/tmf';
 import { PackageRegistry } from '../package-registry.js';
@@ -47,7 +48,7 @@ export class CorePackage extends EPackageImpl {
   public static BAR_SPECIALIZATION_WITH_COMPONENTS__COMPONENT_BARS = 8;
   public static BAR_SPECIALIZATION_WITH_COMPONENTS__SPECIAL_NAME = 9;
   public static FOO = 7;
-  public static FOO_FEATURE_COUNT = 26;
+  public static FOO_FEATURE_COUNT = 27;
   public static FOO__GROUP = 5;
   public static FOO__CREATION_DATE = 6;
   public static FOO__FOO_CLASS = 7;
@@ -69,9 +70,10 @@ export class CorePackage extends EPackageImpl {
   public static FOO__SUBPACKAGE_REFERENCE = 23;
   public static FOO__CONTAINED_THINGS_WITH_NO_I_D = 24;
   public static FOO__CONTAINED_THINGS_WITH_NO_I_D2 = 25;
+  public static FOO__MANY_CROSS_PACKAGE = 26;
   public static FOO__COPY_FOO = 0;
   public static FOO_SPECIALIZATION = 8;
-  public static FOO_SPECIALIZATION_FEATURE_COUNT = 26;
+  public static FOO_SPECIALIZATION_FEATURE_COUNT = 27;
   public static FOO_GROUP = 9;
   public static FOO_GROUP_FEATURE_COUNT = 6;
   public static FOO_GROUP__USER = 5;
@@ -187,6 +189,8 @@ export class CorePackage extends EPackageImpl {
       CorePackage._eINSTANCE.getFoo_ContainedThingsWithNoID();
     static FOO__CONTAINED_THINGS_WITH_NO_I_D2: EReference =
       CorePackage._eINSTANCE.getFoo_ContainedThingsWithNoID2();
+    static FOO__MANY_CROSS_PACKAGE: EReference =
+      CorePackage._eINSTANCE.getFoo_ManyCrossPackage();
     static FOO_SPECIALIZATION: EClass =
       CorePackage._eINSTANCE.getFooSpecialization();
     static FOO_GROUP: EClass = CorePackage._eINSTANCE.getFooGroup();
@@ -476,6 +480,9 @@ export class CorePackage extends EPackageImpl {
   public getFoo_ContainedThingsWithNoID2(): EReference {
     return <EReference>this.fooEClass.getEStructuralFeatures().get(20);
   }
+  public getFoo_ManyCrossPackage(): EReference {
+    return <EReference>this.fooEClass.getEStructuralFeatures().get(21);
+  }
   public getFoo_CopyFoo(): EOperation {
     return this.fooEClass.getEOperations().get(0);
   }
@@ -654,6 +661,7 @@ export class CorePackage extends EPackageImpl {
       this.fooEClass,
       CorePackage.FOO__CONTAINED_THINGS_WITH_NO_I_D2
     );
+    this.createEReference(this.fooEClass, CorePackage.FOO__MANY_CROSS_PACKAGE);
     this.createEOperation(this.fooEClass, CorePackage.FOO__COPY_FOO);
     this.fooSpecializationEClass = this.createEClass(
       CorePackage.FOO_SPECIALIZATION
@@ -1506,6 +1514,25 @@ export class CorePackage extends EPackageImpl {
       false,
       true,
       true,
+      false,
+      true,
+      false,
+      false,
+      false
+    );
+    this.initEReference(
+      this.getFoo_ManyCrossPackage(),
+      AnalysisPackage.eINSTANCE.getResultDetail(),
+      AnalysisPackage.eINSTANCE.getResultDetail_CrossPackageInverse(),
+      'manyCrossPackage',
+      '',
+      0,
+      -1,
+      '',
+      false,
+      false,
+      true,
+      false,
       false,
       true,
       false,
