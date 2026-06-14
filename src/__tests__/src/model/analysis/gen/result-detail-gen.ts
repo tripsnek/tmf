@@ -41,13 +41,13 @@ export abstract class ResultDetailGen
       if (this.crossPackageInverse) {
         this.crossPackageInverse.eInverseRemove(
           this,
-          AnalysisPackage.FOO__MANY_CROSS_PACKAGE
+          CorePackage.FOO__MANY_CROSS_PACKAGE
         );
       }
       if (newCrossPackageInverse) {
         newCrossPackageInverse.eInverseAdd(
           this,
-          AnalysisPackage.FOO__MANY_CROSS_PACKAGE
+          CorePackage.FOO__MANY_CROSS_PACKAGE
         );
       }
     }
@@ -140,7 +140,7 @@ export abstract class ResultDetailGen
         if (this.crossPackageInverse)
           this.crossPackageInverse.eInverseRemove(
             this,
-            AnalysisPackage.FOO__MANY_CROSS_PACKAGE
+            CorePackage.FOO__MANY_CROSS_PACKAGE
           );
         return this.basicSetCrossPackageInverse(<Foo>otherEnd);
     }

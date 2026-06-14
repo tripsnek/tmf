@@ -364,6 +364,18 @@ import { EObjectImpl } from '@tripsnek/tmf';`;
     );
   }
 
+  /**
+   * Generated package class name for the package that declares the given
+   * feature (i.e. the package of its containing EClass). This is the
+   * package whose generated *-package.ts defines the feature's ID constant,
+   * which may differ from the package of the EClass currently being
+   * generated when the feature belongs to another package (e.g. the
+   * opposite end of a cross-package reference).
+   */
+  public static genFeaturePackageClassName(feature: EStructuralFeature): string {
+    return this.genPackageClassName(feature.getEContainingClass().getEPackage());
+  }
+
   public static genOperationIdFieldName(feature: EOperation): string {
     return (
       this.snakeUpperCase(feature.getEContainingClass().getName()) +

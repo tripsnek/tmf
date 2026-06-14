@@ -183,8 +183,8 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
             const oppRef = f.getEOpposite();
 
             if(oppRef){
-              inverseFeatureId = `${DU.genPackageClassName(
-                oppRef.getEContainingClass().getEPackage()
+              inverseFeatureId = `${DU.genFeaturePackageClassName(
+                oppRef
               )}.${DU.genFeatureIdFieldName(oppRef)}`;
             }
           }
@@ -317,10 +317,9 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
         }
         //handle inverse references if appropriate
         if (field instanceof EReferenceImpl && field.getEOpposite()) {
-          //TODO: handle opposites in other packages?
-          const oppositeIdField = `${
-            this._packageName
-          }.${DU.genFeatureIdFieldName(field.getEOpposite()!)}`;
+          const oppositeIdField = `${DU.genFeaturePackageClassName(
+            field.getEOpposite()!
+          )}.${DU.genFeatureIdFieldName(field.getEOpposite()!)}`;
           result += `
     if (this.${field.getName()} !== ${paramName}) {
       if (this.${field.getName()}) {
@@ -360,8 +359,8 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
           field.getEOpposite()!.isContainment()
         ) {
           result += `
-    this.eBasicSetContainer(${paramName}, ${DU.genPackageClassName(
-            eClass.getEPackage()
+    this.eBasicSetContainer(${paramName}, ${DU.genFeaturePackageClassName(
+            field.getEOpposite()!
           )}.${DU.genFeatureIdFieldName(field.getEOpposite()!)});`;
         }
         result += `
@@ -551,9 +550,9 @@ import { ${className} } from '..${DU.API_PATH}/${DU.genClassApiName(
             )}()).basicAdd(otherEnd);`;
           } else {
             if (f.getEOpposite()) {
-              const oppositeFeatureField = `${
-                this._packageName
-              }.${DU.genFeatureIdFieldName(f.getEOpposite()!)}`;
+              const oppositeFeatureField = `${DU.genFeaturePackageClassName(
+                f.getEOpposite()!
+              )}.${DU.genFeatureIdFieldName(f.getEOpposite()!)}`;
               result += `
         if (this.${f.getName()})
           this.${f.getName()}.eInverseRemove(
