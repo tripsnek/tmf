@@ -151,8 +151,10 @@ export class XmlToJsParser {
   }
 
   /**
-   * Node.js implementation using simple regex-based parser
-   * This is a lightweight XML parser that handles most common cases
+   * Node.js implementation using a lightweight hand-rolled tokenizer.
+   * Unlike a single global regex, this scans char-by-char so that quoted
+   * attribute values and CDATA sections may contain '<' / '>' without
+   * desyncing the rest of the parse (see GitHub issue #1).
    */
   private parseInNode(xml: string): any {
     // Remove XML declaration and comments
@@ -165,23 +167,54 @@ export class XmlToJsParser {
     let current = result;
     let isRootLevel = true;
 
-    // Simple regex to match XML tags and content
-    const tagRegex = /<\/?([^>\s]+)([^>]*)>/g;
-    let lastIndex = 0;
-    let match;
+    const len = xml.length;
+    let i = 0;
 
-    while ((match = tagRegex.exec(xml)) !== null) {
-      const [fullMatch, tagName, attributesStr] = match;
-      const isClosing = fullMatch.startsWith('</');
-      const isSelfClosing = fullMatch.endsWith('/>');
+    while (i < len) {
+      const ltIndex = xml.indexOf('<', i);
+
+      if (ltIndex === -1) {
+        const textContent = xml.substring(i);
+        if (textContent.trim()) {
+          this.addTextContent(current, textContent);
+        }
+        break;
+      }
 
       // Handle text content before this tag
-      if (match.index > lastIndex) {
-        const textContent = xml.substring(lastIndex, match.index);
+      if (ltIndex > i) {
+        const textContent = xml.substring(i, ltIndex);
         if (textContent.trim()) {
           this.addTextContent(current, textContent);
         }
       }
+
+      // CDATA sections are opaque text, even if they contain '<' or '>'
+      if (xml.startsWith('<![CDATA[', ltIndex)) {
+        const cdataEnd = xml.indexOf(']]>', ltIndex + 9);
+        const contentEnd = cdataEnd === -1 ? len : cdataEnd;
+        const textContent = xml.substring(ltIndex + 9, contentEnd);
+        if (textContent) {
+          this.addTextContent(current, textContent);
+        }
+        i = cdataEnd === -1 ? len : cdataEnd + 3;
+        continue;
+      }
+
+      const tagEnd = this.findTagEnd(xml, ltIndex);
+      if (tagEnd === -1) {
+        // Unterminated tag - treat the rest as text and stop
+        const textContent = xml.substring(ltIndex);
+        if (textContent.trim()) {
+          this.addTextContent(current, textContent);
+        }
+        break;
+      }
+
+      const fullMatch = xml.substring(ltIndex, tagEnd + 1);
+      const isClosing = fullMatch.startsWith('</');
+      const isSelfClosing = fullMatch.endsWith('/>');
+      i = tagEnd + 1;
 
       if (isClosing) {
         // Closing tag - pop from stack
@@ -191,44 +224,44 @@ export class XmlToJsParser {
             isRootLevel = true;
           }
         }
-      } else {
-        // Opening tag or self-closing tag
-        const element: any = {};
+        continue;
+      }
 
-        // Parse attributes
-        if (attributesStr) {
-          if (!this.options.ignoreAttrs && attributesStr.trim()) {
-            const attrs = this.parseAttributes(attributesStr);
-            if (Object.keys(attrs).length > 0) {
-              if (this.options.mergeAttrs) {
-                Object.assign(element, attrs);
-              } else {
-                element.$ = attrs;
-              }
+      // Strip the surrounding '<'/'</' and '>'/'/>' to get "tagName attrs"
+      const content = fullMatch.slice(
+        isClosing ? 2 : 1,
+        fullMatch.length - (isSelfClosing ? 2 : 1)
+      );
+      const tagNameMatch = content.match(/^(\S+)/);
+      const tagName = tagNameMatch ? tagNameMatch[1]! : '';
+      const attributesStr = tagName ? content.slice(tagName.length) : content;
+
+      // Opening tag or self-closing tag
+      const element: any = {};
+
+      // Parse attributes
+      if (attributesStr) {
+        if (!this.options.ignoreAttrs && attributesStr.trim()) {
+          const attrs = this.parseAttributes(attributesStr);
+          if (Object.keys(attrs).length > 0) {
+            if (this.options.mergeAttrs) {
+              Object.assign(element, attrs);
+            } else {
+              element.$ = attrs;
             }
           }
         }
-
-        // Add element to current parent (don't force array for root level)
-        if (tagName)
-          this.addChildElement(current, tagName, element, isRootLevel);
-
-        // If not self-closing, push to stack for children
-        if (!isSelfClosing) {
-          stack.push(current);
-          current = element;
-          isRootLevel = false;
-        }
       }
 
-      lastIndex = tagRegex.lastIndex;
-    }
+      // Add element to current parent (don't force array for root level)
+      if (tagName)
+        this.addChildElement(current, tagName, element, isRootLevel);
 
-    // Handle any remaining text content
-    if (lastIndex < xml.length) {
-      const textContent = xml.substring(lastIndex);
-      if (textContent.trim()) {
-        this.addTextContent(current, textContent);
+      // If not self-closing, push to stack for children
+      if (!isSelfClosing) {
+        stack.push(current);
+        current = element;
+        isRootLevel = false;
       }
     }
 
@@ -241,6 +274,26 @@ export class XmlToJsParser {
     } else {
       return result;
     }
+  }
+
+  /**
+   * Finds the index of the '>' that closes the tag starting at `start`
+   * (the index of its '<'), skipping over any '>' inside single- or
+   * double-quoted attribute values. Returns -1 if unterminated.
+   */
+  private findTagEnd(xml: string, start: number): number {
+    let quote: string | null = null;
+    for (let i = start + 1; i < xml.length; i++) {
+      const ch = xml[i];
+      if (quote) {
+        if (ch === quote) quote = null;
+      } else if (ch === '"' || ch === "'") {
+        quote = ch;
+      } else if (ch === '>') {
+        return i;
+      }
+    }
+    return -1;
   }
 
   /**
